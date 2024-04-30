@@ -15,10 +15,9 @@ class Routes {
         page: () => const SplashScreen(),
         transition: Transition.fadeIn),
     GetPage(
-      name: homeScreen,
-      page: () => const HomeScreen(),
-      transition: Transition.fadeIn,
-    ),
+        name: homeScreen,
+        page: () => const HomeScreen(),
+        transition: Transition.fadeIn),
     GetPage(
       name: searchListingScreen,
       page: () => const SearchLabListingScreen(),
