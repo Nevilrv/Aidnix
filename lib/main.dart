@@ -2,7 +2,6 @@ import 'package:aidnix/Utils/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'view/search/search_lab_listing_screen.dart';
 
 void main() {
   runApp(const MyApp());
