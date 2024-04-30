@@ -11,10 +11,9 @@ class Routes {
 
   static List<GetPage> routes = [
     GetPage(
-      name: splashScreen,
-      page: () => const SplashScreen(),
-      transition: Transition.fadeIn,
-    ),
+        name: splashScreen,
+        page: () => const SplashScreen(),
+        transition: Transition.fadeIn),
     GetPage(
       name: homeScreen,
       page: () => const HomeScreen(),
