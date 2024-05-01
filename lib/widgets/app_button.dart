@@ -35,8 +35,7 @@ class AppFilledButton extends StatelessWidget {
       onPressed: onPressed,
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(buttonColor ?? kGreen),
-        fixedSize:
-            MaterialStatePropertyAll(Size(width ?? w, height ?? h * 0.062)),
+        fixedSize: MaterialStatePropertyAll(Size(width ?? w, height ?? h * 0.062)),
         padding: const MaterialStatePropertyAll(EdgeInsets.zero),
         shape: MaterialStatePropertyAll(
           RoundedRectangleBorder(
@@ -44,13 +43,7 @@ class AppFilledButton extends StatelessWidget {
           ),
         ),
       ),
-      child: child ??
-          customText(
-              textAlign: TextAlign.center,
-              text: title!,
-              color: kBlack,
-              fontSize: 18,
-              fontWeight: FontWeight.w600),
+      child: child ?? customText(textAlign: TextAlign.center, text: title!, color: kBlack, fontSize: 18, fontWeight: FontWeight.w600),
     );
   }
 }
@@ -95,26 +88,18 @@ class CustomButton extends StatelessWidget {
         height: height,
         width: width,
         margin: margin,
-        padding:
-            padding ?? const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: padding ?? const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: decoration ??
             BoxDecoration(
               color: buttonColor ?? kGreen,
               borderRadius: borderRadius ?? BorderRadius.circular(10),
               border: border,
             ),
-        child: Center(
-          child: child ??
-              Text(
-                buttonText ?? "",
-                style: textStyle ??
-                    TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: kBlack,
-                        fontSize: 14,
-                        fontFamily: "Poppins"),
-              ),
-        ),
+        child: child ??
+            Text(
+              buttonText ?? "",
+              style: textStyle ?? TextStyle(fontWeight: FontWeight.w600, color: kBlack, fontSize: 14),
+            ),
       ),
     );
   }
