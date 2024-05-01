@@ -2,20 +2,39 @@ import 'package:flutter/material.dart';
 
 class AppAssets {
   static const imagePath = "assets/images/";
+  static const iconsPath = "assets/icons/";
 
-  static const google = "${imagePath}google.png";
+  ///
+  static const logo = "${imagePath}logo.png";
+  static const splashBG = "${imagePath}splash_screen.png";
+  static const onboardingImage = "${imagePath}onboarding_image.png";
+  static const checkupBG = "${imagePath}checkupBG.png";
+  static const dummy = "${imagePath}dummy.png";
+  static const dummyDoctor = "${imagePath}dummy_doctor.png";
+  static const labImage = "${imagePath}lab.png";
+  static const labProfile = "${imagePath}image_lab_profile.png";
+
+  ///Icons
+  static const streamLine = "${iconsPath}Icon_stream_line.svg";
+  static const vector = "${iconsPath}icons_vector.svg";
+  static const whatsapp = "${iconsPath}icon_whatsapp.svg";
+  static const verify = "${iconsPath}icon_verify.svg";
+  static const starIcons = "${iconsPath}icon_star.svg";
+  static const microscope = "${iconsPath}icon_microscope-fill.svg";
+  static const medical = "${iconsPath}icon_medical.svg";
+  static const bloodTest = "${iconsPath}icon_blood_test.svg";
+  static const location2 = "${iconsPath}icon_location_2.svg";
+  static const vacation = "${iconsPath}icon_vacation.svg";
 }
 
 Widget assetImage(String image,
     {double? height, double? width, Color? color, double? scale}) {
-  return Image.asset(
-    image,
-    height: height,
-    width: width,
-    color: color,
-    scale: scale,
-    fit: BoxFit.cover,
-  );
+  return Image.asset(image,
+      height: height,
+      width: width,
+      color: color,
+      scale: scale,
+      fit: BoxFit.cover);
 }
 
 // Widget cachedNetworkImage(
