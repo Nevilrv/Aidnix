@@ -17,24 +17,22 @@ class _SearchLabListingScreenState extends State<SearchLabListingScreen> {
 
     TextEditingController search = TextEditingController(text: 'Green');
 
-
-
     var bottomItems = [
       {
-        "title":"Home",
-        "icon":"assets/icons/icon_home.svg",
+        "title": "Home",
+        "icon": "assets/icons/icon_home.svg",
       },
       {
-        "title":"Test",
-        "icon":"assets/icons/icon_microscope-fill.svg",
+        "title": "Test",
+        "icon": "assets/icons/icon_microscope-fill.svg",
       },
       {
-        "title":"Check Ups",
-        "icon":"assets/icons/iocn_clipboard.svg",
+        "title": "Check Ups",
+        "icon": "assets/icons/iocn_clipboard.svg",
       },
-           {
-      "title":"Profile",
-      "icon":"assets/icons/icon_profile.svg",
+      {
+        "title": "Profile",
+        "icon": "assets/icons/icon_profile.svg",
       },
     ];
 
@@ -43,31 +41,42 @@ class _SearchLabListingScreenState extends State<SearchLabListingScreen> {
     print("${width}");
     return Scaffold(
       bottomNavigationBar: Container(
-        height: width> 800 ?  width *0.095:width *0.11,
-        padding: EdgeInsets.symmetric(horizontal:width * 0.032,vertical: height * 0.02),
+        height: width > 800 ? width * 0.095 : width * 0.11,
+        padding: EdgeInsets.symmetric(
+            horizontal: width * 0.032, vertical: height * 0.02),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: List.generate(bottomItems.length, (index) =>  GestureDetector(
-            onTap: () {
-
-              selected = index;
-              setState(() {
-
-              });
-            },
-            child: Column(
-              children: [
-                SvgPicture.asset(bottomItems[index]['icon']!,height: 28,color: selected == index?  kPrimary : Color(0xffCDCDCD)),
-                const SizedBox(height: 5,),
-                Text(bottomItems[index]['title']!,      style: TextStyle(
-                  fontSize: 10,
-                  fontFamily: "Poppins",
-                  color:selected == index?  kPrimary : Color(0xffCDCDCD),
-                  fontWeight: FontWeight.w500,
-                ),)
-              ],
-            ),
-          )),
+          children: List.generate(
+              bottomItems.length,
+              (index) => GestureDetector(
+                    onTap: () {
+                      selected = index;
+                      setState(() {});
+                    },
+                    child: Column(
+                      children: [
+                        SvgPicture.asset(bottomItems[index]['icon']!,
+                            height: 28,
+                            color: selected == index
+                                ? kPrimary
+                                : Color(0xffCDCDCD)),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          bottomItems[index]['title']!,
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontFamily: "Poppins",
+                            color: selected == index
+                                ? kPrimary
+                                : Color(0xffCDCDCD),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        )
+                      ],
+                    ),
+                  )),
         ),
       ),
       body: Padding(
@@ -80,6 +89,7 @@ class _SearchLabListingScreenState extends State<SearchLabListingScreen> {
               SizedBox(
                 height: height * 0.05,
               ),
+
               /// header
               Row(
                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -182,7 +192,8 @@ class _SearchLabListingScreenState extends State<SearchLabListingScreen> {
                           ),
                           Flexible(
                             child: Padding(
-                              padding:  EdgeInsets.only(bottom: width < 700 ? 8.0 : 0),
+                              padding: EdgeInsets.only(
+                                  bottom: width < 700 ? 8.0 : 0),
                               child: TextField(
                                 cursorColor: kPrimary,
                                 controller: search,
@@ -211,7 +222,12 @@ class _SearchLabListingScreenState extends State<SearchLabListingScreen> {
                     decoration: BoxDecoration(
                         color: kPrimary,
                         borderRadius: BorderRadius.circular(10),
-                        boxShadow: [BoxShadow(color: kPrimary.withOpacity(0.3), blurRadius: 10, offset: const Offset(0, 15))]),
+                        boxShadow: [
+                          BoxShadow(
+                              color: kPrimary.withOpacity(0.3),
+                              blurRadius: 10,
+                              offset: const Offset(0, 15))
+                        ]),
                     child: Center(
                       child: SvgPicture.asset("assets/icons/icon_filter.svg"),
                     ),
@@ -303,14 +319,16 @@ class _SearchLabListingScreenState extends State<SearchLabListingScreen> {
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemBuilder: (context, index) => Container(
-                  decoration: BoxDecoration(color: kWhite, borderRadius: BorderRadius.circular(12), boxShadow: [
-                    BoxShadow(
-                      color: kBlack.withOpacity(0.1),
-                      blurRadius: 10,
-                    )
-                  ]),
+                  decoration: BoxDecoration(
+                      color: kWhite,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: kBlack.withOpacity(0.1),
+                          blurRadius: 10,
+                        )
+                      ]),
                   child: ClipRRect(
-
                     child: Stack(
                       clipBehavior: Clip.none,
                       children: [
@@ -325,7 +343,8 @@ class _SearchLabListingScreenState extends State<SearchLabListingScreen> {
                                     clipBehavior: Clip.none,
                                     children: [
                                       CircleAvatar(
-                                        backgroundColor: const Color(0xffE7EFF1),
+                                        backgroundColor:
+                                            const Color(0xffE7EFF1),
                                         radius: height * 0.04,
                                         child: Image.asset(
                                           "assets/icons/image_lab_profile.png",
@@ -348,7 +367,8 @@ class _SearchLabListingScreenState extends State<SearchLabListingScreen> {
                                   ),
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       const SizedBox(
                                         height: 10,
@@ -366,7 +386,8 @@ class _SearchLabListingScreenState extends State<SearchLabListingScreen> {
                                         height: 10,
                                       ),
                                       Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8, vertical: 5),
                                         decoration: BoxDecoration(
                                             color: kPrimary.withOpacity(0.1),
                                             borderRadius: BorderRadius.circular(
@@ -388,115 +409,163 @@ class _SearchLabListingScreenState extends State<SearchLabListingScreen> {
                                   )
                                 ],
                               ),
-                              SizedBox(height: height * 0.02,),
+                              SizedBox(
+                                height: height * 0.02,
+                              ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset(
                                         "assets/icons/icon_star.svg",
                                       ),
-                                      SizedBox(width: 8,),
-                                      Text('5.0',      style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: "Poppins",
-                                        color: kBlack,
-                                        fontWeight: FontWeight.w400,
-                                      ),),
-                                      SizedBox(width: 8,),
-                                      Text('(1.1k Rating)',      style: TextStyle(
-                                        fontSize: 10,
-                                        fontFamily: "Poppins",
-                                        color: kBlack,
-                                        fontWeight: FontWeight.w400,
-                                      ),)
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        '5.0',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: "Poppins",
+                                          color: kBlack,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        '(1.1k Rating)',
+                                        style: TextStyle(
+                                          fontSize: 10,
+                                          fontFamily: "Poppins",
+                                          color: kBlack,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      )
                                     ],
                                   ),
                                   Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset(
                                         "assets/icons/icon_microscope-fill.svg",
                                       ),
-                                      SizedBox(width: 8,),
-                                      Text('100+ Tests',      style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: "Poppins",
-                                        color: kBlack,
-                                        fontWeight: FontWeight.w400,
-                                      ),),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        '100+ Tests',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: "Poppins",
+                                          color: kBlack,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
                                     ],
                                   ),
                                   SizedBox(),
                                 ],
                               ),
-                              SizedBox(height: height * 0.015,),
+                              SizedBox(
+                                height: height * 0.015,
+                              ),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   SvgPicture.asset(
                                     "assets/icons/icon_medical.svg",
                                   ),
-                                  const SizedBox(width: 8,),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
                                   Expanded(
-                                    child: Text('2972 Westheimer Rd. Santa Ana, Illinois 85486 ',  maxLines: 2,    style: TextStyle(
-                                      fontSize: 14,
-                                      fontFamily: "Poppins",
-                                      color: kDarkGrey1,
-                                      fontWeight: FontWeight.w400,
-                                    ),),
+                                    child: Text(
+                                      '2972 Westheimer Rd. Santa Ana, Illinois 85486 ',
+                                      maxLines: 2,
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontFamily: "Poppins",
+                                        color: kDarkGrey1,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
-                              SizedBox(height: height * 0.015,),
+                              SizedBox(
+                                height: height * 0.015,
+                              ),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   SvgPicture.asset(
                                     "assets/icons/icon_location_2.svg",
                                   ),
-                                  const SizedBox(width: 8,),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
                                   Expanded(
-                                    child: Text('2 Km from you',  maxLines: 2,    style: TextStyle(
-                                      fontSize: 14,
-                                      fontFamily: "Poppins",
-                                      color: kDarkGrey1,
-                                      fontWeight: FontWeight.w400,
-                                    ),),
+                                    child: Text(
+                                      '2 Km from you',
+                                      maxLines: 2,
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontFamily: "Poppins",
+                                        color: kDarkGrey1,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
-                              SizedBox(height: height * 0.015,),
+                              SizedBox(
+                                height: height * 0.015,
+                              ),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   SvgPicture.asset(
                                     "assets/icons/icon_blood_test.svg",
                                   ),
-                                  const SizedBox(width: 8,),
-                                  Text('Blood Test',  maxLines: 2,    style: TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: "Poppins",
-                                    color: kDarkGrey1,
-                                    fontWeight: FontWeight.w400,
-                                  ),),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  Text(
+                                    'Blood Test',
+                                    maxLines: 2,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: "Poppins",
+                                      color: kDarkGrey1,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
                                   Spacer(),
                                   Container(
                                     height: 40,
-                                    padding: EdgeInsets.symmetric(horizontal: width *0.02),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: width * 0.02),
                                     decoration: BoxDecoration(
-                                      color: kPrimary,
-                                      borderRadius: BorderRadius.circular(12)
-                                    ),
+                                        color: kPrimary,
+                                        borderRadius:
+                                            BorderRadius.circular(12)),
                                     child: Center(
-                                      child: Text('Add To Cart:₹1200',      style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily: "Poppins",
-                                        color: kWhite,
-                                        fontWeight: FontWeight.w600,
-                                      ),),
+                                      child: Text(
+                                        'Add To Cart:₹1200',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: "Poppins",
+                                          color: kWhite,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
                                     ),
                                   )
                                 ],

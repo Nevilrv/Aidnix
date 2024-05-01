@@ -108,8 +108,7 @@ Widget customCartContainer({
                         const SizedBox(width: 8),
                         regularText(text: "$rating"),
                         const SizedBox(width: 8),
-                        customText(
-                            text: "(${noOfRating} Rating)", fontSize: 10),
+                        customText(text: "($noOfRating Rating)", fontSize: 10),
                       ],
                     ),
                     Row(
