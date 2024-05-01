@@ -1,5 +1,5 @@
-import 'package:aidnix/Constant/app_color.dart';
-import 'package:aidnix/Utils/extension.dart';
+import 'package:aidnix/constant/app_color.dart';
+import 'package:aidnix/utils/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,8 +18,7 @@ showAppSnackBar(
       icon: Container(
         height: 25,
         width: 25,
-        decoration: const BoxDecoration(
-            color: AppColors.whiteColor, shape: BoxShape.circle),
+        decoration: const BoxDecoration(color: AppColors.whiteColor, shape: BoxShape.circle),
         child: const Center(
           child: Icon(
             Icons.close_rounded,
