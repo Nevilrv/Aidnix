@@ -4,6 +4,7 @@ Color kPrimary = const Color(0xff31C48D);
 Color kBlack = const Color(0xff000000);
 Color kWhite = const Color(0xffffffff);
 Color kGreen = const Color(0xffA1E06D);
+Color kGreen1 = const Color(0xff87C950);
 Color kLightBgColor = const Color(0xffE7EFF1);
 Color kLightGrey = const Color(0xffD8E0F1);
 Color kLightGrey1 = const Color(0xffF1F1F1);
@@ -15,12 +16,11 @@ Color kYellow = const Color(0xffFEA800);
 Color kYellow1 = const Color(0xffF6DE00);
 Color kRed = const Color(0xffF14D4D);
 Color kOrange = const Color(0xffFF9417);
-Color kOrange = const Color(0xffFF9417);
 Color kDarkWhite = const Color(0xffECECEC);
 Color kBlack26 = const Color(0xff585858);
 
 ///
-Color kGreen = const Color(0xff87C950);
+
 Color kLightGreen = const Color(0xffA1E06D);
 Color kGreen10 = const Color(0xffE6F4EF);
 Color kBlack45 = Colors.black45;

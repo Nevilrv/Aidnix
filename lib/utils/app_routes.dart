@@ -5,15 +5,12 @@ import 'package:aidnix/view/health_records/health_records_screen.dart';
 import 'package:aidnix/view/home/home_screen.dart';
 import 'package:aidnix/view/search/search_lab_listing_screen.dart';
 import 'package:aidnix/view/splash/splash_screen.dart';
-import 'package:aidnix/View/CheckupScreen/checkup_screen.dart';
-import 'package:aidnix/View/CheckupScreen/lab_details_sacreen.dart';
-import 'package:aidnix/View/CheckupScreen/lab_image_screen.dart';
-import 'package:aidnix/View/HomeScreen/home_screen.dart';
-import 'package:aidnix/View/search/search_lab_listing_screen.dart';
+import 'package:aidnix/view/CheckupScreen/checkup_screen.dart';
+import 'package:aidnix/view/CheckupScreen/lab_details_sacreen.dart';
+import 'package:aidnix/view/CheckupScreen/lab_image_screen.dart';
 import 'package:aidnix/view/auth/login_screen.dart';
 import 'package:aidnix/view/auth/onBoarding/onboarding_screen.dart';
 import 'package:aidnix/view/auth/otp_screen.dart';
-import 'package:aidnix/view/auth/splash_screen.dart';
 import 'package:aidnix/view/checkupScreen/test_details_screen.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
@@ -26,23 +23,6 @@ class Routes {
   static String healthRecordsScreen = "/healthRecords";
   static String generalSettingScreen = "/generalSetting";
   static String healthProfileScreen = "/healthProfile";
-
-  static List<GetPage> routes = [
-    GetPage(
-      name: splashScreen,
-      page: () => const SplashScreen(),
-      transition: Transition.fadeIn,
-    ),
-    GetPage(
-      name: dashboardScreen,
-      page: () => const DashboardScreen(),
-      transition: Transition.fadeIn,
-    ),
-    GetPage(
-      name: homeScreen,
-      page: () => const HomeScreen(),
-  static String homeScreen = "/home";
-  static String searchListingScreen = "/searchListing";
   static String onboardingScreen = "/Onboarding";
   static String otpScreen = "/Otp";
   static String loginScreen = "/Login";
@@ -52,14 +32,17 @@ class Routes {
   static String testDetailsScreen = "/testDetails";
 
   static List<GetPage> routes = [
+    GetPage(name: splashScreen, page: () => const SplashScreen(), transition: Transition.fadeIn),
     GetPage(
-        name: splashScreen,
-        page: () => const SplashScreen(),
-        transition: Transition.fadeIn),
+      name: dashboardScreen,
+      page: () => const DashboardScreen(),
+      transition: Transition.fadeIn,
+    ),
     GetPage(
-        name: homeScreen,
-        page: () => const HomeScreen(),
-        transition: Transition.fadeIn),
+      name: homeScreen,
+      page: () => const HomeScreen(),
+      transition: Transition.fadeIn,
+    ),
     GetPage(
       name: searchListingScreen,
       page: () => const SearchLabListingScreen(),
@@ -83,6 +66,9 @@ class Routes {
     GetPage(
       name: healthProfileScreen,
       page: () => const HealthProfileScreen(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
       name: onboardingScreen,
       page: () => const OnboardingScreen(),
       transition: Transition.fadeIn,

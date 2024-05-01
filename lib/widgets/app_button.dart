@@ -35,8 +35,7 @@ class AppFilledButton extends StatelessWidget {
       onPressed: onPressed,
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(buttonColor ?? kGreen),
-        fixedSize:
-            MaterialStatePropertyAll(Size(width ?? w, height ?? h * 0.062)),
+        fixedSize: MaterialStatePropertyAll(Size(width ?? w, height ?? h * 0.062)),
         padding: const MaterialStatePropertyAll(EdgeInsets.zero),
         shape: MaterialStatePropertyAll(
           RoundedRectangleBorder(
@@ -44,13 +43,7 @@ class AppFilledButton extends StatelessWidget {
           ),
         ),
       ),
-      child: child ??
-          customText(
-              textAlign: TextAlign.center,
-              text: title!,
-              color: kBlack,
-              fontSize: 18,
-              fontWeight: FontWeight.w600),
+      child: child ?? customText(textAlign: TextAlign.center, text: title!, color: kBlack, fontSize: 18, fontWeight: FontWeight.w600),
     );
   }
 }
