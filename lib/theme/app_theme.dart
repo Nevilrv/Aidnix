@@ -15,6 +15,15 @@ Color kYellow = const Color(0xffFEA800);
 Color kYellow1 = const Color(0xffF6DE00);
 Color kRed = const Color(0xffF14D4D);
 Color kOrange = const Color(0xffFF9417);
+Color kOrange = const Color(0xffFF9417);
+Color kDarkWhite = const Color(0xffECECEC);
+Color kBlack26 = const Color(0xff585858);
+
+///
+Color kGreen = const Color(0xff87C950);
+Color kLightGreen = const Color(0xffA1E06D);
+Color kGreen10 = const Color(0xffE6F4EF);
+Color kBlack45 = Colors.black45;
 
 ThemeData kLightTheme = ThemeData(
   colorScheme: const ColorScheme.light(background: Colors.white),
