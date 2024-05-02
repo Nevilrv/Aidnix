@@ -1,13 +1,14 @@
 import 'package:aidnix/view/auth/splash_screen.dart';
-import 'package:aidnix/view/checkup/checkup_screen.dart';
+import 'package:aidnix/view/checkup/lab_cart_page_screen.dart';
+import 'package:aidnix/view/checkup/lab_chackout_screen.dart';
 import 'package:aidnix/view/checkup/lab_details_sacreen.dart';
 import 'package:aidnix/view/checkup/lab_image_screen.dart';
+import 'package:aidnix/view/checkup/payment_page_screen.dart';
 import 'package:aidnix/view/checkup/test_details_screen.dart';
 import 'package:aidnix/view/dashboard/dashboard_screen.dart';
 import 'package:aidnix/view/general_setting/general_setting_screen.dart';
 import 'package:aidnix/view/health_profile/health_profile_screen.dart';
 import 'package:aidnix/view/health_records/health_records_screen.dart';
-import 'package:aidnix/view/home/home_screen.dart';
 import 'package:aidnix/view/search/search_lab_listing_screen.dart';
 import 'package:aidnix/view/auth/login_screen.dart';
 import 'package:aidnix/view/auth/onBoarding/onboarding_screen.dart';
@@ -20,16 +21,17 @@ class Routes {
   static String loginScreen = "/login";
   static String otpScreen = "/otp";
   static String dashboardScreen = "/dashboard";
-  // static String homeScreen = "/home";
   static String searchListingScreen = "/searchListing";
   static String healthRecordsScreen = "/healthRecords";
   static String generalSettingScreen = "/generalSetting";
   static String healthProfileScreen = "/healthProfile";
   static String onboardingScreen = "/onboarding";
-  // static String checkupScreen = "/checkup";
   static String labDetailsScreen = "/labDetails";
   static String labImageScreen = "/labImage";
   static String testDetailsScreen = "/testDetails";
+  static String labCartPageScreen = "/labCartPage";
+  static String paymentPageScreen = "/paymentPage";
+  static String labCheckoutScreen = "/labCheckout";
 
   static List<GetPage> routes = [
     GetPage(
@@ -42,11 +44,6 @@ class Routes {
       page: () => const DashboardScreen(),
       transition: Transition.fadeIn,
     ),
-    // GetPage(
-    //   name: homeScreen,
-    //   page: () => const HomeScreen(),
-    //   transition: Transition.fadeIn,
-    // ),
     GetPage(
       name: searchListingScreen,
       page: () => const SearchLabListingScreen(),
@@ -87,11 +84,6 @@ class Routes {
       page: () => const LoginScreen(),
       transition: Transition.fadeIn,
     ),
-    // GetPage(
-    //   name: checkupScreen,
-    //   page: () => const CheckupScreen(),
-    //   transition: Transition.fadeIn,
-    // ),
     GetPage(
       name: labDetailsScreen,
       page: () => const LabDetailsScreen(),
@@ -105,6 +97,21 @@ class Routes {
     GetPage(
       name: testDetailsScreen,
       page: () => const TestDetailsScreen(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: labCartPageScreen,
+      page: () => const LabCartPageScreen(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: paymentPageScreen,
+      page: () => const PaymentPageScreen(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: labCheckoutScreen,
+      page: () => const LabCheckoutScreen(),
       transition: Transition.fadeIn,
     ),
   ];

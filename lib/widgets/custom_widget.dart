@@ -489,7 +489,8 @@ Widget customCartContainer({
                           backgroundColor: kLightBgColor,
                           radius: 30.r,
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 5.w, vertical: 5.h),
                             child: Image.asset(
                               "assets/icons/image_lab_profile.png",
                               fit: BoxFit.cover,
@@ -515,7 +516,8 @@ Widget customCartContainer({
                         customText(text: titleName, fontSize: 20.sp),
                         SizedBox(height: 10.h),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 8.w, vertical: 5.h),
                           decoration: BoxDecoration(
                             color: kOrange,
                             borderRadius: BorderRadius.circular(15.r),
@@ -544,13 +546,15 @@ Widget customCartContainer({
                         SizedBox(width: 8.w),
                         regularText(text: "${rating}"),
                         SizedBox(width: 8.w),
-                        customText(text: "(${noOfRating} Rating)", fontSize: 10.sp),
+                        customText(
+                            text: "(${noOfRating} Rating)", fontSize: 10.sp),
                       ],
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SvgPicture.asset("assets/icons/icon_microscope-fill.svg"),
+                        SvgPicture.asset(
+                            "assets/icons/icon_microscope-fill.svg"),
                         SizedBox(width: 8.w),
                         regularText(text: "${noOfTest}+ Tests"),
                       ],
@@ -641,7 +645,8 @@ Widget customCartContainer({
   );
 }
 
-customBottomSheet({required BuildContext context, required Widget child}) async {
+customBottomSheet(
+    {required BuildContext context, required Widget child}) async {
   return await showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -701,13 +706,19 @@ Widget checkupCartContainer({
                 height: 100.h,
                 decoration: BoxDecoration(
                   color: kLightGreen,
-                  borderRadius: BorderRadius.only(topRight: Radius.circular(12.r), topLeft: Radius.circular(12.r)),
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(12.r),
+                      topLeft: Radius.circular(12.r)),
                 ),
                 child: Row(
                   children: [
                     Padding(
                       padding: EdgeInsets.only(left: 10.w, right: 25.w),
-                      child: customText(textAlign: TextAlign.start, text: comprehensive, fontSize: 18.sp, fontWeight: FontWeight.w600),
+                      child: customText(
+                          textAlign: TextAlign.start,
+                          text: comprehensive,
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w600),
                     ),
                     Column(
                       children: [
@@ -777,7 +788,9 @@ Widget checkupCartContainer({
               Container(
                 height: 36.h,
                 width: 33.w,
-                decoration: BoxDecoration(color: kLightGreen, borderRadius: BorderRadius.circular(7.r)),
+                decoration: BoxDecoration(
+                    color: kLightGreen,
+                    borderRadius: BorderRadius.circular(7.r)),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 3.w),
                   child: SvgPicture.asset(
@@ -790,8 +803,16 @@ Widget checkupCartContainer({
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    customText(text: AppString.report, color: kDarkGrey1, fontSize: 11.sp, fontWeight: FontWeight.w400),
-                    customText(text: report, color: kDarkGrey1, fontSize: 16.sp, fontWeight: FontWeight.w600),
+                    customText(
+                        text: AppString.report,
+                        color: kDarkGrey1,
+                        fontSize: 11.sp,
+                        fontWeight: FontWeight.w400),
+                    customText(
+                        text: report,
+                        color: kDarkGrey1,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w600),
                   ],
                 ),
               ),
@@ -806,8 +827,16 @@ Widget checkupCartContainer({
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    customText(text: AppString.type, color: kDarkGrey1, fontSize: 11.sp, fontWeight: FontWeight.w400),
-                    customText(text: type, color: kDarkGrey1, fontSize: 16.sp, fontWeight: FontWeight.w600),
+                    customText(
+                        text: AppString.type,
+                        color: kDarkGrey1,
+                        fontSize: 11.sp,
+                        fontWeight: FontWeight.w400),
+                    customText(
+                        text: type,
+                        color: kDarkGrey1,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w600),
                   ],
                 ),
               ),
@@ -815,7 +844,8 @@ Widget checkupCartContainer({
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.w).copyWith(top: 20.h, bottom: 15.h),
+          padding: EdgeInsets.symmetric(horizontal: 15.w)
+              .copyWith(top: 20.h, bottom: 15.h),
           child: Row(
             children: [
               Expanded(
@@ -826,7 +856,11 @@ Widget checkupCartContainer({
                   buttonColor: kWhite,
                   border: Border.all(color: kLightGreen, width: 1),
                   buttonText: AppString.viewDetails,
-                  textStyle: TextStyle(fontWeight: FontWeight.w500, color: kBlack26, fontSize: 14, fontFamily: "Poppins"),
+                  textStyle: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: kBlack26,
+                      fontSize: 14,
+                      fontFamily: "Poppins"),
                   onTap: () {
                     Get.toNamed(Routes.labDetailsScreen);
                   },
@@ -872,8 +906,12 @@ Widget checkupAddCart({
               clipBehavior: Clip.antiAlias,
               decoration: BoxDecoration(
                   color: color,
-                  borderRadius: const BorderRadius.only(bottomRight: Radius.circular(20), bottomLeft: Radius.circular(20)),
-                  boxShadow: [BoxShadow(color: kLightGrey.withOpacity(0.7), blurRadius: 2)]),
+                  borderRadius: const BorderRadius.only(
+                      bottomRight: Radius.circular(20),
+                      bottomLeft: Radius.circular(20)),
+                  boxShadow: [
+                    BoxShadow(color: kLightGrey.withOpacity(0.7), blurRadius: 2)
+                  ]),
             ),
             Positioned(
               right: -20.w,
@@ -941,7 +979,9 @@ Widget customLabDetailsCart({
                     const Spacer(),
                     SvgPicture.asset(AppAssets.microscope, color: kGreen),
                     SizedBox(width: 8.w),
-                    SizedBox(width: 140.w, child: regularText(text: "$noOfTest+ Tests")),
+                    SizedBox(
+                        width: 140.w,
+                        child: regularText(text: "$noOfTest+ Tests")),
                   ],
                 ),
                 SizedBox(height: 15.h),
@@ -975,6 +1015,104 @@ Widget customLabDetailsCart({
               ],
             ),
           ),
+        ],
+      ),
+    ),
+  );
+}
+
+///-- Common Bottom Card Widget
+
+Widget commonBottomCard({
+  required String subtotal,
+  required String gst,
+  required String discount,
+  required String price,
+  required Widget button,
+  bool? height = false,
+}) {
+  return Container(
+    height: 270.h,
+    decoration: BoxDecoration(
+      color: kWhite,
+      boxShadow: [BoxShadow(color: kLightGrey, blurRadius: 3)],
+      borderRadius: BorderRadius.only(
+        topRight: Radius.circular(30.r),
+        topLeft: Radius.circular(30.r),
+      ),
+    ),
+    child: Padding(
+      padding: EdgeInsets.symmetric(horizontal: 30.w),
+      child: Column(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 15.h, bottom: 15.h),
+                child: Row(
+                  children: [
+                    customText(
+                      text: "Subtotal",
+                      fontSize: 17.sp,
+                    ),
+                    const Spacer(),
+                    customText(
+                      text: subtotal,
+                      fontSize: 19.sp,
+                    ),
+                  ],
+                ),
+              ),
+              Row(
+                children: [
+                  customText(
+                    text: "GST 20%",
+                    fontSize: 17.sp,
+                  ),
+                  const Spacer(),
+                  customText(
+                    text: gst,
+                    fontSize: 19.sp,
+                  ),
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 15.h),
+                child: Row(
+                  children: [
+                    customText(
+                      text: "Discount applied",
+                      fontSize: 17.sp,
+                    ),
+                    const Spacer(),
+                    customText(
+                      text: discount,
+                      fontSize: 19.sp,
+                    ),
+                  ],
+                ),
+              ),
+              height == true ? SizedBox(height: 18.h) : const SizedBox(),
+              Row(
+                children: [
+                  customText(
+                    text: "Total Price",
+                    fontSize: 21.sp,
+                  ),
+                  const Spacer(),
+                  customText(
+                      text: price,
+                      fontSize: 21.sp,
+                      color: kLightGreen,
+                      fontWeight: FontWeight.w600),
+                ],
+              ),
+            ],
+          ),
+          const Spacer(),
+          button,
+          SizedBox(height: 5.h)
         ],
       ),
     ),

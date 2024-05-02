@@ -7,11 +7,13 @@ class AppString {
   static const agreeTo = "I agree to the ";
   static const termsConditions = "Terms & Conditions, Privacy Policy.";
   static const enterYourPhone = "Enter Your Phone Number";
-  static const enterYourDetails = "We’ll send you a Verification code to know\nyou’re real";
+  static const enterYourDetails =
+      "We’ll send you a Verification code to know\nyou’re real";
   static const sendOtp = "Send OTP";
   static const pleaseEnterValid = "Please enter valid mobile number";
   static const enterYourOtp = "Enter Your OTP";
-  static const otpDetails = "We are automatically detecting a SMS send\nto your mobile Number ";
+  static const otpDetails =
+      "We are automatically detecting a SMS send\nto your mobile Number ";
   static const verify = "Verify";
   static const tryAgain = "Try Again";
   static const pleaseEnterOtp = "Please enter valid OTP";
@@ -29,4 +31,18 @@ class AppString {
   static const recommended = "Recommended";
   static const about = "About";
   static const test = "Test";
+  static const cart = "Cart";
+  static const proceed = "Proceed to Checkout";
+  static const oK = "OK";
+  static const payment = "Payment";
+  static const selectMethod = "Select Method";
+  static const cashDelivery = "Cash On Delivery";
+  static const upi = "Upi";
+  static const bookYourTest = "Book your test";
+  static const checkout = "Checkout";
+  static const home = "HOME";
+  static const change = "Change";
+  static const other = "Other";
+  static const bookYourSlot = "Book your slot";
+  static const purchase = "Proceed to Purchase";
 }
