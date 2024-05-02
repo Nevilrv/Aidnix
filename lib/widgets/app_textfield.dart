@@ -3,69 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AppCommonTextField extends StatelessWidget {
-  final String labelText;
-
-  final FormFieldValidator? validator;
-  final TextEditingController? controller;
-  final void Function(String)? onChanged;
-  final TextInputType? textInputType;
-  final Widget? prefixIcon;
-  final Widget? suffixIcon;
-  final bool? obscureText;
-
-  const AppCommonTextField({
-    super.key,
-    required this.labelText,
-    this.controller,
-    this.onChanged,
-    this.textInputType,
-    this.prefixIcon,
-    this.validator,
-    this.suffixIcon,
-    this.obscureText = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      obscureText: obscureText!,
-      validator: validator,
-      controller: controller,
-      cursorColor: kBlack,
-      onChanged: onChanged,
-      keyboardType: textInputType,
-      textInputAction: TextInputAction.search,
-      style: TextStyle(
-        fontSize: 15,
-        color: kBlack,
-        fontWeight: FontWeight.w500,
-        fontFamily: "Poppins",
-      ),
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.only(left: 20),
-        suffixIcon: suffixIcon,
-        prefixIcon: prefixIcon,
-        filled: true,
-        fillColor: Colors.white,
-        labelText: labelText,
-        labelStyle: TextStyle(
-          fontSize: 16,
-          color: kGrey,
-          fontWeight: FontWeight.w400,
-          fontFamily: "Poppins",
-        ),
-        focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(11), borderSide: BorderSide(color: kLightGrey)),
-        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(11), borderSide: BorderSide(color: kLightGrey)),
-        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(11), borderSide: BorderSide(color: kLightGrey)),
-        errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(11), borderSide: BorderSide(color: kLightGrey)),
-      ),
-    );
-  }
-}
-
-///----------
-
 class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final TextStyle? style;
@@ -95,6 +32,7 @@ class CustomTextField extends StatelessWidget {
   final bool? isDense;
   final bool? isCollapsed;
   final InputDecoration? decoration;
+  final String? Function(String?)? validator;
 
   const CustomTextField({
     super.key,
@@ -125,6 +63,7 @@ class CustomTextField extends StatelessWidget {
     this.isDense,
     this.isCollapsed,
     this.decoration,
+    this.validator,
   });
 
   @override
@@ -146,6 +85,7 @@ class CustomTextField extends StatelessWidget {
       cursorColor: kPrimary,
       cursorWidth: 1.5,
       style: style ?? TextStyle(fontWeight: FontWeight.w400, color: textColor ?? kBlack, fontSize: 14.sp, fontFamily: "Poppins"),
+      validator: validator,
       decoration: decoration ??
           InputDecoration(
             counter: counter ?? const SizedBox(),

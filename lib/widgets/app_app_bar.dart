@@ -1,8 +1,5 @@
 import 'package:aidnix/constant/app_assets.dart';
-import 'package:aidnix/constant/app_color.dart';
 import 'package:aidnix/theme/app_theme.dart';
-import 'package:aidnix/utils/extension.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -77,32 +74,4 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => Size.fromHeight(appBarHeight ?? 60);
-}
-
-AppBar commonAppBar(
-    {required final String title,
-    final Widget? backIcon,
-    final Widget? actionsIcon,
-    final double? titleSpacing,
-    final bool? centerTitle,
-    required final bool automaticallyImplyLeading,
-    final bool? actions}) {
-  return AppBar(
-    centerTitle: centerTitle,
-    titleSpacing: titleSpacing,
-    automaticallyImplyLeading: automaticallyImplyLeading,
-    leading: backIcon,
-    actions: [
-      actionsIcon ?? const SizedBox(),
-      actions == true
-          ? const Padding(
-              padding: EdgeInsets.only(right: 25),
-              child: Icon(CupertinoIcons.search),
-            )
-          : const SizedBox()
-    ],
-    shadowColor: Colors.transparent,
-    backgroundColor: AppColors.primary,
-    title: title.semiBoldTextStyle(fontSize: 19),
-  );
 }

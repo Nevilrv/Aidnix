@@ -1,6 +1,6 @@
-import 'package:aidnix/Constant/app_string.dart';
-import 'package:aidnix/Theme/app_theme.dart';
-import 'package:aidnix/Utils/custom_widget%20.dart';
+import 'package:aidnix/constant/app_string.dart';
+import 'package:aidnix/theme/app_theme.dart';
+import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -28,20 +28,14 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
                     size: 23.sp,
                   ),
                   const Spacer(),
-                  customText(
-                      text: AppString.test,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w500),
+                  customText(text: AppString.test, fontSize: 18.sp, fontWeight: FontWeight.w500),
                   const Spacer(),
                 ],
               ),
               Padding(
                 padding: EdgeInsets.only(top: 30.h, bottom: 16.h),
                 child: customText(
-                    textAlign: TextAlign.start,
-                    text: "Complete Blood Count (CBC)",
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.w600),
+                    textAlign: TextAlign.start, text: "Complete Blood Count (CBC)", fontSize: 18.sp, fontWeight: FontWeight.w600),
               ),
               customText(
                   textAlign: TextAlign.start,
@@ -59,8 +53,9 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
                       height: 50.h,
                       width: 160.w,
                       decoration: BoxDecoration(
-                          color: kLightGreen.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(7)),
+                        color: kLightGreen.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(7),
+                      ),
                       child: Row(
                         children: [
                           Padding(
@@ -69,8 +64,9 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
                               height: 36.h,
                               width: 36.w,
                               decoration: BoxDecoration(
-                                  color: kWhite,
-                                  borderRadius: BorderRadius.circular(7)),
+                                color: kWhite,
+                                borderRadius: BorderRadius.circular(7),
+                              ),
                             ),
                           )
                         ],
@@ -81,8 +77,9 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
                       height: 50.h,
                       width: 160.w,
                       decoration: BoxDecoration(
-                          color: kLightGreen.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(7)),
+                        color: kLightGreen.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(7),
+                      ),
                     )
                   ],
                 ),

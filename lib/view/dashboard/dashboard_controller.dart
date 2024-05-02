@@ -1,3 +1,4 @@
+import 'package:aidnix/view/checkup/checkup_screen.dart';
 import 'package:aidnix/view/home/home_screen.dart';
 import 'package:aidnix/view/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
@@ -30,9 +31,7 @@ class DashboardController extends GetxController {
     Container(
       color: Colors.red,
     ),
-    Container(
-      color: Colors.green,
-    ),
+    CheckupScreen(),
     ProfileScreen(),
   ];
 }

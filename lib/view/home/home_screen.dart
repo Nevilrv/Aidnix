@@ -1,6 +1,5 @@
 import 'package:aidnix/view/home/home_controller.dart';
 import 'package:aidnix/constant/app_assets.dart';
-import 'package:aidnix/constant/app_color.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
@@ -148,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             alignment: Alignment.bottomRight,
                           ),
                           boxShadow: [
-                            BoxShadow(color: AppColors.greyColor, blurRadius: 1.r),
+                            BoxShadow(color: kGrey, blurRadius: 1.r),
                           ],
                         ),
                         child: Padding(
@@ -201,8 +200,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             scale: 4,
                             alignment: Alignment.bottomRight,
                           ),
-                          boxShadow: const [
-                            BoxShadow(color: AppColors.greyColor, blurRadius: 1),
+                          boxShadow: [
+                            BoxShadow(color: kGrey, blurRadius: 1),
                           ],
                         ),
                         child: Padding(
@@ -619,7 +618,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   borderRadius: BorderRadius.circular(15.r),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: AppColors.blackColor.withOpacity(0.2),
+                                      color: kBlack.withOpacity(0.2),
                                       blurRadius: 1.5,
                                     ),
                                   ],

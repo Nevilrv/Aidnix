@@ -1,8 +1,7 @@
-import 'package:aidnix/constant/app_color.dart';
+import 'package:aidnix/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-
 import 'Utils/app_routes.dart';
 
 void main() {
@@ -23,19 +22,19 @@ class MyApp extends StatelessWidget {
           title: 'Aidnix',
           themeMode: ThemeMode.light,
           theme: ThemeData(
-            colorScheme: const ColorScheme.light(background: AppColors.whiteColor),
-            textTheme: const TextTheme(
-              titleSmall: TextStyle(color: AppColors.blackColor, fontSize: 18),
+            colorScheme: ColorScheme.light(background: kWhite),
+            textTheme: TextTheme(
+              titleSmall: TextStyle(color: kBlack, fontSize: 18),
             ),
           ),
           debugShowCheckedModeBanner: false,
           darkTheme: ThemeData(
-            colorScheme: const ColorScheme.dark(background: AppColors.blackColor),
-            textTheme: const TextTheme(
-              titleSmall: TextStyle(color: AppColors.whiteColor, fontSize: 18),
+            colorScheme: ColorScheme.dark(background: kBlack),
+            textTheme: TextTheme(
+              titleSmall: TextStyle(color: kWhite, fontSize: 18),
             ),
           ),
-          initialRoute: Routes.dashboardScreen,
+          initialRoute: Routes.splashScreen,
           getPages: Routes.routes,
         );
       },

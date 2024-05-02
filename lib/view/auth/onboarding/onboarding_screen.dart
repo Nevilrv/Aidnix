@@ -1,9 +1,9 @@
-import 'package:aidnix/Constant/app_assets.dart';
-import 'package:aidnix/Constant/app_string.dart';
-import 'package:aidnix/Theme/app_theme.dart';
-import 'package:aidnix/Utils/custom_widget%20.dart';
-import 'package:aidnix/Widgets/app_button.dart';
+import 'package:aidnix/widgets/app_button.dart';
+import 'package:aidnix/constant/app_assets.dart';
+import 'package:aidnix/constant/app_string.dart';
+import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/view/auth/auth_controller.dart';
+import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -49,30 +49,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  customText(
-                                      text: AppString.welcome,
-                                      color: kBlack,
-                                      fontSize: 32.sp,
-                                      fontWeight: FontWeight.w700),
-                                  customText(
-                                      text: AppString.aidNix,
-                                      color: kGreen,
-                                      fontSize: 32.sp,
-                                      fontWeight: FontWeight.w700)
+                                  customText(text: AppString.welcome, color: kBlack, fontSize: 32.sp, fontWeight: FontWeight.w700),
+                                  customText(text: AppString.aidNix, color: kGreen, fontSize: 32.sp, fontWeight: FontWeight.w700)
                                 ],
                               ),
                             ),
                             customText(
-                                text:
-                                    "${controller.onBoardList[index]['text']}",
+                                text: "${controller.onBoardList[index]['text']}",
                                 color: kBlack,
                                 fontSize: 16.sp,
                                 maxLines: 1,
                                 fontWeight: FontWeight.w500),
                             customText(
                                 textAlign: TextAlign.center,
-                                text:
-                                    "${controller.onBoardList[index]['detailText']}",
+                                text: "${controller.onBoardList[index]['detailText']}",
                                 color: kBlack,
                                 fontSize: 16.sp,
                                 maxLines: 2,
@@ -91,23 +81,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       height: 8.h,
                       width: controller.selected == index ? 32.w : 8.w,
                       margin: const EdgeInsets.symmetric(horizontal: 1),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100.r),
-                          color: kLightGreen),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(100.r), color: kLightGreen),
                     ),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 120.h, bottom: 42.h),
-                  child: AppFilledButton(
-                    onPressed: () {
+                  child: CustomButton(
+                    buttonText: "",
+                    margin: EdgeInsets.symmetric(horizontal: 20.w),
+                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
+                    child: Center(
+                      child: regularSemiBoldText(text: AppString.signIn),
+                    ),
+                    onTap: () {
                       controller.nextPage();
                     },
-                    fontSize: 18.sp,
-                    radius: 11.r,
-                    width: 320.w,
-                    height: 60.h,
-                    title: AppString.signIn,
                   ),
                 ),
                 controller.selected == 2
