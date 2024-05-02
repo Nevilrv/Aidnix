@@ -1,10 +1,10 @@
 import 'dart:developer';
-import 'package:aidnix/Constant/app_assets.dart';
-
-import 'package:aidnix/Constant/app_string.dart';
-import 'package:aidnix/Theme/app_theme.dart';
-import 'package:aidnix/Utils/custom_widget%20.dart';
-import 'package:aidnix/Widgets/app_button.dart';
+import 'package:aidnix/utils/app_routes.dart';
+import 'package:aidnix/widgets/app_button.dart';
+import 'package:aidnix/constant/app_assets.dart';
+import 'package:aidnix/constant/app_string.dart';
+import 'package:aidnix/theme/app_theme.dart';
+import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -36,34 +36,20 @@ class _OtpScreenState extends State<OtpScreen> {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(top: 41.h, bottom: 22.h),
-                    child:
-                        assetImage(AppAssets.logo, height: 105.h, width: 108.w),
+                    child: assetImage(AppAssets.logo, height: 105.h, width: 108.w),
                   ),
-                  customText(
-                      text: AppString.welcomeToAidNix,
-                      color: kWhite,
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w600),
+                  customText(text: AppString.welcomeToAidNix, color: kWhite, fontSize: 24.sp, fontWeight: FontWeight.w600),
                 ],
               ),
             ),
             Padding(
               padding: EdgeInsets.only(top: 97.h, bottom: 5.h),
-              child: customText(
-                  text: AppString.enterYourOtp,
-                  color: kBlack,
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.w600),
+              child: customText(text: AppString.enterYourOtp, color: kBlack, fontSize: 24.sp, fontWeight: FontWeight.w600),
             ),
             customText(
-                text: AppString.otpDetails,
-                color: kBlack,
-                fontSize: 14.sp,
-                textAlign: TextAlign.center,
-                fontWeight: FontWeight.w400),
+                text: AppString.otpDetails, color: kBlack, fontSize: 14.sp, textAlign: TextAlign.center, fontWeight: FontWeight.w400),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 28.w)
-                  .copyWith(top: 24.h, bottom: 40.h),
+              padding: EdgeInsets.symmetric(horizontal: 28.w).copyWith(top: 24.h, bottom: 40.h),
               child: Form(
                 key: formKey,
                 child: Pinput(
@@ -105,17 +91,20 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
               ),
             ),
-            AppFilledButton(
-              onPressed: () {
+            CustomButton(
+              buttonText: "",
+              margin: EdgeInsets.symmetric(horizontal: 20.w),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
+              child: Center(
+                child: regularSemiBoldText(text: AppString.verify),
+              ),
+              onTap: () {
                 if (formKey.currentState!.validate()) {
                   log("data");
+
+                  Get.toNamed(Routes.dashboardScreen);
                 }
               },
-              fontSize: 18.sp,
-              radius: 11.r,
-              width: 374.w,
-              height: 60.h,
-              title: AppString.verify,
             ),
             Padding(
               padding: EdgeInsets.only(top: 20.h),
@@ -123,17 +112,9 @@ class _OtpScreenState extends State<OtpScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   customText(
-                      text: AppString.receiveOtp,
-                      color: kBlack,
-                      fontSize: 14.sp,
-                      textAlign: TextAlign.center,
-                      fontWeight: FontWeight.w400),
+                      text: AppString.receiveOtp, color: kBlack, fontSize: 14.sp, textAlign: TextAlign.center, fontWeight: FontWeight.w400),
                   customText(
-                      text: AppString.resendOtp,
-                      color: kGreen,
-                      fontSize: 14.sp,
-                      textAlign: TextAlign.center,
-                      fontWeight: FontWeight.w400),
+                      text: AppString.resendOtp, color: kGreen, fontSize: 14.sp, textAlign: TextAlign.center, fontWeight: FontWeight.w400),
                 ],
               ),
             )

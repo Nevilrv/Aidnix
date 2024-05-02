@@ -1,6 +1,7 @@
-import 'package:aidnix/constant/app_color.dart';
-import 'package:aidnix/utils/extension.dart';
+import 'package:aidnix/theme/app_theme.dart';
+import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 showAppSnackBar(
@@ -9,55 +10,55 @@ showAppSnackBar(
   return Get.showSnackbar(GetSnackBar(
       messageText: Text(
         tittle,
-        style: const TextStyle(color: AppColors.whiteColor),
+        style: TextStyle(color: kWhite),
       ),
       borderRadius: 0,
       snackPosition: SnackPosition.TOP,
       margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
       shouldIconPulse: false,
       icon: Container(
-        height: 25,
-        width: 25,
-        decoration: const BoxDecoration(color: AppColors.whiteColor, shape: BoxShape.circle),
-        child: const Center(
+        height: 25.h,
+        width: 25.w,
+        decoration: BoxDecoration(color: kWhite, shape: BoxShape.circle),
+        child: Center(
           child: Icon(
             Icons.close_rounded,
-            color: AppColors.blackColor,
+            color: kBlack,
           ),
         ),
       ),
-      backgroundColor: AppColors.blackColor,
+      backgroundColor: kBlack,
       duration: const Duration(seconds: 3)));
 }
 
 showBottomSnackBar(String tittle) {
   return Get.showSnackbar(GetSnackBar(
-    messageText: tittle.semiBoldTextStyle(fontColor: AppColors.blackColor),
+    messageText: regularSemiBoldText(text: tittle),
     borderRadius: 15,
     snackPosition: SnackPosition.BOTTOM,
     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     shouldIconPulse: false,
-    icon: const Icon(
+    icon: Icon(
       Icons.error_outline,
-      color: AppColors.whiteColor,
+      color: kWhite,
     ),
-    backgroundColor: AppColors.blackColor,
+    backgroundColor: kBlack,
     duration: const Duration(seconds: 3),
   ));
 }
 
 showErrorSnackBar(String tittle) {
   return Get.showSnackbar(GetSnackBar(
-    messageText: tittle.semiBoldTextStyle(fontColor: AppColors.whiteColor),
+    messageText: regularSemiBoldText(text: tittle, color: kWhite),
     borderRadius: 15,
     snackPosition: SnackPosition.BOTTOM,
     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     shouldIconPulse: false,
-    icon: const Icon(
+    icon: Icon(
       Icons.error_outline,
-      color: AppColors.whiteColor,
+      color: kWhite,
     ),
-    backgroundColor: AppColors.redColor,
+    backgroundColor: kRed,
     duration: const Duration(seconds: 3),
   ));
 }
@@ -65,13 +66,13 @@ showErrorSnackBar(String tittle) {
 showSuccessSnackBar(String tittle) {
   return Get.showSnackbar(
     GetSnackBar(
-      messageText: tittle.semiBoldTextStyle(fontColor: AppColors.blackColor),
+      messageText: regularSemiBoldText(text: tittle),
       borderRadius: 15,
       snackPosition: SnackPosition.BOTTOM,
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       shouldIconPulse: false,
-      icon: const Icon(Icons.error_outline, color: AppColors.blackColor),
-      backgroundColor: AppColors.primary,
+      icon: Icon(Icons.error_outline, color: kBlack),
+      backgroundColor: kPrimary,
       duration: const Duration(seconds: 3),
     ),
   );
