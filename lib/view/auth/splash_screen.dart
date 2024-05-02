@@ -33,16 +33,27 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
         height: 932.h,
         width: 432.w,
-        decoration: const BoxDecoration(image: DecorationImage(image: AssetImage(AppAssets.splashBG), fit: BoxFit.cover)),
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(AppAssets.splashBG), fit: BoxFit.cover)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             assetImage(AppAssets.logo, height: 105.h, width: 108.w),
             Padding(
               padding: EdgeInsets.only(top: 22.h, bottom: 5.h),
-              child: customText(text: AppString.welcomeToAidNix, color: kWhite, fontSize: 28.sp, fontWeight: FontWeight.w600),
+              child: customText(
+                text: AppString.welcomeToAidNix,
+                color: kWhite,
+                fontSize: 28.sp,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-            customText(text: AppString.splashDetails, color: kBlack, fontSize: 14.sp, fontWeight: FontWeight.w400),
+            customText(
+                text: AppString.splashDetails,
+                color: kBlack,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w400),
           ],
         ),
       ),
