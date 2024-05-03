@@ -24,6 +24,8 @@ Color kLightBlue = const Color(0xffD9ECF5);
 Color kBlue = const Color(0xff3596CD);
 Color kPurple = const Color(0xff7669AF);
 Color kLightGreen1 = const Color(0xffEAF9F4);
+Color kBlack54 = const Color(0xff4D4D4D);
+Color kWhite12 = const Color(0xffFAFAFA);
 
 ///
 

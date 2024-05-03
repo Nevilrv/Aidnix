@@ -48,6 +48,7 @@ class AppAssets {
   static const healthRecord = "${imagePath}health_record.png";
 
   ///
+
   static const logo = "${imagePath}logo.png";
   static const splashBG = "${imagePath}splash_screen.png";
   static const onboardingImage = "${imagePath}onboarding_image.png";
@@ -66,11 +67,33 @@ class AppAssets {
   static const bloodTest = "${iconPath}icon_blood_test.svg";
   static const location2 = "${iconPath}icon_location_2.svg";
   static const vacation = "${iconPath}icon_vacation.svg";
-  static const labProfile = "${iconPath}image_lab_profile.png";
+  // static const labProfile = "${iconPath}image_lab_profile.png";
   static const microscopeIcon = "${iconPath}icon_microscope-fill.svg";
+
+  // static const backArrow = "${iconPath}back_arrow.png";
+  // static const editIcon = "${iconPath}edit_icon.png";
+  // static const mailIcon = "${iconPath}mail_icon.png";
+  // static const personIcon = "${iconPath}person_icon.png";
+  // static const notificationIcon = "${iconPath}notification_icon.png";
+  // static const healthRecord = "${iconPath}health_record.png";
+  static const report = "${iconPath}icon_report.svg";
+  static const food = "${iconPath}icon_food.svg";
+  static const person = "${iconPath}icon_person.svg";
+  static const blood = "${iconPath}icon_blood_test.svg";
+  static const delete = "${iconPath}icon_delete.svg";
+  static const wrongCart = "${iconPath}icon_wrong_cart.svg";
+  static const calender = "${iconPath}icon_calender.svg";
+  // static const clock = "${iconPath}icon_clock.svg";
+  static const morning = "${iconPath}icon_morning.svg";
+  static const evening = "${iconPath}icon_evening.svg";
+  static const afternoon = "${iconPath}icon_afternoon.svg";
+  static const bloodTesting = "${iconPath}icon_blood_testing.png";
+  static const urineTesting = "${iconPath}icon_urine_testing.png";
+  static const heartTesting = "${iconPath}icon_heart_testing.png";
 }
 
-Widget assetImage(String image, {double? height, double? width, Color? color, double? scale}) {
+Widget assetImage(String image,
+    {double? height, double? width, Color? color, double? scale}) {
   return Image.asset(
     image,
     height: height,
@@ -80,62 +103,3 @@ Widget assetImage(String image, {double? height, double? width, Color? color, do
     fit: BoxFit.cover,
   );
 }
-
-// Widget cachedNetworkImage(
-//     {required String url, required double height, double? width, BoxFit? fit}) {
-//   if (url.isEmpty) {
-//     return Image.network(AppAssets.profile,
-//         height: height, width: width, fit: fit ?? BoxFit.cover);
-//   } else {
-//     return CachedNetworkImage(
-//       imageUrl: url,
-//       fit: BoxFit.fill,
-//       height: height,
-//       width: width,
-//       placeholder: (context, url) => Shimmer.fromColors(
-//         baseColor: Colors.grey.shade300,
-//         highlightColor: Colors.grey.shade100,
-//         child: Container(
-//           height: height,
-//           decoration: const BoxDecoration(color: Colors.white),
-//         ),
-//       ),
-//       errorWidget: (context, url, error) {
-//         return Image.network(AppAssets.profile);
-//       },
-//     );
-//   }
-// }
-//
-// Widget cachedNetworkImageProfile(
-//     {required String url, required double height, double? width}) {
-//   if (url.isEmpty) {
-//     return Image.asset(
-//       AppAssets.profile,
-//       height: height,
-//       width: width,
-//       fit: BoxFit.cover,
-//     );
-//   } else {
-//     return CachedNetworkImage(
-//       imageUrl: url,
-//       fit: BoxFit.fill,
-//       height: height,
-//       width: width,
-//       placeholder: (context, url) => Shimmer.fromColors(
-//         baseColor: Colors.grey.shade300,
-//         highlightColor: Colors.grey.shade100,
-//         child: Container(
-//           height: height,
-//           decoration: const BoxDecoration(color: Colors.white),
-//         ),
-//       ),
-//       errorWidget: (context, url, error) {
-//         return Image.asset(
-//           AppAssets.profile,
-//           color: AppColors.greyColor,
-//         );
-//       },
-//     );
-//   }
-// }

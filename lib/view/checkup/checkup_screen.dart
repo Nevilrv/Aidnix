@@ -1,11 +1,13 @@
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
+import 'package:aidnix/utils/app_routes.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class CheckupScreen extends StatefulWidget {
   const CheckupScreen({super.key});
@@ -27,7 +29,10 @@ class _CheckupScreenState extends State<CheckupScreen> {
             customAppBar(),
             Padding(
               padding: EdgeInsets.only(top: 26.h),
-              child: customSearchBar(searchHint: false, context: context, searchController: searchController),
+              child: customSearchBar(
+                  searchHint: false,
+                  context: context,
+                  searchController: searchController),
             ),
             Expanded(
               child: SingleChildScrollView(
@@ -39,7 +44,11 @@ class _CheckupScreenState extends State<CheckupScreen> {
                         top: 30.h,
                         left: 20.w,
                         child: customText(
-                            textAlign: TextAlign.center, text: AppString.blood, fontSize: 24.sp, maxLines: 2, fontWeight: FontWeight.w600),
+                            textAlign: TextAlign.center,
+                            text: AppString.blood,
+                            fontSize: 24.sp,
+                            maxLines: 2,
+                            fontWeight: FontWeight.w600),
                       ),
                       details: Positioned(
                         top: 65.h,
@@ -51,7 +60,10 @@ class _CheckupScreenState extends State<CheckupScreen> {
                             maxLines: 2,
                             fontWeight: FontWeight.w400),
                       ),
-                      image: Positioned(right: 12.w, child: Image.asset(AppAssets.dummy, height: 174.h, width: 169.w)),
+                      image: Positioned(
+                          right: 12.w,
+                          child: Image.asset(AppAssets.dummy,
+                              height: 174.h, width: 169.w)),
                       circleColor: kPrimary.withOpacity(0.1),
                       child: const SizedBox(),
                     ),
@@ -71,7 +83,10 @@ class _CheckupScreenState extends State<CheckupScreen> {
                                 price: "₹3000",
                                 newPrice: "₹2500",
                                 report: "6 Hours",
-                                type: "Pick Up, Lab Visit"),
+                                type: "Pick Up, Lab Visit",
+                                onTap: () {
+                                  Get.toNamed(Routes.labDetailsScreen);
+                                }),
                           );
                         },
                       ),
@@ -98,7 +113,10 @@ class _CheckupScreenState extends State<CheckupScreen> {
                             maxLines: 2,
                             fontWeight: FontWeight.w400),
                       ),
-                      image: Positioned(right: 0, child: Image.asset(AppAssets.dummyDoctor, scale: 3.1)),
+                      image: Positioned(
+                          right: 0,
+                          child:
+                              Image.asset(AppAssets.dummyDoctor, scale: 3.1)),
                       circleColor: kPrimary.withOpacity(0.1),
                       child: Positioned(
                         top: 110.h,
@@ -119,12 +137,18 @@ class _CheckupScreenState extends State<CheckupScreen> {
                               ),
                               SizedBox(width: 5.w),
                               customText(text: AppString.chatWithUs, color: kLightGreen, fontSize: 12.sp, fontWeight: FontWeight.w500),
+                              customText(
+                                  text: AppString.chatWithUs,
+                                  color: kLightGreen,
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.w500),
                             ],
                           ),
                         ),
                       ),
                     ),
                     SizedBox(height: 20.h),
+                    SizedBox(height: 10.h),
                   ],
                 ),
               ),
