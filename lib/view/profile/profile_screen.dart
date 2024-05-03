@@ -228,11 +228,7 @@ class ProfileScreen extends StatelessWidget {
               color: Color(0xFF454545),
             ),
             Spacer(),
-            Icon(
-              Icons.arrow_forward_ios_rounded,
-              size: 20.h,
-              color: kDarkGrey1,
-            ),
+            Icon(Icons.arrow_forward_ios_rounded, size: 20.h, color: kDarkGrey1),
           ],
         ),
       ),
