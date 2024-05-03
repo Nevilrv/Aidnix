@@ -19,6 +19,7 @@ Widget customText({
   Color? decorationColor,
   TextOverflow? overflow,
   TextAlign? textAlign,
+  double? height,
 }) {
   return Text(
     text,
@@ -29,6 +30,7 @@ Widget customText({
       decoration: decoration,
       decorationColor: decorationColor,
       fontFamily: "Poppins",
+      height: height,
     ),
     maxLines: maxLines,
     overflow: overflow ?? TextOverflow.ellipsis,
@@ -38,8 +40,6 @@ Widget customText({
 
 Widget regularText({
   required String text,
-  double? fontSize,
-  FontWeight? fontWeight,
   Color? color,
   int? maxLines,
   TextDecoration? decoration,
@@ -51,7 +51,7 @@ Widget regularText({
     text,
     style: TextStyle(
       fontSize: 14.sp,
-      fontWeight: fontWeight ?? FontWeight.w400,
+      fontWeight: FontWeight.w400,
       color: color ?? kBlack,
       decoration: decoration,
       decorationColor: decorationColor,
@@ -424,7 +424,12 @@ Widget customAppBar() {
         ],
       ),
       const Spacer(),
-      SvgPicture.asset("assets/icons/icon_notification.svg"),
+      GestureDetector(
+        onTap: () {
+          Get.toNamed(Routes.notificationScreen);
+        },
+        child: SvgPicture.asset("assets/icons/icon_notification.svg"),
+      ),
       SizedBox(width: 12.w),
       Stack(
         clipBehavior: Clip.none,
@@ -495,10 +500,9 @@ Widget customCartContainer({
                           backgroundColor: kLightBgColor,
                           radius: 30.r,
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 5.w, vertical: 5.h),
+                            padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
                             child: Image.asset(
-                              "assets/icons/image_lab_profile.png",
+                              AppAssets.labProfile,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -507,7 +511,7 @@ Widget customCartContainer({
                           bottom: -3.h,
                           right: -3.w,
                           child: SvgPicture.asset(
-                            "assets/icons/icon_verify.svg",
+                            AppAssets.iconVerify,
                             height: 30.h,
                           ),
                         )
@@ -522,8 +526,7 @@ Widget customCartContainer({
                         customText(text: titleName, fontSize: 20.sp),
                         SizedBox(height: 10.h),
                         Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 8.w, vertical: 5.h),
+                          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
                           decoration: BoxDecoration(
                             color: kOrange,
                             borderRadius: BorderRadius.circular(15.r),
@@ -552,15 +555,13 @@ Widget customCartContainer({
                         SizedBox(width: 8.w),
                         regularText(text: "${rating}"),
                         SizedBox(width: 8.w),
-                        customText(
-                            text: "(${noOfRating} Rating)", fontSize: 10.sp),
+                        customText(text: "(${noOfRating} Rating)", fontSize: 10.sp),
                       ],
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SvgPicture.asset(
-                            "assets/icons/icon_microscope-fill.svg"),
+                        SvgPicture.asset(AppAssets.microscopeIcon),
                         SizedBox(width: 8.w),
                         regularText(text: "${noOfTest}+ Tests"),
                       ],
@@ -652,8 +653,7 @@ Widget customCartContainer({
 }
 
 /// Custom Bottom Sheet
-customBottomSheet(
-    {required BuildContext context, required Widget child}) async {
+customBottomSheet({required BuildContext context, required Widget child}) async {
   return await showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -715,19 +715,13 @@ Widget checkupCartContainer({
                 height: 100.h,
                 decoration: BoxDecoration(
                   color: kLightGreen,
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(12.r),
-                      topLeft: Radius.circular(12.r)),
+                  borderRadius: BorderRadius.only(topRight: Radius.circular(12.r), topLeft: Radius.circular(12.r)),
                 ),
                 child: Row(
                   children: [
                     Padding(
                       padding: EdgeInsets.only(left: 10.w, right: 25.w),
-                      child: customText(
-                          textAlign: TextAlign.start,
-                          text: comprehensive,
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w600),
+                      child: customText(textAlign: TextAlign.start, text: comprehensive, fontSize: 18.sp, fontWeight: FontWeight.w600),
                     ),
                     Column(
                       children: [
@@ -797,9 +791,7 @@ Widget checkupCartContainer({
               Container(
                 height: 36.h,
                 width: 33.w,
-                decoration: BoxDecoration(
-                    color: kLightGreen,
-                    borderRadius: BorderRadius.circular(7.r)),
+                decoration: BoxDecoration(color: kLightGreen, borderRadius: BorderRadius.circular(7.r)),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 3.w),
                   child: SvgPicture.asset(
@@ -812,16 +804,8 @@ Widget checkupCartContainer({
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    customText(
-                        text: AppString.report,
-                        color: kDarkGrey1,
-                        fontSize: 11.sp,
-                        fontWeight: FontWeight.w400),
-                    customText(
-                        text: report,
-                        color: kDarkGrey1,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600),
+                    customText(text: AppString.report, color: kDarkGrey1, fontSize: 11.sp, fontWeight: FontWeight.w400),
+                    customText(text: report, color: kDarkGrey1, fontSize: 16.sp, fontWeight: FontWeight.w600),
                   ],
                 ),
               ),
@@ -836,16 +820,8 @@ Widget checkupCartContainer({
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    customText(
-                        text: AppString.type,
-                        color: kDarkGrey1,
-                        fontSize: 11.sp,
-                        fontWeight: FontWeight.w400),
-                    customText(
-                        text: type,
-                        color: kDarkGrey1,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600),
+                    customText(text: AppString.type, color: kDarkGrey1, fontSize: 11.sp, fontWeight: FontWeight.w400),
+                    customText(text: type, color: kDarkGrey1, fontSize: 16.sp, fontWeight: FontWeight.w600),
                   ],
                 ),
               ),
@@ -853,8 +829,7 @@ Widget checkupCartContainer({
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.w)
-              .copyWith(top: 20.h, bottom: 15.h),
+          padding: EdgeInsets.symmetric(horizontal: 15.w).copyWith(top: 20.h, bottom: 15.h),
           child: Row(
             children: [
               Expanded(
@@ -865,11 +840,7 @@ Widget checkupCartContainer({
                   buttonColor: kWhite,
                   border: Border.all(color: kLightGreen, width: 1),
                   buttonText: AppString.viewDetails,
-                  textStyle: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: kBlack26,
-                      fontSize: 14,
-                      fontFamily: "Poppins"),
+                  textStyle: TextStyle(fontWeight: FontWeight.w500, color: kBlack26, fontSize: 14, fontFamily: "Poppins"),
                   onTap: onTap,
                 ),
               ),
@@ -913,12 +884,8 @@ Widget checkupAddCart({
               clipBehavior: Clip.antiAlias,
               decoration: BoxDecoration(
                   color: color,
-                  borderRadius: const BorderRadius.only(
-                      bottomRight: Radius.circular(20),
-                      bottomLeft: Radius.circular(20)),
-                  boxShadow: [
-                    BoxShadow(color: kLightGrey.withOpacity(0.7), blurRadius: 2)
-                  ]),
+                  borderRadius: const BorderRadius.only(bottomRight: Radius.circular(20), bottomLeft: Radius.circular(20)),
+                  boxShadow: [BoxShadow(color: kLightGrey.withOpacity(0.7), blurRadius: 2)]),
             ),
             Positioned(
               right: -20.w,
@@ -986,9 +953,7 @@ Widget customLabDetailsCart({
                     const Spacer(),
                     SvgPicture.asset(AppAssets.microscope, color: kGreen),
                     SizedBox(width: 8.w),
-                    SizedBox(
-                        width: 140.w,
-                        child: regularText(text: "$noOfTest+ Tests")),
+                    SizedBox(width: 140.w, child: regularText(text: "$noOfTest+ Tests")),
                   ],
                 ),
                 SizedBox(height: 15.h),
@@ -1028,6 +993,177 @@ Widget customLabDetailsCart({
   );
 }
 
+/// Custom Booking
+
+Widget customBookingContainer({
+  required String titleName,
+  required String category,
+  required String status,
+  required String date,
+}) {
+  return Container(
+    margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
+    decoration: BoxDecoration(
+      color: kWhite,
+      borderRadius: BorderRadius.circular(12.r),
+      boxShadow: [
+        BoxShadow(
+          color: kBlack.withOpacity(0.2),
+          blurRadius: 1.5,
+        ),
+      ],
+    ),
+    child: Column(
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                CircleAvatar(
+                  backgroundColor: kLightBgColor,
+                  radius: 30.r,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                    child: Image.asset(
+                      AppAssets.labProfile,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: -3.h,
+                  right: -3.w,
+                  child: SvgPicture.asset(AppAssets.iconVerify, height: 30.h),
+                )
+              ],
+            ),
+            SizedBox(width: 10.w),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 10.h),
+                customText(text: titleName, fontSize: 20.sp),
+                SizedBox(height: 3.h),
+                customText(text: category, fontSize: 14.sp, color: kDarkGrey1),
+                SizedBox(height: 5.h),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
+                  decoration: BoxDecoration(
+                    color: kLightBlue,
+                    borderRadius: BorderRadius.circular(15.r),
+                  ),
+                  child: Center(
+                    child: customText(
+                      text: status,
+                      fontSize: 10.sp,
+                      fontWeight: FontWeight.w600,
+                      color: kBlue,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10.h),
+              ],
+            )
+          ],
+        ),
+        SizedBox(height: 10.h),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Image.asset(AppAssets.clock, scale: 3),
+                  SizedBox(width: 10.w),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      customText(text: AppString.appointmentDateText, fontSize: 10.sp, color: kDarkGrey1),
+                      customText(text: date),
+                    ],
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    AppAssets.microscopeIcon,
+                    color: kGreen,
+                  ),
+                  SizedBox(width: 5.w),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      customText(text: AppString.typeText, fontSize: 10.sp, color: kDarkGrey1),
+                      customText(text: AppString.pickUpText, fontSize: 14.sp)
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        )
+      ],
+    ),
+  );
+}
+
+customBookingSummery({required String title, required int price}) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 3.h),
+    child: Row(
+      children: [
+        titleSemiBoldText(
+          text: title,
+        ),
+        const Spacer(),
+        headingSemiBoldText(text: "₹$price"),
+      ],
+    ),
+  );
+}
+
+customDropDown({
+  final ValueChanged? onChanged,
+  final double? height,
+  final Widget? hintText,
+  final Color? borderColor,
+  final Color? iconColor,
+  final List<DropdownMenuItem<dynamic>>? items,
+  void Function()? onTap,
+  Color? color,
+  double? iconSize,
+  bool? isExpand,
+  double? horizontal,
+  TextStyle? style,
+}) {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+    decoration: BoxDecoration(
+      color: color ?? Colors.transparent,
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(color: borderColor ?? kLightGrey),
+    ),
+    child: DropdownButton(
+      hint: hintText,
+      onTap: onTap,
+      // style: style ?? TextStyle(fontWeight: FontWeight.w600, color: kBlack, fontSize: 12.sp, fontFamily: "Poppins"),
+      icon: Image.asset(AppAssets.arrowDown, scale: 4),
+
+      isDense: true,
+      isExpanded: isExpand ?? true,
+      underline: const SizedBox(),
+      items: items,
+      onChanged: onChanged,
+    ),
+  );
+}
+
 ///-- Common Bottom Card Widget
 
 Widget commonBottomCard({
@@ -1039,7 +1175,6 @@ Widget commonBottomCard({
   bool? height = false,
 }) {
   return Container(
-    height: 270.h,
     decoration: BoxDecoration(
       color: kWhite,
       boxShadow: [BoxShadow(color: kLightGrey, blurRadius: 3)],
@@ -1051,6 +1186,7 @@ Widget commonBottomCard({
     child: Padding(
       padding: EdgeInsets.symmetric(horizontal: 30.w),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1108,18 +1244,14 @@ Widget commonBottomCard({
                     fontSize: 21.sp,
                   ),
                   const Spacer(),
-                  customText(
-                      text: price,
-                      fontSize: 21.sp,
-                      color: kLightGreen,
-                      fontWeight: FontWeight.w600),
+                  customText(text: price, fontSize: 21.sp, color: kLightGreen, fontWeight: FontWeight.w600),
                 ],
               ),
             ],
           ),
-          const Spacer(),
+          SizedBox(height: 15.h),
           button,
-          SizedBox(height: 5.h)
+          SizedBox(height: 15.h)
         ],
       ),
     ),
@@ -1138,7 +1270,6 @@ Widget checkoutDetailsCard({
   bool? height = false,
 }) {
   return Container(
-    height: 290.h,
     decoration: BoxDecoration(
       color: kWhite,
       boxShadow: [BoxShadow(color: kLightGrey, blurRadius: 3)],
@@ -1150,77 +1281,64 @@ Widget checkoutDetailsCard({
     child: Padding(
       padding: EdgeInsets.symmetric(horizontal: 30.w),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Padding(
+            padding: EdgeInsets.only(top: 15.h, bottom: 15.h),
+            child: customText(text: check, fontSize: 18.sp, fontWeight: FontWeight.w600),
+          ),
+          Row(
             children: [
-              Padding(
-                padding: EdgeInsets.only(top: 15.h, bottom: 15.h),
-                child: customText(
-                    text: check, fontSize: 18.sp, fontWeight: FontWeight.w600),
+              customText(
+                text: "Total Price",
+                fontSize: 16.sp,
               ),
-              Row(
-                children: [
-                  customText(
-                    text: "Total Price",
-                    fontSize: 16.sp,
-                  ),
-                  const Spacer(),
-                  customText(
-                      text: price,
-                      fontSize: 18.sp,
-                      color: kLightGreen,
-                      fontWeight: FontWeight.w600),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.h),
-                child: Row(
-                  children: [
-                    customText(
-                      text: payment,
-                      fontSize: 16.sp,
-                    ),
-                    const Spacer(),
-                    customText(
-                        text: paymentPrice,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w400),
-                  ],
-                ),
-              ),
-              Row(
-                children: [
-                  customText(
-                    text: "Test Type",
-                    fontSize: 16.sp,
-                  ),
-                  const Spacer(),
-                  customText(
-                      text: type, fontSize: 16.sp, fontWeight: FontWeight.w400),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.h),
-                child: Row(
-                  children: [
-                    customText(
-                      text: "Discount applied",
-                      fontSize: 16.sp,
-                    ),
-                    const Spacer(),
-                    customText(
-                      text: discount,
-                      fontSize: 18.sp,
-                    ),
-                  ],
-                ),
-              ),
+              const Spacer(),
+              customText(text: price, fontSize: 18.sp, color: kLightGreen, fontWeight: FontWeight.w600),
             ],
           ),
-          const Spacer(),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 15.h),
+            child: Row(
+              children: [
+                customText(
+                  text: payment,
+                  fontSize: 16.sp,
+                ),
+                const Spacer(),
+                customText(text: paymentPrice, fontSize: 16.sp, fontWeight: FontWeight.w400),
+              ],
+            ),
+          ),
+          Row(
+            children: [
+              customText(
+                text: "Test Type",
+                fontSize: 16.sp,
+              ),
+              const Spacer(),
+              customText(text: type, fontSize: 16.sp, fontWeight: FontWeight.w400),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 15.h),
+            child: Row(
+              children: [
+                customText(
+                  text: "Discount applied",
+                  fontSize: 16.sp,
+                ),
+                const Spacer(),
+                customText(
+                  text: discount,
+                  fontSize: 18.sp,
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 15.h),
           button,
-          SizedBox(height: 5.h)
+          SizedBox(height: 15.h)
         ],
       ),
     ),

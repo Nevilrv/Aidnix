@@ -5,12 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'Utils/app_routes.dart';
+import 'utils/app_routes.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await preferences.init();
   runApp(const MyApp());
 }
@@ -28,25 +27,26 @@ class MyApp extends StatelessWidget {
         ScreenSize.init(context);
 
         return GetMaterialApp(
-            title: 'Aidnix',
-            themeMode: ThemeMode.light,
-            theme: ThemeData(
-              colorScheme: ColorScheme.light(background: kWhite),
-              fontFamily: "Poppins",
-              textTheme: TextTheme(
-                titleSmall: TextStyle(color: kBlack, fontSize: 18.sp),
-              ),
+          title: 'Aidnix',
+          themeMode: ThemeMode.light,
+          theme: ThemeData(
+            colorScheme: ColorScheme.light(background: kWhite),
+            fontFamily: "Poppins",
+            textTheme: TextTheme(
+              titleSmall: TextStyle(color: kBlack, fontSize: 18.sp),
             ),
-            debugShowCheckedModeBanner: false,
-            darkTheme: ThemeData(
-              colorScheme: ColorScheme.dark(background: kBlack),
-              fontFamily: "Poppins",
-              textTheme: TextTheme(
-                titleSmall: TextStyle(color: kWhite, fontSize: 18.sp),
-              ),
+          ),
+          debugShowCheckedModeBanner: false,
+          darkTheme: ThemeData(
+            colorScheme: ColorScheme.dark(background: kBlack),
+            fontFamily: "Poppins",
+            textTheme: TextTheme(
+              titleSmall: TextStyle(color: kWhite, fontSize: 18.sp),
             ),
-            initialRoute: Routes.dashboardScreen,
-            getPages: Routes.routes);
+          ),
+          initialRoute: Routes.splashScreen,
+          getPages: Routes.routes,
+        );
       },
     );
   }

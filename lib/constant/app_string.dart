@@ -7,13 +7,11 @@ class AppString {
   static const agreeTo = "I agree to the ";
   static const termsConditions = "Terms & Conditions, Privacy Policy.";
   static const enterYourPhone = "Enter Your Phone Number";
-  static const enterYourDetails =
-      "We’ll send you a Verification code to know\nyou’re real";
+  static const enterYourDetails = "We’ll send you a Verification code to know\nyou’re real";
   static const sendOtp = "Send OTP";
   static const pleaseEnterValid = "Please enter valid mobile number";
   static const enterYourOtp = "Enter Your OTP";
-  static const otpDetails =
-      "We are automatically detecting a SMS send\nto your mobile Number ";
+  static const otpDetails = "We are automatically detecting a SMS send\nto your mobile Number ";
   static const verify = "Verify";
   static const tryAgain = "Try Again";
   static const pleaseEnterOtp = "Please enter valid OTP";
@@ -31,6 +29,24 @@ class AppString {
   static const recommended = "Recommended";
   static const about = "About";
   static const test = "Test";
+
+  /// Booking
+
+  static const nearbyStoresText = "";
+  static const bookingText = "Booking";
+  static const allText = "All";
+  static const upcomingText = "Upcoming";
+  static const completedText = "Completed";
+  static const cancelledText = "Cancelled";
+  static const appointmentDateText = "Appointment Date";
+  static const typeText = "Type";
+  static const pickUpText = "Pick Up";
+  static const rescheduleText = "Reschedule";
+  static const cancelTestText = "Cancel test";
+  static const patientText = "Patient";
+  static const bookedTestText = "Booked Test";
+  static const trackOrderTest = "Track Status ";
+  static const bookingSummaryTest = "Booking Summary";
   static const cart = "Cart";
   static const proceed = "Proceed to Checkout";
   static const oK = "OK";

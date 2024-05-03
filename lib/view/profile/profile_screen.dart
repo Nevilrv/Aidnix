@@ -1,7 +1,10 @@
 import 'package:aidnix/Theme/app_theme.dart';
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/utils/app_routes.dart';
+import 'package:aidnix/widgets/app_button.dart';
+import 'package:aidnix/widgets/bad_request_dialog.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
+import 'package:aidnix/widgets/logout_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -147,6 +150,9 @@ class ProfileScreen extends StatelessWidget {
           profileRow(
             tabName: "Addresses",
             tabIcon: AppAssets.addressLock,
+            onTap: () {
+              Get.toNamed(Routes.addressListScreen);
+            },
           ),
           SizedBox(height: 15.h),
           Divider(
@@ -157,6 +163,9 @@ class ProfileScreen extends StatelessWidget {
           profileRow(
             tabName: "Family member ",
             tabIcon: AppAssets.familyMember,
+            onTap: () {
+              Get.toNamed(Routes.familyMemberScreen);
+            },
           ),
           SizedBox(height: 15.h),
           Divider(
@@ -187,6 +196,12 @@ class ProfileScreen extends StatelessWidget {
           profileRow(
             tabName: "Chat with us ",
             tabIcon: AppAssets.chatWithUs,
+            onTap: () {
+              // customShowDialog(
+              //   context: context,
+              //   child: BadRequestDialog(),
+              // );
+            },
           ),
           SizedBox(height: 15.h),
           Divider(
@@ -197,6 +212,12 @@ class ProfileScreen extends StatelessWidget {
           profileRow(
             tabName: "Log out",
             tabIcon: AppAssets.logout,
+            onTap: () {
+              customShowDialog(
+                context: context,
+                child: LogoutDialog(),
+              );
+            },
           ),
           SizedBox(height: 15.h),
           Divider(

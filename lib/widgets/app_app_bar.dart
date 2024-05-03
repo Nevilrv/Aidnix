@@ -40,7 +40,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: appBarColor ?? kWhite,
       elevation: elevation ?? 0,
       titleSpacing: 0,
-      leadingWidth: leadingWidth ?? 50.w,
+      leadingWidth: leadingWidth ?? 60.w,
       centerTitle: true,
       leading: GestureDetector(
         onTap: () {

@@ -20,4 +20,46 @@ class HealthProfileController extends GetxController {
     'Item 4',
     'Item 5',
   ];
+
+  List activityList = [
+    'Rarely',
+    'Occasional',
+    'Daily',
+  ];
+
+  List smokingList = [
+    'Never',
+    'Yes',
+    'Past Smoker',
+  ];
+
+  List diseasesList = [
+    'Alzheimer',
+    'Asthma',
+    'Cancer',
+    'COPD',
+    'Cystic Fibrosis',
+    'Diabetes',
+    'Epilepsy',
+    'Gastric issues',
+    'Heart Disease',
+    'HIV/AIDS',
+    'kidney Disease',
+    'Mood Disorders',
+    'Osteoporosis',
+    'Parkinson',
+    'Thyroid',
+  ];
+
+  List cancelReasonList = [
+    'Missed the fasting requirements',
+    'My preferred collection slot is not available',
+    'Need to change sample collation address',
+    'Order placed by mistake',
+    'Need to add/remove tests',
+    'Payment issue',
+    'Founder better price elsewhere',
+    'Need to apply coupon offer',
+    'Reason not listed here',
+  ];
 }

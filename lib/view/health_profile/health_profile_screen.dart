@@ -4,7 +4,15 @@ import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/view/health_profile/health_profile_controller.dart';
 import 'package:aidnix/widgets/app_app_bar.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
+import 'package:aidnix/widgets/select_activity_dialog.dart';
+import 'package:aidnix/widgets/select_cancel_reason_dialog.dart';
+import 'package:aidnix/widgets/select_diseases_dialog.dart';
+import 'package:aidnix/widgets/select_height_dialog.dart';
+import 'package:aidnix/widgets/select_smoking_dialog.dart';
+import 'package:aidnix/widgets/select_weight_dialog.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -14,9 +22,7 @@ class HealthProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppAppBar(
-        titleText: "Health profile",
-      ),
+      appBar: AppAppBar(titleText: "Health profile"),
       body: GetBuilder<HealthProfileController>(
           init: HealthProfileController(),
           builder: (controller) {
@@ -39,52 +45,99 @@ class HealthProfileScreen extends StatelessWidget {
                         ),
                         Expanded(
                           flex: 3,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                            decoration: BoxDecoration(
-                              color: Color(0xFFEDEDED),
-                              borderRadius: BorderRadius.circular(8.r),
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: DropdownButton(
-                                    underline: SizedBox(),
-                                    autofocus: false,
-                                    isDense: true,
-                                    isExpanded: true,
-                                    padding: EdgeInsets.zero,
-                                    hint: customText(
-                                      text: controller.height.isNotEmpty ? controller.height : "Select height",
-                                      color: Color(0xFF2B2B2B),
-                                    ),
-                                    borderRadius: BorderRadius.circular(12.r),
-                                    icon: SizedBox(),
-                                    menuMaxHeight: 250.h,
-                                    items: controller.items.map((String items) {
-                                      return DropdownMenuItem(
-                                        value: items,
-                                        child: titleText(text: items),
-                                      );
-                                    }).toList(),
-                                    onChanged: (String? newValue) {
-                                      controller.height = newValue ?? "";
-                                      controller.update();
-                                    },
+                          child: GestureDetector(
+                            onTap: () {
+                              customShowDialog(
+                                context: context,
+                                child: SelectHeightDialog(),
+                              );
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                              decoration: BoxDecoration(
+                                color: kDropDownBgColor,
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  customText(
+                                    text: controller.height.isNotEmpty ? controller.height : "Select height",
+                                    color: Color(0xFF2B2B2B),
                                   ),
-                                ),
-                                Icon(
-                                  Icons.keyboard_arrow_down_rounded,
-                                  size: 30.h,
-                                  color: kBlack,
-                                )
-                              ],
+                                  Icon(
+                                    Icons.keyboard_arrow_down_rounded,
+                                    size: 30.h,
+                                    color: kBlack,
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ],
                     ),
                   ),
+
+                  /// Old Height DropDown
+
+                  // Padding(
+                  //   padding: EdgeInsets.symmetric(horizontal: 15.w),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //     children: [
+                  //       Expanded(
+                  //         flex: 2,
+                  //         child: titleText(text: "Height"),
+                  //       ),
+                  //       Expanded(
+                  //         flex: 3,
+                  //         child: Container(
+                  //           padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                  //           decoration: BoxDecoration(
+                  //             color: kDropDownBgColor,
+                  //             borderRadius: BorderRadius.circular(8.r),
+                  //           ),
+                  //           child: Row(
+                  //             children: [
+                  //               Expanded(
+                  //                 child: DropdownButton(
+                  //                   underline: SizedBox(),
+                  //                   autofocus: false,
+                  //                   isDense: true,
+                  //                   isExpanded: true,
+                  //                   padding: EdgeInsets.zero,
+                  //                   hint: customText(
+                  //                     text: controller.height.isNotEmpty ? controller.height : "Select height",
+                  //                     color: Color(0xFF2B2B2B),
+                  //                   ),
+                  //                   borderRadius: BorderRadius.circular(12.r),
+                  //                   icon: SizedBox(),
+                  //                   menuMaxHeight: 250.h,
+                  //                   items: controller.items.map((String items) {
+                  //                     return DropdownMenuItem(
+                  //                       value: items,
+                  //                       child: titleText(text: items),
+                  //                     );
+                  //                   }).toList(),
+                  //                   onChanged: (String? newValue) {
+                  //                     controller.height = newValue ?? "";
+                  //                     controller.update();
+                  //                   },
+                  //                 ),
+                  //               ),
+                  //               Icon(
+                  //                 Icons.keyboard_arrow_down_rounded,
+                  //                 size: 30.h,
+                  //                 color: kBlack,
+                  //               )
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
 
                   /// Wieght
 
@@ -105,46 +158,33 @@ class HealthProfileScreen extends StatelessWidget {
                         ),
                         Expanded(
                           flex: 3,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                            decoration: BoxDecoration(
-                              color: Color(0xFFEDEDED),
-                              borderRadius: BorderRadius.circular(8.r),
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: DropdownButton(
-                                    underline: SizedBox(),
-                                    autofocus: false,
-                                    isDense: true,
-                                    isExpanded: true,
-                                    padding: EdgeInsets.zero,
-                                    hint: customText(
-                                      text: controller.weight.isNotEmpty ? controller.weight : "Select weight",
-                                      color: Color(0xFF2B2B2B),
-                                    ),
-                                    borderRadius: BorderRadius.circular(12.r),
-                                    icon: SizedBox(),
-                                    menuMaxHeight: 250.h,
-                                    items: controller.items.map((String items) {
-                                      return DropdownMenuItem(
-                                        value: items,
-                                        child: titleText(text: items),
-                                      );
-                                    }).toList(),
-                                    onChanged: (String? newValue) {
-                                      controller.weight = newValue ?? "";
-                                      controller.update();
-                                    },
+                          child: GestureDetector(
+                            onTap: () {
+                              customShowDialog(
+                                context: context,
+                                child: SelectWeightDialog(),
+                              );
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                              decoration: BoxDecoration(
+                                color: kDropDownBgColor,
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  customText(
+                                    text: controller.weight.isNotEmpty ? controller.weight : "Select weight",
+                                    color: Color(0xFF2B2B2B),
                                   ),
-                                ),
-                                Icon(
-                                  Icons.keyboard_arrow_down_rounded,
-                                  size: 30.h,
-                                  color: kBlack,
-                                )
-                              ],
+                                  Icon(
+                                    Icons.keyboard_arrow_down_rounded,
+                                    size: 30.h,
+                                    color: kBlack,
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -174,7 +214,7 @@ class HealthProfileScreen extends StatelessWidget {
                           child: Container(
                             padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                             decoration: BoxDecoration(
-                              color: Color(0xFFEDEDED),
+                              color: kDropDownBgColor,
                               borderRadius: BorderRadius.circular(8.r),
                             ),
                             child: customText(
@@ -197,47 +237,34 @@ class HealthProfileScreen extends StatelessWidget {
                     child: titleText(text: "Activity level(exercise)"),
                   ),
                   SizedBox(height: 10.h),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 15.w),
-                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                    decoration: BoxDecoration(
-                      color: Color(0xFFEDEDED),
-                      borderRadius: BorderRadius.circular(8.r),
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: DropdownButton(
-                            underline: SizedBox(),
-                            autofocus: false,
-                            isDense: true,
-                            isExpanded: true,
-                            padding: EdgeInsets.zero,
-                            hint: customText(
-                              text: controller.activityLevel.isNotEmpty ? controller.activityLevel : "Select Activity level",
-                              color: Color(0xFF2B2B2B),
-                            ),
-                            borderRadius: BorderRadius.circular(12.r),
-                            icon: SizedBox(),
-                            menuMaxHeight: 250.h,
-                            items: controller.items.map((String items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child: titleText(text: items),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              controller.activityLevel = newValue ?? "";
-                              controller.update();
-                            },
+                  GestureDetector(
+                    onTap: () {
+                      customShowDialog(
+                        context: context,
+                        child: SelectActivityDialog(),
+                      );
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 15.w),
+                      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                      decoration: BoxDecoration(
+                        color: kDropDownBgColor,
+                        borderRadius: BorderRadius.circular(8.r),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          customText(
+                            text: controller.activityLevel.isNotEmpty ? controller.activityLevel : "Select Activity level",
+                            color: Color(0xFF2B2B2B),
                           ),
-                        ),
-                        Icon(
-                          Icons.keyboard_arrow_down_rounded,
-                          size: 30.h,
-                          color: kBlack,
-                        )
-                      ],
+                          Icon(
+                            Icons.keyboard_arrow_down_rounded,
+                            size: 30.h,
+                            color: kBlack,
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(height: 20.h),
@@ -246,47 +273,34 @@ class HealthProfileScreen extends StatelessWidget {
                     child: titleText(text: "Smoking"),
                   ),
                   SizedBox(height: 10.h),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 15.w),
-                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                    decoration: BoxDecoration(
-                      color: Color(0xFFEDEDED),
-                      borderRadius: BorderRadius.circular(8.r),
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: DropdownButton(
-                            underline: SizedBox(),
-                            autofocus: false,
-                            isDense: true,
-                            isExpanded: true,
-                            padding: EdgeInsets.zero,
-                            hint: customText(
-                              text: controller.smoking.isNotEmpty ? controller.smoking : "Select smoking",
-                              color: Color(0xFF2B2B2B),
-                            ),
-                            borderRadius: BorderRadius.circular(12.r),
-                            icon: SizedBox(),
-                            menuMaxHeight: 250.h,
-                            items: controller.items.map((String items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child: titleText(text: items),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              controller.smoking = newValue ?? "";
-                              controller.update();
-                            },
+                  GestureDetector(
+                    onTap: () {
+                      customShowDialog(
+                        context: context,
+                        child: SelectSmokingDialog(),
+                      );
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 15.w),
+                      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                      decoration: BoxDecoration(
+                        color: kDropDownBgColor,
+                        borderRadius: BorderRadius.circular(8.r),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          customText(
+                            text: controller.smoking.isNotEmpty ? controller.smoking : "Select smoking",
+                            color: Color(0xFF2B2B2B),
                           ),
-                        ),
-                        Icon(
-                          Icons.keyboard_arrow_down_rounded,
-                          size: 30.h,
-                          color: kBlack,
-                        )
-                      ],
+                          Icon(
+                            Icons.keyboard_arrow_down_rounded,
+                            size: 30.h,
+                            color: kBlack,
+                          )
+                        ],
+                      ),
                     ),
                   ),
 
@@ -296,47 +310,34 @@ class HealthProfileScreen extends StatelessWidget {
                     child: titleText(text: "Chronic diseases"),
                   ),
                   SizedBox(height: 10.h),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 15.w),
-                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                    decoration: BoxDecoration(
-                      color: Color(0xFFEDEDED),
-                      borderRadius: BorderRadius.circular(8.r),
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: DropdownButton(
-                            underline: SizedBox(),
-                            autofocus: false,
-                            isDense: true,
-                            isExpanded: true,
-                            padding: EdgeInsets.zero,
-                            hint: customText(
-                              text: controller.diseases.isNotEmpty ? controller.diseases : "Choose diseases",
-                              color: Color(0xFF2B2B2B),
-                            ),
-                            borderRadius: BorderRadius.circular(12.r),
-                            icon: SizedBox(),
-                            menuMaxHeight: 250.h,
-                            items: controller.items.map((String items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child: titleText(text: items),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              controller.diseases = newValue ?? "";
-                              controller.update();
-                            },
+                  GestureDetector(
+                    onTap: () {
+                      customShowDialog(
+                        context: context,
+                        child: SelectDiseasesDialog(),
+                      );
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 15.w),
+                      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                      decoration: BoxDecoration(
+                        color: kDropDownBgColor,
+                        borderRadius: BorderRadius.circular(8.r),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          customText(
+                            text: controller.diseases.isNotEmpty ? controller.diseases : "Choose diseases",
+                            color: Color(0xFF2B2B2B),
                           ),
-                        ),
-                        Icon(
-                          Icons.keyboard_arrow_down_rounded,
-                          size: 30.h,
-                          color: kBlack,
-                        )
-                      ],
+                          Icon(
+                            Icons.keyboard_arrow_down_rounded,
+                            size: 30.h,
+                            color: kBlack,
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(height: 20.h),
@@ -350,11 +351,11 @@ class HealthProfileScreen extends StatelessWidget {
                     child: CustomTextField(
                       controller: controller.noteController,
                       hintText: "Write here...",
-                      borderColor: Color(0xFFEDEDED),
+                      borderColor: kDropDownBgColor,
                       maxLines: 5,
                       borderSize: 0,
                       filled: true,
-                      fillColor: Color(0xFFEDEDED),
+                      fillColor: kDropDownBgColor,
                       textColor: Color(0xFF2B2B2B),
                       hintStyle: TextStyle(
                         color: Color(0xFF2B2B2B),
@@ -374,11 +375,11 @@ class HealthProfileScreen extends StatelessWidget {
                     child: CustomTextField(
                       controller: controller.medicineAllergiesController,
                       hintText: "Write here...",
-                      borderColor: Color(0xFFEDEDED),
+                      borderColor: kDropDownBgColor,
                       maxLines: 5,
                       borderSize: 0,
                       filled: true,
-                      fillColor: Color(0xFFEDEDED),
+                      fillColor: kDropDownBgColor,
                       textColor: Color(0xFF2B2B2B),
                       hintStyle: TextStyle(
                         color: Color(0xFF2B2B2B),
@@ -398,11 +399,11 @@ class HealthProfileScreen extends StatelessWidget {
                     child: CustomTextField(
                       controller: controller.otherAllergiesController,
                       hintText: "Write here...",
-                      borderColor: Color(0xFFEDEDED),
+                      borderColor: kDropDownBgColor,
                       maxLines: 5,
                       borderSize: 0,
                       filled: true,
-                      fillColor: Color(0xFFEDEDED),
+                      fillColor: kDropDownBgColor,
                       textColor: Color(0xFF2B2B2B),
                       hintStyle: TextStyle(
                         color: Color(0xFF2B2B2B),

@@ -18,6 +18,12 @@ Color kRed = const Color(0xffF14D4D);
 Color kOrange = const Color(0xffFF9417);
 Color kDarkWhite = const Color(0xffECECEC);
 Color kBlack26 = const Color(0xff585858);
+Color kDropDownBgColor = const Color(0xFFEDEDED);
+
+Color kLightBlue = const Color(0xffD9ECF5);
+Color kBlue = const Color(0xff3596CD);
+Color kPurple = const Color(0xff7669AF);
+Color kLightGreen1 = const Color(0xffEAF9F4);
 Color kBlack54 = const Color(0xff4D4D4D);
 Color kWhite12 = const Color(0xffFAFAFA);
 

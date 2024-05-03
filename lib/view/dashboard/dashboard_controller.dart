@@ -28,9 +28,7 @@ class DashboardController extends GetxController {
 
   List<Widget> screenList = [
     HomeScreen(),
-    Container(
-      color: Colors.red,
-    ),
+    Container(),
     CheckupScreen(),
     ProfileScreen(),
   ];
