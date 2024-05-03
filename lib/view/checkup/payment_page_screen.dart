@@ -1,6 +1,7 @@
 import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/utils/app_routes.dart';
+import 'package:aidnix/view/checkup/checkout_contrroler.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,8 @@ class PaymentPageScreen extends StatefulWidget {
 }
 
 class _PaymentPageScreenState extends State<PaymentPageScreen> {
-  int selected = 0;
+  CheckupController checkupController = Get.put(CheckupController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +30,7 @@ class _PaymentPageScreenState extends State<PaymentPageScreen> {
         leading: IconButton(
           onPressed: () {
             Get.back();
+            Get.back();
           },
           icon: Icon(
             Icons.arrow_back_ios,
@@ -37,82 +40,87 @@ class _PaymentPageScreenState extends State<PaymentPageScreen> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 18.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 10.h, bottom: 25.h),
-                child: customText(
-                  text: AppString.selectMethod,
-                  fontSize: 17.sp,
-                ),
-              ),
-              Container(
-                height: 70.h,
-                decoration: BoxDecoration(
-                  color: kWhite,
-                  borderRadius: BorderRadius.circular(15.r),
-                  boxShadow: [BoxShadow(color: kLightGrey, blurRadius: 3)],
-                ),
-                child: Row(
+            padding: EdgeInsets.symmetric(horizontal: 18.w),
+            child: GetBuilder<CheckupController>(
+              builder: (controller) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(left: 20.w, right: 14.w),
-                      child: SizedBox(
-                        width: 18.w,
-                        child: Radio(
-                            activeColor: kLightGreen,
-                            value: 1,
-                            groupValue: selected,
-                            onChanged: (int? value) {
-                              selected = value!;
-                              setState(() {});
-                            }),
+                      padding: EdgeInsets.only(top: 10.h, bottom: 25.h),
+                      child: customText(
+                        text: AppString.selectMethod,
+                        fontSize: 17.sp,
                       ),
                     ),
-                    customText(
-                        text: AppString.cashDelivery,
-                        fontSize: 17.sp,
-                        fontWeight: FontWeight.w400),
-                  ],
-                ),
-              ),
-              SizedBox(height: 20.h),
-              Container(
-                height: 70.h,
-                decoration: BoxDecoration(
-                  color: kWhite,
-                  borderRadius: BorderRadius.circular(15.r),
-                  boxShadow: [BoxShadow(color: kLightGrey, blurRadius: 3)],
-                ),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 20.w, right: 14.w),
-                      child: SizedBox(
-                        width: 18.w,
-                        child: Radio(
-                            activeColor: kLightGreen,
-                            value: 2,
-                            groupValue: selected,
-                            onChanged: (int? value) {
-                              selected = value!;
-                              setState(() {});
-                            }),
+                    Container(
+                      height: 70.h,
+                      decoration: BoxDecoration(
+                        color: kWhite,
+                        borderRadius: BorderRadius.circular(15.r),
+                        boxShadow: [
+                          BoxShadow(color: kLightGrey, blurRadius: 3)
+                        ],
+                      ),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 20.w, right: 14.w),
+                            child: SizedBox(
+                              width: 18.w,
+                              child: Radio(
+                                  activeColor: kLightGreen,
+                                  value: 1,
+                                  groupValue: controller.selectPayment,
+                                  onChanged: (int? value) {
+                                    controller.paymentMethodValue(value);
+                                  }),
+                            ),
+                          ),
+                          customText(
+                              text: AppString.cashDelivery,
+                              fontSize: 17.sp,
+                              fontWeight: FontWeight.w400),
+                        ],
                       ),
                     ),
-                    //  SizedBox(width: 10.w),
-                    customText(
-                        text: AppString.upi,
-                        fontSize: 17.sp,
-                        fontWeight: FontWeight.w400),
+                    SizedBox(height: 20.h),
+                    Container(
+                      height: 70.h,
+                      decoration: BoxDecoration(
+                        color: kWhite,
+                        borderRadius: BorderRadius.circular(15.r),
+                        boxShadow: [
+                          BoxShadow(color: kLightGrey, blurRadius: 3)
+                        ],
+                      ),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 20.w, right: 14.w),
+                            child: SizedBox(
+                              width: 18.w,
+                              child: Radio(
+                                  activeColor: kLightGreen,
+                                  value: 2,
+                                  groupValue: controller.selectPayment,
+                                  onChanged: (int? value) {
+                                    controller.paymentMethodValue(value);
+                                  }),
+                            ),
+                          ),
+                          //  SizedBox(width: 10.w),
+                          customText(
+                              text: AppString.upi,
+                              fontSize: 17.sp,
+                              fontWeight: FontWeight.w400),
+                        ],
+                      ),
+                    ),
                   ],
-                ),
-              ),
-            ],
-          ),
-        ),
+                );
+              },
+            )),
       ),
       bottomNavigationBar: commonBottomCard(
         subtotal: '₹1496',

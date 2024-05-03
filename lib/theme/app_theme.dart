@@ -18,6 +18,8 @@ Color kRed = const Color(0xffF14D4D);
 Color kOrange = const Color(0xffFF9417);
 Color kDarkWhite = const Color(0xffECECEC);
 Color kBlack26 = const Color(0xff585858);
+Color kBlack54 = const Color(0xff4D4D4D);
+Color kWhite12 = const Color(0xffFAFAFA);
 
 ///
 

@@ -238,6 +238,7 @@ Widget headingSmallText({
   );
 }
 
+///HeadingText
 Widget headingText({
   required String text,
   Color? color,
@@ -263,6 +264,7 @@ Widget headingText({
   );
 }
 
+///Heading SemiBold Text
 Widget headingSemiBoldText({
   required String text,
   Color? color,
@@ -288,6 +290,7 @@ Widget headingSemiBoldText({
   );
 }
 
+///Heading Bold Text
 Widget headingBoldText({
   required String text,
   Color? color,
@@ -313,6 +316,7 @@ Widget headingBoldText({
   );
 }
 
+///Custom Search Bar
 Widget customSearchBar({
   required BuildContext context,
   required TextEditingController searchController,
@@ -398,6 +402,7 @@ Widget customSearchBar({
   );
 }
 
+/// Custom AppBar
 Widget customAppBar() {
   return Row(
     children: [
@@ -449,6 +454,7 @@ Widget customAppBar() {
   );
 }
 
+/// Custom Cart Container
 Widget customCartContainer({
   required String titleName,
   required double rating,
@@ -645,6 +651,7 @@ Widget customCartContainer({
   );
 }
 
+/// Custom Bottom Sheet
 customBottomSheet(
     {required BuildContext context, required Widget child}) async {
   return await showModalBottomSheet(
@@ -657,6 +664,7 @@ customBottomSheet(
   );
 }
 
+/// Custom Show Dialog
 customShowDialog({required BuildContext context, Widget? child}) {
   return showDialog(
     context: context,
@@ -683,6 +691,7 @@ Widget checkupCartContainer({
   required String report,
   required String type,
   required int offerPercentage,
+  required void Function() onTap,
 }) {
   return Container(
     width: 384.w,
@@ -861,9 +870,7 @@ Widget checkupCartContainer({
                       color: kBlack26,
                       fontSize: 14,
                       fontFamily: "Poppins"),
-                  onTap: () {
-                    Get.toNamed(Routes.labDetailsScreen);
-                  },
+                  onTap: onTap,
                 ),
               ),
               SizedBox(width: 40.w),
@@ -1107,6 +1114,107 @@ Widget commonBottomCard({
                       color: kLightGreen,
                       fontWeight: FontWeight.w600),
                 ],
+              ),
+            ],
+          ),
+          const Spacer(),
+          button,
+          SizedBox(height: 5.h)
+        ],
+      ),
+    ),
+  );
+}
+
+///--Check Out Details Card
+Widget checkoutDetailsCard({
+  required String check,
+  required String price,
+  required String payment,
+  required String paymentPrice,
+  required String type,
+  required String discount,
+  required Widget button,
+  bool? height = false,
+}) {
+  return Container(
+    height: 290.h,
+    decoration: BoxDecoration(
+      color: kWhite,
+      boxShadow: [BoxShadow(color: kLightGrey, blurRadius: 3)],
+      borderRadius: BorderRadius.only(
+        topRight: Radius.circular(30.r),
+        topLeft: Radius.circular(30.r),
+      ),
+    ),
+    child: Padding(
+      padding: EdgeInsets.symmetric(horizontal: 30.w),
+      child: Column(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 15.h, bottom: 15.h),
+                child: customText(
+                    text: check, fontSize: 18.sp, fontWeight: FontWeight.w600),
+              ),
+              Row(
+                children: [
+                  customText(
+                    text: "Total Price",
+                    fontSize: 16.sp,
+                  ),
+                  const Spacer(),
+                  customText(
+                      text: price,
+                      fontSize: 18.sp,
+                      color: kLightGreen,
+                      fontWeight: FontWeight.w600),
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 15.h),
+                child: Row(
+                  children: [
+                    customText(
+                      text: payment,
+                      fontSize: 16.sp,
+                    ),
+                    const Spacer(),
+                    customText(
+                        text: paymentPrice,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w400),
+                  ],
+                ),
+              ),
+              Row(
+                children: [
+                  customText(
+                    text: "Test Type",
+                    fontSize: 16.sp,
+                  ),
+                  const Spacer(),
+                  customText(
+                      text: type, fontSize: 16.sp, fontWeight: FontWeight.w400),
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 15.h),
+                child: Row(
+                  children: [
+                    customText(
+                      text: "Discount applied",
+                      fontSize: 16.sp,
+                    ),
+                    const Spacer(),
+                    customText(
+                      text: discount,
+                      fontSize: 18.sp,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

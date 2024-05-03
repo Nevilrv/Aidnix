@@ -1,11 +1,13 @@
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
+import 'package:aidnix/utils/app_routes.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class CheckupScreen extends StatefulWidget {
   const CheckupScreen({super.key});
@@ -81,7 +83,10 @@ class _CheckupScreenState extends State<CheckupScreen> {
                                 price: "₹3000",
                                 newPrice: "₹2500",
                                 report: "6 Hours",
-                                type: "Pick Up, Lab Visit"),
+                                type: "Pick Up, Lab Visit",
+                                onTap: () {
+                                  Get.toNamed(Routes.labDetailsScreen);
+                                }),
                           );
                         },
                       ),
@@ -118,7 +123,6 @@ class _CheckupScreenState extends State<CheckupScreen> {
                         left: 20.w,
                         child: CustomButton(
                           height: 47.h,
-                          width: 160.w,
                           borderRadius: BorderRadius.circular(10.r),
                           buttonColor: kWhite,
                           buttonText: AppString.addToCart,

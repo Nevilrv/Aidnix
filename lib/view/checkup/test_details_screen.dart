@@ -51,7 +51,7 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
                 customText(
                     textAlign: TextAlign.start,
                     text:
-                        "Lorem ipsum dolor sit amet consectetur. Quam nec enim at viverra et risus aliquam. Vel a facilisis lorem urna. Lobortis egestas pretium mi justo iaculis vitae. Enim non viverra tempus tincidunt tortor neque volutpat amet. Turpis sit.",
+                        "Lorem ipsum dolor sit amet consectetur. Quam nec enim at viverra et risus aliquam. Vel facilisis lorem urna. Lobortis egestas pretium mi justo iaculis vitae. Enim non viverra tempus tincidunt tortor neque volutpat amet. Turpis sit.",
                     fontSize: 16.sp,
                     maxLines: 6,
                     color: kDarkGrey1,

@@ -227,58 +227,57 @@ class _LabCartPageScreenState extends State<LabCartPageScreen> {
         discount: '₹299',
         price: '₹1795',
         button: CustomButton(
-            height: 56.h,
-            buttonText: "",
-            child: Center(
-                child: customText(
-                    text: AppString.proceed,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.sp)),
-            onTap: () {
-              customShowDialog(
-                context: context,
-                child: Container(
-                  margin:
-                      EdgeInsets.symmetric(horizontal: 25.w, vertical: 10.h),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 25.h),
-                  decoration: BoxDecoration(
-                    color: kWhite,
-                    borderRadius: BorderRadius.circular(25.r),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SvgPicture.asset(
-                        AppAssets.wrongCart,
-                        height: 60.h,
-                        width: 60.h,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 18.h),
-                        child: customText(
-                            text:
-                                "You are selecting a test from differrent lab, it will replace your current selected tests",
-                            maxLines: 3,
-                            textAlign: TextAlign.center,
-                            fontSize: 18.sp),
-                      ),
-                      CustomButton(
-                          height: 56.h,
-                          buttonText: "",
-                          child: Center(
-                              child: customText(
-                                  text: AppString.oK,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18.sp)),
-                          onTap: () {
-                            Get.toNamed(Routes.paymentPageScreen);
-                          }),
-                    ],
-                  ),
+          height: 56.h,
+          buttonText: "",
+          child: Center(
+              child: customText(
+                  text: AppString.proceed,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.sp)),
+          onTap: () {
+            customShowDialog(
+              context: context,
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 25.w, vertical: 10.h),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 25.h),
+                decoration: BoxDecoration(
+                  color: kWhite,
+                  borderRadius: BorderRadius.circular(25.r),
                 ),
-              );
-            }),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SvgPicture.asset(
+                      AppAssets.wrongCart,
+                      height: 60.h,
+                      width: 60.h,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 18.h),
+                      child: customText(
+                          text:
+                              "You are selecting a test from differrent lab, it will replace your current selected tests",
+                          maxLines: 3,
+                          textAlign: TextAlign.center,
+                          fontSize: 18.sp),
+                    ),
+                    CustomButton(
+                        height: 56.h,
+                        buttonText: "",
+                        child: Center(
+                            child: customText(
+                                text: AppString.oK,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.sp)),
+                        onTap: () {
+                          Get.toNamed(Routes.paymentPageScreen);
+                        }),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

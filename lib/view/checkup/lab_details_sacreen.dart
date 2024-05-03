@@ -137,7 +137,10 @@ class _LabDetailsScreenState extends State<LabDetailsScreen> {
                               price: "₹3000",
                               newPrice: "₹2500",
                               report: "6 Hours",
-                              type: "Pick Up, Lab Visit"),
+                              type: "Pick Up, Lab Visit",
+                              onTap: () {
+                                Get.toNamed(Routes.testDetailsScreen);
+                              }),
                         );
                       },
                     ),

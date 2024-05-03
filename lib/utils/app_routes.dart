@@ -1,4 +1,6 @@
 import 'package:aidnix/view/auth/splash_screen.dart';
+import 'package:aidnix/view/checkup/booking_slot_screen.dart';
+import 'package:aidnix/view/checkup/checkout_details_lab_screen.dart';
 import 'package:aidnix/view/checkup/lab_cart_page_screen.dart';
 import 'package:aidnix/view/checkup/lab_chackout_screen.dart';
 import 'package:aidnix/view/checkup/lab_details_sacreen.dart';
@@ -32,6 +34,8 @@ class Routes {
   static String labCartPageScreen = "/labCartPage";
   static String paymentPageScreen = "/paymentPage";
   static String labCheckoutScreen = "/labCheckout";
+  static String bookingSlotScreen = "/bookingSlot";
+  static String checkOutDetailsLabScreen = "/checkOutDetailsLab";
 
   static List<GetPage> routes = [
     GetPage(
@@ -112,6 +116,16 @@ class Routes {
     GetPage(
       name: labCheckoutScreen,
       page: () => const LabCheckoutScreen(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: bookingSlotScreen,
+      page: () => const BookingSlotScreen(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: checkOutDetailsLabScreen,
+      page: () => const CheckOutDetailsLabScreen(),
       transition: Transition.fadeIn,
     ),
   ];

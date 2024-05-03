@@ -18,30 +18,28 @@ class _LabImageScreenState extends State<LabImageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBlack,
+      appBar: AppBar(
+        title: customText(
+            text: AppString.labDetails, fontSize: 18.sp, color: kWhite),
+        centerTitle: true,
+        surfaceTintColor: kBlack,
+        backgroundColor: kBlack,
+        elevation: 1,
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            size: 23.sp,
+            color: kWhite,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 28.w).copyWith(top: 10.h),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: const Icon(
-                      Icons.arrow_back_ios,
-                      size: 20,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const Spacer(),
-                  customText(text: AppString.labDetails, fontSize: 18.sp, color: kWhite, fontWeight: FontWeight.w500),
-                  const Spacer(),
-                ],
-              ),
-            ),
-            SizedBox(height: 60.h),
+            SizedBox(height: 40.h),
             assetImage(AppAssets.labImage, height: 642.h, width: 432.w)
           ],
         ),

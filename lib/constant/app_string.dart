@@ -45,4 +45,10 @@ class AppString {
   static const other = "Other";
   static const bookYourSlot = "Book your slot";
   static const purchase = "Proceed to Purchase";
+  static const selectDay = "Select a day";
+  static const selectProffered = "Select proffered time slot";
+  static const confirmSlot = "Confirm slot";
+  static const booking = "Booking Slot";
+  static const checkoutDetails = "Checkout Details";
+  static const processed = "processed";
 }
