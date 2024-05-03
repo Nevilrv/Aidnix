@@ -1,5 +1,6 @@
 import 'package:aidnix/view/address/add_address_screen.dart';
 import 'package:aidnix/view/address/address_list_screen.dart';
+import 'package:aidnix/view/auth/onboarding/onboarding_screen.dart';
 import 'package:aidnix/view/auth/splash_screen.dart';
 import 'package:aidnix/view/booking/bar_code.dart';
 import 'package:aidnix/view/booking/book_test_screen.dart';
@@ -22,7 +23,6 @@ import 'package:aidnix/view/health_records/edit_health_records.dart';
 import 'package:aidnix/view/health_records/health_records_screen.dart';
 import 'package:aidnix/view/search/search_lab_listing_screen.dart';
 import 'package:aidnix/view/auth/login_screen.dart';
-import 'package:aidnix/view/auth/onBoarding/onboarding_screen.dart';
 import 'package:aidnix/view/auth/otp_screen.dart';
 import 'package:aidnix/view/notification/notification_screen.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
@@ -38,7 +38,6 @@ class Routes {
   static String healthRecordsScreen = "/healthRecords";
   static String generalSettingScreen = "/generalSetting";
   static String healthProfileScreen = "/healthProfile";
-  static String onboardingScreen = "/onboarding";
   static String labDetailsScreen = "/labDetails";
   static String labImageScreen = "/labImage";
   static String testDetailsScreen = "/testDetails";

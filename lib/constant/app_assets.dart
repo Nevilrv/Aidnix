@@ -67,15 +67,9 @@ class AppAssets {
   static const bloodTest = "${iconPath}icon_blood_test.svg";
   static const location2 = "${iconPath}icon_location_2.svg";
   static const vacation = "${iconPath}icon_vacation.svg";
-  // static const labProfile = "${iconPath}image_lab_profile.png";
+  static const labProfile = "${iconPath}image_lab_profile.png";
   static const microscopeIcon = "${iconPath}icon_microscope-fill.svg";
 
-  // static const backArrow = "${iconPath}back_arrow.png";
-  // static const editIcon = "${iconPath}edit_icon.png";
-  // static const mailIcon = "${iconPath}mail_icon.png";
-  // static const personIcon = "${iconPath}person_icon.png";
-  // static const notificationIcon = "${iconPath}notification_icon.png";
-  // static const healthRecord = "${iconPath}health_record.png";
   static const report = "${iconPath}icon_report.svg";
   static const food = "${iconPath}icon_food.svg";
   static const person = "${iconPath}icon_person.svg";
@@ -92,8 +86,7 @@ class AppAssets {
   static const heartTesting = "${iconPath}icon_heart_testing.png";
 }
 
-Widget assetImage(String image,
-    {double? height, double? width, Color? color, double? scale}) {
+Widget assetImage(String image, {double? height, double? width, Color? color, double? scale}) {
   return Image.asset(
     image,
     height: height,

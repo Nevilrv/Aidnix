@@ -21,28 +21,11 @@ class _LabDetailsScreenState extends State<LabDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: customText(text: AppString.labDetails, fontSize: 18.sp),
-        centerTitle: true,
-        surfaceTintColor: Colors.white,
-        backgroundColor: Colors.white,
-        elevation: 1,
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: Icon(
-            Icons.arrow_back_ios,
-            size: 23.sp,
-          ),
-        ),
-      ),
+      appBar: AppAppBar(titleText: AppString.labDetails),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Padding(
-                padding: EdgeInsets.only(bottom: 13.h),
               Padding(
                 padding: EdgeInsets.only(top: 11.h, bottom: 13.h),
                 child: GestureDetector(
@@ -71,26 +54,18 @@ class _LabDetailsScreenState extends State<LabDetailsScreen> {
                     ),
                     SizedBox(height: 10.h),
                     Container(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 10.h, horizontal: 10.w),
+                      padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
                       width: double.infinity,
                       decoration: BoxDecoration(
                           color: kWhite,
-                          boxShadow: [
-                            BoxShadow(
-                                color: kGrey.withOpacity(0.2), blurRadius: 3)
-                          ],
+                          boxShadow: [BoxShadow(color: kGrey.withOpacity(0.2), blurRadius: 3)],
                           borderRadius: BorderRadius.circular(20.r)),
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 15.w)
-                            .copyWith(top: 10.h),
+                        padding: EdgeInsets.symmetric(horizontal: 15.w).copyWith(top: 10.h),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            customText(
-                                text: AppString.about,
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.w600),
+                            customText(text: AppString.about, fontSize: 18.sp, fontWeight: FontWeight.w600),
                             SizedBox(height: 5.h),
                             ReadMoreText(
                               'Lorem ipsum dolor sit amet consectetur.Lorem ipsum dolor sit amet consectetur Quam ...',
@@ -98,26 +73,15 @@ class _LabDetailsScreenState extends State<LabDetailsScreen> {
                               trimLines: 1,
                               colorClickableText: Colors.pink,
                               trimCollapsedText: 'Read more',
-                              style: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: kDarkGrey1,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: "Poppins"),
-                              moreStyle: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: kBlack,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: "Poppins"),
+                              style: TextStyle(fontSize: 16.sp, color: kDarkGrey1, fontWeight: FontWeight.w400, fontFamily: "Poppins"),
+                              moreStyle: TextStyle(fontSize: 16.sp, color: kBlack, fontWeight: FontWeight.w500, fontFamily: "Poppins"),
                             ),
                           ],
                         ),
                       ),
                     ),
                     SizedBox(height: 20.h),
-                    customText(
-                        text: AppString.test,
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w600),
+                    customText(text: AppString.test, fontSize: 18.sp, fontWeight: FontWeight.w600),
                     Padding(
                       padding: EdgeInsets.only(top: 19.h),
                       child: customSearchBar(

@@ -314,8 +314,7 @@ class HealthProfileScreen extends StatelessWidget {
                     onTap: () {
                       customShowDialog(
                         context: context,
-                        child: SelectCancelReasonDialog(),
-                        // child: SelectDiseasesDialog(),
+                        child: SelectDiseasesDialog(),
                       );
                     },
                     child: Container(
