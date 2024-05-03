@@ -19,6 +19,7 @@ Widget customText({
   Color? decorationColor,
   TextOverflow? overflow,
   TextAlign? textAlign,
+  double? height,
 }) {
   return Text(
     text,
@@ -29,6 +30,7 @@ Widget customText({
       decoration: decoration,
       decorationColor: decorationColor,
       fontFamily: "Poppins",
+      height: height,
     ),
     maxLines: maxLines,
     overflow: overflow ?? TextOverflow.ellipsis,
@@ -38,8 +40,6 @@ Widget customText({
 
 Widget regularText({
   required String text,
-  double? fontSize,
-  FontWeight? fontWeight,
   Color? color,
   int? maxLines,
   TextDecoration? decoration,
@@ -51,7 +51,7 @@ Widget regularText({
     text,
     style: TextStyle(
       fontSize: 14.sp,
-      fontWeight: fontWeight ?? FontWeight.w400,
+      fontWeight: FontWeight.w400,
       color: color ?? kBlack,
       decoration: decoration,
       decorationColor: decorationColor,
@@ -419,7 +419,12 @@ Widget customAppBar() {
         ],
       ),
       const Spacer(),
-      SvgPicture.asset("assets/icons/icon_notification.svg"),
+      GestureDetector(
+        onTap: () {
+          Get.toNamed(Routes.notificationScreen);
+        },
+        child: SvgPicture.asset("assets/icons/icon_notification.svg"),
+      ),
       SizedBox(width: 12.w),
       Stack(
         clipBehavior: Clip.none,
@@ -491,7 +496,7 @@ Widget customCartContainer({
                           child: Padding(
                             padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
                             child: Image.asset(
-                              "assets/icons/image_lab_profile.png",
+                              AppAssets.labProfile,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -500,7 +505,7 @@ Widget customCartContainer({
                           bottom: -3.h,
                           right: -3.w,
                           child: SvgPicture.asset(
-                            "assets/icons/icon_verify.svg",
+                            AppAssets.iconVerify,
                             height: 30.h,
                           ),
                         )
@@ -550,7 +555,7 @@ Widget customCartContainer({
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SvgPicture.asset("assets/icons/icon_microscope-fill.svg"),
+                        SvgPicture.asset(AppAssets.microscopeIcon),
                         SizedBox(width: 8.w),
                         regularText(text: "${noOfTest}+ Tests"),
                       ],
@@ -977,6 +982,177 @@ Widget customLabDetailsCart({
           ),
         ],
       ),
+    ),
+  );
+}
+
+/// Custom Booking
+
+Widget customBookingContainer({
+  required String titleName,
+  required String category,
+  required String status,
+  required String date,
+}) {
+  return Container(
+    margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
+    decoration: BoxDecoration(
+      color: kWhite,
+      borderRadius: BorderRadius.circular(12.r),
+      boxShadow: [
+        BoxShadow(
+          color: kBlack.withOpacity(0.2),
+          blurRadius: 1.5,
+        ),
+      ],
+    ),
+    child: Column(
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                CircleAvatar(
+                  backgroundColor: kLightBgColor,
+                  radius: 30.r,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                    child: Image.asset(
+                      AppAssets.labProfile,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: -3.h,
+                  right: -3.w,
+                  child: SvgPicture.asset(AppAssets.iconVerify, height: 30.h),
+                )
+              ],
+            ),
+            SizedBox(width: 10.w),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 10.h),
+                customText(text: titleName, fontSize: 20.sp),
+                SizedBox(height: 3.h),
+                customText(text: category, fontSize: 14.sp, color: kDarkGrey1),
+                SizedBox(height: 5.h),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
+                  decoration: BoxDecoration(
+                    color: kLightBlue,
+                    borderRadius: BorderRadius.circular(15.r),
+                  ),
+                  child: Center(
+                    child: customText(
+                      text: status,
+                      fontSize: 10.sp,
+                      fontWeight: FontWeight.w600,
+                      color: kBlue,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10.h),
+              ],
+            )
+          ],
+        ),
+        SizedBox(height: 10.h),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Image.asset(AppAssets.clock, scale: 3),
+                  SizedBox(width: 10.w),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      customText(text: AppString.appointmentDateText, fontSize: 10.sp, color: kDarkGrey1),
+                      customText(text: date),
+                    ],
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    AppAssets.microscopeIcon,
+                    color: kGreen,
+                  ),
+                  SizedBox(width: 5.w),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      customText(text: AppString.typeText, fontSize: 10.sp, color: kDarkGrey1),
+                      customText(text: AppString.pickUpText, fontSize: 14.sp)
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        )
+      ],
+    ),
+  );
+}
+
+customBookingSummery({required String title, required int price}) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 3.h),
+    child: Row(
+      children: [
+        titleSemiBoldText(
+          text: title,
+        ),
+        const Spacer(),
+        headingSemiBoldText(text: "₹$price"),
+      ],
+    ),
+  );
+}
+
+customDropDown({
+  final ValueChanged? onChanged,
+  final double? height,
+  final Widget? hintText,
+  final Color? borderColor,
+  final Color? iconColor,
+  final List<DropdownMenuItem<dynamic>>? items,
+  void Function()? onTap,
+  Color? color,
+  double? iconSize,
+  bool? isExpand,
+  double? horizontal,
+  TextStyle? style,
+}) {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+    decoration: BoxDecoration(
+      color: color ?? Colors.transparent,
+      borderRadius: BorderRadius.circular(10),
+      border: Border.all(color: borderColor ?? kLightGrey),
+    ),
+    child: DropdownButton(
+      hint: hintText,
+      onTap: onTap,
+      // style: style ?? TextStyle(fontWeight: FontWeight.w600, color: kBlack, fontSize: 12.sp, fontFamily: "Poppins"),
+      icon: Image.asset(AppAssets.arrowDown, scale: 4),
+
+      isDense: true,
+      isExpanded: isExpand ?? true,
+      underline: const SizedBox(),
+      items: items,
+      onChanged: onChanged,
     ),
   );
 }

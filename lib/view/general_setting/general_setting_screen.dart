@@ -140,15 +140,13 @@ class GeneralSettingScreen extends StatelessWidget {
             color: kGrey.withOpacity(0.3),
           ),
           Spacer(),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 40.w),
-            child: CustomButton(
-              buttonText: "",
-              child: Center(
-                child: headingSemiBoldText(text: "Save"),
-              ),
-              onTap: () {},
+          CustomButton(
+            buttonText: "",
+            margin: EdgeInsets.symmetric(horizontal: 40.w),
+            child: Center(
+              child: headingSemiBoldText(text: "Save"),
             ),
+            onTap: () {},
           ),
           SizedBox(height: 50.h),
         ],

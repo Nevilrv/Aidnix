@@ -2,6 +2,7 @@ import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/utils/app_routes.dart';
+import 'package:aidnix/widgets/app_app_bar.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,26 +20,13 @@ class _LabDetailsScreenState extends State<LabDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppAppBar(titleText: AppString.labDetails),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.w).copyWith(top: 10.h),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.arrow_back_ios,
-                      size: 23.sp,
-                    ),
-                    const Spacer(),
-                    customText(text: AppString.labDetails, fontSize: 18.sp, fontWeight: FontWeight.w500),
-                    const Spacer(),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 11.h, bottom: 13.h),
+                padding: EdgeInsets.only(bottom: 13.h),
                 child: GestureDetector(
                   onTap: () {
                     Get.toNamed(Routes.labImageScreen);

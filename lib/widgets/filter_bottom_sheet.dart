@@ -33,7 +33,7 @@ class FilterBottomSheet extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(width: 5.w),
-                      customText(text: "Filter", fontSize: 24.sp, fontWeight: FontWeight.w600),
+                      customText(text: "Filter", fontSize: 22.sp, fontWeight: FontWeight.w600),
                       GestureDetector(
                         onTap: () {
                           Get.back();

@@ -1,3 +1,4 @@
+import 'package:aidnix/utils/app_routes.dart';
 import 'package:aidnix/view/home/home_controller.dart';
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/theme/app_theme.dart';
@@ -93,13 +94,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                     customText(
                                       text: "Lorem ipsum dolor sit\namet, consectetur",
                                       fontSize: 12.sp,
-                                      color: const Color(0xFF686978),
+                                      color: kDarkGrey1,
                                       maxLines: 2,
                                     ),
                                     SizedBox(height: 20.h),
                                     CustomButton(
                                       buttonText: "Hurry UP!",
-                                      onTap: () {},
+                                      onTap: () {
+                                        Get.toNamed(Routes.bookingScreen);
+                                      },
                                     ),
                                   ],
                                 ),
@@ -167,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               customText(
                                 text: "Our health experts will call you\nback in 2 minutes",
                                 fontSize: 12.sp,
-                                color: const Color(0xFF686978),
+                                color: kDarkGrey1,
                                 fontWeight: FontWeight.w400,
                                 maxLines: 2,
                               ),
@@ -359,10 +362,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ],
                                       ),
                                     ),
-                                    child: Image.asset(
-                                      AppAssets.bloodTestIcon,
-                                      height: 70.h,
-                                    ),
+                                    child: Image.asset(AppAssets.bloodTestIcon, height: 70.h),
                                   ),
                                   SizedBox(height: 10.h),
                                   customText(text: "Blood"),
@@ -543,7 +543,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     customText(
                                       text: "Lorem ipsum dolor sit\namet, consectetur",
                                       fontSize: 12.sp,
-                                      color: const Color(0xFF686978),
+                                      color: kDarkGrey1,
                                       maxLines: 2,
                                     ),
                                     SizedBox(height: 20.h),
@@ -677,7 +677,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     titleSmallText(
                                       text:
                                           "I am very happy with Aidnix App, now I can easily book tests and get my results. Big relief for a patient like me. Thank you AidNix!",
-                                      color: Color(0xFF686978),
+                                      color: kDarkGrey1,
                                       maxLines: 4,
                                     ),
                                   ],

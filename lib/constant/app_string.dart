@@ -29,4 +29,22 @@ class AppString {
   static const recommended = "Recommended";
   static const about = "About";
   static const test = "Test";
+
+  /// Booking
+
+  static const nearbyStoresText = "";
+  static const bookingText = "Booking";
+  static const allText = "All";
+  static const upcomingText = "Upcoming";
+  static const completedText = "Completed";
+  static const cancelledText = "Cancelled";
+  static const appointmentDateText = "Appointment Date";
+  static const typeText = "Type";
+  static const pickUpText = "Pick Up";
+  static const rescheduleText = "Reschedule";
+  static const cancelTestText = "Cancel test";
+  static const patientText = "Patient";
+  static const bookedTestText = "Booked Test";
+  static const trackOrderTest = "Track Status ";
+  static const bookingSummaryTest = "Booking Summary";
 }
