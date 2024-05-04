@@ -15,7 +15,7 @@ class SelectHeightDialog extends StatelessWidget {
         init: HealthProfileController(),
         builder: (controller) {
           return Container(
-            margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+            margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
             constraints: BoxConstraints(maxHeight: 420.h),
             decoration: BoxDecoration(

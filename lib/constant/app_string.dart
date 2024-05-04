@@ -67,4 +67,8 @@ class AppString {
   static const booking = "Booking Slot";
   static const checkoutDetails = "Checkout Details";
   static const processed = "processed";
+
+  /// Home Screen
+
+  static const hurryUp = "Hurry UP!";
 }

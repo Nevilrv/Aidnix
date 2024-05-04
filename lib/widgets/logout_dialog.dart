@@ -17,8 +17,6 @@ class LogoutDialog extends StatelessWidget {
         builder: (controller) {
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-            // padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
-            constraints: BoxConstraints(maxHeight: 300.h),
             decoration: BoxDecoration(
               color: kWhite,
               borderRadius: BorderRadius.circular(25.r),

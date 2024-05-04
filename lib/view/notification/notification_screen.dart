@@ -1,9 +1,7 @@
 import 'package:aidnix/Theme/app_theme.dart';
 import 'package:aidnix/widgets/app_app_bar.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NotificationScreen extends StatelessWidget {
@@ -54,7 +52,7 @@ class NotificationScreen extends StatelessWidget {
                         color: kWhite,
                         borderRadius: BorderRadius.circular(12.r),
                         boxShadow: [
-                          BoxShadow(color: kGrey, blurRadius: 1.5),
+                          BoxShadow(color: Color(0xFF31C48D).withOpacity(0.1), blurRadius: 30),
                         ],
                       ),
                       child: Row(
@@ -67,7 +65,8 @@ class NotificationScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(10.r),
                               image: const DecorationImage(
                                 image: NetworkImage(
-                                    "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"),
+                                  "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg",
+                                ),
                                 fit: BoxFit.cover,
                               ),
                             ),

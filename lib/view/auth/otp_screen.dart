@@ -102,7 +102,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 if (formKey.currentState!.validate()) {
                   log("data");
 
-                  Get.toNamed(Routes.dashboardScreen);
+                  Get.offAllNamed(Routes.dashboardScreen);
                 }
               },
             ),

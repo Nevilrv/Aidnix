@@ -36,19 +36,7 @@ class AppAssets {
   static const badRequest = "${imagePath}bad_request.png";
   static const editIconGreen = "${imagePath}edit_icon_green.png";
   static const deleteIconRed = "${imagePath}delete_icon_red.png";
-
-  static const iconVerify = "${iconPath}icon_verify.svg";
-  static const arrowDown = "${iconPath}arrow_down.png";
-
-  static const backArrow = "${iconPath}back_arrow.png";
-  static const editIcon = "${iconPath}edit_icon.png";
-  static const mailIcon = "${iconPath}mail_icon.png";
-  static const personIcon = "${iconPath}person_icon.png";
-  static const notificationIcon = "${iconPath}notification_icon.png";
   static const healthRecord = "${imagePath}health_record.png";
-
-  ///
-
   static const logo = "${imagePath}logo.png";
   static const splashBG = "${imagePath}splash_screen.png";
   static const onboardingImage = "${imagePath}onboarding_image.png";
@@ -62,7 +50,6 @@ class AppAssets {
   static const vector = "${iconPath}icons_vector.svg";
   static const whatsapp = "${iconPath}icon_whatsapp.svg";
   static const starIcons = "${iconPath}icon_star.svg";
-  static const microscope = "${iconPath}icon_microscope-fill.svg";
   static const medical = "${iconPath}icon_medical.svg";
   static const bloodTest = "${iconPath}icon_blood_test.svg";
   static const location2 = "${iconPath}icon_location_2.svg";
@@ -77,13 +64,30 @@ class AppAssets {
   static const delete = "${iconPath}icon_delete.svg";
   static const wrongCart = "${iconPath}icon_wrong_cart.svg";
   static const calender = "${iconPath}icon_calender.svg";
-  // static const clock = "${iconPath}icon_clock.svg";
   static const morning = "${iconPath}icon_morning.svg";
   static const evening = "${iconPath}icon_evening.svg";
   static const afternoon = "${iconPath}icon_afternoon.svg";
   static const bloodTesting = "${iconPath}icon_blood_testing.png";
   static const urineTesting = "${iconPath}icon_urine_testing.png";
   static const heartTesting = "${iconPath}icon_heart_testing.png";
+
+  static const iconVerify = "${iconPath}icon_verify.svg";
+  static const arrowDown = "${iconPath}arrow_down.png";
+  static const backArrow = "${iconPath}back_arrow.png";
+  static const editIcon = "${iconPath}edit_icon.png";
+  static const mailIcon = "${iconPath}mail_icon.png";
+  static const personIcon = "${iconPath}person_icon.png";
+  static const notificationIcon = "${iconPath}notification_icon.png";
+  static const iconHome = "${iconPath}icon_home.svg";
+  static const iconClipboard = "${iconPath}icon_clipboard.svg";
+  static const iconProfile = "${iconPath}icon_profile.svg";
+  static const iconSearch = "${iconPath}icon_search.svg";
+  static const iconFilter = "${iconPath}icon_filter.svg";
+  static const iconClose = "${iconPath}icon_close.svg";
+  static const iconLocation = "${iconPath}icon_location.svg";
+  static const iconArrowDown = "${iconPath}icon_arrow_down.svg";
+  static const iconNotification = "${iconPath}icon_notification.svg";
+  static const iconCart = "${iconPath}icon_cart.svg";
 }
 
 Widget assetImage(String image, {double? height, double? width, Color? color, double? scale}) {

@@ -338,7 +338,7 @@ Widget customSearchBar({
               prefixIcon: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
                 child: SvgPicture.asset(
-                  "assets/icons/icon_search.svg",
+                  AppAssets.iconSearch,
                   width: 10.w,
                 ),
               ),
@@ -357,7 +357,7 @@ Widget customSearchBar({
               ),
               child: Center(
                 child: SvgPicture.asset(
-                  "assets/icons/icon_filter.svg",
+                  AppAssets.iconFilter,
                   color: kBlack,
                 ),
               ),
@@ -390,7 +390,7 @@ Widget customSearchBar({
                       color: kDarkGrey,
                     ),
                     SizedBox(width: 8.w),
-                    SvgPicture.asset("assets/icons/icon_close.svg")
+                    SvgPicture.asset(AppAssets.iconClose),
                   ],
                 ),
               );
@@ -414,11 +414,11 @@ Widget customAppBar() {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SvgPicture.asset("assets/icons/icon_location.svg", color: kGreen),
+              SvgPicture.asset(AppAssets.iconLocation, color: kGreen),
               SizedBox(width: 5.w),
               titleSmallText(text: "New York, USA", color: kBlack),
               SizedBox(width: 10.w),
-              SvgPicture.asset("assets/icons/icon_arrow_down.svg"),
+              SvgPicture.asset(AppAssets.iconArrowDown),
             ],
           ),
         ],
@@ -428,13 +428,13 @@ Widget customAppBar() {
         onTap: () {
           Get.toNamed(Routes.notificationScreen);
         },
-        child: SvgPicture.asset("assets/icons/icon_notification.svg"),
+        child: SvgPicture.asset(AppAssets.iconNotification),
       ),
       SizedBox(width: 12.w),
       Stack(
         clipBehavior: Clip.none,
         children: [
-          SvgPicture.asset("assets/icons/icon_cart.svg"),
+          SvgPicture.asset(AppAssets.iconCart),
           Positioned(
             top: -5.h,
             right: -5.w,
@@ -476,8 +476,8 @@ Widget customCartContainer({
       borderRadius: BorderRadius.circular(12.r),
       boxShadow: [
         BoxShadow(
-          color: kBlack.withOpacity(0.2),
-          blurRadius: 1.5,
+          color: kBlack.withOpacity(0.1),
+          blurRadius: 10,
           // spreadRadius: 1,
         ),
       ],
@@ -551,7 +551,7 @@ Widget customCartContainer({
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SvgPicture.asset("assets/icons/icon_star.svg"),
+                        SvgPicture.asset(AppAssets.starIcons),
                         SizedBox(width: 8.w),
                         regularText(text: "${rating}"),
                         SizedBox(width: 8.w),
@@ -573,7 +573,7 @@ Widget customCartContainer({
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SvgPicture.asset("assets/icons/icon_medical.svg"),
+                    SvgPicture.asset(AppAssets.medical),
                     SizedBox(width: 8.w),
                     Expanded(
                       child: regularText(
@@ -588,7 +588,7 @@ Widget customCartContainer({
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SvgPicture.asset("assets/icons/icon_location_2.svg"),
+                    SvgPicture.asset(AppAssets.location2),
                     const SizedBox(width: 8),
                     Expanded(
                       child: regularText(
@@ -606,7 +606,7 @@ Widget customCartContainer({
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SvgPicture.asset("assets/icons/icon_blood_test.svg"),
+                      SvgPicture.asset(AppAssets.blood),
                       SizedBox(width: 8.w),
                       regularText(
                         text: "Blood Test",
@@ -951,7 +951,7 @@ Widget customLabDetailsCart({
                     ),
                     customText(text: "($noOfRating Rating)", fontSize: 10.sp),
                     const Spacer(),
-                    SvgPicture.asset(AppAssets.microscope, color: kGreen),
+                    SvgPicture.asset(AppAssets.microscopeIcon, color: kGreen),
                     SizedBox(width: 8.w),
                     SizedBox(width: 140.w, child: regularText(text: "$noOfTest+ Tests")),
                   ],
@@ -1009,8 +1009,8 @@ Widget customBookingContainer({
       borderRadius: BorderRadius.circular(12.r),
       boxShadow: [
         BoxShadow(
-          color: kBlack.withOpacity(0.2),
-          blurRadius: 1.5,
+          color: kBlack.withOpacity(0.1),
+          blurRadius: 20,
         ),
       ],
     ),

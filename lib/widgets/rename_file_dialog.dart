@@ -19,7 +19,7 @@ class RenameFileDialog extends StatelessWidget {
           return Padding(
             padding: MediaQuery.of(context).viewInsets,
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+              margin: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
               constraints: BoxConstraints(maxHeight: 750.h),
               decoration: BoxDecoration(

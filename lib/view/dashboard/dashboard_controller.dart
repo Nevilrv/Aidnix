@@ -1,3 +1,4 @@
+import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/view/checkup/checkup_screen.dart';
 import 'package:aidnix/view/home/home_screen.dart';
 import 'package:aidnix/view/profile/profile_screen.dart';
@@ -10,19 +11,19 @@ class DashboardController extends GetxController {
   List<Map<String, String>> bottomItems = [
     {
       "title": "Home",
-      "icon": "assets/icons/icon_home.svg",
+      "icon": AppAssets.iconHome,
     },
     {
       "title": "Test",
-      "icon": "assets/icons/icon_microscope-fill.svg",
+      "icon": AppAssets.microscopeIcon,
     },
     {
       "title": "Check Ups",
-      "icon": "assets/icons/iocn_clipboard.svg",
+      "icon": AppAssets.iconClipboard,
     },
     {
       "title": "Profile",
-      "icon": "assets/icons/icon_profile.svg",
+      "icon": AppAssets.iconProfile,
     },
   ];
 

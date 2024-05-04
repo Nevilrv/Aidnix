@@ -14,9 +14,7 @@ class FamilyMemberListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppAppBar(
-        titleText: "Family member",
-      ),
+      appBar: const AppAppBar(titleText: "Family member"),
       body: GetBuilder<FamilyMemberController>(
         init: FamilyMemberController(),
         builder: (controller) {
@@ -33,8 +31,8 @@ class FamilyMemberListScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20.r),
                   boxShadow: [
                     BoxShadow(
-                      color: kGrey,
-                      blurRadius: 1.5,
+                      color: kGrey.withOpacity(0.1),
+                      blurRadius: 30,
                     ),
                   ],
                 ),

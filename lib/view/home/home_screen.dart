@@ -1,3 +1,4 @@
+import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/utils/app_routes.dart';
 import 'package:aidnix/view/home/home_controller.dart';
 import 'package:aidnix/constant/app_assets.dart';
@@ -99,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     SizedBox(height: 20.h),
                                     CustomButton(
-                                      buttonText: "Hurry UP!",
+                                      buttonText: AppString.hurryUp,
                                       onTap: () {
                                         Get.toNamed(Routes.bookingScreen);
                                       },
@@ -150,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             alignment: Alignment.bottomRight,
                           ),
                           boxShadow: [
-                            BoxShadow(color: kGrey, blurRadius: 1.r),
+                            BoxShadow(color: kBlack.withOpacity(0.1), blurRadius: 40),
                           ],
                         ),
                         child: Padding(
@@ -203,9 +204,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             scale: 4,
                             alignment: Alignment.bottomRight,
                           ),
-                          boxShadow: [
-                            BoxShadow(color: kGrey, blurRadius: 1),
-                          ],
                         ),
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
@@ -272,10 +270,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       CarouselSlider(
                         options: CarouselOptions(
                           autoPlay: true,
-                          viewportFraction: 0.98,
+                          viewportFraction: 0.95,
                           padEnds: true,
                           enlargeCenterPage: false,
-                          height: 240.h,
+                          height: 260.h,
                           initialPage: 0,
                           enableInfiniteScroll: true,
                           reverse: false,
@@ -291,7 +289,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           5,
                           (bannerIndex) {
                             return Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
+                              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 10.h),
                               child: customCartContainer(
                                 titleName: "Greenlab Biotech",
                                 rating: 5.0,
@@ -398,95 +396,93 @@ class _HomeScreenState extends State<HomeScreen> {
                         items: List.generate(
                           5,
                           (bannerIndex) {
-                            return Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 2.h),
-                              child: Container(
-                                padding: EdgeInsets.only(left: 15.w, top: 15.h, bottom: 15.h),
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: kGreen,
-                                  borderRadius: BorderRadius.circular(15.r),
-                                  image: const DecorationImage(
-                                    image: AssetImage(AppAssets.homePathLabTwo),
-                                    scale: 4,
-                                    alignment: Alignment.bottomRight,
-                                  ),
+                            return Container(
+                              margin: EdgeInsets.symmetric(horizontal: 3.w, vertical: 2.h),
+                              padding: EdgeInsets.only(left: 15.w, top: 15.h, bottom: 15.h),
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: kGreen,
+                                borderRadius: BorderRadius.circular(15.r),
+                                image: const DecorationImage(
+                                  image: AssetImage(AppAssets.homePathLabTwo),
+                                  scale: 4,
+                                  alignment: Alignment.bottomRight,
                                 ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        CustomButton(
-                                          buttonText: "LIMITED FOR 3 DAYS",
-                                          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
-                                          buttonColor: kBlack,
-                                          textStyle: TextStyle(color: kGreen, fontSize: 9.sp, fontWeight: FontWeight.w600),
-                                          onTap: () {},
-                                        ),
-                                        Container(
-                                          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 3.h),
-                                          decoration: BoxDecoration(
-                                            color: kBlack,
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(20.r),
-                                              bottomLeft: Radius.circular(20.r),
-                                            ),
-                                          ),
-                                          child: customText(text: "Ads", color: kGreen, fontSize: 10.sp, fontWeight: FontWeight.w400),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 10.h),
-                                    Row(
-                                      children: [
-                                        Image.asset(AppAssets.homePathLab, scale: 4),
-                                        SizedBox(width: 10.w),
-                                        customText(
-                                          text: "Pathlabs",
-                                          fontSize: 20.sp,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 10.h),
-                                    regularText(
-                                      text: "Get blood check at low\nprice near your home",
-                                      maxLines: 2,
-                                    ),
-                                    Row(
-                                      children: [
-                                        customText(
-                                          text: "₹500",
-                                          decoration: TextDecoration.lineThrough,
-                                          decorationColor: kBlack,
-                                        ),
-                                        SizedBox(width: 10.w),
-                                        customText(
-                                          text: "₹350",
-                                          fontSize: 20.sp,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 10.h),
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        SvgPicture.asset(
-                                          "assets/icons/icon_location_2.svg",
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      CustomButton(
+                                        buttonText: "LIMITED FOR 3 DAYS",
+                                        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
+                                        buttonColor: kBlack,
+                                        textStyle: TextStyle(color: kGreen, fontSize: 9.sp, fontWeight: FontWeight.w600),
+                                        onTap: () {},
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 3.h),
+                                        decoration: BoxDecoration(
                                           color: kBlack,
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(20.r),
+                                            bottomLeft: Radius.circular(20.r),
+                                          ),
                                         ),
-                                        SizedBox(width: 8.w),
-                                        Expanded(
-                                          child: regularText(text: "2 Km from you"),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                        child: customText(text: "Ads", color: kGreen, fontSize: 10.sp, fontWeight: FontWeight.w400),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 10.h),
+                                  Row(
+                                    children: [
+                                      Image.asset(AppAssets.homePathLab, scale: 4),
+                                      SizedBox(width: 10.w),
+                                      customText(
+                                        text: "Pathlabs",
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 10.h),
+                                  regularText(
+                                    text: "Get blood check at low\nprice near your home",
+                                    maxLines: 2,
+                                  ),
+                                  Row(
+                                    children: [
+                                      customText(
+                                        text: "₹500",
+                                        decoration: TextDecoration.lineThrough,
+                                        decorationColor: kBlack,
+                                      ),
+                                      SizedBox(width: 10.w),
+                                      customText(
+                                        text: "₹350",
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 10.h),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        AppAssets.location2,
+                                        color: kBlack,
+                                      ),
+                                      SizedBox(width: 8.w),
+                                      Expanded(
+                                        child: regularText(text: "2 Km from you"),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             );
                           },
@@ -593,7 +589,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           viewportFraction: 0.95,
                           padEnds: true,
                           enlargeCenterPage: false,
-                          height: 220.h,
+                          height: 240.h,
                           initialPage: 0,
                           enableInfiniteScroll: true,
                           reverse: false,
@@ -608,80 +604,78 @@ class _HomeScreenState extends State<HomeScreen> {
                         items: List.generate(
                           5,
                           (bannerIndex) {
-                            return Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 2.h),
-                              child: Container(
-                                padding: EdgeInsets.only(left: 15.w, top: 15.h, bottom: 15.h),
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: kWhite,
-                                  borderRadius: BorderRadius.circular(15.r),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: kBlack.withOpacity(0.2),
-                                      blurRadius: 1.5,
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Container(
-                                          height: 50.h,
-                                          width: 50.w,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(15.r),
-                                            image: const DecorationImage(
-                                              image: NetworkImage(
-                                                  "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"),
-                                              fit: BoxFit.cover,
-                                            ),
+                            return Container(
+                              margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 10.h),
+                              padding: EdgeInsets.only(left: 15.w, top: 15.h, bottom: 15.h, right: 10.w),
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: kWhite,
+                                borderRadius: BorderRadius.circular(15.r),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: kBlack.withOpacity(0.1),
+                                    blurRadius: 10,
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        height: 50.h,
+                                        width: 50.w,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(15.r),
+                                          image: const DecorationImage(
+                                            image: NetworkImage(
+                                                "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"),
+                                            fit: BoxFit.cover,
                                           ),
                                         ),
-                                        SizedBox(width: 10.w),
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            headingText(text: "Ryan Goose"),
-                                            SizedBox(height: 5.h),
-                                            Row(
-                                              children: [
-                                                RatingBar.builder(
-                                                  initialRating: 5,
-                                                  minRating: 1,
-                                                  direction: Axis.horizontal,
-                                                  allowHalfRating: false,
-                                                  itemCount: 5,
-                                                  itemSize: 25.h,
-                                                  ignoreGestures: true,
-                                                  itemPadding: EdgeInsets.zero,
-                                                  itemBuilder: (context, _) => const Icon(
-                                                    Icons.star_rate_rounded,
-                                                    color: Color(0xffFEA800),
-                                                  ),
-                                                  onRatingUpdate: (rating) {
-                                                    print(rating);
-                                                  },
+                                      ),
+                                      SizedBox(width: 10.w),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          headingText(text: "Ryan Goose"),
+                                          SizedBox(height: 5.h),
+                                          Row(
+                                            children: [
+                                              RatingBar.builder(
+                                                initialRating: 5,
+                                                minRating: 1,
+                                                direction: Axis.horizontal,
+                                                allowHalfRating: false,
+                                                itemCount: 5,
+                                                itemSize: 25.h,
+                                                ignoreGestures: true,
+                                                itemPadding: EdgeInsets.zero,
+                                                itemBuilder: (context, _) => const Icon(
+                                                  Icons.star_rate_rounded,
+                                                  color: Color(0xffFEA800),
                                                 ),
-                                                SizedBox(width: 5.w),
-                                                titleText(text: "5.0", color: kYellow),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 10.h),
-                                    titleSmallText(
-                                      text:
-                                          "I am very happy with Aidnix App, now I can easily book tests and get my results. Big relief for a patient like me. Thank you AidNix!",
-                                      color: kDarkGrey1,
-                                      maxLines: 4,
-                                    ),
-                                  ],
-                                ),
+                                                onRatingUpdate: (rating) {
+                                                  print(rating);
+                                                },
+                                              ),
+                                              SizedBox(width: 5.w),
+                                              titleText(text: "5.0", color: kYellow),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 10.h),
+                                  titleSmallText(
+                                    text:
+                                        "I am very happy with Aidnix App, now I can easily book tests and get my results. Big relief for a patient like me. Thank you AidNix!",
+                                    color: kDarkGrey1,
+                                    maxLines: 4,
+                                  ),
+                                ],
                               ),
                             );
                           },

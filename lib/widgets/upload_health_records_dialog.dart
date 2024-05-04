@@ -19,7 +19,7 @@ class UploadHealthRecordsDialog extends StatelessWidget {
           return Padding(
             padding: MediaQuery.of(context).viewInsets,
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+              margin: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
               constraints: BoxConstraints(maxHeight: 750.h),
               decoration: BoxDecoration(
@@ -62,7 +62,6 @@ class UploadHealthRecordsDialog extends StatelessWidget {
                     regularText(text: "User", color: kDarkGrey1),
                     SizedBox(height: 10.h),
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15.w),
                       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                       decoration:
                           BoxDecoration(color: kWhite, borderRadius: BorderRadius.circular(8.r), border: Border.all(color: kLightGrey)),
@@ -94,11 +93,7 @@ class UploadHealthRecordsDialog extends StatelessWidget {
                               },
                             ),
                           ),
-                          Icon(
-                            Icons.keyboard_arrow_down_rounded,
-                            size: 30.h,
-                            color: kBlack,
-                          )
+                          Image.asset(AppAssets.arrowDown, scale: 4),
                         ],
                       ),
                     ),
@@ -106,7 +101,6 @@ class UploadHealthRecordsDialog extends StatelessWidget {
                     regularText(text: "Type of record", color: kDarkGrey1),
                     SizedBox(height: 10.h),
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15.w),
                       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                       decoration:
                           BoxDecoration(color: kWhite, borderRadius: BorderRadius.circular(8.r), border: Border.all(color: kLightGrey)),
@@ -138,11 +132,7 @@ class UploadHealthRecordsDialog extends StatelessWidget {
                               },
                             ),
                           ),
-                          Icon(
-                            Icons.keyboard_arrow_down_rounded,
-                            size: 30.h,
-                            color: kBlack,
-                          )
+                          Image.asset(AppAssets.arrowDown, scale: 4),
                         ],
                       ),
                     ),
