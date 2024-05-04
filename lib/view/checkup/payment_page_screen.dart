@@ -109,7 +109,6 @@ class _PaymentPageScreenState extends State<PaymentPageScreen> {
                                   }),
                             ),
                           ),
-                          //  SizedBox(width: 10.w),
                           customText(
                               text: AppString.upi,
                               fontSize: 17.sp,

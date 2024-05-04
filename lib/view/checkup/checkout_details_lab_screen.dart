@@ -13,7 +13,8 @@ class CheckOutDetailsLabScreen extends StatefulWidget {
   const CheckOutDetailsLabScreen({super.key});
 
   @override
-  State<CheckOutDetailsLabScreen> createState() => _CheckOutDetailsLabScreenState();
+  State<CheckOutDetailsLabScreen> createState() =>
+      _CheckOutDetailsLabScreenState();
 }
 
 class _CheckOutDetailsLabScreenState extends State<CheckOutDetailsLabScreen> {
@@ -52,9 +53,12 @@ class _CheckOutDetailsLabScreenState extends State<CheckOutDetailsLabScreen> {
                       decoration: BoxDecoration(
                           color: kWhite,
                           borderRadius: BorderRadius.circular(15.r),
-                          boxShadow: [BoxShadow(color: kDarkWhite, blurRadius: 3)]),
+                          boxShadow: [
+                            BoxShadow(color: kDarkWhite, blurRadius: 3)
+                          ]),
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 13.h),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 20.w, vertical: 13.h),
                         child: Row(
                           children: [
                             Stack(
@@ -64,7 +68,8 @@ class _CheckOutDetailsLabScreenState extends State<CheckOutDetailsLabScreen> {
                                   backgroundColor: kLightBgColor,
                                   radius: 30.r,
                                   child: Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 5.w, vertical: 5.h),
                                     child: Image.asset(
                                       AppAssets.labProfile,
                                       fit: BoxFit.cover,
@@ -82,21 +87,27 @@ class _CheckOutDetailsLabScreenState extends State<CheckOutDetailsLabScreen> {
                               ],
                             ),
                             SizedBox(width: 10.w),
-                            customText(text: "Greenlab Biotech", fontSize: 18.sp)
+                            customText(
+                                text: "Greenlab Biotech", fontSize: 18.sp)
                           ],
                         ),
                       ),
                     ),
                   ),
                   customText(text: "Ordered Tests", fontSize: 15.sp),
-                  customText(text: "3 Tests", fontSize: 16.sp, fontWeight: FontWeight.w400, color: kDarkGrey1),
+                  customText(
+                      text: "3 Tests",
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w400,
+                      color: kDarkGrey1),
                   Expanded(
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
                           ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),
-                            padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 12.h),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 3.w, vertical: 12.h),
                             itemCount: 3,
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
@@ -106,24 +117,36 @@ class _CheckOutDetailsLabScreenState extends State<CheckOutDetailsLabScreen> {
                                   decoration: BoxDecoration(
                                       color: kWhite,
                                       borderRadius: BorderRadius.circular(15.r),
-                                      boxShadow: [BoxShadow(color: kDarkWhite, blurRadius: 3)]),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: kDarkWhite, blurRadius: 3)
+                                      ]),
                                   child: Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 13.h),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 20.w, vertical: 13.h),
                                     child: Row(
                                       children: [
                                         Container(
                                           height: 45.h,
                                           width: 45.h,
-                                          decoration:
-                                              BoxDecoration(color: kLightGreen.withOpacity(0.2), borderRadius: BorderRadius.circular(8.r)),
+                                          decoration: BoxDecoration(
+                                              color:
+                                                  kLightGreen.withOpacity(0.2),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.r)),
                                           child: Image.asset(
-                                            controller.orderedTestsData[index]['image'],
+                                            controller.orderedTestsData[index]
+                                                ['image'],
                                             scale: 2.7,
                                           ),
                                         ),
                                         SizedBox(width: 10.w),
                                         customText(
-                                            text: controller.orderedTestsData[index]['name'], fontSize: 16.sp, fontWeight: FontWeight.w400),
+                                            text: controller
+                                                    .orderedTestsData[index]
+                                                ['name'],
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w400),
                                         const Spacer(),
                                         customText(
                                           text: "₹299",
@@ -143,18 +166,24 @@ class _CheckOutDetailsLabScreenState extends State<CheckOutDetailsLabScreen> {
                                 decoration: BoxDecoration(
                                     color: kWhite,
                                     borderRadius: BorderRadius.circular(15.r),
-                                    boxShadow: [BoxShadow(color: kDarkWhite, blurRadius: 3)]),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: kDarkWhite, blurRadius: 3)
+                                    ]),
                                 child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 20.w, vertical: 10.h),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       customText(
-                                        text: "Lab Visit Schedule",
+                                        text: AppString.schedule,
                                         fontSize: 18.sp,
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.only(left: 20.w, top: 15.h),
+                                        padding: EdgeInsets.only(
+                                            left: 20.w, top: 15.h),
                                         child: customText(
                                           text: "On 20 January, 2023",
                                           fontSize: 16.sp,
@@ -162,14 +191,20 @@ class _CheckOutDetailsLabScreenState extends State<CheckOutDetailsLabScreen> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.only(left: 20.w, top: 7.h, bottom: 6.h),
+                                        padding: EdgeInsets.only(
+                                            left: 20.w, top: 7.h, bottom: 6.h),
                                         child: Container(
                                           height: 45.h,
                                           width: 165.w,
                                           decoration: BoxDecoration(
                                               color: kLightGreen,
-                                              borderRadius: BorderRadius.circular(10.r),
-                                              boxShadow: [BoxShadow(color: kDarkWhite, blurRadius: 3)]),
+                                              borderRadius:
+                                                  BorderRadius.circular(10.r),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                    color: kDarkWhite,
+                                                    blurRadius: 3)
+                                              ]),
                                           child: Center(
                                             child: customText(
                                               text: "10:00 PM-11:00 PM",
@@ -203,7 +238,11 @@ class _CheckOutDetailsLabScreenState extends State<CheckOutDetailsLabScreen> {
         button: CustomButton(
           height: 56.h,
           buttonText: "",
-          child: Center(child: customText(text: AppString.purchase, fontWeight: FontWeight.bold, fontSize: 18.sp)),
+          child: Center(
+              child: customText(
+                  text: AppString.purchase,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.sp)),
           onTap: () {},
         ),
       ),

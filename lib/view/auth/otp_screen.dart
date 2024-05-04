@@ -36,20 +36,32 @@ class _OtpScreenState extends State<OtpScreen> {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(top: 41.h, bottom: 22.h),
-                    child: assetImage(AppAssets.logo, height: 105.h, width: 108.w),
+                    child:
+                        assetImage(AppAssets.logo, height: 105.h, width: 108.w),
                   ),
-                  customText(text: AppString.welcomeToAidNix, color: kWhite, fontSize: 24.sp, fontWeight: FontWeight.w600),
+                  customText(
+                      text: AppString.welcomeToAidNix,
+                      color: kWhite,
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.w600),
                 ],
               ),
             ),
             Padding(
               padding: EdgeInsets.only(top: 97.h, bottom: 5.h),
-              child: customText(text: AppString.enterYourOtp, color: kBlack, fontSize: 24.sp, fontWeight: FontWeight.w600),
+              child: customText(
+                  text: AppString.enterYourOtp,
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.w600),
             ),
             customText(
-                text: AppString.otpDetails, color: kBlack, fontSize: 14.sp, textAlign: TextAlign.center, fontWeight: FontWeight.w400),
+                text: AppString.otpDetails,
+                fontSize: 14.sp,
+                textAlign: TextAlign.center,
+                fontWeight: FontWeight.w400),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 28.w).copyWith(top: 24.h, bottom: 40.h),
+              padding: EdgeInsets.symmetric(horizontal: 28.w)
+                  .copyWith(top: 24.h, bottom: 40.h),
               child: Form(
                 key: formKey,
                 child: Pinput(
@@ -58,7 +70,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     width: 79.w,
                     height: 80.h,
                     textStyle: TextStyle(
-                      fontSize: 22,
+                      fontSize: 22.sp,
                       fontFamily: "Poppins",
                       color: kBlack,
                     ),
@@ -71,7 +83,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     width: 79.w,
                     height: 80.h,
                     textStyle: TextStyle(
-                      fontSize: 22,
+                      fontSize: 22.sp,
                       fontFamily: "Poppins",
                       color: kBlack,
                     ),
@@ -112,9 +124,18 @@ class _OtpScreenState extends State<OtpScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   customText(
-                      text: AppString.receiveOtp, color: kBlack, fontSize: 14.sp, textAlign: TextAlign.center, fontWeight: FontWeight.w400),
+                      text: AppString.receiveOtp,
+                      color: kBlack,
+                      fontSize: 14.sp,
+                      textAlign: TextAlign.center,
+                      fontWeight: FontWeight.w400),
+                  SizedBox(width: 5.w),
                   customText(
-                      text: AppString.resendOtp, color: kGreen, fontSize: 14.sp, textAlign: TextAlign.center, fontWeight: FontWeight.w400),
+                      text: AppString.resendOtp,
+                      color: kGreen,
+                      fontSize: 14.sp,
+                      textAlign: TextAlign.center,
+                      fontWeight: FontWeight.w400),
                 ],
               ),
             )

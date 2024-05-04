@@ -2,6 +2,10 @@ import 'package:aidnix/constant/app_assets.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class CheckupController extends GetxController {
+  ///------------Lab Cart Page Screen---------------------
+
+  List checkupCardList = ["Blood Test", "Full body checkup", "Urine Test"];
+
   ///------------Payment Page Screen-----------------------
 
   int selectPayment = 0;

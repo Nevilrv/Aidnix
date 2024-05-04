@@ -11,17 +11,20 @@ class AuthController extends GetxController {
     {
       "image": AppAssets.onboardingImage,
       "text": "Accurate Testing, Unbeatable Prices",
-      "detailText": "Book your medical tests from Certified Labs, Exclusively on Our Platform in Your City!"
+      "detailText":
+          "Book your medical tests from Certified Labs, Exclusively on Our Platform in Your City!"
     },
     {
       "image": AppAssets.onboardingImage,
       "text": "Experience Unmatched price and Convenience ",
-      "detailText": "Book with Us for the Most Accurate Results, Lowest Prices, and Exclusive Discounts!"
+      "detailText":
+          "Book with Us for the Most Accurate Results, Lowest Prices, and Exclusive Discounts!"
     },
     {
       "image": AppAssets.onboardingImage,
       "text": "Experience Unmatched price and Convenience ",
-      "detailText": "Book with Us for the Most Accurate Results, Lowest Prices, and Exclusive Discounts!"
+      "detailText":
+          "Book with Us for the Most Accurate Results, Lowest Prices, and Exclusive Discounts!"
     }
   ];
 
@@ -34,7 +37,7 @@ class AuthController extends GetxController {
 
   PageController pageController = PageController();
   int selected = 0;
-  changeTabs(int index) {
+  changeTabs(index) {
     selected = index;
     update();
   }
