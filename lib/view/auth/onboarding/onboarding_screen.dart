@@ -29,6 +29,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 SizedBox(
                   height: 620.h,
                   child: PageView.builder(
+                    onPageChanged: (pageIndex) {
+                      controller.changeTabs(pageIndex);
+                    },
                     controller: controller.pageController,
                     // physics: const BouncingScrollPhysics(),
                     itemCount: 3,
