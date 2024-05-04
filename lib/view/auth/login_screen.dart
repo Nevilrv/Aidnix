@@ -36,20 +36,34 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(top: 41.h, bottom: 22.h),
-                    child: assetImage(AppAssets.logo, height: 105.h, width: 108.w),
+                    child:
+                        assetImage(AppAssets.logo, height: 105.h, width: 108.w),
                   ),
-                  customText(text: AppString.welcomeToAidNix, color: kWhite, fontSize: 24.sp, fontWeight: FontWeight.w600),
+                  customText(
+                      text: AppString.welcomeToAidNix,
+                      color: kWhite,
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.w600),
                 ],
               ),
             ),
             Padding(
               padding: EdgeInsets.only(top: 97.h, bottom: 5.h),
-              child: customText(text: AppString.enterYourPhone, color: kBlack, fontSize: 24.sp, fontWeight: FontWeight.w600),
+              child: customText(
+                  text: AppString.enterYourPhone,
+                  color: kBlack,
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.w600),
             ),
             customText(
-                text: AppString.enterYourDetails, color: kBlack, fontSize: 14.sp, textAlign: TextAlign.center, fontWeight: FontWeight.w400),
+                text: AppString.enterYourDetails,
+                color: kBlack,
+                fontSize: 14.sp,
+                textAlign: TextAlign.center,
+                fontWeight: FontWeight.w400),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 28.w).copyWith(top: 32.h, bottom: 60.h),
+              padding: EdgeInsets.symmetric(horizontal: 28.w)
+                  .copyWith(top: 32.h, bottom: 60.h),
               child: Form(
                 key: formKey,
                 child: CustomTextField(

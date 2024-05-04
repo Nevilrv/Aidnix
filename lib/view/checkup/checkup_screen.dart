@@ -41,6 +41,10 @@ class _CheckupScreenState extends State<CheckupScreen> {
                   );
                 },
               ),
+              child: customSearchBar(
+                  searchHint: false,
+                  context: context,
+                  searchController: searchController),
             ),
             Expanded(
               child: SingleChildScrollView(
@@ -52,7 +56,11 @@ class _CheckupScreenState extends State<CheckupScreen> {
                         top: 30.h,
                         left: 20.w,
                         child: customText(
-                            textAlign: TextAlign.center, text: AppString.blood, fontSize: 24.sp, maxLines: 2, fontWeight: FontWeight.w600),
+                            textAlign: TextAlign.center,
+                            text: AppString.blood,
+                            fontSize: 24.sp,
+                            maxLines: 2,
+                            fontWeight: FontWeight.w600),
                       ),
                       details: Positioned(
                         top: 65.h,
@@ -64,7 +72,10 @@ class _CheckupScreenState extends State<CheckupScreen> {
                             maxLines: 2,
                             fontWeight: FontWeight.w400),
                       ),
-                      image: Positioned(right: 12.w, child: Image.asset(AppAssets.dummy, height: 174.h, width: 169.w)),
+                      image: Positioned(
+                          right: 12.w,
+                          child: Image.asset(AppAssets.dummy,
+                              height: 174.h, width: 169.w)),
                       circleColor: kPrimary.withOpacity(0.1),
                       child: const SizedBox(),
                     ),
@@ -114,7 +125,10 @@ class _CheckupScreenState extends State<CheckupScreen> {
                             maxLines: 2,
                             fontWeight: FontWeight.w400),
                       ),
-                      image: Positioned(right: 0, child: Image.asset(AppAssets.dummyDoctor, scale: 3.1)),
+                      image: Positioned(
+                          right: 0,
+                          child:
+                              Image.asset(AppAssets.dummyDoctor, scale: 3.1)),
                       circleColor: kPrimary.withOpacity(0.1),
                       child: Positioned(
                         top: 110.h,
@@ -133,14 +147,17 @@ class _CheckupScreenState extends State<CheckupScreen> {
                                 width: 20.w,
                               ),
                               SizedBox(width: 5.w),
-                              customText(text: AppString.chatWithUs, color: kLightGreen, fontSize: 12.sp, fontWeight: FontWeight.w500),
+                              customText(
+                                  text: AppString.chatWithUs,
+                                  color: kLightGreen,
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w500),
                             ],
                           ),
                         ),
                       ),
                     ),
                     SizedBox(height: 20.h),
-                    SizedBox(height: 10.h),
                   ],
                 ),
               ),

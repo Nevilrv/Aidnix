@@ -7,11 +7,13 @@ class AppString {
   static const agreeTo = "I agree to the ";
   static const termsConditions = "Terms & Conditions, Privacy Policy.";
   static const enterYourPhone = "Enter Your Phone Number";
-  static const enterYourDetails = "We’ll send you a Verification code to know\nyou’re real";
+  static const enterYourDetails =
+      "We’ll send you a Verification code to know\nyou’re real";
   static const sendOtp = "Send OTP";
   static const pleaseEnterValid = "Please enter valid mobile number";
   static const enterYourOtp = "Enter Your OTP";
-  static const otpDetails = "We are automatically detecting a SMS send\nto your mobile Number ";
+  static const otpDetails =
+      "We are automatically detecting a SMS send\nto your mobile Number ";
   static const verify = "Verify";
   static const tryAgain = "Try Again";
   static const pleaseEnterOtp = "Please enter valid OTP";
@@ -71,4 +73,6 @@ class AppString {
   /// Home Screen
 
   static const hurryUp = "Hurry UP!";
+  static const schedule = "Lab Visit Schedule";
+  static const selectPatients = "Select Patients";
 }

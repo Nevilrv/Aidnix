@@ -182,7 +182,7 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
                         height: 28.h, width: 28.h),
                     SizedBox(width: 15.w),
                     customText(
-                        text: "Blood",
+                        text: AppString.blood,
                         fontSize: 17.sp,
                         color: kDarkGrey1,
                         fontWeight: FontWeight.w400),
