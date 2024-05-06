@@ -126,7 +126,8 @@ class _LabDetailsScreenState extends State<LabDetailsScreen> {
                               type: "Pick Up, Lab Visit",
                               onTap: () {
                                 Get.toNamed(Routes.testDetailsScreen);
-                              }),
+                              },
+                              addCartOnTap: () {}),
                         );
                       },
                     ),

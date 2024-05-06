@@ -71,4 +71,21 @@ class AppString {
   static const processed = "processed";
   static const schedule = "Lab Visit Schedule";
   static const selectPatients = "Select Patients";
+  static const sorryNoLabs = "Sorry No Labs Found";
+  static const callUs = "Call us";
+  static const yes = "Yes";
+  static const no = "NO";
+
+  ///
+
+  static const addresses = "Addresses";
+  static const city = "City";
+  static const state = "State";
+  static const pincode = "Pincode";
+  static const labelAs = "Label as";
+  static const home2 = "Home";
+  static const save = "Save";
+  static const houseNo = "House no. / Floor no.";
+  static const yourLocation = "Your location (Apartment / Road / Area)";
+  static const newAddress = "Add new address";
 }

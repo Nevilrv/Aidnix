@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
               titleSmall: TextStyle(color: kWhite, fontSize: 18.sp),
             ),
           ),
-          initialRoute: Routes.splashScreen,
+          initialRoute: Routes.dashboardScreen,
           getPages: Routes.routes,
         );
       },

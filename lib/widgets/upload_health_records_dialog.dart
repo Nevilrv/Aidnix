@@ -34,13 +34,15 @@ class UploadHealthRecordsDialog extends StatelessWidget {
                     customText(text: "Upload Health Records", fontSize: 20.sp),
                     SizedBox(height: 10.h),
                     regularText(
-                      text: "Please upload of valid Health Records from your doctor",
+                      text:
+                          "Please upload of valid Health Records from your doctor",
                       color: kDarkGrey1,
                       maxLines: 3,
                     ),
                     SizedBox(height: 30.h),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 12.h),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 15.w, vertical: 12.h),
                       decoration: BoxDecoration(
                         color: kLightBgColor,
                         borderRadius: BorderRadius.circular(10.r),
@@ -63,9 +65,12 @@ class UploadHealthRecordsDialog extends StatelessWidget {
                     SizedBox(height: 10.h),
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 15.w),
-                      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                      decoration:
-                          BoxDecoration(color: kWhite, borderRadius: BorderRadius.circular(8.r), border: Border.all(color: kLightGrey)),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 10.w, vertical: 10.h),
+                      decoration: BoxDecoration(
+                          color: kWhite,
+                          borderRadius: BorderRadius.circular(8.r),
+                          border: Border.all(color: kLightGrey)),
                       child: Row(
                         children: [
                           Expanded(
@@ -76,8 +81,10 @@ class UploadHealthRecordsDialog extends StatelessWidget {
                               isExpanded: true,
                               padding: EdgeInsets.zero,
                               hint: customText(
-                                text: controller.mySelf.isNotEmpty ? controller.mySelf : "Select My Self",
-                                color: Color(0xFF2B2B2B),
+                                text: controller.mySelf.isNotEmpty
+                                    ? controller.mySelf
+                                    : "Select My Self",
+                                color: const Color(0xFF2B2B2B),
                               ),
                               borderRadius: BorderRadius.circular(12.r),
                               icon: SizedBox(),
@@ -107,24 +114,29 @@ class UploadHealthRecordsDialog extends StatelessWidget {
                     SizedBox(height: 10.h),
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 15.w),
-                      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                      decoration:
-                          BoxDecoration(color: kWhite, borderRadius: BorderRadius.circular(8.r), border: Border.all(color: kLightGrey)),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 10.w, vertical: 10.h),
+                      decoration: BoxDecoration(
+                          color: kWhite,
+                          borderRadius: BorderRadius.circular(8.r),
+                          border: Border.all(color: kLightGrey)),
                       child: Row(
                         children: [
                           Expanded(
                             child: DropdownButton(
-                              underline: SizedBox(),
+                              underline: const SizedBox(),
                               autofocus: false,
                               isDense: true,
                               isExpanded: true,
                               padding: EdgeInsets.zero,
                               hint: customText(
-                                text: controller.typeOfRecord.isNotEmpty ? controller.typeOfRecord : "Select Report",
-                                color: Color(0xFF2B2B2B),
+                                text: controller.typeOfRecord.isNotEmpty
+                                    ? controller.typeOfRecord
+                                    : "Select Report",
+                                color: const Color(0xFF2B2B2B),
                               ),
                               borderRadius: BorderRadius.circular(12.r),
-                              icon: SizedBox(),
+                              icon: const SizedBox(),
                               menuMaxHeight: 250.h,
                               items: controller.items.map((String items) {
                                 return DropdownMenuItem(

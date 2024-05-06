@@ -44,7 +44,8 @@ class ProfileScreen extends StatelessWidget {
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                        image: NetworkImage("https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"),
+                        image: NetworkImage(
+                            "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -91,7 +92,7 @@ class ProfileScreen extends StatelessWidget {
               SizedBox(width: 10.w),
               SizedBox(
                 height: 20.h,
-                child: VerticalDivider(width: 0),
+                child: const VerticalDivider(width: 0),
               ),
               SizedBox(width: 10.w),
               Image.asset(
@@ -107,7 +108,7 @@ class ProfileScreen extends StatelessWidget {
             ],
           ),
 
-          Spacer(),
+          const Spacer(),
           profileRow(
             tabName: "General Setting",
             tabIcon: AppAssets.personIcon,
@@ -246,10 +247,11 @@ class ProfileScreen extends StatelessWidget {
             SizedBox(width: 15.w),
             titleSmallText(
               text: tabName,
-              color: Color(0xFF454545),
+              color: kBlack54,
             ),
-            Spacer(),
-            Icon(Icons.arrow_forward_ios_rounded, size: 20.h, color: kDarkGrey1),
+            const Spacer(),
+            Icon(Icons.arrow_forward_ios_rounded,
+                size: 20.h, color: kDarkGrey1),
           ],
         ),
       ),

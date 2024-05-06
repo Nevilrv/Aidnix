@@ -37,6 +37,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      surfaceTintColor: kWhite,
       backgroundColor: appBarColor ?? kWhite,
       elevation: elevation ?? 0,
       titleSpacing: 0,

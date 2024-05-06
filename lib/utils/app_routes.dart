@@ -56,6 +56,7 @@ class Routes {
   static String labCheckoutScreen = "/labCheckout";
   static String bookingSlotScreen = "/bookingSlot";
   static String checkOutDetailsLabScreen = "/checkOutDetailsLab";
+  static String shortCardInBottomScreen = "/shortCardInBottom";
 
   static List<GetPage> routes = [
     GetPage(

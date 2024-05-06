@@ -3,6 +3,7 @@ import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/utils/app_routes.dart';
 import 'package:aidnix/view/checkup/checkout_contrroler.dart';
+import 'package:aidnix/widgets/app_app_bar.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:flutter/material.dart';
@@ -23,21 +24,8 @@ class _BookingSlotScreenState extends State<BookingSlotScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: customText(text: AppString.booking, fontSize: 18.sp),
-        centerTitle: true,
-        surfaceTintColor: Colors.white,
-        backgroundColor: Colors.white,
-        elevation: 1,
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: Icon(
-            Icons.arrow_back_ios,
-            size: 23.sp,
-          ),
-        ),
+      appBar: const AppAppBar(
+        titleText: AppString.booking,
       ),
       body: SafeArea(
         child: Padding(

@@ -86,7 +86,8 @@ class AppAssets {
   static const heartTesting = "${iconPath}icon_heart_testing.png";
 }
 
-Widget assetImage(String image, {double? height, double? width, Color? color, double? scale}) {
+Widget assetImage(String image,
+    {double? height, double? width, Color? color, double? scale}) {
   return Image.asset(
     image,
     height: height,

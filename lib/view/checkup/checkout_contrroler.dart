@@ -1,7 +1,17 @@
 import 'package:aidnix/constant/app_assets.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class CheckupController extends GetxController {
+  ///-----------CheckupScreen---------------------
+
+  TextEditingController searchController = TextEditingController();
+
+  searchValue(value) {
+    searchController.text = value;
+    update();
+  }
+
   ///------------Lab Cart Page Screen---------------------
 
   List checkupCardList = ["Blood Test", "Full body checkup", "Urine Test"];

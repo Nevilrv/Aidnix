@@ -29,8 +29,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 SizedBox(
                   height: 620.h,
                   child: PageView.builder(
+                    onPageChanged: (value) {
+                      controller.changeTabs(value);
+                    },
                     controller: controller.pageController,
-                    // physics: const BouncingScrollPhysics(),
                     itemCount: 3,
                     itemBuilder: (context, index) {
                       return GestureDetector(
@@ -49,21 +51,27 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  customText(text: AppString.welcome, color: kBlack, fontSize: 32.sp, fontWeight: FontWeight.w700),
-                                  customText(text: AppString.aidNix, color: kGreen, fontSize: 32.sp, fontWeight: FontWeight.w700)
+                                  customText(
+                                      text: AppString.welcome,
+                                      fontSize: 32.sp,
+                                      fontWeight: FontWeight.w700),
+                                  customText(
+                                      text: AppString.aidNix,
+                                      color: kGreen,
+                                      fontSize: 32.sp,
+                                      fontWeight: FontWeight.w700)
                                 ],
                               ),
                             ),
                             customText(
-                                text: "${controller.onBoardList[index]['text']}",
-                                color: kBlack,
-                                fontSize: 16.sp,
-                                maxLines: 1,
-                                fontWeight: FontWeight.w500),
+                              text: "${controller.onBoardList[index]['text']}",
+                              fontSize: 16.sp,
+                              maxLines: 1,
+                            ),
                             customText(
                                 textAlign: TextAlign.center,
-                                text: "${controller.onBoardList[index]['detailText']}",
-                                color: kBlack,
+                                text:
+                                    "${controller.onBoardList[index]['detailText']}",
                                 fontSize: 16.sp,
                                 maxLines: 2,
                                 fontWeight: FontWeight.w300),
@@ -81,7 +89,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       height: 8.h,
                       width: controller.selected == index ? 32.w : 8.w,
                       margin: const EdgeInsets.symmetric(horizontal: 1),
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(100.r), color: kLightGreen),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100.r),
+                          color: kLightGreen),
                     ),
                   ),
                 ),
@@ -90,7 +100,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   child: CustomButton(
                     buttonText: "",
                     margin: EdgeInsets.symmetric(horizontal: 20.w),
-                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
                     child: Center(
                       child: regularSemiBoldText(text: AppString.signIn),
                     ),
@@ -117,18 +128,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             width: 8.w,
                           ),
                           customText(
-                              textAlign: TextAlign.center,
                               text: AppString.agreeTo,
                               color: controller.check ? kDarkGrey1 : kRed,
                               fontSize: 12.sp,
-                              maxLines: 2,
                               fontWeight: FontWeight.w400),
                           customText(
-                              textAlign: TextAlign.center,
                               text: AppString.termsConditions,
                               color: controller.check ? kGreen : kRed,
                               fontSize: 12.sp,
-                              maxLines: 2,
                               fontWeight: FontWeight.w400),
                         ],
                       )

@@ -1,4 +1,5 @@
 import 'package:aidnix/constant/app_assets.dart';
+import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/view/address/address_controller.dart';
@@ -68,7 +69,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppAppBar(titleText: "Addresses"),
+      appBar: const AppAppBar(titleText: AppString.addresses),
       body: GetBuilder<AddressController>(
           init: AddressController(),
           builder: (controller) {
@@ -76,9 +77,8 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
+                  SizedBox(
                     height: 300.h,
-                    // color: Colors.blue,
                     child: GoogleMap(
                       mapType: MapType.normal,
                       initialCameraPosition: kGooglePlex,
@@ -86,12 +86,14 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                       markers: {
                         const Marker(
                           markerId: MarkerId('marker1'),
-                          position: LatLng(37.42796133580664, -122.085749655962),
+                          position:
+                              LatLng(37.42796133580664, -122.085749655962),
                           infoWindow: InfoWindow(title: 'San Francisco 1'),
                         ),
                         const Marker(
                           markerId: MarkerId('marker2'),
-                          position: LatLng(37.42796133580700, -122.085749656000),
+                          position:
+                              LatLng(37.42796133580700, -122.085749656000),
                           infoWindow: InfoWindow(title: 'San Francisco 2'),
                         ),
                       },
@@ -101,7 +103,8 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                           markers.add(
                             const Marker(
                               markerId: MarkerId('marker1'),
-                              position: LatLng(37.42796133580664, -122.085749655962),
+                              position:
+                                  LatLng(37.42796133580664, -122.085749655962),
                               infoWindow: InfoWindow(title: 'San Francisco'),
                             ),
                           );
@@ -112,52 +115,54 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                   ),
                   SizedBox(height: 20.h),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        regularText(text: "Your location (Apartment / Road / Area)"),
+                        regularText(text: AppString.yourLocation),
                         SizedBox(height: 15.h),
                         CustomTextField(
                           controller: controller.areaController,
                           hintText: "Ex. Ambika Nagar,Varachha Road",
                         ),
                         SizedBox(height: 20.h),
-                        regularText(text: "House no. / Floor no."),
+                        regularText(text: AppString.houseNo),
                         SizedBox(height: 15.h),
                         CustomTextField(
                           controller: controller.houseNoController,
                           hintText: "EX. House no. 10, 2nd floor",
                         ),
                         SizedBox(height: 20.h),
-                        regularText(text: "City"),
+                        regularText(text: AppString.city),
                         SizedBox(height: 15.h),
                         CustomTextField(
                           controller: controller.cityController,
                           hintText: "EX. Surat",
                         ),
                         SizedBox(height: 20.h),
-                        regularText(text: "State"),
+                        regularText(text: AppString.state),
                         SizedBox(height: 15.h),
                         CustomTextField(
                           controller: controller.stateController,
                           hintText: "EX. Gujarat",
                         ),
                         SizedBox(height: 20.h),
-                        regularText(text: "Pincode"),
+                        regularText(text: AppString.pincode),
                         SizedBox(height: 15.h),
                         CustomTextField(
                           controller: controller.pinCodeController,
                           hintText: "EX. 590006",
                         ),
                         SizedBox(height: 20.h),
-                        regularText(text: "Label as"),
+                        regularText(text: AppString.labelAs),
                         SizedBox(height: 15.h),
                         Row(
                           children: [
                             CustomButton(
                               buttonText: "",
-                              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 15.w, vertical: 10.h),
                               buttonColor: kDropDownBgColor,
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
@@ -165,7 +170,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                                   Image.asset(AppAssets.homeIcon, scale: 4),
                                   SizedBox(width: 10.w),
                                   customText(
-                                    text: "Home",
+                                    text: AppString.home2,
                                     fontSize: 12.sp,
                                     color: const Color(0xFF5A5A5A),
                                   ),
@@ -176,15 +181,17 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                             SizedBox(width: 20.w),
                             CustomButton(
                               buttonText: "",
-                              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 15.w, vertical: 10.h),
                               buttonColor: kDropDownBgColor,
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Image.asset(AppAssets.locationOutline, scale: 4),
+                                  Image.asset(AppAssets.locationOutline,
+                                      scale: 4),
                                   SizedBox(width: 10.w),
                                   customText(
-                                    text: "Other",
+                                    text: AppString.other,
                                     fontSize: 12.sp,
                                     color: const Color(0xFF5A5A5A),
                                   ),
@@ -199,7 +206,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                           buttonText: "",
                           margin: EdgeInsets.symmetric(horizontal: 20.w),
                           child: Center(
-                            child: headingSemiBoldText(text: "Save"),
+                            child: headingSemiBoldText(text: AppString.save),
                           ),
                           onTap: () {},
                         ),
