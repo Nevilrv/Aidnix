@@ -2,6 +2,7 @@ import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/utils/app_routes.dart';
+import 'package:aidnix/utils/shared_prefs.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,7 +16,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  _onInit() {
+  _onInit() async {
+    await preferences.setString(SharedPreference.token, "3f6d0d12-9050-4e54-ba5f-64d6283b7509");
     Future.delayed(const Duration(seconds: 3), () {
       Get.offAllNamed(Routes.onboardingScreen);
     });
@@ -33,10 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
         height: 932.h,
         width: 432.w,
-        decoration: BoxDecoration(
-            color: kGreen1,
-            image: const DecorationImage(
-                image: AssetImage(AppAssets.splashBG), fit: BoxFit.cover)),
+        decoration: BoxDecoration(color: kGreen1, image: const DecorationImage(image: AssetImage(AppAssets.splashBG), fit: BoxFit.cover)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -50,11 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            customText(
-                text: AppString.splashDetails,
-                color: kBlack,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w400),
+            customText(text: AppString.splashDetails, color: kBlack, fontSize: 14.sp, fontWeight: FontWeight.w400),
           ],
         ),
       ),
