@@ -1,34 +1,79 @@
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
 import 'package:aidnix/constant/app_assets.dart';
+import 'package:aidnix/models/res_login_api.dart';
+import 'package:aidnix/repository/auth_repository.dart';
 import 'package:aidnix/utils/app_routes.dart';
+import 'package:aidnix/utils/shared_prefs.dart';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:sim_data_plus/sim_data.dart';
 
 class AuthController extends GetxController {
   ///LOGIN SCREEN
+  ResLoginApi resLoginApi = ResLoginApi();
+
+  SimData? _simData;
+  String exception = '';
+
   TextEditingController numberController = TextEditingController();
   TextEditingController otpController = TextEditingController();
+
+
+  Future<void> init() async {
+    try {
+      //fetching status of access to phone permission
+      var status = await Permission.phone.status;
+      if (!status.isGranted) {
+        bool isGranted = await Permission.phone.request().isGranted;
+        if (!isGranted) return;
+      }
+
+      //calling plugin method to fetch sim data
+      await SimDataPlugin.getSimData().then((simData){
+          _simData = simData;
+          for (var item in _simData!.cards) {
+            if(item.serialNumber==null){
+              print("Serial Number is null need to ussd call");
+            }
+          }
+       update();
+      });
+
+    } catch (e) {
+    print('ERROE___$e');
+        _simData = null;
+        exception = e.toString();
+      update();
+    }
+  }
+
+
   List<Map<String, dynamic>> onBoardList = [
     {
       "image": AppAssets.onboardingImage,
       "text": "Accurate Testing, Unbeatable Prices",
-      "detailText":
-          "Book your medical tests from Certified Labs, Exclusively on Our Platform in Your City!"
+      "detailText": "Book your medical tests from Certified Labs, Exclusively on Our Platform in Your City!"
     },
     {
       "image": AppAssets.onboardingImage,
       "text": "Experience Unmatched price and Convenience ",
-      "detailText":
-          "Book with Us for the Most Accurate Results, Lowest Prices, and Exclusive Discounts!"
+      "detailText": "Book with Us for the Most Accurate Results, Lowest Prices, and Exclusive Discounts!"
     },
     {
       "image": AppAssets.onboardingImage,
       "text": "Experience Unmatched price and Convenience ",
-      "detailText":
-          "Book with Us for the Most Accurate Results, Lowest Prices, and Exclusive Discounts!"
+      "detailText": "Book with Us for the Most Accurate Results, Lowest Prices, and Exclusive Discounts!"
     }
   ];
 
   bool check = false;
+  String otpToken = "";
 
   checkValue(value) {
     check = value!;
@@ -54,5 +99,182 @@ class AuthController extends GetxController {
       );
     }
     update();
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+  }
+
+  loginAPI({bool resendOtp = false}) async {
+    var devInfo = DeviceInfoPlugin();
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    SimData simData = await SimDataPlugin.getSimData();
+    AndroidDeviceInfo? androidDevData;
+    IosDeviceInfo? iosDevData;
+    if (Platform.isIOS) {
+      iosDevData = await devInfo.iosInfo;
+      print("Ios Device Info ::::::::: ${iosDevData.systemVersion}");
+    } else {
+      androidDevData = await devInfo.androidInfo;
+      print("Android Device Info ::::::::: ${androidDevData.display}");
+    }
+    // log('simData==========>>>>>${jsonEncode(simData)}');
+
+    // print("Package Info version ::::::::: ${packageInfo.version}");
+    // print("Package Info buildNumber ::::::::: ${packageInfo.buildNumber}");
+
+    var body = {
+      "mobile": numberController.text.trim().toString(),
+      "auth_type": "OTP",
+      "delivery_type": "TEXT",
+      "retry": resendOtp,
+      "X-App-Version-Code": packageInfo.buildNumber,
+      "X-Device-Id": androidDevData?.id,
+      "X-Platform": Platform.isIOS ? "IOS" : "ANDROID",
+      "X-OS-Version": androidDevData?.version.release,
+    };
+
+    print("Request Login API Data ::::::::::: ${body}");
+
+    var response = await AuthRepository().loginAPI(body: body);
+  }
+
+  /// OTP_VERIFY
+
+  otpVerify(String otp, String otpToken) async {
+    var devInfo = DeviceInfoPlugin();
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+    AndroidDeviceInfo? androidDevData;
+    IosDeviceInfo? iosDevData;
+    if (Platform.isIOS) {
+      iosDevData = await devInfo.iosInfo;
+      print("Ios Device Info ::::::::: ${iosDevData.systemVersion}");
+    } else {
+      androidDevData = await devInfo.androidInfo;
+
+
+
+      print("Android Device Info ::::::::1: ${androidDevData.display}");
+      print("Android Device Info ::::::::2: ${androidDevData.version.release}");
+      print("Android Device Info ::::::::3: ${androidDevData.id}");
+      print("Android Device Info ::::::::4: ${androidDevData.brand}");
+      print("Android Device Info ::::::::5: ${androidDevData.manufacturer}");
+      print("Android Device Info ::::::::6: ${androidDevData.type}");
+      print("Android Device Info ::::::::7: ${androidDevData.version.release}");
+      print("Android Device Info ::::::::7: ${androidDevData.version.baseOS}");
+      print("Android Device Info ::::::::7: ${androidDevData.version.codename}");
+      print("Android Device Info ::::::::7: ${androidDevData.version.incremental}");
+      print("Android Device Info ::::::::7: ${androidDevData.version.previewSdkInt}");
+      print("Android Device Info ::::::::7: ${androidDevData.version.release}");
+      print("Android Device Info ::::::::8: ${androidDevData.board}");
+      print("Android Device Info ::::::::9: ${androidDevData.bootloader}");
+      print("Android Device Info ::::::::10: ${androidDevData.device}");
+      print("Android Device Info ::::::::11: ${androidDevData.displayMetrics}");
+      print("Android Device Info ::::::::12: ${androidDevData.fingerprint}");
+      print("Android Device Info ::::::::13: ${androidDevData.hardware}");
+      print("Android Device Info ::::::::14: ${androidDevData.host}");
+      print("Android Device Info ::::::::15: ${androidDevData.isPhysicalDevice}");
+      print("Android Device Info ::::::::16: ${androidDevData.model}");
+      print("Android Device Info ::::::::17: ${androidDevData.model}");
+      print("Android Device Info ::::::::18: ${androidDevData.product}");
+      print("Android Device Info ::::::::19: ${androidDevData.serialNumber}");
+      print("Android Device Info ::::::::20: ${androidDevData.systemFeatures}");
+      print("Android Device Info ::::::::21: ${androidDevData.supported32BitAbis}");
+      print("Android Device Info ::::::::22: ${androidDevData.supported64BitAbis}");
+      print("Android Device Info ::::::::23: ${androidDevData.tags}");
+      print("Android Device Info ::::::::24: ${androidDevData.supportedAbis}");
+      print("Android Device Info ::::::::25: ${androidDevData.data}");
+      print("Android Device Info ::::::::26: ${androidDevData.data['displayMetrics']['xDpi']}");
+      print("Android Device Info ::::::::27: ${androidDevData.data['displayMetrics']}");
+      print("Android Device Info ::::::::28: ${androidDevData.data}");
+    }
+
+    print("Package Info version ::::::::: ${packageInfo.version}");
+    print("Package Info buildNumber ::::::::: ${packageInfo.buildNumber}");
+
+    // print("SIM_DATA_____1_${_simData?.cards[0].carrierName}");
+    // print("SIM_DATA_____2_${_simData?.cards[0].countryCode}");
+    // print("SIM_DATA_____3_${_simData?.cards[0].displayName}");
+    // print("SIM_DATA_____4_${_simData?.cards[0].isDataRoaming}");
+    // print("SIM_DATA_____5_${_simData?.cards[0].isNetworkRoaming}");
+    // print("SIM_DATA_____6_${_simData?.cards[0].phoneNumber}");
+    // print("SIM_DATA_____7_${_simData?.cards[0].serialNumber}");
+    // print("SIM_DATA_____8_${_simData?.cards[0].slotIndex}");
+    // print("SIM_DATA_____9_${_simData?.cards[0].subscriptionId}");
+    // print("SIM_DATA_____10_${_simData?.cards}");
+    // print("SIM_DATA_____11_${_simData?.cards[0]}");
+    // print("SIM_DATA_____12_${_simData?.cards[1]}");
+
+if(_simData!.cards.isEmpty){
+  print("SIMA_DATA_____________!!!_");
+}else{
+  _simData?.cards.map(
+        (SimCard card) {
+      print("SIM_DATA_____1_${card.carrierName}");
+      print("SIM_DATA_____2_${card.countryCode}");
+      print("SIM_DATA_____3_${card.displayName}");
+      print("SIM_DATA_____4_${card.isDataRoaming}");
+      print("SIM_DATA_____5_${card.isNetworkRoaming}");
+      print("SIM_DATA_____6_${card.phoneNumber}");
+      print("SIM_DATA_____7_${card.serialNumber}");
+      print("SIM_DATA_____8_${card.slotIndex}");
+      print("SIM_DATA_____9_${card.subscriptionId}");
+      print("SIM_DATA_____10_${card}");
+
+    },
+  )
+      .toList();
+}
+
+
+    var body = {
+      "mobile": numberController.text.trim().toString(),
+      "otp_token": otpToken,
+      "otp": otp, // '1234',
+      "device_details": {
+        "id": androidDevData?.id.toString(),
+        "notification_token": "${preferences.getString(SharedPreference.fcmToken)}",
+        "brand": androidDevData?.manufacturer.toString(),
+        "carrier": "Jio 4G",
+        "device_name": androidDevData?.brand.toString(),
+        "gms_version": "20.45.16 (040408-344294571)",
+        "manufacturer": androidDevData?.manufacturer.toString(),
+        "network_type": "4G",
+        "os": Platform.isIOS ? "IOS" : "ANDROID",
+        "osVersion": androidDevData?.version.release.toString(),
+        "screen_height": Get.height.toString(),
+        "screen_width": Get.width.toString(),
+        "screen_dpi": "xxhdpi", //
+        "simData": "SIM_STATE_READY SIM Country ISO = in, SIM Operator = 405867, SIM Operator Name = Jio 4G",
+        "rooted_device": false,
+        "rooted_device_dustom": false,
+        "gmails": "",
+        "emails": "",
+        "installer": "com.android.vending",
+        "allow_mock_locations": false
+      }
+    };
+
+    print("Request Login API Data ::::::::::: ${body}");
+    // var response = await AuthRepository().verifyOtpAPI(body: body);
+
+    /// RESPONSE-----------------
+    //       status: true,
+    //       code: 200,
+    //       data: {
+    //           external_id: "3f2a422f-d8c5-4e95-a42d-d7d1fb086d68",
+    //           session_token: "7f63d1af-2607-4833-bcd4-e7e0758fbf5d",
+    //           is_new_user: false,
+    //           first_name: "",
+    //           last_name: "",
+    //           email: "",
+    //           profile_pic: "",
+    //           notification_token: ""
+    //      }
+    //       message: "SUCCESS_OK",
+    //       extra: null
+    //  }
   }
 }

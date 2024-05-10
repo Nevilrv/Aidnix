@@ -21,6 +21,7 @@ class AppInterceptors extends Interceptor {
           case 403:
             throw UnauthorizedException(err.requestOptions);
           case 404:
+          case 405:
             throw NotFoundException(err.requestOptions);
           case 409:
             throw ConflictException(err.requestOptions);

@@ -7,7 +7,14 @@ class AppUrls {
 
   /// API End Points
 
-  // Authentication
+  // Auth
+
+  static const login = "/users/login";
+  static const verifyOtp = "/users/verify-otp";
+
+  // Home
 
   static const home = "/home";
+  static const categories = "/test-categories";
+  static const subCategories = "/lab-items";
 }

@@ -1,6 +1,7 @@
 import 'package:aidnix/Widgets/app_button.dart';
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/constant/app_string.dart';
+import 'package:aidnix/repository/auth_repository.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/utils/app_routes.dart';
 import 'package:aidnix/widgets/app_textfield.dart';
@@ -25,48 +26,39 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(body: GetBuilder<AuthController>(
       builder: (controller) {
-        return Column(
-          children: [
-            Container(
-              height: 240.h,
-              width: 430.w,
-              color: kGreen,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 41.h, bottom: 22.h),
-                    child:
-                        assetImage(AppAssets.logo, height: 105.h, width: 108.w),
-                  ),
-                  customText(
-                      text: AppString.welcomeToAidNix,
-                      color: kWhite,
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w600),
-                ],
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: 240.h,
+                width: 430.w,
+                color: kGreen,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 41.h, bottom: 22.h),
+                      child: assetImage(AppAssets.logo, height: 105.h, width: 108.w),
+                    ),
+                    customText(text: AppString.welcomeToAidNix, color: kWhite, fontSize: 24.sp, fontWeight: FontWeight.w600),
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 97.h, bottom: 5.h),
-              child: customText(
-                  text: AppString.enterYourPhone,
+              Padding(
+                padding: EdgeInsets.only(top: 97.h, bottom: 5.h),
+                child: customText(text: AppString.enterYourPhone, color: kBlack, fontSize: 24.sp, fontWeight: FontWeight.w600),
+              ),
+              customText(
+                  text: AppString.enterYourDetails,
                   color: kBlack,
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.w600),
-            ),
-            customText(
-                text: AppString.enterYourDetails,
-                color: kBlack,
-                fontSize: 14.sp,
-                textAlign: TextAlign.center,
-                fontWeight: FontWeight.w400),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 28.w)
-                  .copyWith(top: 32.h, bottom: 60.h),
-              child: Form(
-                key: formKey,
-                child: CustomTextField(
+                  fontSize: 14.sp,
+                  textAlign: TextAlign.center,
+                  fontWeight: FontWeight.w400),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 28.w).copyWith(top: 32.h, bottom: 60.h),
+                child: Form(
+                  key: formKey,
+                  child: CustomTextField(
                     prefixIcon: const CountryCodePicker(
                       padding: EdgeInsets.zero,
                       initialSelection: 'IN',
@@ -88,23 +80,26 @@ class _LoginScreenState extends State<LoginScreen> {
                       } else {
                         return null;
                       }
-                    }),
+                    },
+                  ),
+                ),
               ),
-            ),
-            CustomButton(
-              buttonText: "",
-              margin: EdgeInsets.symmetric(horizontal: 20.w),
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
-              child: Center(
-                child: regularSemiBoldText(text: AppString.sendOtp),
+              CustomButton(
+                buttonText: "",
+                margin: EdgeInsets.symmetric(horizontal: 20.w),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
+                child: Center(
+                  child: regularSemiBoldText(text: AppString.sendOtp),
+                ),
+                onTap: () async {
+                  if (formKey.currentState!.validate()) {
+                    await controller.loginAPI();
+                    // Get.toNamed(Routes.otpScreen);
+                  }
+                },
               ),
-              onTap: () {
-                if (formKey.currentState!.validate()) {
-                  Get.toNamed(Routes.otpScreen);
-                }
-              },
-            ),
-          ],
+            ],
+          ),
         );
       },
     ));

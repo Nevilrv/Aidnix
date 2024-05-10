@@ -9,11 +9,11 @@ class HomeRepository {
   APIService apiService = APIService();
   Dio dio = APIService().sendRequest;
 
-  Future<CommonResponse?> demoAPI({required double latitude, required double longitude}) async {
-    print('Request Login API :::::::::::::::::: latitude = $latitude longitude = $longitude} ');
+  Future<CommonResponse?> homeAPI({required double latitude, required double longitude}) async {
+    print('Request Home API :::::::::::::::::: latitude = $latitude longitude = $longitude} ');
     try {
       var response = await dio.get("${AppUrls.home}?latitude=$latitude&longitude=$longitude");
-      print('Response Login API :::::::::::::::::: ${response.data}');
+      print('Response Home API :::::::::::::::::: ${response.data}');
 
       if (response.data["status"] == true) {
         return CommonResponse.fromJson(response.data);
@@ -23,7 +23,7 @@ class HomeRepository {
       }
     } on DioException catch (ex) {
       Fluttertoast.showToast(msg: ex.toString() ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
-      print('Error Login API :::::::::::::::::: $ex');
+      print('Error Home API :::::::::::::::::: $ex');
 
       return null;
     }
