@@ -28,11 +28,10 @@ dependencies:
   fluttertoast: ^8.2.5
   location: ^6.0.1
   device_info_plus: 9.1.2
-  package_info_plus:
+  package_info_plus: ^8.0.0
   firebase_messaging: ^14.7.21
   firebase_core: 2.29.0
   sim_data_plus: ^0.1.4
-  permission_handler: ^11.3.1
 
 
 dev_dependencies:

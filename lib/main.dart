@@ -6,14 +6,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'utils/app_routes.dart';
-import 'view/auth/auth_controller.dart';
 
 Future<void> main() async {
-  AuthController authController = Get.put(AuthController());
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       options: const FirebaseOptions(
@@ -24,7 +20,6 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await preferences.init();
   AppNotificationHandler.getFcmToken();
- await authController.init();
   runApp(const MyApp());
 }
 
