@@ -21,6 +21,17 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen> {
   AuthController authScreenController = Get.put(AuthController());
   final formKey = GlobalKey<FormState>();
+
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    authScreenController.otpToken =  Get.arguments['otp_token'] ?? "";
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: GetBuilder<AuthController>(
@@ -36,32 +47,19 @@ class _OtpScreenState extends State<OtpScreen> {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(top: 41.h, bottom: 22.h),
-                    child:
-                        assetImage(AppAssets.logo, height: 105.h, width: 108.w),
+                    child: assetImage(AppAssets.logo, height: 105.h, width: 108.w),
                   ),
-                  customText(
-                      text: AppString.welcomeToAidNix,
-                      color: kWhite,
-                      fontSize: 24.sp,
-                      fontWeight: FontWeight.w600),
+                  customText(text: AppString.welcomeToAidNix, color: kWhite, fontSize: 24.sp, fontWeight: FontWeight.w600),
                 ],
               ),
             ),
             Padding(
               padding: EdgeInsets.only(top: 97.h, bottom: 5.h),
-              child: customText(
-                  text: AppString.enterYourOtp,
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.w600),
+              child: customText(text: AppString.enterYourOtp, fontSize: 24.sp, fontWeight: FontWeight.w600),
             ),
-            customText(
-                text: AppString.otpDetails,
-                fontSize: 14.sp,
-                textAlign: TextAlign.center,
-                fontWeight: FontWeight.w400),
+            customText(text: AppString.otpDetails, fontSize: 14.sp, textAlign: TextAlign.center, fontWeight: FontWeight.w400),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 28.w)
-                  .copyWith(top: 24.h, bottom: 40.h),
+              padding: EdgeInsets.symmetric(horizontal: 28.w).copyWith(top: 24.h, bottom: 40.h),
               child: Form(
                 key: formKey,
                 child: Pinput(
@@ -96,8 +94,13 @@ class _OtpScreenState extends State<OtpScreen> {
                   controller: controller.otpController,
                   textInputAction: TextInputAction.next,
                   showCursor: true,
-                  validator: (s) {
-                    print('validating code: $s');
+                  validator: (value) {
+                    print('validating code: $value');
+                    if (value!.isEmpty) {
+                      return AppString.pleaseEnterOtp;
+                    } else {
+                      return null;
+                    }
                   },
                   onCompleted: null,
                 ),
@@ -110,11 +113,10 @@ class _OtpScreenState extends State<OtpScreen> {
               child: Center(
                 child: regularSemiBoldText(text: AppString.verify),
               ),
-              onTap: () {
+              onTap: () async {
                 if (formKey.currentState!.validate()) {
-                  log("data");
-
-                  Get.offAllNamed(Routes.dashboardScreen);
+                  await controller.otpVerify(controller.otpController.text, controller.otpToken );
+                  // Get.offAllNamed(Routes.dashboardScreen);
                 }
               },
             ),
@@ -124,18 +126,10 @@ class _OtpScreenState extends State<OtpScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   customText(
-                      text: AppString.receiveOtp,
-                      color: kBlack,
-                      fontSize: 14.sp,
-                      textAlign: TextAlign.center,
-                      fontWeight: FontWeight.w400),
+                      text: AppString.receiveOtp, color: kBlack, fontSize: 14.sp, textAlign: TextAlign.center, fontWeight: FontWeight.w400),
                   SizedBox(width: 5.w),
                   customText(
-                      text: AppString.resendOtp,
-                      color: kGreen,
-                      fontSize: 14.sp,
-                      textAlign: TextAlign.center,
-                      fontWeight: FontWeight.w400),
+                      text: AppString.resendOtp, color: kGreen, fontSize: 14.sp, textAlign: TextAlign.center, fontWeight: FontWeight.w400),
                 ],
               ),
             )

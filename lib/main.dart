@@ -1,6 +1,8 @@
+import 'package:aidnix/services/notification_service.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/utils/screen_size.dart';
 import 'package:aidnix/utils/shared_prefs.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,9 +11,15 @@ import 'utils/app_routes.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  await Firebase.initializeApp(
+      options: const FirebaseOptions(
+          apiKey: "AIzaSyA36i6aChLtOHeaY3O78dBoFHupfVGzPuo",
+          appId: "1:927856155632:android:9c32401f22789bc9d99b35",
+          messagingSenderId: "927856155632",
+          projectId: "aidnix-491bf"));
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await preferences.init();
+  AppNotificationHandler.getFcmToken();
   runApp(const MyApp());
 }
 

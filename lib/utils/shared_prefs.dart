@@ -12,13 +12,14 @@ class SharedPreference {
   static const isLogin = "isLogin";
   static const token = "token";
   static const userId = "userId";
+  static const fcmToken = "fcmToken";
 
   // logOut() async {
   //   await _preferences!.clear();
   //   Get.offAllNamed(Routes.loginScreen);
   // }
 
-  Future<bool?> putString(String key, String value) async {
+  Future<bool?> setString(String key, String value) async {
     return _preferences?.setString(key, value);
   }
 
@@ -26,7 +27,7 @@ class SharedPreference {
     return _preferences == null ? defValue : _preferences!.getString(key) ?? defValue;
   }
 
-  Future<bool?> putInt(String key, int value) async {
+  Future<bool?> setInt(String key, int value) async {
     return _preferences?.setInt(key, value);
   }
 
@@ -34,7 +35,7 @@ class SharedPreference {
     return _preferences == null ? defValue : _preferences!.getInt(key) ?? defValue;
   }
 
-  Future<bool?> putDouble(String key, double value) async {
+  Future<bool?> setDouble(String key, double value) async {
     return _preferences?.setDouble(key, value);
   }
 
@@ -42,7 +43,7 @@ class SharedPreference {
     return _preferences == null ? defValue : _preferences!.getDouble(key) ?? defValue;
   }
 
-  Future<bool?> putBool(String key, bool value) async {
+  Future<bool?> setBool(String key, bool value) async {
     return _preferences?.setBool(key, value);
   }
 
