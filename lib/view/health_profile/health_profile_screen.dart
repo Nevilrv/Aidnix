@@ -5,14 +5,11 @@ import 'package:aidnix/view/health_profile/health_profile_controller.dart';
 import 'package:aidnix/widgets/app_app_bar.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:aidnix/widgets/select_activity_dialog.dart';
-import 'package:aidnix/widgets/select_cancel_reason_dialog.dart';
 import 'package:aidnix/widgets/select_diseases_dialog.dart';
 import 'package:aidnix/widgets/select_height_dialog.dart';
 import 'package:aidnix/widgets/select_smoking_dialog.dart';
 import 'package:aidnix/widgets/select_weight_dialog.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -22,7 +19,7 @@ class HealthProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppAppBar(titleText: "Health profile"),
+      appBar: const AppAppBar(titleText: "Health profile"),
       body: GetBuilder<HealthProfileController>(
           init: HealthProfileController(),
           builder: (controller) {
@@ -35,7 +32,7 @@ class HealthProfileScreen extends StatelessWidget {
                   /// Height
 
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                    padding: EdgeInsets.symmetric(horizontal: 22.w),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -148,7 +145,7 @@ class HealthProfileScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 15.h),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                    padding: EdgeInsets.symmetric(horizontal: 22.w),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -201,7 +198,7 @@ class HealthProfileScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 15.h),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                    padding: EdgeInsets.symmetric(horizontal: 22.w),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -233,7 +230,7 @@ class HealthProfileScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 20.h),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                    padding: EdgeInsets.symmetric(horizontal: 22.w),
                     child: titleText(text: "Activity level(exercise)"),
                   ),
                   SizedBox(height: 10.h),
@@ -245,7 +242,7 @@ class HealthProfileScreen extends StatelessWidget {
                       );
                     },
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15.w),
+                      margin: EdgeInsets.symmetric(horizontal: 22.w),
                       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                       decoration: BoxDecoration(
                         color: kDropDownBgColor,
@@ -269,7 +266,7 @@ class HealthProfileScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 20.h),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                    padding: EdgeInsets.symmetric(horizontal: 22.w),
                     child: titleText(text: "Smoking"),
                   ),
                   SizedBox(height: 10.h),
@@ -281,7 +278,7 @@ class HealthProfileScreen extends StatelessWidget {
                       );
                     },
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15.w),
+                      margin: EdgeInsets.symmetric(horizontal: 22.w),
                       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                       decoration: BoxDecoration(
                         color: kDropDownBgColor,
@@ -306,7 +303,7 @@ class HealthProfileScreen extends StatelessWidget {
 
                   SizedBox(height: 20.h),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                    padding: EdgeInsets.symmetric(horizontal: 22.w),
                     child: titleText(text: "Chronic diseases"),
                   ),
                   SizedBox(height: 10.h),
@@ -318,7 +315,7 @@ class HealthProfileScreen extends StatelessWidget {
                       );
                     },
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15.w),
+                      margin: EdgeInsets.symmetric(horizontal: 22.w),
                       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                       decoration: BoxDecoration(
                         color: kDropDownBgColor,
@@ -342,12 +339,12 @@ class HealthProfileScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 20.h),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                    padding: EdgeInsets.symmetric(horizontal: 22.w),
                     child: titleText(text: "Other chronic/ notes"),
                   ),
                   SizedBox(height: 10.h),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                    padding: EdgeInsets.symmetric(horizontal: 22.w),
                     child: CustomTextField(
                       controller: controller.noteController,
                       hintText: "Write here...",
@@ -366,12 +363,12 @@ class HealthProfileScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 20.h),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                    padding: EdgeInsets.symmetric(horizontal: 22.w),
                     child: titleText(text: "Medicine allergies"),
                   ),
                   SizedBox(height: 10.h),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                    padding: EdgeInsets.symmetric(horizontal: 22.w),
                     child: CustomTextField(
                       controller: controller.medicineAllergiesController,
                       hintText: "Write here...",
@@ -390,12 +387,12 @@ class HealthProfileScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 20.h),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                    padding: EdgeInsets.symmetric(horizontal: 22.w),
                     child: titleText(text: "Other allergies"),
                   ),
                   SizedBox(height: 10.h),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                    padding: EdgeInsets.symmetric(horizontal: 22.w),
                     child: CustomTextField(
                       controller: controller.otherAllergiesController,
                       hintText: "Write here...",

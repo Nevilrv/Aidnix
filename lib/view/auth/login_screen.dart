@@ -1,9 +1,7 @@
 import 'package:aidnix/Widgets/app_button.dart';
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/constant/app_string.dart';
-import 'package:aidnix/repository/auth_repository.dart';
 import 'package:aidnix/theme/app_theme.dart';
-import 'package:aidnix/utils/app_routes.dart';
 import 'package:aidnix/widgets/app_textfield.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:country_code_picker/country_code_picker.dart';
@@ -22,6 +20,15 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   AuthController authScreenController = Get.put(AuthController());
   final formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      authScreenController.simDataInit();
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: GetBuilder<AuthController>(

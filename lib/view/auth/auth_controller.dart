@@ -1,41 +1,93 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:aidnix/Theme/app_theme.dart';
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/models/res_login_api.dart';
 import 'package:aidnix/repository/auth_repository.dart';
 import 'package:aidnix/utils/app_routes.dart';
 import 'package:aidnix/utils/shared_prefs.dart';
-
+import 'package:aidnix/widgets/number_select_dialog.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:sim_data_plus/sim_data.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:simnumber/sim_number.dart';
+import 'package:simnumber/siminfo.dart';
+import 'dart:async';
 
 class AuthController extends GetxController {
   ///LOGIN SCREEN
   ResLoginApi resLoginApi = ResLoginApi();
   TextEditingController numberController = TextEditingController();
   TextEditingController otpController = TextEditingController();
+  int numberSelect = 0;
+  SimInfo simInfo = SimInfo([]);
+
+  simDataInit() async {
+    SimNumber.listenPhonePermission((isPermissionGranted) async {
+      print("isPermissionGranted : $isPermissionGranted");
+      if (isPermissionGranted) {
+        initPlatformState();
+      } else {
+        await Permission.phone.request();
+      }
+    });
+  }
+
+  Future<void> initPlatformState() async {
+    try {
+      simInfo = await SimNumber.getSimData();
+      update();
+      log('simInfo.cards.length===========>>>>${simInfo.cards.length}');
+
+      if (simInfo.cards.isNotEmpty) {
+        if (simInfo.cards.length > 1) {
+          Get.dialog(
+            Dialog(child: NumberSelectDialog()),
+            useSafeArea: true,
+            barrierColor: kBlack26.withOpacity(0.5),
+          );
+          simInfo.cards.forEach((element) {
+            log('element.slotIndex==========1=>>>>${element.slotIndex}');
+            log('element.slotIndex==========2=>>>>${element.carrierName}');
+            log('element.slotIndex==========3=>>>>${element.displayName}');
+            log('element.slotIndex==========4=>>>>${element.phoneNumber}');
+            log('element.slotIndex==========5=>>>>${element.countryIso}');
+          });
+        } else {
+          simInfo.cards.forEach((element) {
+            log('element.slotIndex==========11=>>>>${element.slotIndex}');
+            log('element.slotIndex==========22=>>>>${element.carrierName}'); //
+            log('element.slotIndex==========33=>>>>${element.displayName}');
+            log('element.slotIndex==========44=>>>>${element.phoneNumber}');
+            log('element.slotIndex==========55=>>>>${element.countryIso}');
+          });
+        }
+      } else {
+        log("SIM_CARD_EMPTY");
+      }
+    } on PlatformException {
+      print("simInfo  : " "2");
+    }
+  }
+
   List<Map<String, dynamic>> onBoardList = [
     {
       "image": AppAssets.onboardingImage,
       "text": "Accurate Testing, Unbeatable Prices",
-      "detailText":
-          "Book your medical tests from Certified Labs, Exclusively on Our Platform in Your City!"
+      "detailText": "Book your medical tests from Certified Labs, Exclusively on Our Platform in Your City!"
     },
     {
       "image": AppAssets.onboardingImage,
       "text": "Experience Unmatched price and Convenience ",
-      "detailText":
-          "Book with Us for the Most Accurate Results, Lowest Prices, and Exclusive Discounts!"
+      "detailText": "Book with Us for the Most Accurate Results, Lowest Prices, and Exclusive Discounts!"
     },
     {
       "image": AppAssets.onboardingImage,
       "text": "Experience Unmatched price and Convenience ",
-      "detailText":
-          "Book with Us for the Most Accurate Results, Lowest Prices, and Exclusive Discounts!"
+      "detailText": "Book with Us for the Most Accurate Results, Lowest Prices, and Exclusive Discounts!"
     }
   ];
 
@@ -76,7 +128,6 @@ class AuthController extends GetxController {
   loginAPI({bool resendOtp = false}) async {
     var devInfo = DeviceInfoPlugin();
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    SimData simData = await SimDataPlugin.getSimData();
     AndroidDeviceInfo? androidDevData;
     IosDeviceInfo? iosDevData;
     if (Platform.isIOS) {
@@ -112,7 +163,6 @@ class AuthController extends GetxController {
   otpVerify(String otp, String otpToken) async {
     var devInfo = DeviceInfoPlugin();
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    SimData simData = await SimDataPlugin.getSimData();
     AndroidDeviceInfo? androidDevData;
     IosDeviceInfo? iosDevData;
     if (Platform.isIOS) {
@@ -120,52 +170,10 @@ class AuthController extends GetxController {
       print("Ios Device Info ::::::::: ${iosDevData.systemVersion}");
     } else {
       androidDevData = await devInfo.androidInfo;
-
-      print("Android Device Info ::::::::1: ${androidDevData.display}");
-      print("Android Device Info ::::::::2: ${androidDevData.version.release}");
-      print("Android Device Info ::::::::3: ${androidDevData.id}");
-      print("Android Device Info ::::::::4: ${androidDevData.brand}");
-      print("Android Device Info ::::::::5: ${androidDevData.manufacturer}");
-      print("Android Device Info ::::::::6: ${androidDevData.type}");
-      print("Android Device Info ::::::::7: ${androidDevData.version.release}");
-      print("Android Device Info ::::::::7: ${androidDevData.version.baseOS}");
-      print(
-          "Android Device Info ::::::::7: ${androidDevData.version.codename}");
-      print(
-          "Android Device Info ::::::::7: ${androidDevData.version.incremental}");
-      print(
-          "Android Device Info ::::::::7: ${androidDevData.version.previewSdkInt}");
-      print("Android Device Info ::::::::7: ${androidDevData.version.release}");
-      print("Android Device Info ::::::::8: ${androidDevData.board}");
-      print("Android Device Info ::::::::9: ${androidDevData.bootloader}");
-      print("Android Device Info ::::::::10: ${androidDevData.device}");
-      print("Android Device Info ::::::::11: ${androidDevData.displayMetrics}");
-      print("Android Device Info ::::::::12: ${androidDevData.fingerprint}");
-      print("Android Device Info ::::::::13: ${androidDevData.hardware}");
-      print("Android Device Info ::::::::14: ${androidDevData.host}");
-      print(
-          "Android Device Info ::::::::15: ${androidDevData.isPhysicalDevice}");
-      print("Android Device Info ::::::::16: ${androidDevData.model}");
-      print("Android Device Info ::::::::17: ${androidDevData.model}");
-      print("Android Device Info ::::::::18: ${androidDevData.product}");
-      print("Android Device Info ::::::::19: ${androidDevData.serialNumber}");
-      print("Android Device Info ::::::::20: ${androidDevData.systemFeatures}");
-      print(
-          "Android Device Info ::::::::21: ${androidDevData.supported32BitAbis}");
-      print(
-          "Android Device Info ::::::::22: ${androidDevData.supported64BitAbis}");
-      print("Android Device Info ::::::::23: ${androidDevData.tags}");
-      print("Android Device Info ::::::::24: ${androidDevData.supportedAbis}");
-      print("Android Device Info ::::::::25: ${androidDevData.data}");
-      print(
-          "Android Device Info ::::::::26: ${androidDevData.data['displayMetrics']['xDpi']}");
-      print(
-          "Android Device Info ::::::::27: ${androidDevData.data['displayMetrics']}");
-      print("Android Device Info ::::::::28: ${androidDevData.data}");
     }
 
-    print("Package Info version ::::::::: ${packageInfo.version}");
-    print("Package Info buildNumber ::::::::: ${packageInfo.buildNumber}");
+    // print("Package Info version ::::::::: ${packageInfo.version}");
+    // print("Package Info buildNumber ::::::::: ${packageInfo.buildNumber}");
 
     var body = {
       "mobile": numberController.text.trim().toString(),
@@ -173,10 +181,9 @@ class AuthController extends GetxController {
       "otp": otp, // '1234',
       "device_details": {
         "id": androidDevData?.id.toString(),
-        "notification_token":
-            "${preferences.getString(SharedPreference.fcmToken)}",
+        "notification_token": "${preferences.getString(SharedPreference.fcmToken)}",
         "brand": androidDevData?.manufacturer.toString(),
-        "carrier": "Jio 4G",
+        "carrier": simInfo.cards[numberSelect].carrierName ?? '',
         "device_name": androidDevData?.brand.toString(),
         "gms_version": "20.45.16 (040408-344294571)",
         "manufacturer": androidDevData?.manufacturer.toString(),
@@ -185,9 +192,9 @@ class AuthController extends GetxController {
         "osVersion": androidDevData?.version.release.toString(),
         "screen_height": Get.height.toString(),
         "screen_width": Get.width.toString(),
-        "screen_dpi": "xxhdpi", //
+        "screen_dpi": "xxhdpi",
         "simData":
-            "SIM_STATE_READY SIM Country ISO = in, SIM Operator = 405867, SIM Operator Name = Jio 4G",
+            "SIM_STATE_READY SIM Country ISO = ${simInfo.cards[numberSelect].countryIso ?? 'in'}, SIM Operator = 405867, SIM Operator Name = ${simInfo.cards[numberSelect].carrierName ?? ''}",
         "rooted_device": false,
         "rooted_device_dustom": false,
         "gmails": "",
@@ -198,23 +205,6 @@ class AuthController extends GetxController {
     };
 
     print("Request Login API Data ::::::::::: ${body}");
-    // var response = await AuthRepository().verifyOtpAPI(body: body);
-
-    /// RESPONSE-----------------
-    //       status: true,
-    //       code: 200,
-    //       data: {
-    //           external_id: "3f2a422f-d8c5-4e95-a42d-d7d1fb086d68",
-    //           session_token: "7f63d1af-2607-4833-bcd4-e7e0758fbf5d",
-    //           is_new_user: false,
-    //           first_name: "",
-    //           last_name: "",
-    //           email: "",
-    //           profile_pic: "",
-    //           notification_token: ""
-    //      }
-    //       message: "SUCCESS_OK",
-    //       extra: null
-    //  }
+    var response = await AuthRepository().verifyOtpAPI(body: body);
   }
 }

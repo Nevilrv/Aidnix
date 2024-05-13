@@ -32,19 +32,30 @@ class _LabCheckoutScreenState extends State<LabCheckoutScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(top: 20.h, bottom: 16.h),
+                      padding: EdgeInsets.only(top: 20.h, bottom: 15.h),
                       child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          customText(
-                            text: AppString.home,
-                            fontSize: 17.sp,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              customText(
+                                text: AppString.home,
+                                fontSize: 17.sp,
+                              ),
+                              SizedBox(height: 12.h),
+                              customText(
+                                  text: "Bungalow 33, 412 2nd floor, 80 fe...",
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400),
+                            ],
                           ),
                           const Spacer(),
                           Container(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 9.w, vertical: 4.h),
                             decoration: BoxDecoration(
-                                border: Border.all(color: kGrey),
+                                border: Border.all(color: kGreyBorderColor),
                                 borderRadius: BorderRadius.circular(4.r)),
                             child: Center(
                               child: customText(
@@ -56,10 +67,6 @@ class _LabCheckoutScreenState extends State<LabCheckoutScreen> {
                         ],
                       ),
                     ),
-                    customText(
-                        text: "Bungalow 33, 412 2nd floor, 80 fe...",
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400),
                     Padding(
                       padding: EdgeInsets.only(top: 35.h, bottom: 20.h),
                       child: customText(
@@ -125,7 +132,7 @@ class _LabCheckoutScreenState extends State<LabCheckoutScreen> {
                           top: 20.h, bottom: 25.h, left: 3, right: 3),
                       child: Container(
                         height:
-                            controller.selectOtherName == true ? 240.h : 58.h,
+                            controller.selectOtherName == true ? 240.h : 60.h,
                         decoration: BoxDecoration(
                           color: kWhite,
                           borderRadius: BorderRadius.circular(15.r),

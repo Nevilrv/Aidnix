@@ -26,24 +26,22 @@ class _LabDetailsScreenState extends State<LabDetailsScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Padding(
-                padding: EdgeInsets.only(top: 11.h, bottom: 13.h),
-                child: GestureDetector(
-                  onTap: () {
-                    Get.toNamed(Routes.labImageScreen);
-                  },
-                  child: assetImage(
-                    AppAssets.labImage,
-                    height: 238.h,
-                    width: 430.w,
-                  ),
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed(Routes.labImageScreen);
+                },
+                child: assetImage(
+                  AppAssets.labImage,
+                  height: 238.h,
+                  width: 430.w,
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.w),
+                padding: EdgeInsets.symmetric(horizontal: 22.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(height: 15.h),
                     customLabDetailsCart(
                       titleName: "Greenlab Biotech",
                       rating: 5.0,
@@ -52,7 +50,7 @@ class _LabDetailsScreenState extends State<LabDetailsScreen> {
                       address: "2972 Westheimer Rd. Santa Ana, Illinois 85486",
                       distance: 3,
                     ),
-                    SizedBox(height: 10.h),
+                    SizedBox(height: 15.h),
                     Container(
                       padding: EdgeInsets.symmetric(
                           vertical: 10.h, horizontal: 10.w),

@@ -22,11 +22,11 @@ class AddressListScreen extends StatelessWidget {
             body: controller.addressList.isNotEmpty
                 ? ListView.builder(
                     itemCount: controller.addressList.length,
-                    padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
+                    padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 15.h),
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return Container(
-                        margin: EdgeInsets.only(bottom: 10.h),
+                        margin: EdgeInsets.only(bottom: 15.h),
                         padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                         decoration: BoxDecoration(
                           color: kWhite,

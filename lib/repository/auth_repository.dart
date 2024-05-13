@@ -6,9 +6,11 @@ import 'package:aidnix/api_service/api_constant.dart';
 import 'package:aidnix/api_service/api_service.dart';
 import 'package:aidnix/models/res_login_api.dart';
 import 'package:aidnix/utils/app_routes.dart';
+import 'package:aidnix/utils/shared_prefs.dart';
 import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepository {
   APIService apiService = APIService();
@@ -53,6 +55,11 @@ class AuthRepository {
       print('Response VERIFY OTP API :::::::::::::::::: ${response.data}');
 
       if (response.data["status"] == true) {
+
+        await SharedPreference().setBool(SharedPreference.isLogin, true);
+        await SharedPreference().setString(SharedPreference.externalId, response.data['data']['external_id']);
+        await SharedPreference().setString(SharedPreference.sessionToken, response.data['data']['session_token']);
+
         Get.offAllNamed(Routes.dashboardScreen);
         return ResVerifyOtpApi.fromJson(response.data);
       } else {

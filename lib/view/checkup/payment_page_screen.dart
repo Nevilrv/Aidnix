@@ -2,6 +2,7 @@ import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/utils/app_routes.dart';
 import 'package:aidnix/view/checkup/checkout_contrroler.dart';
+import 'package:aidnix/widgets/app_app_bar.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:flutter/material.dart';
@@ -21,26 +22,10 @@ class _PaymentPageScreenState extends State<PaymentPageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: customText(text: AppString.payment, fontSize: 18.sp),
-        centerTitle: true,
-        surfaceTintColor: Colors.white,
-        backgroundColor: Colors.white,
-        elevation: 1,
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-            Get.back();
-          },
-          icon: Icon(
-            Icons.arrow_back_ios,
-            size: 23.sp,
-          ),
-        ),
-      ),
+      appBar: const AppAppBar(titleText: AppString.payment),
       body: SafeArea(
         child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 18.w),
+            padding: EdgeInsets.symmetric(horizontal: 22.w),
             child: GetBuilder<CheckupController>(
               builder: (controller) {
                 return Column(
@@ -58,9 +43,7 @@ class _PaymentPageScreenState extends State<PaymentPageScreen> {
                       decoration: BoxDecoration(
                         color: kWhite,
                         borderRadius: BorderRadius.circular(15.r),
-                        boxShadow: [
-                          BoxShadow(color: kLightGrey, blurRadius: 3)
-                        ],
+                        boxShadow: [BoxShadow(color: kLightGrey, blurRadius: 3)],
                       ),
                       child: Row(
                         children: [
@@ -77,10 +60,7 @@ class _PaymentPageScreenState extends State<PaymentPageScreen> {
                                   }),
                             ),
                           ),
-                          customText(
-                              text: AppString.cashDelivery,
-                              fontSize: 17.sp,
-                              fontWeight: FontWeight.w400),
+                          customText(text: AppString.cashDelivery, fontSize: 17.sp, fontWeight: FontWeight.w400),
                         ],
                       ),
                     ),
@@ -90,9 +70,7 @@ class _PaymentPageScreenState extends State<PaymentPageScreen> {
                       decoration: BoxDecoration(
                         color: kWhite,
                         borderRadius: BorderRadius.circular(15.r),
-                        boxShadow: [
-                          BoxShadow(color: kLightGrey, blurRadius: 3)
-                        ],
+                        boxShadow: [BoxShadow(color: kLightGrey, blurRadius: 3)],
                       ),
                       child: Row(
                         children: [
@@ -109,10 +87,7 @@ class _PaymentPageScreenState extends State<PaymentPageScreen> {
                                   }),
                             ),
                           ),
-                          customText(
-                              text: AppString.upi,
-                              fontSize: 17.sp,
-                              fontWeight: FontWeight.w400),
+                          customText(text: AppString.upi, fontSize: 17.sp, fontWeight: FontWeight.w400),
                         ],
                       ),
                     ),
@@ -129,11 +104,7 @@ class _PaymentPageScreenState extends State<PaymentPageScreen> {
         button: CustomButton(
             height: 56.h,
             buttonText: "",
-            child: Center(
-                child: customText(
-                    text: AppString.bookYourTest,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.sp)),
+            child: Center(child: customText(text: AppString.bookYourTest, fontWeight: FontWeight.bold, fontSize: 18.sp)),
             onTap: () {
               Get.toNamed(Routes.labCheckoutScreen);
             }),

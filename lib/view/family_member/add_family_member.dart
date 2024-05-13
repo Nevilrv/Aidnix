@@ -19,7 +19,7 @@ class AddFamilyMemberScreen extends StatelessWidget {
         init: FamilyMemberController(),
         builder: (controller) {
           return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+            padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 10.h),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

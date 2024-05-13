@@ -21,19 +21,20 @@ class FilterBottomSheet extends StatelessWidget {
               constraints: BoxConstraints(maxHeight: 550.h),
               decoration: BoxDecoration(
                 color: kWhite,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(25.r),
-                  topRight: Radius.circular(25.r),
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(40.r),
                 ),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  SizedBox(height: 10.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(width: 5.w),
+                    Spacer(flex: 2),
                       customText(text: "Filter", fontSize: 22.sp, fontWeight: FontWeight.w600),
+                      Spacer(),
                       GestureDetector(
                         onTap: () {
                           Get.back();
@@ -44,6 +45,7 @@ class FilterBottomSheet extends StatelessWidget {
                           size: 30.h,
                         ),
                       ),
+                      SizedBox(width: 30.w),
                     ],
                   ),
                   SizedBox(height: 20.h),

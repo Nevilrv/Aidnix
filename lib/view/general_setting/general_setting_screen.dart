@@ -14,50 +14,40 @@ class GeneralSettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppAppBar(
-        titleText: "General Setting",
-      ),
+      appBar: const AppAppBar(titleText: "General Setting"),
       body: Column(
         children: [
           SizedBox(height: 10.h),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Stack(
-                  children: [
-                    Container(
-                      height: 100.h,
-                      width: 100.w,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          image: NetworkImage("https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: CircleAvatar(
-                        backgroundColor: kWhite,
-                        radius: 17.r,
-                        child: CircleAvatar(
-                          radius: 15.r,
-                          backgroundColor: kGreen,
-                          child: Image.asset(
-                            AppAssets.editIcon,
-                            scale: 3.5,
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
+          Stack(
+            children: [
+              Container(
+                height: 100.h,
+                width: 100.w,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: NetworkImage("https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ],
-            ),
+              ),
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: CircleAvatar(
+                  backgroundColor: kWhite,
+                  radius: 17.r,
+                  child: CircleAvatar(
+                    radius: 15.r,
+                    backgroundColor: kGreen,
+                    child: Image.asset(
+                      AppAssets.editIcon,
+                      scale: 3.5,
+                    ),
+                  ),
+                ),
+              )
+            ],
           ),
           SizedBox(height: 10.h),
           customText(
@@ -66,7 +56,7 @@ class GeneralSettingScreen extends StatelessWidget {
           ),
           SizedBox(height: 10.h),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.w),
+            padding: EdgeInsets.symmetric(horizontal: 22.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -101,7 +91,7 @@ class GeneralSettingScreen extends StatelessWidget {
           ),
           SizedBox(height: 50.h),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.w),
+            padding: EdgeInsets.symmetric(horizontal: 22.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -121,7 +111,7 @@ class GeneralSettingScreen extends StatelessWidget {
           ),
           SizedBox(height: 20.h),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.w),
+            padding: EdgeInsets.symmetric(horizontal: 22.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

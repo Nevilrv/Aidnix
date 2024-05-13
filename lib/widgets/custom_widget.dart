@@ -4,6 +4,7 @@ import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/utils/app_routes.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/app_textfield.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -336,7 +337,7 @@ Widget customSearchBar({
               hintText: "Search here...",
               textColor: kGrey,
               prefixIcon: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+                padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 14.h),
                 child: SvgPicture.asset(
                   AppAssets.iconSearch,
                   width: 10.w,
@@ -428,33 +429,55 @@ Widget customAppBar() {
         onTap: () {
           Get.toNamed(Routes.notificationScreen);
         },
-        child: SvgPicture.asset(AppAssets.iconNotification),
-      ),
-      SizedBox(width: 12.w),
-      Stack(
-        clipBehavior: Clip.none,
-        children: [
-          SvgPicture.asset(AppAssets.iconCart),
-          Positioned(
-            top: -5.h,
-            right: -5.w,
-            child: CircleAvatar(
-              backgroundColor: kYellow,
-              radius: 8.r,
-              child: Text(
-                '3',
-                style: TextStyle(
-                  fontSize: 10.sp,
-                  fontFamily: "Poppins",
-                  color: kWhite,
-                  fontWeight: FontWeight.w600,
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            SvgPicture.asset(AppAssets.iconNotification),
+            Positioned(
+              top: -5.h,
+              right: -5.w,
+              child: CircleAvatar(
+                backgroundColor: kYellow,
+                radius: 8.r,
+                child: Text(
+                  '3',
+                  style: TextStyle(
+                    fontSize: 10.sp,
+                    fontFamily: "Poppins",
+                    color: kWhite,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
-      SizedBox(width: 5.w),
+      SizedBox(width: 12.w),
+      // Stack(
+      //   clipBehavior: Clip.none,
+      //   children: [
+      //     SvgPicture.asset(AppAssets.iconCart),
+      //     Positioned(
+      //       top: -5.h,
+      //       right: -5.w,
+      //       child: CircleAvatar(
+      //         backgroundColor: kYellow,
+      //         radius: 8.r,
+      //         child: Text(
+      //           '3',
+      //           style: TextStyle(
+      //             fontSize: 10.sp,
+      //             fontFamily: "Poppins",
+      //             color: kWhite,
+      //             fontWeight: FontWeight.w600,
+      //           ),
+      //         ),
+      //       ),
+      //     )
+      //   ],
+      // ),
+      // SizedBox(width: 5.w),
     ],
   );
 }
@@ -508,16 +531,17 @@ Widget customCartContainer({
                           ),
                         ),
                         Positioned(
-                          bottom: -3.h,
-                          right: -3.w,
-                          child: SvgPicture.asset(
-                            AppAssets.iconVerify,
-                            height: 30.h,
+                          bottom: -2.h,
+                          right: -2.w,
+                          child: Icon(
+                            Icons.verified,
+                            color: kGreen,
+                            size: 20.w,
                           ),
                         )
                       ],
                     ),
-                    SizedBox(width: 10.w),
+                    SizedBox(width: 15.w),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -551,7 +575,7 @@ Widget customCartContainer({
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SvgPicture.asset(AppAssets.starIcons),
+                        Icon(Icons.star_rounded, size: 33.w, color: kGreen1),
                         SizedBox(width: 8.w),
                         regularText(text: "${rating}"),
                         SizedBox(width: 8.w),
@@ -561,7 +585,7 @@ Widget customCartContainer({
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SvgPicture.asset(AppAssets.microscopeIcon),
+                        SvgPicture.asset(AppAssets.microscopeIcon, color: kGreen1),
                         SizedBox(width: 8.w),
                         regularText(text: "${noOfTest}+ Tests"),
                       ],
@@ -571,9 +595,9 @@ Widget customCartContainer({
                 ),
                 SizedBox(height: 15.h),
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SvgPicture.asset(AppAssets.medical),
+                    SvgPicture.asset(AppAssets.medical, color: kGreen1),
                     SizedBox(width: 8.w),
                     Expanded(
                       child: regularText(
@@ -588,7 +612,7 @@ Widget customCartContainer({
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SvgPicture.asset(AppAssets.location2),
+                    SvgPicture.asset(AppAssets.location2, color: kGreen1),
                     const SizedBox(width: 8),
                     Expanded(
                       child: regularText(
@@ -723,12 +747,17 @@ Widget checkupCartContainer({
                       padding: EdgeInsets.only(left: 10.w, right: 25.w),
                       child: customText(textAlign: TextAlign.start, text: comprehensive, fontSize: 18.sp, fontWeight: FontWeight.w600),
                     ),
+                    SizedBox(width: 45.w),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
                           height: 22.h,
                           width: 87.w,
-                          color: kDarkWhite.withOpacity(0.6),
+                          decoration: BoxDecoration(
+                            color: kDarkWhite.withOpacity(0.6),
+                            borderRadius: BorderRadius.vertical(bottom: Radius.circular(3.w)),
+                          ),
                           child: Center(
                             child: customText(
                               text: AppString.checkUp,
@@ -805,7 +834,7 @@ Widget checkupCartContainer({
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     customText(text: AppString.report, color: kDarkGrey1, fontSize: 11.sp, fontWeight: FontWeight.w400),
-                    customText(text: report, color: kDarkGrey1, fontSize: 16.sp, fontWeight: FontWeight.w600),
+                    customText(text: report, fontSize: 16.sp, fontWeight: FontWeight.w600),
                   ],
                 ),
               ),
@@ -821,7 +850,7 @@ Widget checkupCartContainer({
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     customText(text: AppString.type, color: kDarkGrey1, fontSize: 11.sp, fontWeight: FontWeight.w400),
-                    customText(text: type, color: kDarkGrey1, fontSize: 16.sp, fontWeight: FontWeight.w600),
+                    customText(text: type, fontSize: 16.sp, fontWeight: FontWeight.w600),
                   ],
                 ),
               ),
@@ -942,25 +971,27 @@ Widget customLabDetailsCart({
                   child: customText(text: titleName, fontSize: 20),
                 ),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SvgPicture.asset(AppAssets.starIcons, color: kGreen),
+                    Icon(Icons.star_rounded, size: 33.w, color: kGreen1),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.w),
                       child: regularText(text: "$rating"),
                     ),
                     customText(text: "($noOfRating Rating)", fontSize: 10.sp),
                     const Spacer(),
-                    SvgPicture.asset(AppAssets.microscopeIcon, color: kGreen),
+                    SvgPicture.asset(AppAssets.microscopeIcon, color: kGreen1),
                     SizedBox(width: 8.w),
                     SizedBox(width: 140.w, child: regularText(text: "$noOfTest+ Tests")),
                   ],
                 ),
                 SizedBox(height: 15.h),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SvgPicture.asset(AppAssets.location2, color: kGreen),
+                    SvgPicture.asset(AppAssets.location2, color: kGreen1),
                     SizedBox(width: 8.w),
                     SizedBox(
                       width: 140.w,
@@ -971,7 +1002,7 @@ Widget customLabDetailsCart({
                       ),
                     ),
                     const Spacer(),
-                    SvgPicture.asset(AppAssets.medical, color: kGreen),
+                    SvgPicture.asset(AppAssets.medical, color: kGreen1),
                     SizedBox(width: 8.w),
                     SizedBox(
                       width: 140.w,
@@ -1002,7 +1033,7 @@ Widget customBookingContainer({
   required String date,
 }) {
   return Container(
-    margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+    margin: EdgeInsets.symmetric(horizontal: 22.w, vertical: 10.h),
     padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
     decoration: BoxDecoration(
       color: kWhite,
@@ -1034,18 +1065,21 @@ Widget customBookingContainer({
                   ),
                 ),
                 Positioned(
-                  bottom: -3.h,
-                  right: -3.w,
-                  child: SvgPicture.asset(AppAssets.iconVerify, height: 30.h),
+                  bottom: -1.h,
+                  right: -1.w,
+                  child: Icon(
+                    Icons.verified,
+                    color: kGreen,
+                    size: 21.w,
+                  ),
                 )
               ],
             ),
-            SizedBox(width: 10.w),
+            SizedBox(width: 15.w),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 10.h),
                 customText(text: titleName, fontSize: 20.sp),
                 SizedBox(height: 3.h),
                 customText(text: category, fontSize: 14.sp, color: kDarkGrey1),
@@ -1078,7 +1112,7 @@ Widget customBookingContainer({
             children: [
               Row(
                 children: [
-                  Image.asset(AppAssets.clock, scale: 3),
+                  Image.asset(AppAssets.clock, scale: 4),
                   SizedBox(width: 10.w),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1184,7 +1218,7 @@ Widget commonBottomCard({
       ),
     ),
     child: Padding(
-      padding: EdgeInsets.symmetric(horizontal: 30.w),
+      padding: EdgeInsets.symmetric(horizontal: 23.w),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -1273,10 +1307,7 @@ Widget checkoutDetailsCard({
     decoration: BoxDecoration(
       color: kWhite,
       boxShadow: [BoxShadow(color: kLightGrey, blurRadius: 3)],
-      borderRadius: BorderRadius.only(
-        topRight: Radius.circular(30.r),
-        topLeft: Radius.circular(30.r),
-      ),
+      borderRadius: BorderRadius.vertical(top: Radius.circular(40.r)),
     ),
     child: Padding(
       padding: EdgeInsets.symmetric(horizontal: 30.w),

@@ -10,25 +10,28 @@ class BarCodeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          titleBoldText(text: "Show this bar code at lab center"),
-          SizedBox(
-            height: 50.h,
-          ),
-          Center(
-            child: Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), border: Border.all(color: kLightGrey)),
-              child: Image.asset(
-                AppAssets.qrCodeImage,
-                scale: 1.1,
-              ),
+      body: Padding(
+        padding:   EdgeInsets.symmetric(horizontal: 22.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            titleBoldText(text: "Show this bar code at lab center"),
+            SizedBox(
+              height: 50.h,
             ),
-          )
-        ],
+            Center(
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), border: Border.all(color: kLightGrey)),
+                child: Image.asset(
+                  AppAssets.qrCodeImage,
+                  scale: 1.1,
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

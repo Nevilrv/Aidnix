@@ -35,14 +35,12 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> with TickerPr
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppAppBar(
-        titleText: "Health Records",
-      ),
+      appBar: const AppAppBar(titleText: "Health Records"),
       body: GetBuilder<HealthRecordsController>(
         init: HealthRecordsController(),
         builder: (controller) {
           return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.w),
+            padding: EdgeInsets.symmetric(horizontal: 22.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

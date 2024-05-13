@@ -34,7 +34,7 @@ class Routes {
   static String loginScreen = "/login";
   static String otpScreen = "/otp";
   static String dashboardScreen = "/dashboard";
-  static String searchListingScreen = "/searchListing";
+  // static String searchListingScreen = "/searchListing";
   static String healthRecordsScreen = "/healthRecords";
   static String generalSettingScreen = "/generalSetting";
   static String healthProfileScreen = "/healthProfile";
@@ -68,16 +68,11 @@ class Routes {
       page: () => const DashboardScreen(),
       transition: Transition.fadeIn,
     ),
-    GetPage(
-      name: searchListingScreen,
-      page: () => const SearchLabListingScreen(),
-      transition: Transition.fadeIn,
-    ),
-    GetPage(
-      name: searchListingScreen,
-      page: () => const SearchLabListingScreen(),
-      transition: Transition.fadeIn,
-    ),
+    // GetPage(
+    //   name: searchListingScreen,
+    //   page: () => const SearchLabListingScreen(),
+    //   transition: Transition.fadeIn,
+    // ),
     GetPage(
       name: healthRecordsScreen,
       page: () => const HealthRecordsScreen(),

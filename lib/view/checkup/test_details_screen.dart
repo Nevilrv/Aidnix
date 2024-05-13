@@ -2,6 +2,7 @@ import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/utils/app_routes.dart';
+import 'package:aidnix/widgets/app_app_bar.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:flutter/material.dart';
@@ -20,29 +21,15 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: customText(text: AppString.test, fontSize: 18.sp),
-        centerTitle: true,
-        surfaceTintColor: Colors.white,
-        backgroundColor: Colors.white,
-        elevation: 1,
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: Icon(
-            Icons.arrow_back_ios,
-            size: 23.sp,
-          ),
-        ),
-      ),
+      appBar: const AppAppBar(titleText: AppString.test),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 17.w),
+          padding: EdgeInsets.symmetric(horizontal: 22.w),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: 10.h),
                 customText(
                     text: "Complete Blood Count (CBC)",
                     fontSize: 18.sp,
@@ -247,10 +234,7 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
         height: 90.h,
         decoration: BoxDecoration(
           color: kLightGreen.withOpacity(0.4),
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(30.r),
-            topLeft: Radius.circular(30.r),
-          ),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(40.r)),
         ),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 30.w),

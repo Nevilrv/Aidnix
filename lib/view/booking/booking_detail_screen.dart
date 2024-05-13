@@ -30,7 +30,7 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
             return Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  padding: EdgeInsets.symmetric(horizontal: 22.w),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -51,11 +51,12 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                                 ),
                               ),
                               Positioned(
-                                bottom: -3.h,
-                                right: -3.w,
-                                child: SvgPicture.asset(
-                                  AppAssets.iconVerify,
-                                  height: 30.h,
+                                bottom: -1.h,
+                                right: -1.w,
+                                child: Icon(
+                                  Icons.verified,
+                                  color: kGreen,
+                                  size: 20.w,
                                 ),
                               )
                             ],
@@ -330,7 +331,7 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                 ),
                 Container(
                   width: double.infinity,
-                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                  padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 20.h),
                   decoration: BoxDecoration(
                     color: kWhite,
                     borderRadius: const BorderRadius.only(

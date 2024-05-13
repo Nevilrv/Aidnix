@@ -6,7 +6,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'utils/app_routes.dart';
 
 Future<void> main() async {
@@ -20,6 +22,7 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await preferences.init();
   AppNotificationHandler.getFcmToken();
+  await Permission.phone.request();
   runApp(const MyApp());
 }
 
@@ -39,6 +42,7 @@ class MyApp extends StatelessWidget {
           title: 'Aidnix',
           themeMode: ThemeMode.light,
           theme: ThemeData(
+            useMaterial3: false,
             colorScheme: ColorScheme.light(background: kWhite),
             fontFamily: "Poppins",
             textTheme: TextTheme(
@@ -47,6 +51,7 @@ class MyApp extends StatelessWidget {
           ),
           debugShowCheckedModeBanner: false,
           darkTheme: ThemeData(
+            useMaterial3: false,
             colorScheme: ColorScheme.dark(background: kBlack),
             fontFamily: "Poppins",
             textTheme: TextTheme(

@@ -49,7 +49,7 @@ class AppAssets {
   static const streamLine = "${iconPath}Icon_stream_line.svg";
   static const vector = "${iconPath}icons_vector.svg";
   static const whatsapp = "${iconPath}icon_whatsapp.svg";
-  static const starIcons = "${iconPath}icon_star.svg";
+  // static const starIcons = "${iconPath}icon_star.svg";
   static const medical = "${iconPath}icon_medical.svg";
   static const bloodTest = "${iconPath}icon_blood_test.svg";
   static const location2 = "${iconPath}icon_location_2.svg";
@@ -71,7 +71,7 @@ class AppAssets {
   static const urineTesting = "${iconPath}icon_urine_testing.png";
   static const heartTesting = "${iconPath}icon_heart_testing.png";
 
-  static const iconVerify = "${iconPath}icon_verify.svg";
+  // static const iconVerify = "${iconPath}icon_verify.svg";
   static const arrowDown = "${iconPath}arrow_down.png";
   static const backArrow = "${iconPath}back_arrow.png";
   static const editIcon = "${iconPath}edit_icon.png";

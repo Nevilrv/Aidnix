@@ -34,7 +34,6 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("MediaQuery.of(context).devicePixelRatio;___${MediaQuery.of(context).devicePixelRatio}");
     return Scaffold(body: GetBuilder<AuthController>(
       builder: (controller) {
         return Column(

@@ -22,30 +22,29 @@ class _CheckupScreenState extends State<CheckupScreen> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15.w),
+      padding: EdgeInsets.symmetric(horizontal: 22.w),
       child: SafeArea(
         child: Column(
           children: [
             SizedBox(height: 10.h),
             customAppBar(),
-            Padding(
-              padding: EdgeInsets.only(top: 26.h),
-              child: customSearchBar(
-                searchHint: false,
-                context: context,
-                searchController: searchController,
-                onFilterTap: () {
-                  customBottomSheet(
-                    context: context,
-                    child: const FilterBottomSheet(),
-                  );
-                },
-              ),
+            SizedBox(height: 25.h),
+            customSearchBar(
+              searchHint: false,
+              context: context,
+              searchController: searchController,
+              onFilterTap: () {
+                customBottomSheet(
+                  context: context,
+                  child: const FilterBottomSheet(),
+                );
+              },
             ),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    SizedBox(height: 10.h),
                     checkupAddCart(
                       color: kWhite,
                       title: Positioned(

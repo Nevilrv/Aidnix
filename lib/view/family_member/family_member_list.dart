@@ -21,7 +21,7 @@ class FamilyMemberListScreen extends StatelessWidget {
           return ListView.builder(
             shrinkWrap: true,
             itemCount: controller.familyDetail.length,
-            padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
+            padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 15.h),
             itemBuilder: (context, index) {
               return Container(
                 padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),

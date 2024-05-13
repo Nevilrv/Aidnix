@@ -13,7 +13,7 @@ class NotificationScreen extends StatelessWidget {
       appBar: const AppAppBar(titleText: "Notifications"),
       body: ListView.builder(
         itemCount: 3,
-        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+        padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 10.h),
         shrinkWrap: true,
         itemBuilder: (context, index) {
           return Padding(

@@ -32,6 +32,10 @@ Color kWhite12 = const Color(0xffFAFAFA);
 Color kLightGreen = const Color(0xffA1E06D);
 Color kGreen10 = const Color(0xffE6F4EF);
 Color kBlack45 = Colors.black45;
+Color kLightGreenIconColor =const Color(0xFFE2F5E4);
+Color kGreyBorderColor = const Color(0xFFCDCDCD);
+Color kBlueColor = const Color(0xFF31C4C4);
+
 
 ThemeData kLightTheme = ThemeData(
   colorScheme: const ColorScheme.light(background: Colors.white),
