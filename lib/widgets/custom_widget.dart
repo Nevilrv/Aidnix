@@ -485,13 +485,14 @@ Widget customAppBar() {
 /// Custom Cart Container
 Widget customCartContainer({
   required String titleName,
-  required double rating,
+  required String rating,
   required String noOfRating,
-  required int noOfTest,
+  required String noOfTest,
   required String address,
   required int offerPercentage,
-  required double distance,
+  required String distance,
   required bool isAddToCart,
+ required  bool isRecommended ,
 }) {
   return Container(
     decoration: BoxDecoration(
@@ -547,9 +548,12 @@ Widget customCartContainer({
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: 10.h),
-                        customText(text: titleName, fontSize: 20.sp),
+                        SizedBox(
+                          width: 250.w,
+                          child: customText(text: titleName, fontSize: 20.sp, maxLines: 1),
+                        ),
                         SizedBox(height: 10.h),
-                        Container(
+                        isRecommended == true ? Container(
                           padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
                           decoration: BoxDecoration(
                             color: kOrange,
@@ -563,7 +567,7 @@ Widget customCartContainer({
                               color: kWhite,
                             ),
                           ),
-                        ),
+                        ):const SizedBox(),
                       ],
                     )
                   ],
@@ -587,7 +591,7 @@ Widget customCartContainer({
                       children: [
                         SvgPicture.asset(AppAssets.microscopeIcon, color: kGreen1),
                         SizedBox(width: 8.w),
-                        regularText(text: "${noOfTest}+ Tests"),
+                        regularText(text: noOfTest),
                       ],
                     ),
                     const SizedBox(),
@@ -602,7 +606,7 @@ Widget customCartContainer({
                     Expanded(
                       child: regularText(
                         text: address,
-                        maxLines: 3,
+                        maxLines: 2,
                         color: kDarkGrey1,
                       ),
                     ),
@@ -616,7 +620,7 @@ Widget customCartContainer({
                     const SizedBox(width: 8),
                     Expanded(
                       child: regularText(
-                        text: "${distance} Km from you",
+                        text: "${distance} from you",
                         maxLines: 2,
                         color: kDarkGrey1,
                       ),

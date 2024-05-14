@@ -17,4 +17,6 @@ class AppUrls {
   static const home = "/home";
   static const categories = "/test-categories";
   static const subCategories = "/lab-items";
+  static const familyMember = "/family-members";
+  static const familyMemberImage = "/v2/docs/upload";
 }

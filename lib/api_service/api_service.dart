@@ -17,9 +17,9 @@ class APIService {
       receiveTimeout: AppUrls.responseTimeOut,
       sendTimeout: AppUrls.responseTimeOut,
       responseType: ResponseType.json,
-      // headers: preferences.getString(SharedPreference.token) != null && preferences.getString(SharedPreference.token).toString() != ""
-      //     ? {"Authorization": "Bearer ${preferences.getString(SharedPreference.token)}"}
-      //     : {},
+      headers: preferences.getString(SharedPreference.token) != null && preferences.getString(SharedPreference.token).toString() != ""
+          ? {"Authorization": "${preferences.getString(SharedPreference.token)}"}
+          : {},
     );
     dio.interceptors.add(PrettyDioLogger());
     dio.interceptors.add(AppInterceptors(dio));
@@ -32,7 +32,7 @@ class APIService {
       responseType: ResponseType.json,
       headers: preferences.getString(SharedPreference.token) != null && preferences.getString(SharedPreference.token).toString() != ""
           ? {
-              "Authorization": "Bearer ${preferences.getString(SharedPreference.token)}",
+              "Authorization": "${preferences.getString(SharedPreference.token)}",
               'Content-Type': 'multipart/form-data',
               'Accept': '*/*',
               'Accept-Encoding': 'gzip, deflate, br',

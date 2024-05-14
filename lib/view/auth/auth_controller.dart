@@ -108,7 +108,9 @@ class AuthController extends GetxController {
 
   nextPage() {
     if (selected == 2) {
-      Get.offAllNamed(Routes.loginScreen);
+      if (check) {
+        Get.offAllNamed(Routes.loginScreen);
+      }
     } else {
       selected++;
       pageController.animateToPage(
@@ -203,6 +205,7 @@ class AuthController extends GetxController {
         "allow_mock_locations": false
       }
     };
+
 
     print("Request Login API Data ::::::::::: ${body}");
     var response = await AuthRepository().verifyOtpAPI(body: body);

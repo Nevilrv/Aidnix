@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/theme/app_theme.dart';
@@ -18,6 +20,7 @@ class AddAddressScreen extends StatefulWidget {
 }
 
 class _AddAddressScreenState extends State<AddAddressScreen> {
+  AddressController addressController = Get.put(AddressController());
   GoogleMapController? googleMapController;
   Set<Marker> markers = {};
 
@@ -64,9 +67,15 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
       strokeWidth: 2,
     ),
   };
+  @override
+  void initState() {
+    addressController.getLocation();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: const AppAppBar(titleText: "Addresses"),
       body: GetBuilder<AddressController>(

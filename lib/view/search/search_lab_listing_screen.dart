@@ -58,13 +58,14 @@ class _SearchLabListingScreenState extends State<SearchLabListingScreen> {
                         itemBuilder: (context, index) {
                           return customCartContainer(
                             titleName: "Greenlab Biotech",
-                            rating: 5.0,
+                            rating: "5.0",
                             noOfRating: "1.1k",
-                            noOfTest: 100,
+                            noOfTest: "100",
                             address: "2972 Westheimer Rd. Santa Ana, Illinois 85486",
                             offerPercentage: 20,
-                            distance: 2.2,
+                            distance: '2.2',
                             isAddToCart: true,
+                            isRecommended: true,
                           );
                         },
                       ),

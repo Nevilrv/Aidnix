@@ -70,7 +70,6 @@ class AppString {
 
   /// Home Screen
 
-  static const hurryUp = "Hurry UP!";
   static const schedule = "Lab Visit Schedule";
   static const selectPatients = "Select Patients";
 }

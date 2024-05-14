@@ -1,5 +1,3 @@
-import 'dart:developer';
-import 'package:aidnix/utils/app_routes.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/constant/app_string.dart';
@@ -22,15 +20,12 @@ class _OtpScreenState extends State<OtpScreen> {
   AuthController authScreenController = Get.put(AuthController());
   final formKey = GlobalKey<FormState>();
 
-
-
   @override
   void initState() {
     // TODO: implement initState
-    authScreenController.otpToken =  Get.arguments['otp_token'] ?? "";
+    authScreenController.otpToken = Get.arguments['otp_token'] ?? "";
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +93,8 @@ class _OtpScreenState extends State<OtpScreen> {
                     print('validating code: $value');
                     if (value!.isEmpty) {
                       return AppString.pleaseEnterOtp;
+                    } else if (value.length < 4) {
+                      return "Please Enter Valid OTP";
                     } else {
                       return null;
                     }
@@ -115,7 +112,7 @@ class _OtpScreenState extends State<OtpScreen> {
               ),
               onTap: () async {
                 if (formKey.currentState!.validate()) {
-                  await controller.otpVerify(controller.otpController.text, controller.otpToken );
+                  await controller.otpVerify(controller.otpController.text, controller.otpToken);
                   // Get.offAllNamed(Routes.dashboardScreen);
                 }
               },
@@ -128,8 +125,17 @@ class _OtpScreenState extends State<OtpScreen> {
                   customText(
                       text: AppString.receiveOtp, color: kBlack, fontSize: 14.sp, textAlign: TextAlign.center, fontWeight: FontWeight.w400),
                   SizedBox(width: 5.w),
-                  customText(
-                      text: AppString.resendOtp, color: kGreen, fontSize: 14.sp, textAlign: TextAlign.center, fontWeight: FontWeight.w400),
+                  GestureDetector(
+                    onTap: () async {
+                      await controller.loginAPI(resendOtp: true);
+                    },
+                    child: customText(
+                        text: AppString.resendOtp,
+                        color: kGreen,
+                        fontSize: 14.sp,
+                        textAlign: TextAlign.center,
+                        fontWeight: FontWeight.w400),
+                  ),
                 ],
               ),
             )

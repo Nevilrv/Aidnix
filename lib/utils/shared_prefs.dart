@@ -14,7 +14,6 @@ class SharedPreference {
   static const userId = "userId";
   static const fcmToken = "fcmToken";
   static const externalId = "externalId";
-  static const sessionToken = "sessionToken";
 
   // logOut() async {
   //   await _preferences!.clear();

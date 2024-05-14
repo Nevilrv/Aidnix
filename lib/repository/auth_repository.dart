@@ -58,7 +58,7 @@ class AuthRepository {
 
         await SharedPreference().setBool(SharedPreference.isLogin, true);
         await SharedPreference().setString(SharedPreference.externalId, response.data['data']['external_id']);
-        await SharedPreference().setString(SharedPreference.sessionToken, response.data['data']['session_token']);
+        await SharedPreference().setString(SharedPreference.token, response.data['data']['session_token']);
 
         Get.offAllNamed(Routes.dashboardScreen);
         return ResVerifyOtpApi.fromJson(response.data);
