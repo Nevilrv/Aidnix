@@ -1,4 +1,8 @@
+import 'package:aidnix/utils/app_routes.dart';
+import 'package:aidnix/utils/shared_prefs.dart';
+import 'package:aidnix/view/auth/auth_controller.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 
 class AppInterceptors extends Interceptor {
   final Dio dio;
@@ -19,6 +23,10 @@ class AppInterceptors extends Interceptor {
             throw BadRequestException(err.requestOptions);
           case 401:
           case 403:
+            Get.offAllNamed(Routes.loginScreen);
+
+            preferences.clear();
+
             throw UnauthorizedException(err.requestOptions);
           case 404:
           case 405:

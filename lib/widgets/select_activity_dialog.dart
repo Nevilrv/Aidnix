@@ -42,13 +42,19 @@ class SelectActivityDialog extends StatelessWidget {
                 SizedBox(height: 20.h),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: controller.activityList.length,
+                    itemCount: controller.healthData?.dropDowns?.activityLevels?.length ?? 0,
                     padding: EdgeInsets.zero,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: EdgeInsets.only(bottom: 15.h),
-                        child: titleText(text: controller.activityList[index], textAlign: TextAlign.center),
+                        child: GestureDetector(
+                          onTap: () {
+                            controller.activityLevel = controller.healthData?.dropDowns?.activityLevels?[index] ?? "";
+                          },
+                          child:
+                              titleText(text: controller.healthData?.dropDowns?.activityLevels?[index] ?? "", textAlign: TextAlign.center),
+                        ),
                       );
                     },
                   ),
@@ -60,7 +66,9 @@ class SelectActivityDialog extends StatelessWidget {
                   child: Center(
                     child: headingSemiBoldText(text: "Save"),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Get.back();
+                  },
                 ),
                 SizedBox(height: 10.h),
               ],

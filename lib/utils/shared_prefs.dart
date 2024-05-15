@@ -15,10 +15,9 @@ class SharedPreference {
   static const fcmToken = "fcmToken";
   static const externalId = "externalId";
 
-  // logOut() async {
-  //   await _preferences!.clear();
-  //   Get.offAllNamed(Routes.loginScreen);
-  // }
+  clear() async {
+    await _preferences?.clear();
+  }
 
   Future<bool?> setString(String key, String value) async {
     return _preferences?.setString(key, value);

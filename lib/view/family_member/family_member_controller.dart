@@ -1,9 +1,8 @@
 import 'dart:io';
-
 import 'package:aidnix/models/res_add_family_member.dart';
 import 'package:aidnix/models/res_add_family_member_image.dart';
 import 'package:aidnix/models/res_get_family_member.dart';
-import 'package:aidnix/repository/home_repository.dart';
+import 'package:aidnix/repository/user_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
@@ -30,33 +29,12 @@ class FamilyMemberController extends GetxController {
     "WIFE",
     "OTHER",
   ];
-  // List<Map<String, dynamic>> familyDetail = [
-  //   {
-  //     "name": "Kapil Darsan",
-  //     "relation": "Husband",
-  //     "image": "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"
-  //   },
-  //   {
-  //     "name": "Kanak Sharma",
-  //     "relation": "Sister",
-  //     "image": "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"
-  //   },
-  //   {
-  //     "name": "Konika Sharma",
-  //     "relation": "Daughter",
-  //     "image": "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"
-  //   },
-  //   {
-  //     "name": "Kartik Sharma",
-  //     "relation": "Son",
-  //     "image": "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg",
-  //   }
-  // ];
+
   bool isLoading = false;
   bool isAddDataLoading = false;
-  String? pickedImage;
+  String pickedImage = "";
 
-  List<FamilyData>? familyData;
+  List<FamilyData> familyData = [];
   AddFamilyData? addFamilyData;
   ImageData? addFamilyDataImage;
 
@@ -64,13 +42,15 @@ class FamilyMemberController extends GetxController {
     isLoading = true;
     update();
 
-    var response = await HomeRepository().getFamilyMemberAPI();
+    var response = await UserRepo().getFamilyMemberAPI();
     update();
     print('Response home API Data :::::::::::::::::: $response');
 
     if (response != null) {
-      familyData = response.data;
-      update();
+      if (response.data != null) {
+        familyData = response.data ?? [];
+        update();
+      }
     }
     isLoading = false;
     update();
@@ -80,24 +60,26 @@ class FamilyMemberController extends GetxController {
     isAddDataLoading = true;
     update();
 
-    var response = await HomeRepository().addFamilyMemberAPI(body: body);
+    var response = await UserRepo().addFamilyMemberAPI(body: body);
     update();
     print('Response home API Data :::::::::::::::::: $response');
 
     if (response != null) {
-      addFamilyData = response.data;
-      update();
+      if (response.data != null) {
+        addFamilyData = response.data;
+        update();
 
-      if (response.code == 200) {
-        if (pickedImage != '') {
-          addFamilyMemberImageApi();
-        } else {
-          Get.back();
-          WidgetsBinding.instance.addPostFrameCallback((_) async {
+        if (addFamilyData != null) {
+          if (pickedImage.isNotEmpty) {
+            addFamilyMemberImageApi();
+          } else {
             await getFamilyMemberApi();
-          });
+            Get.back();
+          }
         }
       }
+
+      if (response.code == 200) {}
     }
     isAddDataLoading = false;
     update();
@@ -112,10 +94,10 @@ class FamilyMemberController extends GetxController {
       "file_type": ".jpeg",
       "type": "PROFILE_IMAGE",
       "family_member_id": addFamilyData?.id ?? '',
-      "file": await dio.MultipartFile.fromFile(File(pickedImage!).path, filename: "profile"),
+      "file": await dio.MultipartFile.fromFile(File(pickedImage).path, filename: "profile"),
     };
 
-    var response = await HomeRepository().addFamilyMemberImageAPI(body: body);
+    var response = await UserRepo().addFamilyMemberImageAPI(body: body);
     update();
     print('Response home API Data :::::::::::::::::: $response');
 

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/theme/app_theme.dart';
@@ -8,6 +6,7 @@ import 'package:aidnix/widgets/app_app_bar.dart';
 import 'package:aidnix/widgets/app_textfield.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -54,10 +53,10 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
   Set<Polygon> polygons = {
     Polygon(
       polygonId: const PolygonId('area1'),
-      points: [
-        const LatLng(37.42796133580610, -122.085749655910),
-        const LatLng(37.42796133580620, -122.085749655920),
-        const LatLng(37.42796133580630, -122.085749655930),
+      points: const [
+        LatLng(37.42796133580610, -122.085749655910),
+        LatLng(37.42796133580620, -122.085749655920),
+        LatLng(37.42796133580630, -122.085749655930),
         // LatLng(37.7749, -122.4194),
         // LatLng(37.8051, -122.4300),
         // LatLng(37.8070, -122.4093),
@@ -75,7 +74,6 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: const AppAppBar(titleText: "Addresses"),
       body: GetBuilder<AddressController>(
@@ -158,6 +156,9 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                         CustomTextField(
                           controller: controller.pinCodeController,
                           hintText: "EX. 590006",
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
                         ),
                         SizedBox(height: 20.h),
                         regularText(text: "Label as"),
@@ -167,39 +168,53 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                             CustomButton(
                               buttonText: "",
                               padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-                              buttonColor: kDropDownBgColor,
+                              buttonColor: controller.addressType == "Home" ? kGreen : kDropDownBgColor,
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Image.asset(AppAssets.homeIcon, scale: 4),
+                                  Image.asset(
+                                    AppAssets.homeIcon,
+                                    scale: 4,
+                                    color: controller.addressType == "Home" ? kWhite : kGreen,
+                                  ),
                                   SizedBox(width: 10.w),
                                   customText(
                                     text: "Home",
                                     fontSize: 12.sp,
-                                    color: const Color(0xFF5A5A5A),
+                                    color: controller.addressType == "Home" ? kWhite : const Color(0xFF5A5A5A),
                                   ),
                                 ],
                               ),
-                              onTap: () {},
+                              onTap: () {
+                                controller.addressType = "Home";
+                                controller.update();
+                              },
                             ),
                             SizedBox(width: 20.w),
                             CustomButton(
                               buttonText: "",
                               padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-                              buttonColor: kDropDownBgColor,
+                              buttonColor: controller.addressType == "Other" ? kGreen : kDropDownBgColor,
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Image.asset(AppAssets.locationOutline, scale: 4),
+                                  Image.asset(
+                                    AppAssets.locationOutline,
+                                    scale: 4,
+                                    color: controller.addressType == "Other" ? kWhite : kGreen,
+                                  ),
                                   SizedBox(width: 10.w),
                                   customText(
                                     text: "Other",
                                     fontSize: 12.sp,
-                                    color: const Color(0xFF5A5A5A),
+                                    color: controller.addressType == "Other" ? kWhite : const Color(0xFF5A5A5A),
                                   ),
                                 ],
                               ),
-                              onTap: () {},
+                              onTap: () {
+                                controller.addressType = "Other";
+                                controller.update();
+                              },
                             ),
                           ],
                         ),
@@ -210,7 +225,9 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                           child: Center(
                             child: headingSemiBoldText(text: "Save"),
                           ),
-                          onTap: () {},
+                          onTap: () {
+                            controller.addAddress();
+                          },
                         ),
                         SizedBox(height: 20.h),
                       ],

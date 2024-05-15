@@ -1,4 +1,5 @@
 import 'package:aidnix/theme/app_theme.dart';
+import 'package:aidnix/view/auth/auth_controller.dart';
 import 'package:aidnix/view/health_profile/health_profile_controller.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
@@ -62,7 +63,11 @@ class LogoutDialog extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 10.w),
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          AuthController authController = Get.put<AuthController>(AuthController());
+
+                          authController.logOut();
+                        },
                         child: titleText(
                           text: "LOGOUT",
                           color: Color(0xFFF14D4D),

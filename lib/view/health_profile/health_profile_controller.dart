@@ -1,25 +1,26 @@
+import 'dart:developer';
+import 'package:aidnix/theme/app_theme.dart';
+import 'package:aidnix/models/res_get_health_profile.dart';
+import 'package:aidnix/repository/user_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class HealthProfileController extends GetxController {
+  bool isLoading = false;
+
   String height = "";
   String weight = "";
   String activityLevel = "";
   String smoking = "";
   String diseases = "";
+  String birthDate = "";
 
-  TextEditingController noteController = TextEditingController();
+  HealthData? healthData;
+
+  TextEditingController otherChronicController = TextEditingController();
   TextEditingController medicineAllergiesController = TextEditingController();
   TextEditingController otherAllergiesController = TextEditingController();
-
-  // List of items in our dropdown menu
-  var items = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-  ];
 
   List activityList = [
     'Rarely',
@@ -62,4 +63,78 @@ class HealthProfileController extends GetxController {
     'Need to apply coupon offer',
     'Reason not listed here',
   ];
+
+  Future<void> getHealthProfile() async {
+    isLoading = true;
+    update();
+
+    var response = await UserRepo().getHealthProfileAPI();
+    update();
+    log('Response Get All Address Data :::::::::::::::::: $response');
+
+    if (response != null) {
+      if (response.data != null) {
+        healthData = response.data;
+        update();
+      }
+    }
+
+    isLoading = false;
+    update();
+  }
+
+  Future<void> createHealthProfile() async {
+    if (height.isNotEmpty) {
+      if (weight.isNotEmpty) {
+        if (birthDate.isNotEmpty) {
+          if (activityLevel.isNotEmpty) {
+            if (smoking.isNotEmpty) {
+              if (diseases.isNotEmpty) {
+                isLoading = true;
+                update();
+
+                var body = {
+                  "height": height,
+                  "weight": weight,
+                  "dob": birthDate,
+                  "activity_level": activityLevel,
+                  "smoking": smoking,
+                  "chronic_diseases": diseases,
+                  "other_chronic": otherChronicController.text.trim(),
+                  "medicine_allergies": medicineAllergiesController.text.trim(),
+                  "other_allergies": otherAllergiesController.text.trim()
+                };
+                var response = await UserRepo().createHealthProfileAPI(reqBody: body);
+                update();
+                log('Response Create Health Profile Data :::::::::::::::::: $response');
+
+                if (response != null) {
+                  if (response.data != null) {
+                    await getHealthProfile();
+
+                    update();
+                  }
+                }
+
+                isLoading = false;
+                update();
+              } else {
+                Fluttertoast.showToast(msg: "Please select chronic diseases", backgroundColor: kRed, textColor: kWhite);
+              }
+            } else {
+              Fluttertoast.showToast(msg: "Please select smoking", backgroundColor: kRed, textColor: kWhite);
+            }
+          } else {
+            Fluttertoast.showToast(msg: "Please select activity level", backgroundColor: kRed, textColor: kWhite);
+          }
+        } else {
+          Fluttertoast.showToast(msg: "Please select your birth date", backgroundColor: kRed, textColor: kWhite);
+        }
+      } else {
+        Fluttertoast.showToast(msg: "Please select your weight", backgroundColor: kRed, textColor: kWhite);
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Please select your height", backgroundColor: kRed, textColor: kWhite);
+    }
+  }
 }

@@ -12,9 +12,24 @@ import 'package:aidnix/widgets/select_weight_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
-class HealthProfileScreen extends StatelessWidget {
+class HealthProfileScreen extends StatefulWidget {
   const HealthProfileScreen({super.key});
+
+  @override
+  State<HealthProfileScreen> createState() => _HealthProfileScreenState();
+}
+
+class _HealthProfileScreenState extends State<HealthProfileScreen> {
+  HealthProfileController healthProfileController = Get.put<HealthProfileController>(HealthProfileController());
+
+  @override
+  void initState() {
+    healthProfileController.getHealthProfile();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +61,7 @@ class HealthProfileScreen extends StatelessWidget {
                             onTap: () {
                               customShowDialog(
                                 context: context,
-                                child: SelectHeightDialog(),
+                                child: const SelectHeightDialog(),
                               );
                             },
                             child: Container(
@@ -60,7 +75,7 @@ class HealthProfileScreen extends StatelessWidget {
                                 children: [
                                   customText(
                                     text: controller.height.isNotEmpty ? controller.height : "Select height",
-                                    color: Color(0xFF2B2B2B),
+                                    color: const Color(0xFF2B2B2B),
                                   ),
                                   Icon(
                                     Icons.keyboard_arrow_down_rounded,
@@ -75,66 +90,6 @@ class HealthProfileScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-
-                  /// Old Height DropDown
-
-                  // Padding(
-                  //   padding: EdgeInsets.symmetric(horizontal: 15.w),
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //     children: [
-                  //       Expanded(
-                  //         flex: 2,
-                  //         child: titleText(text: "Height"),
-                  //       ),
-                  //       Expanded(
-                  //         flex: 3,
-                  //         child: Container(
-                  //           padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                  //           decoration: BoxDecoration(
-                  //             color: kDropDownBgColor,
-                  //             borderRadius: BorderRadius.circular(8.r),
-                  //           ),
-                  //           child: Row(
-                  //             children: [
-                  //               Expanded(
-                  //                 child: DropdownButton(
-                  //                   underline: SizedBox(),
-                  //                   autofocus: false,
-                  //                   isDense: true,
-                  //                   isExpanded: true,
-                  //                   padding: EdgeInsets.zero,
-                  //                   hint: customText(
-                  //                     text: controller.height.isNotEmpty ? controller.height : "Select height",
-                  //                     color: Color(0xFF2B2B2B),
-                  //                   ),
-                  //                   borderRadius: BorderRadius.circular(12.r),
-                  //                   icon: SizedBox(),
-                  //                   menuMaxHeight: 250.h,
-                  //                   items: controller.items.map((String items) {
-                  //                     return DropdownMenuItem(
-                  //                       value: items,
-                  //                       child: titleText(text: items),
-                  //                     );
-                  //                   }).toList(),
-                  //                   onChanged: (String? newValue) {
-                  //                     controller.height = newValue ?? "";
-                  //                     controller.update();
-                  //                   },
-                  //                 ),
-                  //               ),
-                  //               Icon(
-                  //                 Icons.keyboard_arrow_down_rounded,
-                  //                 size: 30.h,
-                  //                 color: kBlack,
-                  //               )
-                  //             ],
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
 
                   /// Wieght
 
@@ -159,7 +114,7 @@ class HealthProfileScreen extends StatelessWidget {
                             onTap: () {
                               customShowDialog(
                                 context: context,
-                                child: SelectWeightDialog(),
+                                child: const SelectWeightDialog(),
                               );
                             },
                             child: Container(
@@ -173,7 +128,7 @@ class HealthProfileScreen extends StatelessWidget {
                                 children: [
                                   customText(
                                     text: controller.weight.isNotEmpty ? controller.weight : "Select weight",
-                                    color: Color(0xFF2B2B2B),
+                                    color: const Color(0xFF2B2B2B),
                                   ),
                                   Icon(
                                     Icons.keyboard_arrow_down_rounded,
@@ -208,15 +163,30 @@ class HealthProfileScreen extends StatelessWidget {
                         ),
                         Expanded(
                           flex: 3,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                            decoration: BoxDecoration(
-                              color: kDropDownBgColor,
-                              borderRadius: BorderRadius.circular(8.r),
-                            ),
-                            child: customText(
-                              text: "DD-MM-YYYY",
-                              color: Color(0xFF2B2B2B),
+                          child: GestureDetector(
+                            onTap: () async {
+                              DateTime? picked = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime.now(),
+                                lastDate: DateTime(2101),
+                              );
+                              if (picked != null) {
+                                controller.birthDate = DateFormat('dd-MM-yyyy').format(picked);
+
+                                controller.update();
+                              }
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                              decoration: BoxDecoration(
+                                color: kDropDownBgColor,
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                              child: customText(
+                                text: controller.birthDate.isNotEmpty ? controller.birthDate : "DD-MM-YYYY",
+                                color: const Color(0xFF2B2B2B),
+                              ),
                             ),
                           ),
                         ),
@@ -238,7 +208,7 @@ class HealthProfileScreen extends StatelessWidget {
                     onTap: () {
                       customShowDialog(
                         context: context,
-                        child: SelectActivityDialog(),
+                        child: const SelectActivityDialog(),
                       );
                     },
                     child: Container(
@@ -253,7 +223,7 @@ class HealthProfileScreen extends StatelessWidget {
                         children: [
                           customText(
                             text: controller.activityLevel.isNotEmpty ? controller.activityLevel : "Select Activity level",
-                            color: Color(0xFF2B2B2B),
+                            color: const Color(0xFF2B2B2B),
                           ),
                           Icon(
                             Icons.keyboard_arrow_down_rounded,
@@ -274,7 +244,7 @@ class HealthProfileScreen extends StatelessWidget {
                     onTap: () {
                       customShowDialog(
                         context: context,
-                        child: SelectSmokingDialog(),
+                        child: const SelectSmokingDialog(),
                       );
                     },
                     child: Container(
@@ -289,7 +259,7 @@ class HealthProfileScreen extends StatelessWidget {
                         children: [
                           customText(
                             text: controller.smoking.isNotEmpty ? controller.smoking : "Select smoking",
-                            color: Color(0xFF2B2B2B),
+                            color: const Color(0xFF2B2B2B),
                           ),
                           Icon(
                             Icons.keyboard_arrow_down_rounded,
@@ -311,7 +281,7 @@ class HealthProfileScreen extends StatelessWidget {
                     onTap: () {
                       customShowDialog(
                         context: context,
-                        child: SelectDiseasesDialog(),
+                        child: const SelectDiseasesDialog(),
                       );
                     },
                     child: Container(
@@ -326,7 +296,7 @@ class HealthProfileScreen extends StatelessWidget {
                         children: [
                           customText(
                             text: controller.diseases.isNotEmpty ? controller.diseases : "Choose diseases",
-                            color: Color(0xFF2B2B2B),
+                            color: const Color(0xFF2B2B2B),
                           ),
                           Icon(
                             Icons.keyboard_arrow_down_rounded,
@@ -346,16 +316,16 @@ class HealthProfileScreen extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 22.w),
                     child: CustomTextField(
-                      controller: controller.noteController,
+                      controller: controller.otherChronicController,
                       hintText: "Write here...",
                       borderColor: kDropDownBgColor,
                       maxLines: 5,
                       borderSize: 0,
                       filled: true,
                       fillColor: kDropDownBgColor,
-                      textColor: Color(0xFF2B2B2B),
+                      textColor: const Color(0xFF2B2B2B),
                       hintStyle: TextStyle(
-                        color: Color(0xFF2B2B2B),
+                        color: const Color(0xFF2B2B2B),
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
                       ),
@@ -377,9 +347,9 @@ class HealthProfileScreen extends StatelessWidget {
                       borderSize: 0,
                       filled: true,
                       fillColor: kDropDownBgColor,
-                      textColor: Color(0xFF2B2B2B),
+                      textColor: const Color(0xFF2B2B2B),
                       hintStyle: TextStyle(
-                        color: Color(0xFF2B2B2B),
+                        color: const Color(0xFF2B2B2B),
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
                       ),
@@ -401,9 +371,9 @@ class HealthProfileScreen extends StatelessWidget {
                       borderSize: 0,
                       filled: true,
                       fillColor: kDropDownBgColor,
-                      textColor: Color(0xFF2B2B2B),
+                      textColor: const Color(0xFF2B2B2B),
                       hintStyle: TextStyle(
-                        color: Color(0xFF2B2B2B),
+                        color: const Color(0xFF2B2B2B),
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
                       ),
@@ -417,7 +387,9 @@ class HealthProfileScreen extends StatelessWidget {
                       child: Center(
                         child: headingSemiBoldText(text: "Save"),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        controller.createHealthProfile();
+                      },
                     ),
                   ),
                   SizedBox(height: 30.h),

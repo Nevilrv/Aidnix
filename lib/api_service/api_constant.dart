@@ -11,12 +11,26 @@ class AppUrls {
 
   static const login = "/users/login";
   static const verifyOtp = "/users/verify-otp";
+  static const termsAndConditions = "/terms-and-conditions";
+  static const privacyPolicy = "/privacy-policy";
+  static const aboutUs = "/about-us";
+  static const logout = "/logout";
 
   // Home
 
   static const home = "/home";
   static const categories = "/test-categories";
   static const subCategories = "/lab-items";
+
+  // Address
+
+  static const addresses = "/addresses";
+
+  // User
+
   static const familyMember = "/family-members";
   static const familyMemberImage = "/v2/docs/upload";
+  static const profileSetting = "/customers/profile-settings";
+  static const healthProfile = "/customers/health-profile";
+  static const healthDocs = "/docs";
 }

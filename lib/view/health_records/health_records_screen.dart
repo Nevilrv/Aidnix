@@ -25,11 +25,15 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> with TickerPr
   void initState() {
     healthRecordsController.tabController = TabController(length: 4, vsync: this);
     healthRecordsController.tabController?.addListener(handleTabSelection);
+
+    healthRecordsController.getHealthDocs();
+
     super.initState();
   }
 
   void handleTabSelection() {
     healthRecordsController.update();
+    debugPrint("TabController Index ::::::::: ${healthRecordsController.tabController?.index} ");
   }
 
   @override

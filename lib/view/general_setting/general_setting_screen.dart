@@ -3,9 +3,7 @@ import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/widgets/app_app_bar.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GeneralSettingScreen extends StatelessWidget {

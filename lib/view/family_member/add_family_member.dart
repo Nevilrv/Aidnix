@@ -32,7 +32,6 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
     familyMemberController.selectGender = '';
     familyMemberController.selectRelation = '';
     familyMemberController.pickedImage = '';
-    familyMemberController.pickedImage = null;
     super.dispose();
   }
 
@@ -62,7 +61,7 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                                   allowedExtensions: ['jpeg'],
                                 );
                                 if (image != null) {
-                                  controller.pickedImage = image.files.single.path;
+                                  controller.pickedImage = image.files.single.path ?? "";
                                   controller.update();
                                   log('pickedImage.path===========>>>>${controller.pickedImage}');
                                 }
@@ -76,9 +75,9 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                               decoration: BoxDecoration(shape: BoxShape.circle, color: kLightBgColor),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(100.r),
-                                child: controller.pickedImage != null
+                                child: controller.pickedImage.isNotEmpty
                                     ? Image.file(
-                                        File(controller.pickedImage!),
+                                        File(controller.pickedImage),
                                         fit: BoxFit.cover,
                                       )
                                     : Icon(
@@ -214,8 +213,8 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                         };
 
                         if (formKey.currentState!.validate()) {
-                          if (controller.selectGender != '') {
-                            if (controller.selectRelation != '') {
+                          if (controller.selectGender.isNotEmpty) {
+                            if (controller.selectRelation.isNotEmpty) {
                               /// Add Family Member Api
                               controller.addFamilyMemberApi(body: body1);
                             } else {

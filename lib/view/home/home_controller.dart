@@ -19,8 +19,6 @@ class HomeController extends GetxController {
 
   TextEditingController search = TextEditingController();
 
-  // List homeList = [];
-
   HomeData? homeData;
 
   homeAPI() async {

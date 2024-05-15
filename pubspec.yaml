@@ -36,6 +36,7 @@ dependencies:
   simnumber: ^0.0.12
   geolocator: ^11.0.0
   file_picker: ^8.0.3
+  intl: ^0.19.0
 
 
 dev_dependencies:

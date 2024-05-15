@@ -162,7 +162,6 @@ class ProfileScreen extends StatelessWidget {
               tabName: "Family member ",
               tabIcon: AppAssets.familyMember,
               onTap: () {
-
                 Get.toNamed(Routes.familyMemberScreen);
               },
             ),

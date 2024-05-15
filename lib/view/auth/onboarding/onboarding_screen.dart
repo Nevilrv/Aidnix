@@ -45,7 +45,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           children: [
                             assetImage(
                               controller.onBoardList[index]['image'],
-                              height: 415.h,
+                              height: 410.h,
                               width: 601.w,
                             ),
                             Padding(

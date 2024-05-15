@@ -51,5 +51,9 @@
     <true/>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>The app needs location permission</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>For use location permission</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Use location permission</string>
 </dict>
 </plist>

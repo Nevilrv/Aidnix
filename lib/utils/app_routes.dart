@@ -25,6 +25,7 @@ import 'package:aidnix/view/search/search_lab_listing_screen.dart';
 import 'package:aidnix/view/auth/login_screen.dart';
 import 'package:aidnix/view/auth/otp_screen.dart';
 import 'package:aidnix/view/notification/notification_screen.dart';
+import 'package:aidnix/view/terms_and_conditions/terms_and_conditions_screen.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 
@@ -56,6 +57,7 @@ class Routes {
   static String labCheckoutScreen = "/labCheckout";
   static String bookingSlotScreen = "/bookingSlot";
   static String checkOutDetailsLabScreen = "/checkOutDetailsLab";
+  static String termsAndConditionsScreen = "/termsAndConditions";
 
   static List<GetPage> routes = [
     GetPage(
@@ -191,6 +193,12 @@ class Routes {
     GetPage(
       name: checkOutDetailsLabScreen,
       page: () => const CheckOutDetailsLabScreen(),
+      transition: Transition.fadeIn,
+    ),
+
+    GetPage(
+      name: termsAndConditionsScreen,
+      page: () => const TermsAndConditionScreen(),
       transition: Transition.fadeIn,
     ),
   ];

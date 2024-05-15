@@ -18,6 +18,8 @@ import 'package:simnumber/siminfo.dart';
 import 'dart:async';
 
 class AuthController extends GetxController {
+  bool isLoading = false;
+
   ///LOGIN SCREEN
   ResLoginApi resLoginApi = ResLoginApi();
   TextEditingController numberController = TextEditingController();
@@ -127,6 +129,8 @@ class AuthController extends GetxController {
     super.onInit();
   }
 
+  /// Login
+
   loginAPI({bool resendOtp = false}) async {
     var devInfo = DeviceInfoPlugin();
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -155,9 +159,10 @@ class AuthController extends GetxController {
       "X-OS-Version": androidDevData?.version.release,
     };
 
-    print("Request Login API Data ::::::::::: ${body}");
+    log("Request Login API Data ::::::::::: ${body}");
 
     var response = await AuthRepository().loginAPI(body: body);
+    log("Response Login API Data ::::::::::: ${response}");
   }
 
   /// OTP_VERIFY
@@ -206,8 +211,39 @@ class AuthController extends GetxController {
       }
     };
 
-
     print("Request Login API Data ::::::::::: ${body}");
     var response = await AuthRepository().verifyOtpAPI(body: body);
+  }
+
+  /// Log Out
+
+  Future<void> logOut() async {
+    var response = await AuthRepository().logOutAPI();
+    update();
+    log('Response Logout API :::::::::::::::::: $response');
+
+    if (response != null) {
+      if (response.data != null) {
+        preferences.clear();
+        Get.offAllNamed(Routes.loginScreen);
+      }
+    }
+  }
+
+  /// Terms And Conditions
+
+  Future<void> termsAndCondition() async {
+    isLoading = true;
+    update();
+    var response = await AuthRepository().getTermsAndConditionsAPI();
+    update();
+    log('Response Terms And Conditions Data :::::::::::::::::: $response');
+
+    if (response != null) {
+      if (response.data != null) {
+        preferences.clear();
+        Get.offAllNamed(Routes.loginScreen);
+      }
+    }
   }
 }

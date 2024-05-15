@@ -9,8 +9,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class AddressListScreen extends StatelessWidget {
+class AddressListScreen extends StatefulWidget {
   const AddressListScreen({super.key});
+
+  @override
+  State<AddressListScreen> createState() => _AddressListScreenState();
+}
+
+class _AddressListScreenState extends State<AddressListScreen> {
+  AddressController addressController = Get.put<AddressController>(AddressController());
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      addressController.getAllAddress();
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +72,9 @@ class AddressListScreen extends StatelessWidget {
                             SizedBox(width: 10.w),
                             Expanded(
                               child: titleSmallText(
-                                text: controller.addressList[index],
+                                // text: "${controller.addressList[index].line1},${controller.addressList[index].line2?.isNotEmpty ?? false ? "${controller.addressList[index].line2},${controller.addressList[index].city?.isNotEmpty ?? false ? "${controller.addressList[index].city}," : "${controller.addressList[index].state}"}" : "${controller.addressList[index].city?.isNotEmpty ?? false ? "${controller.addressList[index].city}," : "${controller.addressList[index].state}"}"} - ${controller.addressList[index].pincode}",
+                                text:
+                                    "${controller.addressList[index].line1}, ${controller.addressList[index].line2}, ${controller.addressList[index].city}, ${controller.addressList[index].state} - ${controller.addressList[index].pincode}",
                                 maxLines: 5,
                               ),
                             ),
