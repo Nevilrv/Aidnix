@@ -3,7 +3,6 @@ import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/view/health_records/health_records_controller.dart';
 import 'package:aidnix/widgets/app_app_bar.dart';
 import 'package:aidnix/widgets/app_button.dart';
-import 'package:aidnix/widgets/app_textfield.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:aidnix/widgets/rename_file_dialog.dart';
 import 'package:flutter/cupertino.dart';
@@ -43,7 +42,9 @@ class EditHealthRecordsScreen extends StatelessWidget {
                           SizedBox(width: 10.w),
                           Expanded(
                             child: customText(
-                              text: "Manish_Blood_Test_20241",
+                              text: controller.docNameController.text.trim().isNotEmpty
+                                  ? controller.docNameController.text.trim()
+                                  : "Manish_Blood_Test_20241",
                               color: kGreen,
                             ),
                           ),
@@ -64,7 +65,12 @@ class EditHealthRecordsScreen extends StatelessWidget {
                           child: Image.asset(AppAssets.editIconGreen, scale: 4),
                         ),
                         SizedBox(width: 25.w),
-                        Image.asset(AppAssets.deleteIconRed, scale: 4),
+                        GestureDetector(
+                          onTap: () {
+                            controller.deleteHealthDocs(docId: "");
+                          },
+                          child: Image.asset(AppAssets.deleteIconRed, scale: 4),
+                        ),
                         SizedBox(width: 20.w),
                       ],
                     ),
@@ -91,7 +97,7 @@ class EditHealthRecordsScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(12.r),
                               icon: SizedBox(),
                               menuMaxHeight: 250.h,
-                              items: controller.items.map((String items) {
+                              items: controller.userList.map((String items) {
                                 return DropdownMenuItem(
                                   value: items,
                                   child: titleText(text: items),
@@ -130,7 +136,7 @@ class EditHealthRecordsScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(12.r),
                               icon: SizedBox(),
                               menuMaxHeight: 250.h,
-                              items: controller.items.map((String items) {
+                              items: controller.typeOfRecordsList.map((String items) {
                                 return DropdownMenuItem(
                                   value: items,
                                   child: titleText(text: items),
@@ -146,20 +152,24 @@ class EditHealthRecordsScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 20.h),
-                    regularText(text: "Lab Name", color: kDarkGrey1),
-                    SizedBox(height: 10.h),
-                    CustomTextField(
-                      controller: controller.labNameController,
-                      hintText: "Enter lab name",
-                    ),
-                    SizedBox(height: 20.h),
-                    regularText(text: "Doctor Name", color: kDarkGrey1),
-                    SizedBox(height: 10.h),
-                    CustomTextField(
-                      controller: controller.drNameController,
-                      hintText: "Enter doctor name",
-                    ),
+
+                    /// Old Field
+
+                    // SizedBox(height: 20.h),
+                    // regularText(text: "Lab Name", color: kDarkGrey1),
+                    // SizedBox(height: 10.h),
+                    // CustomTextField(
+                    //   controller: controller.labNameController,
+                    //   hintText: "Enter lab name",
+                    // ),
+                    // SizedBox(height: 20.h),
+                    // regularText(text: "Doctor Name", color: kDarkGrey1),
+                    // SizedBox(height: 10.h),
+                    // CustomTextField(
+                    //   controller: controller.drNameController,
+                    //   hintText: "Enter doctor name",
+                    // ),
+
                     SizedBox(height: 50.h),
                     CustomButton(
                       buttonText: "",
@@ -167,7 +177,9 @@ class EditHealthRecordsScreen extends StatelessWidget {
                       child: Center(
                         child: headingSemiBoldText(text: "Save"),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        controller.editHealthDocs(docId: "");
+                      },
                     ),
                   ],
                 ),

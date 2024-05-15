@@ -28,6 +28,14 @@ class _BookingAllScreenState extends State<BookingAllScreen> with TickerProvider
 
   void handleTabSelection() {
     bookingController.update();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (bookingController.tabController?.index == 0) {
+        bookingController.getBooking();
+      } else {
+        bookingController.getFilterBooking();
+      }
+    });
   }
 
   @override
@@ -36,8 +44,11 @@ class _BookingAllScreenState extends State<BookingAllScreen> with TickerProvider
       appBar: const AppAppBar(titleText: AppString.bookingText),
       body: GetBuilder<BookingController>(
         builder: (controller) {
+          /// Old Screen
+
           // return Column(
           //   children: [
+          //     SizedBox(height: 5.h),
           //     SizedBox(
           //       height: 50.h,
           //       child: Stack(
@@ -49,7 +60,7 @@ class _BookingAllScreenState extends State<BookingAllScreen> with TickerProvider
           //             thickness: 1.h,
           //           ),
           //           ListView.builder(
-          //             itemCount: controller.tabList.length,
+          //             itemCount: controller.bookingStatusList.length,
           //             padding: EdgeInsets.zero,
           //             shrinkWrap: true,
           //             scrollDirection: Axis.horizontal,
@@ -65,7 +76,7 @@ class _BookingAllScreenState extends State<BookingAllScreen> with TickerProvider
           //                         controller.update();
           //                       },
           //                       child: titleSemiBoldText(
-          //                         text: "${controller.tabList[index]}",
+          //                         text: "${controller.bookingStatusList[index]}",
           //                         color: controller.selectTabIndex == index ? kGreen : kBlack,
           //                       ),
           //                     ),
@@ -111,7 +122,7 @@ class _BookingAllScreenState extends State<BookingAllScreen> with TickerProvider
           //   ],
           // );
 
-          /// Old Design
+          /// New Design
 
           return Column(
             children: [
@@ -148,7 +159,7 @@ class _BookingAllScreenState extends State<BookingAllScreen> with TickerProvider
                   controller: controller.tabController,
                   children: [
                     ListView.builder(
-                      itemCount: 3,
+                      itemCount: controller.bookingList.length,
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -159,59 +170,125 @@ class _BookingAllScreenState extends State<BookingAllScreen> with TickerProvider
                             Get.toNamed(Routes.bookingDetailsScreen);
                           },
                           child: customBookingContainer(
-                            titleName: "Greenlab Biotech",
-                            category: "Blood test",
-                            date: "12 Jan, 2024",
-                            status: AppString.upcomingText,
+                            titleName: controller.bookingList[index].lab?.name ?? "Greenlab Biotech",
+                            category: controller.bookingList[index].testNames ?? "Blood test",
+                            date: controller.bookingList[index].scheduledAt ?? "12 Jan, 2024",
+                            status: controller.bookingList[index].currentStatus ?? AppString.upcomingText,
+                            pickUpType: controller.bookingList[index].scheduleType ?? AppString.pickUpText,
                           ),
                         );
                       },
                     ),
                     ListView.builder(
-                      itemCount: 2,
+                      itemCount: controller.bookingList.length,
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       primary: false,
                       itemBuilder: (context, index) {
-                        return customBookingContainer(
-                          titleName: "Greenlab Biotech",
-                          category: "Blood test",
-                          date: "12 Jan, 2024",
-                          status: AppString.upcomingText,
+                        return GestureDetector(
+                          onTap: () {
+                            Get.toNamed(Routes.bookingDetailsScreen);
+                          },
+                          child: customBookingContainer(
+                            titleName: controller.bookingList[index].lab?.name ?? "Greenlab Biotech",
+                            category: controller.bookingList[index].testNames ?? "Blood test",
+                            date: controller.bookingList[index].scheduledAt ?? "12 Jan, 2024",
+                            status: controller.bookingList[index].currentStatus ?? AppString.upcomingText,
+                            pickUpType: controller.bookingList[index].scheduleType ?? AppString.pickUpText,
+                          ),
                         );
                       },
                     ),
                     ListView.builder(
-                      itemCount: 2,
+                      itemCount: controller.bookingList.length,
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       primary: false,
                       itemBuilder: (context, index) {
-                        return customBookingContainer(
-                          titleName: "Greenlab Biotech",
-                          category: "Blood test",
-                          date: "12 Jan, 2024",
-                          status: AppString.completedText,
+                        return GestureDetector(
+                          onTap: () {
+                            Get.toNamed(Routes.bookingDetailsScreen);
+                          },
+                          child: customBookingContainer(
+                            titleName: controller.bookingList[index].lab?.name ?? "Greenlab Biotech",
+                            category: controller.bookingList[index].testNames ?? "Blood test",
+                            date: controller.bookingList[index].scheduledAt ?? "12 Jan, 2024",
+                            status: controller.bookingList[index].currentStatus ?? AppString.upcomingText,
+                            pickUpType: controller.bookingList[index].scheduleType ?? AppString.pickUpText,
+                          ),
                         );
                       },
                     ),
                     ListView.builder(
-                      itemCount: 1,
+                      itemCount: controller.bookingList.length,
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       primary: false,
                       itemBuilder: (context, index) {
-                        return customBookingContainer(
-                          titleName: "Greenlab Biotech",
-                          category: "Blood test",
-                          date: "12 Jan, 2024",
-                          status: AppString.cancelledText,
+                        return GestureDetector(
+                          onTap: () {
+                            Get.toNamed(Routes.bookingDetailsScreen);
+                          },
+                          child: customBookingContainer(
+                            titleName: controller.bookingList[index].lab?.name ?? "Greenlab Biotech",
+                            category: controller.bookingList[index].testNames ?? "Blood test",
+                            date: controller.bookingList[index].scheduledAt ?? "12 Jan, 2024",
+                            status: controller.bookingList[index].currentStatus ?? AppString.upcomingText,
+                            pickUpType: controller.bookingList[index].scheduleType ?? AppString.pickUpText,
+                          ),
                         );
                       },
                     ),
+
+                    /// *****************
+                    // ListView.builder(
+                    //   itemCount: 2,
+                    //   padding: EdgeInsets.zero,
+                    //   shrinkWrap: true,
+                    //   physics: const NeverScrollableScrollPhysics(),
+                    //   primary: false,
+                    //   itemBuilder: (context, index) {
+                    //     return customBookingContainer(
+                    //       titleName: "Greenlab Biotech",
+                    //       category: "Blood test",
+                    //       date: "12 Jan, 2024",
+                    //       status: AppString.upcomingText,
+                    //     );
+                    //   },
+                    // ),
+                    // ListView.builder(
+                    //   itemCount: 2,
+                    //   padding: EdgeInsets.zero,
+                    //   shrinkWrap: true,
+                    //   physics: const NeverScrollableScrollPhysics(),
+                    //   primary: false,
+                    //   itemBuilder: (context, index) {
+                    //     return customBookingContainer(
+                    //       titleName: "Greenlab Biotech",
+                    //       category: "Blood test",
+                    //       date: "12 Jan, 2024",
+                    //       status: AppString.completedText,
+                    //     );
+                    //   },
+                    // ),
+                    // ListView.builder(
+                    //   itemCount: 1,
+                    //   padding: EdgeInsets.zero,
+                    //   shrinkWrap: true,
+                    //   physics: const NeverScrollableScrollPhysics(),
+                    //   primary: false,
+                    //   itemBuilder: (context, index) {
+                    //     return customBookingContainer(
+                    //       titleName: "Greenlab Biotech",
+                    //       category: "Blood test",
+                    //       date: "12 Jan, 2024",
+                    //       status: AppString.cancelledText,
+                    //     );
+                    //   },
+                    // ),
                   ],
                 ),
               ),

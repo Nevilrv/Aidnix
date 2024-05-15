@@ -33,6 +33,10 @@ class SelectHeightDialog extends StatelessWidget {
                     headingText(text: "Select Height"),
                     GestureDetector(
                       onTap: () {
+                        controller.feet = 0;
+                        controller.inches = 0;
+                        controller.height = "";
+                        controller.update();
                         Get.back();
                       },
                       child: Icon(Icons.cancel_outlined),
@@ -63,7 +67,15 @@ class SelectHeightDialog extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   return Padding(
                                     padding: EdgeInsets.only(bottom: 10.h),
-                                    child: titleText(text: "$index Feet", textAlign: TextAlign.center),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        controller.feet = index;
+                                        controller.update();
+                                        controller.height = "${controller.feet} Feet ${controller.inches} Inches";
+                                        controller.update();
+                                      },
+                                      child: titleText(text: "$index Feet", textAlign: TextAlign.center),
+                                    ),
                                   );
                                 },
                               ),
@@ -92,7 +104,15 @@ class SelectHeightDialog extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   return Padding(
                                     padding: EdgeInsets.only(bottom: 10.h),
-                                    child: titleText(text: "$index Inches", textAlign: TextAlign.center),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        controller.inches = index;
+                                        controller.update();
+                                        controller.height = "${controller.feet} Feet ${controller.inches} Inches";
+                                        controller.update();
+                                      },
+                                      child: titleText(text: "$index Inches", textAlign: TextAlign.center),
+                                    ),
                                   );
                                 },
                               ),
@@ -110,7 +130,9 @@ class SelectHeightDialog extends StatelessWidget {
                   child: Center(
                     child: headingSemiBoldText(text: "Save"),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Get.back();
+                  },
                 ),
                 SizedBox(height: 10.h),
               ],

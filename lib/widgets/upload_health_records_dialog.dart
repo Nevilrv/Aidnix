@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/view/health_records/health_records_controller.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/app_textfield.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -39,23 +43,38 @@ class UploadHealthRecordsDialog extends StatelessWidget {
                       maxLines: 3,
                     ),
                     SizedBox(height: 30.h),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 12.h),
-                      decoration: BoxDecoration(
-                        color: kLightBgColor,
-                        borderRadius: BorderRadius.circular(10.r),
-                      ),
-                      child: Row(
-                        children: [
-                          Image.asset(AppAssets.fileIcon, scale: 4),
-                          SizedBox(width: 10.w),
-                          Expanded(
-                            child: customText(
-                              text: "Manish_Blood_Test_20241",
-                              color: kGreen,
+                    GestureDetector(
+                      onTap: () async {
+                        FilePickerResult? image = await FilePicker.platform.pickFiles(
+                          type: FileType.custom,
+                          allowedExtensions: ['jpeg'],
+                        );
+                        if (image != null) {
+                          if (image.files.isNotEmpty) {
+                            controller.healthDocument = image.files.first;
+                            controller.update();
+                            log('pickedImage.path===========>>>>${controller.healthDocument?.path}');
+                          }
+                        }
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 12.h),
+                        decoration: BoxDecoration(
+                          color: kLightBgColor,
+                          borderRadius: BorderRadius.circular(10.r),
+                        ),
+                        child: Row(
+                          children: [
+                            Image.asset(AppAssets.fileIcon, scale: 4),
+                            SizedBox(width: 10.w),
+                            Expanded(
+                              child: customText(
+                                text: controller.healthDocument?.name ?? "Select health document",
+                                color: kGreen,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(height: 20.h),
@@ -81,7 +100,7 @@ class UploadHealthRecordsDialog extends StatelessWidget {
                               borderRadius: BorderRadius.circular(12.r),
                               icon: SizedBox(),
                               menuMaxHeight: 250.h,
-                              items: controller.items.map((String items) {
+                              items: controller.userList.map((String items) {
                                 return DropdownMenuItem(
                                   value: items,
                                   child: titleText(text: items),
@@ -120,7 +139,7 @@ class UploadHealthRecordsDialog extends StatelessWidget {
                               borderRadius: BorderRadius.circular(12.r),
                               icon: SizedBox(),
                               menuMaxHeight: 250.h,
-                              items: controller.items.map((String items) {
+                              items: controller.typeOfRecordsList.map((String items) {
                                 return DropdownMenuItem(
                                   value: items,
                                   child: titleText(text: items),
@@ -136,20 +155,24 @@ class UploadHealthRecordsDialog extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 20.h),
-                    regularText(text: "Lab Name", color: kDarkGrey1),
-                    SizedBox(height: 10.h),
-                    CustomTextField(
-                      controller: controller.labNameController,
-                      hintText: "Enter lab name",
-                    ),
-                    SizedBox(height: 20.h),
-                    regularText(text: "Doctor Name", color: kDarkGrey1),
-                    SizedBox(height: 10.h),
-                    CustomTextField(
-                      controller: controller.drNameController,
-                      hintText: "Enter doctor name",
-                    ),
+
+                    /// Old Field
+
+                    // SizedBox(height: 20.h),
+                    // regularText(text: "Lab Name", color: kDarkGrey1),
+                    // SizedBox(height: 10.h),
+                    // CustomTextField(
+                    //   controller: controller.labNameController,
+                    //   hintText: "Enter lab name",
+                    // ),
+                    // SizedBox(height: 20.h),
+                    // regularText(text: "Doctor Name", color: kDarkGrey1),
+                    // SizedBox(height: 10.h),
+                    // CustomTextField(
+                    //   controller: controller.drNameController,
+                    //   hintText: "Enter doctor name",
+                    // ),
+
                     SizedBox(height: 30.h),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -158,7 +181,9 @@ class UploadHealthRecordsDialog extends StatelessWidget {
                         child: Center(
                           child: headingSemiBoldText(text: "Save"),
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          controller.uploadHealthDocument();
+                        },
                       ),
                     ),
                     SizedBox(height: 10.h),

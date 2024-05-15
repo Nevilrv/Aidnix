@@ -37,7 +37,7 @@ class _SearchLabListingScreenState extends State<SearchLabListingScreen> {
 
                       SizedBox(height: 15.h),
 
-                      customSearchBar(context: context, searchController: controller.search),
+                      customSearchBar(searchController: controller.search),
 
                       SizedBox(height: 15.h),
 

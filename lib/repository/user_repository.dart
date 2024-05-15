@@ -1,4 +1,6 @@
 import 'package:aidnix/models/common_response.dart';
+import 'package:aidnix/models/res_edit_health_document.dart';
+import 'package:aidnix/models/res_get_bookings.dart';
 import 'package:aidnix/models/res_get_general_setting.dart';
 import 'package:aidnix/models/res_get_health_profile.dart';
 import 'package:aidnix/models/res_health_docs.dart';
@@ -6,7 +8,7 @@ import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/api_service/api_constant.dart';
 import 'package:aidnix/api_service/api_service.dart';
 import 'package:aidnix/models/res_add_family_member.dart';
-import 'package:aidnix/models/res_add_family_member_image.dart';
+import 'package:aidnix/models/res_add_document.dart';
 import 'package:aidnix/models/res_get_family_member.dart';
 import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -60,26 +62,26 @@ class UserRepo {
     }
   }
 
-  /// Add Family Member Image API ******************************
-  Future<ResAddFamilyMemberImageApi?> addFamilyMemberImageAPI({required Map<String, dynamic> body}) async {
+  /// Add Document API ******************************
+  Future<ResAddDocument?> addDocumentAPI({required Map<String, dynamic> body}) async {
     try {
-      print('Request Add Family Member Image API :::::::::::::::::: $body ');
+      print('Request Add Document API :::::::::::::::::: $body ');
 
       var response = await apiService.multiPartDio.post(
-        AppUrls.familyMemberImage,
+        AppUrls.uploadDocument,
         data: FormData.fromMap(body),
       );
-      print('Response Add Family Member Image API :::::::::::::::::: ${response.data}');
+      print('Response Add Document API :::::::::::::::::: ${response.data}');
 
       if (response.data["status"] == true) {
-        return ResAddFamilyMemberImageApi.fromJson(response.data);
+        return ResAddDocument.fromJson(response.data);
       } else {
         Fluttertoast.showToast(msg: response.data['message'], backgroundColor: kRed, textColor: kWhite);
         return null;
       }
     } on DioException catch (ex) {
       Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
-      print('Error Add Family Member Image API :::::::::::::::::: $ex');
+      print('Error Add Document API :::::::::::::::::: $ex');
 
       return null;
     }
@@ -100,6 +102,26 @@ class UserRepo {
     } on DioException catch (ex) {
       Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
       print('Error Get General Setting API :::::::::::::::::: $ex');
+
+      return null;
+    }
+  }
+
+  /// Update General Setting API ******************************
+  Future<CommonResponse?> updateGeneralSettingAPI({required Map<String, dynamic> reqBody}) async {
+    try {
+      var response = await dio.patch(AppUrls.profileSetting, data: reqBody);
+      print('Response Upadte General Setting API :::::::::::::::::: ${response.data}');
+
+      if (response.data["status"] == true) {
+        return CommonResponse.fromJson(response.data);
+      } else {
+        Fluttertoast.showToast(msg: response.data['message'], backgroundColor: kRed, textColor: kWhite);
+        return null;
+      }
+    } on DioException catch (ex) {
+      Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
+      print('Error Update General Setting API :::::::::::::::::: $ex');
 
       return null;
     }
@@ -162,6 +184,114 @@ class UserRepo {
     } on DioException catch (ex) {
       Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
       print('Error Get Health Docs API :::::::::::::::::: $ex');
+
+      return null;
+    }
+  }
+
+  /// Filter Health Docs API ******************************
+
+  Future<ResHealthDocs?> getFilterHealthDocsAPI(
+      {required String docType, required int offset, required int limit, required String user, required String date}) async {
+    try {
+      var response = await dio.get("${AppUrls.healthDocs}?type=$docType&offset=$offset&limit=$limit&patient=$user&date=$date");
+      print('Response Get Filter Health Docs API :::::::::::::::::: ${response.data}');
+
+      if (response.data["status"] == true) {
+        return ResHealthDocs.fromJson(response.data);
+      } else {
+        Fluttertoast.showToast(msg: response.data['message'], backgroundColor: kRed, textColor: kWhite);
+        return null;
+      }
+    } on DioException catch (ex) {
+      Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
+      print('Error Get Filter Health Docs API :::::::::::::::::: $ex');
+
+      return null;
+    }
+  }
+
+  /// Edit Health Docs API ******************************
+
+  Future<ResEditHealthDocument?> editHealthDocsAPI({required String docId, required Map<String, dynamic> reqBody}) async {
+    print('Request Edit Health Docs API :::::::::::::::::: $docId');
+    try {
+      var response = await dio.put("${AppUrls.healthDocs}/$docId", data: reqBody);
+      print('Response Edit Health Docs API :::::::::::::::::: ${response.data}');
+
+      if (response.data["status"] == true) {
+        return ResEditHealthDocument.fromJson(response.data);
+      } else {
+        Fluttertoast.showToast(msg: response.data['message'], backgroundColor: kRed, textColor: kWhite);
+        return null;
+      }
+    } on DioException catch (ex) {
+      Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
+      print('Error Edit Health Docs API :::::::::::::::::: $ex');
+
+      return null;
+    }
+  }
+
+  /// Delete Health Docs API ******************************
+
+  Future<CommonResponse?> deleteHealthDocsAPI({required String docId}) async {
+    print('Request Delete Health Docs API :::::::::::::::::: $docId');
+    try {
+      var response = await dio.delete("${AppUrls.healthDocs}/$docId");
+      print('Response Delete Health Docs API :::::::::::::::::: ${response.data}');
+
+      if (response.data["status"] == true) {
+        return CommonResponse.fromJson(response.data);
+      } else {
+        Fluttertoast.showToast(msg: response.data['message'], backgroundColor: kRed, textColor: kWhite);
+        return null;
+      }
+    } on DioException catch (ex) {
+      Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
+      print('Error Delete Health Docs API :::::::::::::::::: $ex');
+
+      return null;
+    }
+  }
+
+  /// Get Bookings API ******************************
+
+  Future<ResGetBookings?> getBookingAPI({required int offset, required int limit}) async {
+    try {
+      var response = await dio.get("${AppUrls.bookings}?offset=$offset&limit=$limit");
+      print('Response Get Booking API :::::::::::::::::: ${response.data}');
+
+      if (response.data["status"] == true) {
+        return ResGetBookings.fromJson(response.data);
+      } else {
+        Fluttertoast.showToast(msg: response.data['message'], backgroundColor: kRed, textColor: kWhite);
+        return null;
+      }
+    } on DioException catch (ex) {
+      Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
+      print('Error Get Bookings API :::::::::::::::::: $ex');
+
+      return null;
+    }
+  }
+
+  /// Get Filter Bookings API ******************************
+
+  Future<ResGetBookings?> getFilterBookingAPI({required int offset, required int limit, required String status}) async {
+    try {
+      var response = await dio.get("${AppUrls.bookings}?offset=$offset&limit=$limit&status=$status");
+      print('Response Get Filter Booking API :::::::::::::::::: ${response.data}');
+
+      if (response.data["status"] == true) {
+        return ResGetBookings.fromJson(response.data);
+      } else {
+        Fluttertoast.showToast(msg: response.data['message'], backgroundColor: kRed, textColor: kWhite);
+        return null;
+      }
+    } on DioException catch (ex) {
+      Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
+      print('Error Get Filter  Bookings API :::::::::::::::::: $ex');
 
       return null;
     }

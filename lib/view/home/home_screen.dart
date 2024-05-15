@@ -66,7 +66,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 22.w),
                               child: customSearchBar(
-                                  context: context,
                                   searchController: controller.search,
                                   onChanged: (value) {
                                     controller.search.text = value;

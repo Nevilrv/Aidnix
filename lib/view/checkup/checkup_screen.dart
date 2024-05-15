@@ -31,7 +31,6 @@ class _CheckupScreenState extends State<CheckupScreen> {
             SizedBox(height: 25.h),
             customSearchBar(
               searchHint: false,
-              context: context,
               searchController: searchController,
               onFilterTap: () {
                 customBottomSheet(

@@ -1,8 +1,12 @@
+import 'dart:developer';
 import 'package:aidnix/constant/app_assets.dart';
+import 'package:aidnix/models/res_get_bookings.dart';
+import 'package:aidnix/repository/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class BookingController extends GetxController {
+  bool isLoading = false;
   TabController? tabController;
   int currentStep = 0;
 
@@ -27,60 +31,64 @@ class BookingController extends GetxController {
 
   int selectTabIndex = 0;
 
-  List tabList = [
+  List<Booking> bookingList = [];
+
+  List bookingStatusList = [
     "All",
     "Upcoming",
     "Completed",
     "Cancelled",
   ];
 
-  // List<StepperData> stepperData = [
-  //   StepperData(
-  //       title: StepperText("Order Confirmed", textStyle: textStyleBlackH15W600),
-  //       subtitle:
-  //           StepperText("on 20 Jan, 2024", textStyle: textStyleGreyH12W400),
-  //       iconWidget: Container(
-  //         padding: const EdgeInsets.all(8),
-  //         decoration: BoxDecoration(
-  //             color: kLightGreen1,
-  //             borderRadius: const BorderRadius.all(Radius.circular(30))),
-  //         child: SvgPicture.asset("assets/icons/tabler_clock.svg"),
-  //       )),
-  //   StepperData(
-  //       title:
-  //           StepperText("sample collected", textStyle: textStyleBlackH15W600),
-  //       subtitle:
-  //           StepperText("on 23 Jan, 2024", textStyle: textStyleGreyH12W400),
-  //       iconWidget: Container(
-  //         padding: const EdgeInsets.all(8),
-  //         decoration: BoxDecoration(
-  //             color: kGreen,
-  //             borderRadius: const BorderRadius.all(Radius.circular(30))),
-  //         child: SvgPicture.asset(
-  //           "assets/icons/mingcute_microscope_icon.svg",
-  //           color: AppColors.whiteColor,
-  //         ),
-  //       )),
-  //   StepperData(
-  //       title: StepperText("Results Ready", textStyle: textStyleBlackH15W600),
-  //       subtitle:
-  //           StepperText("on 23 Jan, 2024", textStyle: textStyleGreyH12W400),
-  //       iconWidget: SvgPicture.asset(
-  //         "assets/icons/circle.svg",
-  //         fit: BoxFit.cover,
-  //       )),
-  //   StepperData(
-  //       title:
-  //           StepperText("Report Delivered", textStyle: textStyleBlackH15W600),
-  //       subtitle:
-  //           StepperText("on 23 Jan, 2024", textStyle: textStyleGreyH12W400),
-  //       iconWidget: Container(
-  //         height: 20,
-  //         width: 20,
-  //         color: Colors.transparent,
-  //         child: SvgPicture.asset(
-  //           "assets/icons/circle.svg",
-  //         ),
-  //       )),
-  // ];
+  /// Get Booking
+
+  Future<void> getBooking() async {
+    isLoading = true;
+    update();
+
+    var response = await UserRepo().getBookingAPI(offset: 0, limit: 10);
+    update();
+    log('Response Get Booking :::::::::::::::::: $response');
+
+    if (response != null) {
+      if (response.data != null) {
+        bookingList = response.data ?? [];
+        update();
+      }
+    }
+
+    isLoading = false;
+    update();
+  }
+
+  /// Get Filter Booking
+
+  Future<void> getFilterBooking() async {
+    isLoading = true;
+    update();
+
+    var response = await UserRepo().getFilterBookingAPI(
+      status: tabController?.index == 1
+          ? "UPCOMING"
+          : tabController?.index == 2
+              ? "COMPLETED"
+              : tabController?.index == 3
+                  ? "CANCELLED"
+                  : "UPCOMING",
+      offset: 0,
+      limit: 10,
+    );
+    update();
+    log('Response Get Filter Booking :::::::::::::::::: $response');
+
+    if (response != null) {
+      if (response.data != null) {
+        bookingList = response.data ?? [];
+        update();
+      }
+    }
+
+    isLoading = false;
+    update();
+  }
 }

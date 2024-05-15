@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:aidnix/models/res_home_api.dart';
 import 'package:aidnix/repository/home_repository.dart';
 import 'package:aidnix/theme/app_layout.dart';

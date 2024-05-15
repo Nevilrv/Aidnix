@@ -37,13 +37,13 @@ class _FamilyMemberListScreenState extends State<FamilyMemberListScreen> {
               ? Center(
                   child: CircularProgressIndicator(color: kGreen),
                 )
-              : controller.familyData == null
+              : controller.familyData.isEmpty
                   ? const Center(
                       child: Text("No Data Found!"),
                     )
                   : ListView.builder(
                       shrinkWrap: true,
-                      itemCount: controller.familyData?.length,
+                      itemCount: controller.familyData.length,
                       padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 15.h),
                       itemBuilder: (context, index) {
                         return Container(
@@ -65,14 +65,15 @@ class _FamilyMemberListScreenState extends State<FamilyMemberListScreen> {
                               CircleAvatar(
                                 radius: 35.r,
                                 backgroundColor: kWhite,
-                                backgroundImage: NetworkImage("https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"),
+                                backgroundImage: const NetworkImage(
+                                    "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"),
                               ),
                               SizedBox(width: 15.w),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    customText(text: controller.familyData?[index].name ?? '', fontSize: 20.sp),
+                                    customText(text: controller.familyData[index].name ?? '', fontSize: 20.sp),
                                     SizedBox(height: 5.h),
                                     Row(
                                       children: [
@@ -81,7 +82,7 @@ class _FamilyMemberListScreenState extends State<FamilyMemberListScreen> {
                                           scale: 4,
                                         ),
                                         SizedBox(width: 5.w),
-                                        regularText(text: controller.familyData?[index].relation ?? '', color: kGrey),
+                                        regularText(text: controller.familyData[index].relation ?? '', color: kGrey),
                                       ],
                                     )
                                   ],

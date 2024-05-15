@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:aidnix/Theme/app_theme.dart';
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/models/res_login_api.dart';
+import 'package:aidnix/models/res_terms_and_conditions.dart';
 import 'package:aidnix/repository/auth_repository.dart';
 import 'package:aidnix/utils/app_routes.dart';
 import 'package:aidnix/utils/shared_prefs.dart';
@@ -19,6 +20,7 @@ import 'dart:async';
 
 class AuthController extends GetxController {
   bool isLoading = false;
+  String isFrom = "";
 
   ///LOGIN SCREEN
   ResLoginApi resLoginApi = ResLoginApi();
@@ -95,6 +97,8 @@ class AuthController extends GetxController {
 
   bool check = false;
   String otpToken = "";
+
+  PrivacyData? privacyData;
 
   checkValue(value) {
     check = value!;
@@ -241,9 +245,52 @@ class AuthController extends GetxController {
 
     if (response != null) {
       if (response.data != null) {
-        preferences.clear();
-        Get.offAllNamed(Routes.loginScreen);
+        privacyData = response.data;
+        update();
       }
     }
+
+    isLoading = false;
+    update();
+  }
+
+  /// Privacy Policy
+
+  Future<void> privacyPolicy() async {
+    isLoading = true;
+    update();
+    var response = await AuthRepository().getPrivacyPolicyAPI();
+    update();
+    log('Response Privacy Policy Data :::::::::::::::::: $response');
+
+    if (response != null) {
+      if (response.data != null) {
+        privacyData = response.data;
+        update();
+      }
+    }
+
+    isLoading = false;
+    update();
+  }
+
+  /// About Us
+
+  Future<void> aboutUs() async {
+    isLoading = true;
+    update();
+    var response = await AuthRepository().getAboutUsAPI();
+    update();
+    log('Response AboutUs Data :::::::::::::::::: $response');
+
+    if (response != null) {
+      if (response.data != null) {
+        privacyData = response.data;
+        update();
+      }
+    }
+
+    isLoading = false;
+    update();
   }
 }

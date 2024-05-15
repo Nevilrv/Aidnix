@@ -7,6 +7,7 @@ import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class HealthRecordFilterBottomSheet extends StatelessWidget {
   const HealthRecordFilterBottomSheet({super.key});
@@ -73,7 +74,7 @@ class HealthRecordFilterBottomSheet extends StatelessWidget {
                               borderRadius: BorderRadius.circular(12.r),
                               icon: SizedBox(),
                               menuMaxHeight: 250.h,
-                              items: controller.items.map((String items) {
+                              items: controller.userList.map((String items) {
                                 return DropdownMenuItem(
                                   value: items,
                                   child: titleText(text: items),
@@ -96,22 +97,40 @@ class HealthRecordFilterBottomSheet extends StatelessWidget {
                       controller: controller.dateController,
                       hintText: "DD/MM/YYYY",
                       suffixIcon: Icon(Icons.calendar_month_outlined),
+                      readOnly: true,
+                      onTap: () async {
+                        DateTime? picked = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime(2101),
+                        );
+                        if (picked != null) {
+                          controller.dateController.text = DateFormat('dd-MM-yyyy').format(picked);
+
+                          controller.update();
+                        }
+                      },
                     ),
                     SizedBox(height: 20.h),
-                    regularText(text: "Lab Name", color: kDarkGrey1),
-                    SizedBox(height: 10.h),
-                    CustomTextField(
-                      controller: controller.labNameController,
-                      hintText: "Enter lab name",
-                    ),
-                    SizedBox(height: 20.h),
-                    regularText(text: "Doctor Name", color: kDarkGrey1),
-                    SizedBox(height: 10.h),
-                    CustomTextField(
-                      controller: controller.drNameController,
-                      hintText: "Enter doctor name",
-                    ),
-                    SizedBox(height: 10.h),
+
+                    /// Old Field
+
+                    // regularText(text: "Lab Name", color: kDarkGrey1),
+                    // SizedBox(height: 10.h),
+                    // CustomTextField(
+                    //   controller: controller.labNameController,
+                    //   hintText: "Enter lab name",
+                    // ),
+                    // SizedBox(height: 20.h),
+                    // regularText(text: "Doctor Name", color: kDarkGrey1),
+                    // SizedBox(height: 10.h),
+                    // CustomTextField(
+                    //   controller: controller.drNameController,
+                    //   hintText: "Enter doctor name",
+                    // ),
+                    // SizedBox(height: 10.h),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -121,12 +140,18 @@ class HealthRecordFilterBottomSheet extends StatelessWidget {
                           padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 10.h),
                           border: Border.all(color: kGreen),
                           buttonColor: kWhite,
-                          onTap: () {},
+                          onTap: () {
+                            controller.mySelf = "";
+                            controller.dateController.clear();
+                            controller.update();
+                          },
                         ),
                         CustomButton(
                           buttonText: "Apply",
                           padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 10.h),
-                          onTap: () {},
+                          onTap: () {
+                            controller.getFilterHealthDocs();
+                          },
                         ),
                       ],
                     ),

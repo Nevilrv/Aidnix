@@ -2,6 +2,7 @@ import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/view/health_profile/health_profile_controller.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -35,6 +36,8 @@ class SelectDiseasesDialog extends StatelessWidget {
                       headingText(text: "Chronic diseases"),
                       GestureDetector(
                         onTap: () {
+                          controller.diseases = "";
+                          controller.update();
                           Get.back();
                         },
                         child: Icon(Icons.cancel_outlined),
@@ -51,7 +54,7 @@ class SelectDiseasesDialog extends StatelessWidget {
                 SizedBox(height: 20.h),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: controller.diseasesList.length,
+                    itemCount: controller.healthData?.dropDowns?.chronicDiseases?.length ?? 0,
                     padding: EdgeInsets.zero,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
@@ -59,19 +62,30 @@ class SelectDiseasesDialog extends StatelessWidget {
                         padding: EdgeInsets.only(bottom: 15.h),
                         child: Column(
                           children: [
-                            Row(
-                              children: [
-                                SizedBox(width: 20.w),
-                                Icon(
-                                  Icons.circle_outlined,
-                                  color: kLightBgColor,
-                                ),
-                                SizedBox(width: 20.w),
-                                titleText(
-                                  text: controller.diseasesList[index],
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
+                            GestureDetector(
+                              onTap: () {
+                                controller.diseases = controller.healthData?.dropDowns?.chronicDiseases?[index] ?? "";
+                                controller.update();
+                              },
+                              child: Row(
+                                children: [
+                                  SizedBox(width: 20.w),
+                                  controller.diseases == controller.healthData?.dropDowns?.chronicDiseases?[index]
+                                      ? Icon(
+                                          Icons.radio_button_checked_rounded,
+                                          color: kGreen,
+                                        )
+                                      : Icon(
+                                          Icons.circle_outlined,
+                                          color: kLightBgColor,
+                                        ),
+                                  SizedBox(width: 20.w),
+                                  titleText(
+                                    text: controller.healthData?.dropDowns?.chronicDiseases?[index] ?? "",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
                             ),
                             SizedBox(height: 10.h),
                             Divider(height: 0, color: kLightBgColor, thickness: 1.5),
@@ -89,7 +103,9 @@ class SelectDiseasesDialog extends StatelessWidget {
                   child: Center(
                     child: headingSemiBoldText(text: "Save"),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Get.back();
+                  },
                 ),
                 SizedBox(height: 20.h),
               ],

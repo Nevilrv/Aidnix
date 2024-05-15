@@ -319,7 +319,6 @@ Widget headingBoldText({
 
 ///Custom Search Bar
 Widget customSearchBar({
-  required BuildContext context,
   required TextEditingController searchController,
   void Function(String)? onChanged,
   void Function()? onFilterTap,
@@ -492,7 +491,7 @@ Widget customCartContainer({
   required int offerPercentage,
   required String distance,
   required bool isAddToCart,
- required  bool isRecommended ,
+  required bool isRecommended,
 }) {
   return Container(
     decoration: BoxDecoration(
@@ -553,21 +552,23 @@ Widget customCartContainer({
                           child: customText(text: titleName, fontSize: 20.sp, maxLines: 1),
                         ),
                         SizedBox(height: 10.h),
-                        isRecommended == true ? Container(
-                          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
-                          decoration: BoxDecoration(
-                            color: kOrange,
-                            borderRadius: BorderRadius.circular(15.r),
-                          ),
-                          child: Center(
-                            child: customText(
-                              text: "Recommended",
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.w600,
-                              color: kWhite,
-                            ),
-                          ),
-                        ):const SizedBox(),
+                        isRecommended == true
+                            ? Container(
+                                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
+                                decoration: BoxDecoration(
+                                  color: kOrange,
+                                  borderRadius: BorderRadius.circular(15.r),
+                                ),
+                                child: Center(
+                                  child: customText(
+                                    text: "Recommended",
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: kWhite,
+                                  ),
+                                ),
+                              )
+                            : const SizedBox(),
                       ],
                     )
                   ],
@@ -1035,6 +1036,7 @@ Widget customBookingContainer({
   required String category,
   required String status,
   required String date,
+  required String pickUpType,
 }) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 22.w, vertical: 10.h),
@@ -1138,7 +1140,7 @@ Widget customBookingContainer({
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       customText(text: AppString.typeText, fontSize: 10.sp, color: kDarkGrey1),
-                      customText(text: AppString.pickUpText, fontSize: 14.sp)
+                      customText(text: pickUpType, fontSize: 14.sp)
                     ],
                   ),
                 ],
@@ -1179,9 +1181,10 @@ customDropDown({
   bool? isExpand,
   double? horizontal,
   TextStyle? style,
+  EdgeInsetsGeometry? padding,
 }) {
   return Container(
-    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
+    padding: padding ?? EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
     decoration: BoxDecoration(
       color: color ?? Colors.transparent,
       borderRadius: BorderRadius.circular(10),

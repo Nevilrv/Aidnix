@@ -33,6 +33,8 @@ class SelectActivityDialog extends StatelessWidget {
                     headingText(text: "Select Activity"),
                     GestureDetector(
                       onTap: () {
+                        controller.activityLevel = "";
+                        controller.update();
                         Get.back();
                       },
                       child: Icon(Icons.cancel_outlined),
@@ -51,6 +53,7 @@ class SelectActivityDialog extends StatelessWidget {
                         child: GestureDetector(
                           onTap: () {
                             controller.activityLevel = controller.healthData?.dropDowns?.activityLevels?[index] ?? "";
+                            controller.update();
                           },
                           child:
                               titleText(text: controller.healthData?.dropDowns?.activityLevels?[index] ?? "", textAlign: TextAlign.center),

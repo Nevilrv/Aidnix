@@ -1,17 +1,17 @@
 import 'dart:convert';
 
-ResAddFamilyMemberImageApi resAddFamilyMemberImageApiFromJson(String str) => ResAddFamilyMemberImageApi.fromJson(json.decode(str));
+ResAddDocument resAddDocumentFromJson(String str) => ResAddDocument.fromJson(json.decode(str));
 
-String resAddFamilyMemberImageApiToJson(ResAddFamilyMemberImageApi data) => json.encode(data.toJson());
+String resAddDocumentToJson(ResAddDocument data) => json.encode(data.toJson());
 
-class ResAddFamilyMemberImageApi {
+class ResAddDocument {
   bool? status;
   int? code;
   ImageData? data;
   String? message;
   dynamic extra;
 
-  ResAddFamilyMemberImageApi({
+  ResAddDocument({
     this.status,
     this.code,
     this.data,
@@ -19,7 +19,7 @@ class ResAddFamilyMemberImageApi {
     this.extra,
   });
 
-  factory ResAddFamilyMemberImageApi.fromJson(Map<String, dynamic> json) => ResAddFamilyMemberImageApi(
+  factory ResAddDocument.fromJson(Map<String, dynamic> json) => ResAddDocument(
         status: json["status"],
         code: json["code"],
         data: json["data"] == null ? null : ImageData.fromJson(json["data"]),

@@ -7,7 +7,7 @@ String resGetGeneralSettingToJson(ResGetGeneralSetting data) => json.encode(data
 class ResGetGeneralSetting {
   bool? status;
   int? code;
-  Data? data;
+  ProfileData? data;
   String? message;
   dynamic extra;
 
@@ -22,7 +22,7 @@ class ResGetGeneralSetting {
   factory ResGetGeneralSetting.fromJson(Map<String, dynamic> json) => ResGetGeneralSetting(
         status: json["status"],
         code: json["code"],
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+        data: json["data"] == null ? null : ProfileData.fromJson(json["data"]),
         message: json["message"],
         extra: json["extra"],
       );
@@ -36,18 +36,26 @@ class ResGetGeneralSetting {
       };
 }
 
-class Data {
+class ProfileData {
+  String? email;
+  String? gender;
   ProfilePic? profilePic;
 
-  Data({
+  ProfileData({
+    this.email,
+    this.gender,
     this.profilePic,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory ProfileData.fromJson(Map<String, dynamic> json) => ProfileData(
+        email: json["email"],
+        gender: json["gender"],
         profilePic: json["profile_pic"] == null ? null : ProfilePic.fromJson(json["profile_pic"]),
       );
 
   Map<String, dynamic> toJson() => {
+        "email": email,
+        "gender": gender,
         "profile_pic": profilePic?.toJson(),
       };
 }

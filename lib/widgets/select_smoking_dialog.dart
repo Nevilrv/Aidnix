@@ -33,6 +33,8 @@ class SelectSmokingDialog extends StatelessWidget {
                     headingText(text: "Select Smoking"),
                     GestureDetector(
                       onTap: () {
+                        controller.smoking = "";
+                        controller.update();
                         Get.back();
                       },
                       child: Icon(Icons.cancel_outlined),
@@ -42,15 +44,21 @@ class SelectSmokingDialog extends StatelessWidget {
                 SizedBox(height: 20.h),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: controller.smokingList.length,
+                    itemCount: controller.healthData?.dropDowns?.smokingLevels?.length ?? 0,
                     padding: EdgeInsets.zero,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: EdgeInsets.only(bottom: 15.h),
-                        child: titleText(
-                          text: controller.smokingList[index],
-                          textAlign: TextAlign.center,
+                        child: GestureDetector(
+                          onTap: () {
+                            controller.smoking = controller.healthData?.dropDowns?.smokingLevels?[index] ?? "";
+                            controller.update();
+                          },
+                          child: titleText(
+                            text: controller.healthData?.dropDowns?.smokingLevels?[index] ?? "",
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       );
                     },
@@ -63,7 +71,9 @@ class SelectSmokingDialog extends StatelessWidget {
                   child: Center(
                     child: headingSemiBoldText(text: "Save"),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Get.back();
+                  },
                 ),
                 SizedBox(height: 10.h),
               ],

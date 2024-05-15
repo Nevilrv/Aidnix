@@ -1,4 +1,5 @@
 import 'package:aidnix/theme/app_theme.dart';
+import 'package:aidnix/utils/app_routes.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/view/health_records/health_records_controller.dart';
@@ -50,7 +51,6 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> with TickerPr
               children: [
                 SizedBox(height: 10.h),
                 customSearchBar(
-                  context: context,
                   searchController: controller.searchController,
                   onFilterTap: () {
                     customBottomSheet(
@@ -105,55 +105,60 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> with TickerPr
                               shrinkWrap: true,
                               padding: EdgeInsets.symmetric(horizontal: 5.w),
                               itemBuilder: (context, index) {
-                                return Container(
-                                  margin: EdgeInsets.symmetric(vertical: 8.h),
-                                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
-                                  decoration: BoxDecoration(
-                                    color: kWhite,
-                                    borderRadius: BorderRadius.circular(12.r),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: kGrey.withOpacity(0.1),
-                                        blurRadius: 30,
-                                      ),
-                                    ],
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 12.h),
-                                        decoration: BoxDecoration(
-                                          color: kLightBgColor,
-                                          borderRadius: BorderRadius.circular(10.r),
+                                return GestureDetector(
+                                  onTap: () {
+                                    Get.toNamed(Routes.editHealthRecordsScreen);
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.symmetric(vertical: 8.h),
+                                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
+                                    decoration: BoxDecoration(
+                                      color: kWhite,
+                                      borderRadius: BorderRadius.circular(12.r),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: kGrey.withOpacity(0.1),
+                                          blurRadius: 30,
                                         ),
-                                        child: Image.asset(AppAssets.pdfIcon, scale: 4),
-                                      ),
-                                      SizedBox(width: 10.w),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            headingText(
-                                              text: "Manish_Blood_Test_20241",
-                                              color: Color(0xFF0B0B0B),
-                                            ),
-                                            SizedBox(height: 5.h),
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                customText(
-                                                  text: "2 Jan, 2024",
-                                                  color: kDarkGrey1,
-                                                  fontSize: 12.sp,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                                regularText(text: "Mohsin Ali", color: kDarkGrey1),
-                                              ],
-                                            ),
-                                          ],
+                                      ],
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 12.h),
+                                          decoration: BoxDecoration(
+                                            color: kLightBgColor,
+                                            borderRadius: BorderRadius.circular(10.r),
+                                          ),
+                                          child: Image.asset(AppAssets.pdfIcon, scale: 4),
                                         ),
-                                      ),
-                                    ],
+                                        SizedBox(width: 10.w),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              headingText(
+                                                text: "Manish_Blood_Test_20241",
+                                                color: Color(0xFF0B0B0B),
+                                              ),
+                                              SizedBox(height: 5.h),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  customText(
+                                                    text: "2 Jan, 2024",
+                                                    color: kDarkGrey1,
+                                                    fontSize: 12.sp,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                  regularText(text: "Mohsin Ali", color: kDarkGrey1),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 );
                               },
@@ -513,8 +518,6 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> with TickerPr
       floatingActionButton: FloatingActionButton(
         backgroundColor: kGreen,
         onPressed: () {
-          // Get.toNamed(Routes.editHealthRecordsScreen);
-
           customShowDialog(
             context: context,
             child: UploadHealthRecordsDialog(),

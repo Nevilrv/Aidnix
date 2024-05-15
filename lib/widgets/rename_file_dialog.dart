@@ -36,7 +36,7 @@ class RenameFileDialog extends StatelessWidget {
                     regularText(text: "File name", color: kDarkGrey1),
                     SizedBox(height: 10.h),
                     CustomTextField(
-                      controller: controller.labNameController,
+                      controller: controller.docNameController,
                       hintText: "Enter file name",
                     ),
                     SizedBox(height: 30.h),
@@ -46,7 +46,10 @@ class RenameFileDialog extends StatelessWidget {
                       child: Center(
                         child: headingSemiBoldText(text: "Save"),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        controller.update();
+                        Get.back();
+                      },
                     ),
                     SizedBox(height: 10.h),
                   ],

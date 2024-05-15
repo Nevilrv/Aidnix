@@ -29,8 +29,12 @@ class AppUrls {
   // User
 
   static const familyMember = "/family-members";
-  static const familyMemberImage = "/v2/docs/upload";
+  static const uploadDocument = "/v2/docs/upload";
   static const profileSetting = "/customers/profile-settings";
   static const healthProfile = "/customers/health-profile";
   static const healthDocs = "/docs";
+
+  // Booking
+
+  static const bookings = "/bookings";
 }

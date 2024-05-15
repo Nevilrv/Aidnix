@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:aidnix/models/res_add_family_member.dart';
-import 'package:aidnix/models/res_add_family_member_image.dart';
+import 'package:aidnix/models/res_add_document.dart';
 import 'package:aidnix/models/res_get_family_member.dart';
 import 'package:aidnix/repository/user_repository.dart';
 import 'package:flutter/cupertino.dart';
@@ -71,7 +71,7 @@ class FamilyMemberController extends GetxController {
 
         if (addFamilyData != null) {
           if (pickedImage.isNotEmpty) {
-            addFamilyMemberImageApi();
+            await addDocumentApi();
           } else {
             await getFamilyMemberApi();
             Get.back();
@@ -85,7 +85,7 @@ class FamilyMemberController extends GetxController {
     update();
   }
 
-  addFamilyMemberImageApi() async {
+  addDocumentApi() async {
     isAddDataLoading = true;
     update();
 
@@ -97,9 +97,9 @@ class FamilyMemberController extends GetxController {
       "file": await dio.MultipartFile.fromFile(File(pickedImage).path, filename: "profile"),
     };
 
-    var response = await UserRepo().addFamilyMemberImageAPI(body: body);
+    var response = await UserRepo().addDocumentAPI(body: body);
     update();
-    print('Response home API Data :::::::::::::::::: $response');
+    print('Response Add Document Data :::::::::::::::::: $response');
 
     if (response != null) {
       addFamilyDataImage = response.data;

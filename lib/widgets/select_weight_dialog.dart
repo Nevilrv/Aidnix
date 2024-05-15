@@ -33,6 +33,8 @@ class SelectWeightDialog extends StatelessWidget {
                     headingText(text: "Select Weight"),
                     GestureDetector(
                       onTap: () {
+                        controller.weight = "";
+                        controller.update();
                         Get.back();
                       },
                       child: Icon(Icons.cancel_outlined),
@@ -48,7 +50,13 @@ class SelectWeightDialog extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: EdgeInsets.only(bottom: 10.h),
-                        child: titleText(text: "${index + 1} Kgs", textAlign: TextAlign.center),
+                        child: GestureDetector(
+                          onTap: () {
+                            controller.weight = "${index + 1} Kgs";
+                            controller.update();
+                          },
+                          child: titleText(text: "${index + 1} Kgs", textAlign: TextAlign.center),
+                        ),
                       );
                     },
                   ),
@@ -60,7 +68,9 @@ class SelectWeightDialog extends StatelessWidget {
                   child: Center(
                     child: headingSemiBoldText(text: "Save"),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Get.back();
+                  },
                 ),
                 SizedBox(height: 10.h),
               ],

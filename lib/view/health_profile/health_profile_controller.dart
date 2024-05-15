@@ -10,6 +10,8 @@ class HealthProfileController extends GetxController {
   bool isLoading = false;
 
   String height = "";
+  int feet = 0;
+  int inches = 0;
   String weight = "";
   String activityLevel = "";
   String smoking = "";
