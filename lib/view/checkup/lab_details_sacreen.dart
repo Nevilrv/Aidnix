@@ -1,9 +1,15 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:aidnix/Widgets/app_button.dart';
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/utils/app_routes.dart';
+import 'package:aidnix/view/checkup/lab_details_controller.dart';
 import 'package:aidnix/widgets/app_app_bar.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
+import 'package:aidnix/widgets/filter_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -17,123 +23,307 @@ class LabDetailsScreen extends StatefulWidget {
 }
 
 class _LabDetailsScreenState extends State<LabDetailsScreen> {
-  TextEditingController searchController = TextEditingController();
+  LabDetailsController labDetailsController = Get.put(LabDetailsController());
+
+  @override
+  void initState() {
+    labDetailsController.labDetailsAPI();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppAppBar(titleText: AppString.labDetails),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Get.toNamed(Routes.labImageScreen);
-                },
-                child: assetImage(
-                  AppAssets.labImage,
-                  height: 238.h,
-                  width: 430.w,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 22.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 15.h),
-                    customLabDetailsCart(
-                      titleName: "Greenlab Biotech",
-                      rating: 5.0,
-                      noOfRating: "1.1k",
-                      noOfTest: 100,
-                      address: "2972 Westheimer Rd. Santa Ana, Illinois 85486",
-                      distance: 3,
-                    ),
-                    SizedBox(height: 15.h),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 10.h, horizontal: 10.w),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: kWhite,
-                          boxShadow: [
-                            BoxShadow(
-                                color: kGrey.withOpacity(0.2), blurRadius: 3)
-                          ],
-                          borderRadius: BorderRadius.circular(20.r)),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 15.w)
-                            .copyWith(top: 10.h),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            customText(
-                                text: AppString.about,
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.w600),
-                            SizedBox(height: 5.h),
-                            ReadMoreText(
-                              'Lorem ipsum dolor sit amet consectetur.Lorem ipsum dolor sit amet consectetur Quam ...',
-                              trimMode: TrimMode.Line,
-                              trimLines: 1,
-                              colorClickableText: Colors.pink,
-                              trimCollapsedText: 'Read more',
-                              style: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: kDarkGrey1,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: "Poppins"),
-                              moreStyle: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: kBlack,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: "Poppins"),
+      body: GetBuilder<LabDetailsController>(
+        init: LabDetailsController(),
+        builder: (controller) {
+          return controller.isLoading
+              ? Center(
+                  child: CircularProgressIndicator(color: kGreen),
+                )
+              : SafeArea(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (controller.labData != null) ...[
+                          Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.labImageScreen);
+                                },
+                                child: assetImage(
+                                  AppAssets.labImage,
+                                  height: 238.h,
+                                  width: 430.w,
+                                ),
+                              ),
+                              SizedBox(height: 20.h),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 22.w),
+                                child: customLabDetailsCart(
+                                  titleName: controller.labData?.name ?? '',
+                                  rating: controller.labData?.reviews ?? '',
+                                  noOfRating: controller.labData?.reviews ?? '',
+                                  noOfTest: controller.labData?.totalTests ?? '',
+                                  address: controller.labData?.address ?? '',
+                                  distance:
+                                      "${controller.labData?.distance?.value.toString() ?? ''} ${controller.labData?.distance?.unit ?? ''}",
+                                ),
+                              ),
+                              SizedBox(height: 15.h),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 22.w),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      color: kWhite,
+                                      boxShadow: [BoxShadow(color: kGrey.withOpacity(0.2), blurRadius: 3)],
+                                      borderRadius: BorderRadius.circular(20.r)),
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 15.w).copyWith(top: 10.h),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        customText(text: AppString.about, fontSize: 18.sp, fontWeight: FontWeight.w600),
+                                        SizedBox(height: 5.h),
+                                        ReadMoreText(
+                                          // controller.labData?.description ?? ''  ,
+                                          'Lorem ipsum dolor sit amet consectetur.Lorem ipsum dolor sit amet consectetur Quam ...',
+                                          trimMode: TrimMode.Line,
+                                          trimLines: 1,
+                                          colorClickableText: Colors.pink,
+                                          trimCollapsedText: 'Read more',
+                                          style: TextStyle(
+                                              fontSize: 16.sp, color: kDarkGrey1, fontWeight: FontWeight.w400, fontFamily: "Poppins"),
+                                          moreStyle:
+                                              TextStyle(fontSize: 16.sp, color: kBlack, fontWeight: FontWeight.w500, fontFamily: "Poppins"),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                        SizedBox(height: 20.h),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 22.w),
+                          child: customText(text: AppString.test, fontSize: 18.sp, fontWeight: FontWeight.w600),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 19.h, left: 22.w, right: 22.w),
+                          child: customSearchBar(
+                            searchController: controller.searchController,
+                            searchHint: false,
+                            onChanged: (value) {
+                              controller.searchController.text = value;
+                              controller.searchData = [];
+                              controller.update();
+                            },
+                            onFilterTap: () {
+                              customBottomSheet(
+                                context: context,
+                                child: const FilterBottomSheet(),
+                              );
+                            },
+                            onSuffixTap: () {
+                              if (controller.searchController.text.isNotEmpty) {
+                                controller.searchAPI();
+                              }
+                            },
+                          ),
+                        ),
+                        if (controller.searchController.text.isEmpty) ...[
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 22.w),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // SizedBox(height: 15.h),
+                                // customLabDetailsCart(
+                                //   titleName: controller.labData?.name ?? '',
+                                //   rating: controller.labData?.reviews ?? '',
+                                //   noOfRating: controller.labData?.reviews ?? '',
+                                //   noOfTest: controller.labData?.totalTests ?? '',
+                                //   address:controller.labData?.address ?? '',
+                                //   distance: "${controller.labData?.distance?.value.toString() ?? ''} ${controller.labData?.distance?.unit ?? ''}",
+                                // ),
+                                // SizedBox(height: 15.h),
+                                // Container(
+                                //   padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+                                //   width: double.infinity,
+                                //   decoration: BoxDecoration(
+                                //       color: kWhite,
+                                //       boxShadow: [BoxShadow(color: kGrey.withOpacity(0.2), blurRadius: 3)],
+                                //       borderRadius: BorderRadius.circular(20.r)),
+                                //   child: Padding(
+                                //     padding: EdgeInsets.symmetric(horizontal: 15.w).copyWith(top: 10.h),
+                                //     child: Column(
+                                //       crossAxisAlignment: CrossAxisAlignment.start,
+                                //       children: [
+                                //         customText(text: AppString.about, fontSize: 18.sp, fontWeight: FontWeight.w600),
+                                //         SizedBox(height: 5.h),
+                                //         ReadMoreText(
+                                //           // controller.labData?.description ?? ''  ,
+                                //           'Lorem ipsum dolor sit amet consectetur.Lorem ipsum dolor sit amet consectetur Quam ...',
+                                //           trimMode: TrimMode.Line,
+                                //           trimLines: 1,
+                                //           colorClickableText: Colors.pink,
+                                //           trimCollapsedText: 'Read more',
+                                //           style: TextStyle(
+                                //               fontSize: 16.sp, color: kDarkGrey1, fontWeight: FontWeight.w400, fontFamily: "Poppins"),
+                                //           moreStyle:
+                                //               TextStyle(fontSize: 16.sp, color: kBlack, fontWeight: FontWeight.w500, fontFamily: "Poppins"),
+                                //         ),
+                                //       ],
+                                //     ),
+                                //   ),
+                                // ),
+
+                                ///
+                                // SizedBox(height: 20.h),
+                                // customText(text: AppString.test, fontSize: 18.sp, fontWeight: FontWeight.w600),
+                                // Padding(
+                                //   padding: EdgeInsets.only(top: 19.h),
+                                //   child: customSearchBar(
+                                //     searchController: controller.searchController,
+                                //     searchHint: false,
+                                //   ),
+                                // ),
+                                ListView.builder(
+                                  itemCount: 3,
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  padding: EdgeInsets.zero,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: EdgeInsets.symmetric(vertical: 12.h),
+                                      child: checkupCartContainer(
+                                          comprehensive: "Blood checkup\ncomprehensive",
+                                          offerPercentage: 70,
+                                          price: "₹3000",
+                                          newPrice: "₹2500",
+                                          report: "6 Hours",
+                                          type: "Pick Up, Lab Visit",
+                                          onTap: () {
+                                            Get.toNamed(Routes.testDetailsScreen);
+                                          }),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                        if (controller.searchController.text.isNotEmpty) ...[
+                          if (controller.isSearchLoading)
+                            Center(
+                              child: CircularProgressIndicator(color: kGreen),
+                            )
+                          else if (controller.searchData!.isNotEmpty) ...[
+                            SizedBox(height: 15.h),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 22.w),
+                              child: regularText(
+                                text: "Great! Please select the lab which suits you best",
+                                color: kDarkGrey,
+                                maxLines: 2,
+                              ),
+                            ),
+                            SizedBox(height: 20.h),
+                            ListView.builder(
+                              itemCount: controller.searchData?.length,
+                              padding: EdgeInsets.symmetric(horizontal: 22.w),
+                              shrinkWrap: true,
+                              primary: false,
+                              itemBuilder: (context, index) {
+                                log('controller.searchHomeData?.length===========>>>>${jsonEncode(controller.searchData)}');
+                                return Padding(
+                                  padding: EdgeInsets.only(bottom: 15.h),
+                                  child: customCartContainer(
+                                    titleName: controller.searchData?[index].name ?? '',
+                                    rating: controller.searchData?[index].lab?.reviews ?? '',
+                                    noOfRating: controller.searchData?[index].lab?.reviews ?? '',
+                                    noOfTest: controller.searchData?[index].lab?.totalTests ?? '',
+                                    address: controller.searchData?[index].lab?.address ?? '',
+                                    offerPercentage: controller.searchData?[index].discountTag ?? '',
+                                    distance:
+                                        "${controller.searchData?[index].lab?.distance?.value ?? ''}  ${controller.searchData?[index].lab?.distance?.unit ?? ''}",
+                                    isAddToCart: true,
+                                    isRecommended: true,
+                                  ),
+                                );
+                              },
                             ),
                           ],
-                        ),
-                      ),
+                          if (controller.isSearchLoading == false)
+                            if (controller.searchData!.isEmpty) ...[
+                              SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    SizedBox(height: 100.h),
+                                    Center(
+                                      child: Image.asset(AppAssets.noDataFoundImage, scale: 4),
+                                    ),
+                                    SizedBox(height: 20.h),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        customText(
+                                          text: "Sorry No Labs Found",
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.w600,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 10.h),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        regularText(
+                                          text: "Sorry no labs found, please modify\nyour search and try again",
+                                          color: Color(0xFF868796),
+                                          maxLines: 3,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 30.h),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        CustomButton(
+                                          buttonText: "",
+                                          child: Row(
+                                            children: [
+                                              regularSemiBoldText(
+                                                text: "Call us",
+                                              ),
+                                              SizedBox(width: 5.w),
+                                              Icon(Icons.arrow_forward, size: 25.w)
+                                            ],
+                                          ),
+                                          onTap: () {},
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 30.h),
+                                  ],
+                                ),
+                              ),
+                            ],
+                        ],
+                      ],
                     ),
-                    SizedBox(height: 20.h),
-                    customText(
-                        text: AppString.test,
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w600),
-                    Padding(
-                      padding: EdgeInsets.only(top: 19.h),
-                      child: customSearchBar(
-                        context: context,
-                        searchController: searchController,
-                        searchHint: false,
-                      ),
-                    ),
-                    ListView.builder(
-                      itemCount: 3,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: EdgeInsets.zero,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(vertical: 12.h),
-                          child: checkupCartContainer(
-                              comprehensive: "Blood checkup\ncomprehensive",
-                              offerPercentage: 70,
-                              price: "₹3000",
-                              newPrice: "₹2500",
-                              report: "6 Hours",
-                              type: "Pick Up, Lab Visit",
-                              onTap: () {
-                                Get.toNamed(Routes.testDetailsScreen);
-                              }),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
+                  ),
+                );
+        },
       ),
     );
   }

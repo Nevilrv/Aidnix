@@ -319,11 +319,11 @@ Widget headingBoldText({
 
 ///Custom Search Bar
 Widget customSearchBar({
-  required BuildContext context,
   required TextEditingController searchController,
   void Function(String)? onChanged,
   void Function()? onFilterTap,
   bool? searchHint,
+  void Function()? onSuffixTap,
 }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -336,11 +336,14 @@ Widget customSearchBar({
               controller: searchController,
               hintText: "Search here...",
               textColor: kGrey,
-              prefixIcon: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 14.h),
-                child: SvgPicture.asset(
-                  AppAssets.iconSearch,
-                  width: 10.w,
+              suffixIcon: GestureDetector(
+                onTap: onSuffixTap,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 14.h),
+                  child: SvgPicture.asset(
+                    AppAssets.iconSearch,
+                    width: 10.w,
+                  ),
                 ),
               ),
               onChanged: onChanged,
@@ -489,10 +492,10 @@ Widget customCartContainer({
   required String noOfRating,
   required String noOfTest,
   required String address,
-  required int offerPercentage,
+  required String offerPercentage,
   required String distance,
   required bool isAddToCart,
- required  bool isRecommended ,
+  required bool isRecommended,
 }) {
   return Container(
     decoration: BoxDecoration(
@@ -553,21 +556,23 @@ Widget customCartContainer({
                           child: customText(text: titleName, fontSize: 20.sp, maxLines: 1),
                         ),
                         SizedBox(height: 10.h),
-                        isRecommended == true ? Container(
-                          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
-                          decoration: BoxDecoration(
-                            color: kOrange,
-                            borderRadius: BorderRadius.circular(15.r),
-                          ),
-                          child: Center(
-                            child: customText(
-                              text: "Recommended",
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.w600,
-                              color: kWhite,
-                            ),
-                          ),
-                        ):const SizedBox(),
+                        isRecommended == true
+                            ? Container(
+                                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
+                                decoration: BoxDecoration(
+                                  color: kOrange,
+                                  borderRadius: BorderRadius.circular(15.r),
+                                ),
+                                child: Center(
+                                  child: customText(
+                                    text: "Recommended",
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: kWhite,
+                                  ),
+                                ),
+                              )
+                            : const SizedBox(),
                       ],
                     )
                   ],
@@ -662,7 +667,7 @@ Widget customCartContainer({
                 color: kRed,
                 child: Center(
                   child: Text(
-                    '${offerPercentage}% OFF',
+                    '${offerPercentage}',
                     style: TextStyle(
                       fontSize: 13.sp,
                       fontFamily: "Poppins",
@@ -946,11 +951,11 @@ Widget checkupAddCart({
 /// Lab Details Card
 Widget customLabDetailsCart({
   required String titleName,
-  required double rating,
+  required String rating,
   required String noOfRating,
-  required int noOfTest,
+  required String noOfTest,
   required String address,
-  required double distance,
+  required String distance,
 }) {
   return Container(
     decoration: BoxDecoration(
@@ -975,7 +980,7 @@ Widget customLabDetailsCart({
                   child: customText(text: titleName, fontSize: 20),
                 ),
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Icon(Icons.star_rounded, size: 33.w, color: kGreen1),
@@ -987,7 +992,7 @@ Widget customLabDetailsCart({
                     const Spacer(),
                     SvgPicture.asset(AppAssets.microscopeIcon, color: kGreen1),
                     SizedBox(width: 8.w),
-                    SizedBox(width: 140.w, child: regularText(text: "$noOfTest+ Tests")),
+                    SizedBox(width: 140.w, child: regularText(text: "$noOfTest")),
                   ],
                 ),
                 SizedBox(height: 15.h),
@@ -1011,7 +1016,7 @@ Widget customLabDetailsCart({
                     SizedBox(
                       width: 140.w,
                       child: regularText(
-                        text: "${distance}km away from you",
+                        text: "${distance} away from you",
                         maxLines: 2,
                         color: kDarkGrey1,
                       ),

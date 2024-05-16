@@ -33,4 +33,12 @@ class AppUrls {
   static const profileSetting = "/customers/profile-settings";
   static const healthProfile = "/customers/health-profile";
   static const healthDocs = "/docs";
+
+  // Lab
+
+  static const labDetails = "/labs";
+
+// Cart
+  static const cart = "/cart";
+  static const cartSummary = "/cart-summary";
 }

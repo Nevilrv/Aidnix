@@ -50,7 +50,6 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> with TickerPr
               children: [
                 SizedBox(height: 10.h),
                 customSearchBar(
-                  context: context,
                   searchController: controller.searchController,
                   onFilterTap: () {
                     customBottomSheet(
