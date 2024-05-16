@@ -22,6 +22,9 @@ class _BookingAllScreenState extends State<BookingAllScreen> with TickerProvider
   void initState() {
     bookingController.tabController = TabController(length: 4, vsync: this);
     bookingController.tabController?.addListener(handleTabSelection);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      bookingController.getBookingHistory();
+    });
 
     super.initState();
   }
@@ -31,9 +34,9 @@ class _BookingAllScreenState extends State<BookingAllScreen> with TickerProvider
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (bookingController.tabController?.index == 0) {
-        bookingController.getBooking();
+        bookingController.getBookingHistory();
       } else {
-        bookingController.getFilterBooking();
+        bookingController.getFilterBookingHistory();
       }
     });
   }
@@ -167,7 +170,12 @@ class _BookingAllScreenState extends State<BookingAllScreen> with TickerProvider
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
-                            Get.toNamed(Routes.bookingDetailsScreen);
+                            Get.toNamed(
+                              Routes.bookingDetailsScreen,
+                              arguments: {
+                                "refId": controller.bookingList[index].referenceId ?? "",
+                              },
+                            );
                           },
                           child: customBookingContainer(
                             titleName: controller.bookingList[index].lab?.name ?? "Greenlab Biotech",

@@ -1,5 +1,6 @@
 import 'package:aidnix/models/common_response.dart';
 import 'package:aidnix/models/res_edit_health_document.dart';
+import 'package:aidnix/models/res_get_booking_detail.dart';
 import 'package:aidnix/models/res_get_bookings.dart';
 import 'package:aidnix/models/res_get_general_setting.dart';
 import 'package:aidnix/models/res_get_health_profile.dart';
@@ -30,8 +31,8 @@ class UserRepo {
         return null;
       }
     } on DioException catch (ex) {
-      Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
       print('Error Get Family Member API :::::::::::::::::: $ex');
+      Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
 
       return null;
     }
@@ -255,43 +256,106 @@ class UserRepo {
     }
   }
 
-  /// Get Bookings API ******************************
+  /// Get Bookings Detail API ******************************
 
-  Future<ResGetBookings?> getBookingAPI({required int offset, required int limit}) async {
+  Future<ResGetBookingDetails?> getBookingDetailAPI({required String refId}) async {
     try {
-      var response = await dio.get("${AppUrls.bookings}?offset=$offset&limit=$limit");
-      print('Response Get Booking API :::::::::::::::::: ${response.data}');
+      var response = await dio.get("${AppUrls.bookings}/$refId");
+      print('Response Get Booking Detail API :::::::::::::::::: ${response.data}');
 
       if (response.data["status"] == true) {
-        return ResGetBookings.fromJson(response.data);
+        return ResGetBookingDetails.fromJson(response.data);
       } else {
         Fluttertoast.showToast(msg: response.data['message'], backgroundColor: kRed, textColor: kWhite);
         return null;
       }
     } on DioException catch (ex) {
+      print('Error Get Bookings Detail API :::::::::::::::::: $ex');
       Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
-      print('Error Get Bookings API :::::::::::::::::: $ex');
 
       return null;
     }
   }
 
-  /// Get Filter Bookings API ******************************
+  /// Get Bookings History API ******************************
 
-  Future<ResGetBookings?> getFilterBookingAPI({required int offset, required int limit, required String status}) async {
+  Future<ResGetBookingHistory?> getBookingHistoryAPI({required int offset, required int limit}) async {
     try {
-      var response = await dio.get("${AppUrls.bookings}?offset=$offset&limit=$limit&status=$status");
-      print('Response Get Filter Booking API :::::::::::::::::: ${response.data}');
+      var response = await dio.get("${AppUrls.bookings}?offset=$offset&limit=$limit");
+      print('Response Get Booking History API :::::::::::::::::: ${response.data}');
 
       if (response.data["status"] == true) {
-        return ResGetBookings.fromJson(response.data);
+        return ResGetBookingHistory.fromJson(response.data);
       } else {
         Fluttertoast.showToast(msg: response.data['message'], backgroundColor: kRed, textColor: kWhite);
         return null;
       }
     } on DioException catch (ex) {
       Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
-      print('Error Get Filter  Bookings API :::::::::::::::::: $ex');
+      print('Error Get Bookings History API :::::::::::::::::: $ex');
+
+      return null;
+    }
+  }
+
+  /// Get Filter Bookings History API ******************************
+
+  Future<ResGetBookingHistory?> getFilterBookingHistoryAPI({required int offset, required int limit, required String status}) async {
+    try {
+      var response = await dio.get("${AppUrls.bookings}?offset=$offset&limit=$limit&status=$status");
+      print('Response Get Filter Booking History API :::::::::::::::::: ${response.data}');
+
+      if (response.data["status"] == true) {
+        return ResGetBookingHistory.fromJson(response.data);
+      } else {
+        Fluttertoast.showToast(msg: response.data['message'], backgroundColor: kRed, textColor: kWhite);
+        return null;
+      }
+    } on DioException catch (ex) {
+      Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
+      print('Error Get Filter  Bookings History API :::::::::::::::::: $ex');
+
+      return null;
+    }
+  }
+
+  /// Reschedule Bookings API ******************************
+
+  Future<CommonResponse?> rescheduleBookingAPI({required String refId, required Map<String, dynamic> reqBody}) async {
+    try {
+      var response = await dio.put("${AppUrls.bookings}/$refId", data: reqBody);
+      print('Response Reschedule Booking API :::::::::::::::::: ${response.data}');
+
+      if (response.data["status"] == true) {
+        return CommonResponse.fromJson(response.data);
+      } else {
+        Fluttertoast.showToast(msg: response.data['message'], backgroundColor: kRed, textColor: kWhite);
+        return null;
+      }
+    } on DioException catch (ex) {
+      print('Error Reschedule Bookings API :::::::::::::::::: $ex');
+      Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
+
+      return null;
+    }
+  }
+
+  /// Cancel Bookings API ******************************
+
+  Future<CommonResponse?> cancelBookingAPI({required String refId}) async {
+    try {
+      var response = await dio.delete("${AppUrls.bookings}/$refId");
+      print('Response Cancel Booking API :::::::::::::::::: ${response.data}');
+
+      if (response.data["status"] == true) {
+        return CommonResponse.fromJson(response.data);
+      } else {
+        Fluttertoast.showToast(msg: response.data['message'], backgroundColor: kRed, textColor: kWhite);
+        return null;
+      }
+    } on DioException catch (ex) {
+      print('Error Cancel Bookings API :::::::::::::::::: $ex');
+      Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
 
       return null;
     }

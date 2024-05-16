@@ -6,6 +6,7 @@ import 'package:aidnix/view/booking/booking_controller.dart';
 import 'package:aidnix/widgets/app_app_bar.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
+import 'package:aidnix/widgets/reschedule_booking_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -19,6 +20,20 @@ class BookingDetailScreen extends StatefulWidget {
 }
 
 class _BookingDetailScreenState extends State<BookingDetailScreen> {
+  BookingController bookingController = Get.put<BookingController>(BookingController());
+  @override
+  void initState() {
+    bookingController.refId = Get.arguments != null ? Get.arguments["refId"] : "";
+
+    if (bookingController.refId.isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        bookingController.getBookingDetail();
+      });
+    }
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +77,11 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                             ],
                           ),
                           SizedBox(width: 20.w),
-                          customText(text: "Greenlab Biotech", fontSize: 20.sp, textAlign: TextAlign.center),
+                          customText(
+                            text: controller.bookingData?.lab?.name ?? "",
+                            fontSize: 20.sp,
+                            textAlign: TextAlign.center,
+                          ),
                         ],
                       ),
                       Padding(
@@ -77,8 +96,8 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 customText(text: AppString.appointmentDateText, fontSize: 10.sp, color: kDarkGrey1),
-                                customText(text: "12 Jan, 2024", fontSize: 14.sp),
-                                customText(text: "6:45 PM", fontSize: 10.sp, color: kDarkGrey1),
+                                customText(text: controller.bookingData?.scheduledDate ?? "", fontSize: 14.sp),
+                                customText(text: controller.bookingData?.scheduledTime ?? "", fontSize: 10.sp, color: kDarkGrey1),
                               ],
                             ),
                             const Spacer(),
@@ -91,7 +110,7 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 customText(text: AppString.typeText, fontSize: 10.sp, color: kDarkGrey1),
-                                customText(text: AppString.pickUpText, fontSize: 14.sp)
+                                customText(text: controller.bookingData?.scheduleType ?? AppString.pickUpText, fontSize: 14.sp)
                               ],
                             ),
                           ],
@@ -102,12 +121,21 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                         children: [
                           CustomButton(
                             buttonText: "",
-                            onTap: () {},
+                            onTap: () {
+                              // controller.rescheduleBooking();
+
+                              customBottomSheet(
+                                context: context,
+                                child: const RescheduleBookingBottomSheet(),
+                              );
+                            },
                             child: headingSmallText(text: AppString.rescheduleText),
                           ),
                           CustomButton(
                             buttonText: "",
-                            onTap: () {},
+                            onTap: () {
+                              controller.cancelBooking();
+                            },
                             border: Border.all(color: kGreen),
                             buttonColor: kWhite,
                             child: headingSmallText(text: AppString.cancelTestText),
@@ -121,8 +149,9 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                         children: [
                           CircleAvatar(
                             radius: 25.r,
-                            backgroundImage:
-                                NetworkImage("https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"),
+                            backgroundImage: const NetworkImage(
+                              "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg",
+                            ),
                           ),
                           SizedBox(width: 20.w),
                           titleSmallText(text: "Kapil Darsan"),
@@ -147,47 +176,44 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                       ),
                       SizedBox(height: 20.h),
                       titleSemiBoldText(text: AppString.bookedTestText),
-                      regularText(text: "3 Tests"),
+                      regularText(text: "${controller.bookingData?.labItems?.length ?? 0} Tests"),
                       SizedBox(height: 10.h),
-                      SizedBox(
-                        height: 380.h,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: controller.bookedTest.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              margin: EdgeInsets.symmetric(vertical: 8.h),
-                              padding: EdgeInsets.only(right: 30.w, left: 10.w, bottom: 10.h, top: 10.h),
-                              decoration: BoxDecoration(
-                                color: kWhite,
-                                borderRadius: BorderRadius.circular(15.r),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: kGrey.withOpacity(0.1),
-                                    blurRadius: 40,
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: controller.bookingData?.labItems?.length ?? 0,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            margin: EdgeInsets.symmetric(vertical: 8.h),
+                            padding: EdgeInsets.only(right: 30.w, left: 10.w, bottom: 10.h, top: 10.h),
+                            decoration: BoxDecoration(
+                              color: kWhite,
+                              borderRadius: BorderRadius.circular(15.r),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: kGrey.withOpacity(0.1),
+                                  blurRadius: 40,
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                                  margin: EdgeInsets.only(right: 10.w),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: kLightGreen.withOpacity(0.15),
                                   ),
-                                ],
-                              ),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                                    margin: EdgeInsets.only(right: 10.w),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      color: kLightGreen.withOpacity(0.15),
-                                    ),
-                                    child: Image.asset(controller.bookedTest[index]["Icon"], scale: 4),
-                                  ),
-                                  titleSmallText(text: controller.bookedTest[index]["title"]),
-                                  const Spacer(),
-                                  headingSemiBoldText(text: "₹299")
-                                ],
-                              ),
-                            );
-                          },
-                        ),
+                                  child: Image.asset(AppAssets.bloodTestSmallIcon, scale: 4),
+                                ),
+                                titleSmallText(text: controller.bookingData?.labItems?[index].name ?? ""),
+                                const Spacer(),
+                                headingSemiBoldText(text: "₹${controller.bookingData?.labItems?[index].totalPrice ?? "0"}")
+                              ],
+                            ),
+                          );
+                        },
                       ),
                       SizedBox(height: 10.h),
                       headingSemiBoldText(text: AppString.trackOrderTest),
@@ -351,17 +377,19 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                     children: [
                       headingSemiBoldText(text: AppString.bookingSummaryTest),
                       SizedBox(height: 10.h),
-                      customBookingSummery(title: "Subtotal", price: 1496),
-                      customBookingSummery(title: "GST 20%", price: 299),
-                      customBookingSummery(title: "Discount applied", price: 299),
-                      SizedBox(
-                        height: 5.h,
-                      ),
+                      customBookingSummery(title: "Subtotal", price: controller.bookingData?.amount ?? 0),
+                      customBookingSummery(title: "GST 20%", price: 0),
+                      customBookingSummery(title: "Discount applied", price: controller.bookingData?.discount ?? 0),
+                      SizedBox(height: 5.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           customText(text: "Total Price", fontSize: 20.sp, fontWeight: FontWeight.w600),
-                          customText(text: "₹1795", fontSize: 20.sp, color: kGreen, fontWeight: FontWeight.w600)
+                          customText(
+                              text: "₹${controller.bookingData?.totalPrice ?? 0}",
+                              fontSize: 20.sp,
+                              color: kGreen,
+                              fontWeight: FontWeight.w600)
                         ],
                       ),
                       SizedBox(height: 20.h),

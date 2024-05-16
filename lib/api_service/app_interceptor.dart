@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aidnix/utils/app_routes.dart';
 import 'package:aidnix/utils/shared_prefs.dart';
 import 'package:aidnix/view/auth/auth_controller.dart';
@@ -37,6 +39,8 @@ class AppInterceptors extends Interceptor {
             throw ValidationException(err.requestOptions);
           case 500:
           case 503:
+            // log("Error 11 ::::::::::::::: ${err.response}");
+            // log("Error 22 ::::::::::::::: ${err.response?.data["errors"][0]["message"]}");
             throw InternalServerErrorException(err.requestOptions);
         }
         break;

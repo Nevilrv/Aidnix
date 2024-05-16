@@ -1,17 +1,17 @@
 import 'dart:convert';
 
-ResGetBookings resGetBookingsFromJson(String str) => ResGetBookings.fromJson(json.decode(str));
+ResGetBookingHistory resGetBookingHistoryFromJson(String str) => ResGetBookingHistory.fromJson(json.decode(str));
 
-String resGetBookingsToJson(ResGetBookings data) => json.encode(data.toJson());
+String resGetBookingHistoryToJson(ResGetBookingHistory data) => json.encode(data.toJson());
 
-class ResGetBookings {
+class ResGetBookingHistory {
   bool? status;
   int? code;
   List<Booking>? data;
   String? message;
   dynamic extra;
 
-  ResGetBookings({
+  ResGetBookingHistory({
     this.status,
     this.code,
     this.data,
@@ -19,7 +19,7 @@ class ResGetBookings {
     this.extra,
   });
 
-  factory ResGetBookings.fromJson(Map<String, dynamic> json) => ResGetBookings(
+  factory ResGetBookingHistory.fromJson(Map<String, dynamic> json) => ResGetBookingHistory(
         status: json["status"],
         code: json["code"],
         data: json["data"] == null ? [] : List<Booking>.from(json["data"]!.map((x) => Booking.fromJson(x))),
