@@ -48,7 +48,11 @@ class _CheckupScreenState extends State<CheckupScreen> {
                   },
                   onChanged: (value) {
                     controller.searchController.text = value;
-                    controller.searchData = [];
+
+                    if (value.trim().isEmpty) {
+                      controller.searchData = [];
+                    }
+
                     controller.update();
                   },
                   onSuffixTap: () {

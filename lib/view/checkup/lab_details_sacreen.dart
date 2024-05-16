@@ -4,6 +4,7 @@ import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/utils/app_routes.dart';
 import 'package:aidnix/view/checkup/lab_details_controller.dart';
 import 'package:aidnix/widgets/app_app_bar.dart';
+import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:aidnix/widgets/filter_bottom_sheet.dart';
 import 'package:flutter/material.dart';
@@ -238,7 +239,6 @@ class _LabDetailsScreenState extends State<LabDetailsScreen> {
                               shrinkWrap: true,
                               primary: false,
                               itemBuilder: (context, index) {
-                                log('controller.searchHomeData?.length===========>>>>${jsonEncode(controller.searchData)}');
                                 return Padding(
                                   padding: EdgeInsets.only(bottom: 15.h),
                                   child: customCartContainer(

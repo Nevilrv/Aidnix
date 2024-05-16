@@ -69,21 +69,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
                           ///search bar
 
-                            SizedBox(height: 25.h),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 22.w),
-                              child: customSearchBar(
-                                  searchController: controller.search,
-                                  onChanged: (value) {
-                                    controller.search.text = value;
-                                    controller.update();
-                                  },
-                                  onFilterTap: () {
-                                    customBottomSheet(
-                                      context: context,
-                                      child: const FilterBottomSheet(),
-                                    );
-                                  }),
                           SizedBox(height: 25.h),
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 22.w),
@@ -91,7 +76,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               searchController: controller.search,
                               onChanged: (value) {
                                 controller.search.text = value;
-                                controller.searchHomeData = [];
+
+                                if (value.trim().isEmpty) {
+                                  controller.searchHomeData = [];
+                                }
+
                                 controller.update();
                               },
                               onFilterTap: () {
