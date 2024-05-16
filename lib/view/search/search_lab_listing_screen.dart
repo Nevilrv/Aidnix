@@ -62,7 +62,7 @@ class _SearchLabListingScreenState extends State<SearchLabListingScreen> {
                             noOfRating: "1.1k",
                             noOfTest: "100",
                             address: "2972 Westheimer Rd. Santa Ana, Illinois 85486",
-                            offerPercentage: 20,
+                            offerPercentage: '20',
                             distance: '2.2',
                             isAddToCart: true,
                             isRecommended: true,

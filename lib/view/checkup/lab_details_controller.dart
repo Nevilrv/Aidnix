@@ -1,29 +1,22 @@
 import 'dart:developer';
-import 'package:aidnix/models/res_home_api.dart';
 import 'package:aidnix/models/res_home_search_api.dart';
+import 'package:aidnix/repository/checkup_repository.dart';
 import 'package:aidnix/repository/home_repository.dart';
 import 'package:aidnix/theme/app_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import '../../models/res_single_lab_details_api.dart';
 
-class HomeController extends GetxController {
+class LabDetailsController extends GetxController {
+  TextEditingController searchController = TextEditingController();
+
   bool isLoading = false;
+  Data? labData;
+  bool isSearchLoading = false;
+  List<SearchHomeData>? searchData;
 
-  int currentNearYouBannerIndex = 0;
-  int currentPathLabBannerIndex = 0;
-  int currentReviewBannerIndex = 0;
-
-  int filterCategoryIndex = 0;
-  int filterCategoryItemIndex = 0;
-
-  TextEditingController search = TextEditingController();
-
-  HomeData? homeData;
-  bool isSearchLoading = true;
-  List<SearchHomeData>? searchHomeData;
-
-  homeAPI() async {
+  labDetailsAPI() async {
     try {
       var locationPermission = await Geolocator.requestPermission();
 
@@ -34,25 +27,28 @@ class HomeController extends GetxController {
         update();
 
         var position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
-        log('position===========>>>>${position}');
-        var response = await HomeRepository().homeAPI(latitude: position.latitude, longitude: position.longitude);
-        // var response = await HomeRepository().homeAPI(latitude: 26.8505899, longitude: 75.7909157);
+        log('position=========lab Details_API==>>>>${position}');
+        var response = await CheckUpRepository()
+            .labDetailsAPI(labId: "d4e744df-de3c-4e7d-ba1d-aee88905c874", latitude: position.latitude, longitude: position.longitude);
+        // var response = await CheckUpRepository().labDetailsAPI(labId: "d4e744df-de3c-4e7d-ba1d-aee88905c874", latitude: 26.9505899, longitude: 75.7909157);
         update();
-        print('Response home API Data :::::::::::::::::: $response');
+        print('Response lab Details API Data :::::::::::::::::: $response');
 
         if (response != null) {
-          homeData = response.data;
+          labData = response.data;
           update();
         }
         isLoading = false;
         update();
       }
     } catch (e) {
-      log("EEEE$e");
+      log("EEEE_lab_Details__$e");
     }
   }
 
-  homeSearchAPI() async {
+  /// Search Data
+
+  searchAPI() async {
     try {
       var locationPermission = await Geolocator.requestPermission();
 
@@ -63,22 +59,22 @@ class HomeController extends GetxController {
         update();
 
         var position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
-        log('position=========Home_Search_API==>>>>${position}');
+        log('position=========lab Details_Search_API==>>>>${position}');
         var response = await HomeRepository().homeSearchAPI(
-            search: search.text, latitude: position.latitude, longitude: position.longitude, radius: 2000, offset: 0, limit: 5);
-        // var response = await HomeRepository().homeSearchAPI(search: search.text, latitude: 26.9505899, longitude: 75.7909157, radius: 2000, offset: 0, limit: 5);
+            search: searchController.text, latitude: position.latitude, longitude: position.longitude, radius: 2000, offset: 0, limit: 5);
+        // var response = await HomeRepository().homeSearchAPI(search: searchController.text, latitude: 26.9505899, longitude: 75.7909157, radius: 2000, offset: 0, limit: 5);
         update();
-        print('Response home Search API Data :::::::::::::::::: $response');
+        print('Response lab Details Search API Data :::::::::::::::::: $response');
 
         if (response != null) {
-          searchHomeData = response.data;
+          searchData = response.data;
           update();
         }
         isSearchLoading = false;
         update();
       }
     } catch (e) {
-      log("EEEE_home_Search__$e");
+      log("EEEE_Search__$e");
     }
   }
 }

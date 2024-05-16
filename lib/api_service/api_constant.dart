@@ -37,4 +37,12 @@ class AppUrls {
   // Booking
 
   static const bookings = "/bookings";
+
+  // Lab
+
+  static const labDetails = "/labs";
+
+// Cart
+  static const cart = "/cart";
+  static const cartSummary = "/cart-summary";
 }
