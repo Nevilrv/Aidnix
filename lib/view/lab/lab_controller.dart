@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:aidnix/models/res_home_api.dart';
+import 'package:aidnix/models/res_home_filter_api.dart';
 import 'package:aidnix/models/res_home_search_api.dart';
 import 'package:aidnix/models/res_items_details.dart';
 import 'package:aidnix/models/res_single_lab_details_api.dart';
@@ -19,6 +20,11 @@ class LabController extends GetxController {
   List<LabItems> labItems = [];
 
   String labId = "";
+
+  bool isFilterLoading = false;
+  List<HomeFilterData> filterData = [];
+  int filterCategoryIndex = 0;
+  List<int> filterInt = [];
 
   /// All Labs
 
@@ -127,5 +133,32 @@ class LabController extends GetxController {
     } catch (e) {
       log("EEEE_Search__$e");
     }
+  }
+
+  getList() {
+    filterInt = [];
+    update();
+    filterData.forEach((element) {
+      filterInt.add(-1);
+      update();
+    });
+    log('filterInt.length===========>>>>${filterInt.length}');
+  }
+
+  ///   Filter API
+  getFilterApi() async {
+    isFilterLoading = true;
+    update();
+
+    var response = await HomeRepository().homeFilterAPI();
+    update();
+    print('Response  Filter Data :::::::::::::::::: $response');
+
+    if (response != null) {
+      filterData = response.data!;
+      update();
+    }
+    isFilterLoading = false;
+    update();
   }
 }

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
@@ -37,14 +38,16 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("MediaQuery.of(context).devicePixelRatio;___${MediaQuery.of(context).devicePixelRatio}");
     return Scaffold(
       body: Container(
         height: 932.h,
         width: 432.w,
         decoration: BoxDecoration(
           color: kGreen1,
-          image: const DecorationImage(image: AssetImage(AppAssets.splashBG), fit: BoxFit.cover),
+          image: const DecorationImage(
+            image: AssetImage(AppAssets.splashBG),
+            fit: BoxFit.cover,
+          ),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

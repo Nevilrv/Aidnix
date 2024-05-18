@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:aidnix/theme/app_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -39,6 +38,3 @@ launchWhatsappMethod(BuildContext context, String whatsapp) async {
     showErrorSnackBar("WhatsApp Not Found!");
   }
 }
-
-///   3f6d0d12-9050-4e54-ba5f-64d6283b7509
-///   3f6d0d12-9050-4e54-ba5f-64d6283b7509

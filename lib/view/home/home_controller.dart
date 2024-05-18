@@ -21,13 +21,10 @@ class HomeController extends GetxController {
   int currentPathLabBannerIndex = 0;
   int currentReviewBannerIndex = 0;
 
-  int filterCategoryIndex = 0;
-  int filterCategoryItemIndex = 0;
-
   TextEditingController search = TextEditingController();
 
   HomeData? homeData;
-  bool isSearchLoading = true;
+  bool isSearch = false;
   List<SearchHomeData> searchHomeData = [];
 
   ImageData? imageData;
@@ -36,9 +33,9 @@ class HomeController extends GetxController {
 
   final ImagePicker picker = ImagePicker();
 
+  int filterCategoryIndex = 0;
   bool isFilterLoading = false;
   List<HomeFilterData> filterData = [];
-  int filterCategoryIndex = 0;
   List<int> filterInt = [];
 
   getList() {
@@ -113,7 +110,9 @@ class HomeController extends GetxController {
 
   homeSearchAPI() async {
     try {
-      isSearchLoading = true;
+      isLoading = true;
+      isSearch = true;
+
       update();
       AddressController addressController = Get.put<AddressController>(AddressController());
 
@@ -141,7 +140,7 @@ class HomeController extends GetxController {
           update();
         }
       }
-      isSearchLoading = false;
+      isLoading = false;
       update();
     } catch (e) {
       log("Error Home Page Search API ::::::::::::::: $e");
@@ -183,6 +182,8 @@ class HomeController extends GetxController {
 
   getHomeFilterApi() async {
     isFilterLoading = true;
+    isSearch = false;
+    search.clear();
     update();
 
     var response = await HomeRepository().homeFilterAPI();

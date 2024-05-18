@@ -81,6 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 controller.search.text = value;
 
                                 if (value.trim().isEmpty) {
+                                  controller.isSearch = false;
                                   controller.searchHomeData = [];
                                 }
 
@@ -106,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
 
-                          if (controller.search.text.isEmpty) ...[
+                          if (controller.isSearch == false) ...[
                             /// First Lab Test
 
                             SizedBox(height: 20.h),
@@ -835,12 +836,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             SizedBox(height: 20.h),
                           ],
 
-                          if (controller.search.text.isNotEmpty) ...[
-                            if (controller.isSearchLoading)
+                          if (controller.isSearch) ...[
+                            if (controller.isLoading)
                               Center(
                                 child: CircularProgressIndicator(color: kGreen),
                               )
-                            else if (controller.searchHomeData!.isNotEmpty) ...[
+                            else if (controller.searchHomeData.isNotEmpty) ...[
                               SizedBox(height: 15.h),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 22.w),
@@ -876,57 +877,55 @@ class _HomeScreenState extends State<HomeScreen> {
                                   );
                                 },
                               ),
+                            ] else ...[
+                              SizedBox(height: 100.h),
+                              Center(
+                                child: Image.asset(AppAssets.noDataFoundImage, scale: 4),
+                              ),
+                              SizedBox(height: 20.h),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  customText(
+                                    text: "Sorry No Labs Found",
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w600,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10.h),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  regularText(
+                                    text: "Sorry no labs found, please modify\nyour search and try again",
+                                    color: Color(0xFF868796),
+                                    maxLines: 3,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 30.h),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  CustomButton(
+                                    buttonText: "",
+                                    child: Row(
+                                      children: [
+                                        regularSemiBoldText(
+                                          text: "Call us",
+                                        ),
+                                        SizedBox(width: 5.w),
+                                        Icon(Icons.arrow_forward, size: 25.w)
+                                      ],
+                                    ),
+                                    onTap: () {},
+                                  ),
+                                ],
+                              ),
                             ],
-                            if (controller.isSearchLoading == false)
-                              if (controller.searchHomeData.isEmpty) ...[
-                                SizedBox(height: 100.h),
-                                Center(
-                                  child: Image.asset(AppAssets.noDataFoundImage, scale: 4),
-                                ),
-                                SizedBox(height: 20.h),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    customText(
-                                      text: "Sorry No Labs Found",
-                                      fontSize: 20.sp,
-                                      fontWeight: FontWeight.w600,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 10.h),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    regularText(
-                                      text: "Sorry no labs found, please modify\nyour search and try again",
-                                      color: Color(0xFF868796),
-                                      maxLines: 3,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 30.h),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    CustomButton(
-                                      buttonText: "",
-                                      child: Row(
-                                        children: [
-                                          regularSemiBoldText(
-                                            text: "Call us",
-                                          ),
-                                          SizedBox(width: 5.w),
-                                          Icon(Icons.arrow_forward, size: 25.w)
-                                        ],
-                                      ),
-                                      onTap: () {},
-                                    ),
-                                  ],
-                                ),
-                              ],
                           ],
                         ],
                       ),
