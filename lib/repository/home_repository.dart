@@ -2,6 +2,7 @@ import 'package:aidnix/Theme/app_theme.dart';
 import 'package:aidnix/api_service/api_constant.dart';
 import 'package:aidnix/api_service/api_service.dart';
 import 'package:aidnix/models/res_home_api.dart';
+import 'package:aidnix/models/res_home_filter_api.dart';
 import 'package:aidnix/models/res_home_search_api.dart';
 import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -58,6 +59,26 @@ class HomeRepository {
     } on DioException catch (ex) {
       Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
       print('Error Home SEARCH API :::::::::::::::::: $ex');
+
+      return null;
+    }
+  }
+
+  /// Home Filter API  ***************************
+  Future<ResHomeFilterApi?> homeFilterAPI() async {
+    try {
+      var response = await dio.get("${AppUrls.filters}?real-state=home-page");
+      print('Response Home Filter API :::::::::::::::::: ${response.data}');
+
+      if (response.data["status"] == true) {
+        return ResHomeFilterApi.fromJson(response.data);
+      } else {
+        Fluttertoast.showToast(msg: response.data['message'], backgroundColor: kRed, textColor: kWhite);
+        return null;
+      }
+    } on DioException catch (ex) {
+      Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
+      print('Error Home Filter API :::::::::::::::::: $ex');
 
       return null;
     }

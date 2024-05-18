@@ -20,6 +20,7 @@ class AppUrls {
 
   static const home = "/home";
   static const categories = "/test-categories";
+  static const filters = "/filters";
 
   // Address
 

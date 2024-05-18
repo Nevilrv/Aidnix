@@ -131,6 +131,12 @@ class _LabDetailsScreenState extends State<LabDetailsScreen> {
                               controller.update();
                             },
                             onFilterTap: () {
+                              if (controller.filterData.isEmpty) {
+                                controller.getFilterApi().then((value) {
+                                  controller.getList();
+                                });
+                              }
+
                               customBottomSheet(
                                 context: context,
                                 child: const FilterBottomSheet(),
