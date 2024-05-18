@@ -42,7 +42,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
       titleSpacing: 0,
       leadingWidth: leadingWidth ?? 60.w,
       centerTitle: true,
-      leading: GestureDetector(
+      leading: InkWell(
         onTap: () {
           Get.back();
         },
@@ -51,6 +51,7 @@ class AppAppBar extends StatelessWidget implements PreferredSizeWidget {
               children: [
                 SizedBox(width: 20.w),
                 Image.asset(AppAssets.backArrow, scale: 4),
+                SizedBox(width: 20.w),
               ],
             ),
       ),

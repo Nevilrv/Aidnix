@@ -9,7 +9,6 @@ class SharedPreference {
     _preferences ??= await SharedPreferences.getInstance();
   }
 
-  static const isLogin = "isLogin";
   static const token = "token";
   static const userId = "userId";
   static const fcmToken = "fcmToken";

@@ -195,6 +195,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   SizedBox(height: 15.h),
                   profileRow(
+                    tabName: "Bookings",
+                    tabIcon: AppAssets.familyMember,
+                    onTap: () {
+                      Get.toNamed(Routes.bookingScreen);
+                    },
+                  ),
+                  SizedBox(height: 15.h),
+                  Divider(
+                    height: 0,
+                    color: kGrey.withOpacity(0.5),
+                  ),
+                  SizedBox(height: 15.h),
+                  profileRow(
                     tabName: "Privacy policy ",
                     tabIcon: AppAssets.privacyPolicy,
                     onTap: () {

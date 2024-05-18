@@ -2,10 +2,12 @@ import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/utils/app_routes.dart';
+import 'package:aidnix/view/address/address_controller.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/app_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -408,81 +410,91 @@ Widget customSearchBar({
 
 /// Custom AppBar
 Widget customAppBar() {
-  return Row(
-    children: [
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          regularText(text: "Location", color: kGrey),
-          SizedBox(height: 5.h),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SvgPicture.asset(AppAssets.iconLocation, color: kGreen),
-              SizedBox(width: 5.w),
-              titleSmallText(text: "New York, USA", color: kBlack),
-              SizedBox(width: 10.w),
-              SvgPicture.asset(AppAssets.iconArrowDown),
-            ],
-          ),
-        ],
-      ),
-      const Spacer(),
-      GestureDetector(
-        onTap: () {
-          Get.toNamed(Routes.notificationScreen);
-        },
-        child: Stack(
-          clipBehavior: Clip.none,
+  return GetBuilder<AddressController>(
+      init: AddressController(),
+      builder: (controller) {
+        return Row(
           children: [
-            SvgPicture.asset(AppAssets.iconNotification),
-            Positioned(
-              top: -5.h,
-              right: -5.w,
-              child: CircleAvatar(
-                backgroundColor: kYellow,
-                radius: 8.r,
-                child: Text(
-                  '3',
-                  style: TextStyle(
-                    fontSize: 10.sp,
-                    fontFamily: "Poppins",
-                    color: kWhite,
-                    fontWeight: FontWeight.w600,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                regularText(text: "Location", color: kGrey),
+                SizedBox(height: 5.h),
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed(Routes.addressListScreen);
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SvgPicture.asset(AppAssets.iconLocation, color: kGreen),
+                      SizedBox(width: 5.w),
+                      titleSmallText(text: controller.homePageAddress, color: kBlack),
+                      SizedBox(width: 10.w),
+                      SvgPicture.asset(AppAssets.iconArrowDown),
+                    ],
                   ),
                 ),
+              ],
+            ),
+            const Spacer(),
+            GestureDetector(
+              onTap: () {
+                Get.toNamed(Routes.notificationScreen);
+              },
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  SvgPicture.asset(AppAssets.iconNotification),
+                  Positioned(
+                    top: -5.h,
+                    right: -5.w,
+                    child: CircleAvatar(
+                      backgroundColor: kYellow,
+                      radius: 8.r,
+                      child: Text(
+                        '3',
+                        style: TextStyle(
+                          fontSize: 10.sp,
+                          fontFamily: "Poppins",
+                          color: kWhite,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               ),
-            )
+            ),
+            SizedBox(width: 12.w),
+            // Stack(
+            //   clipBehavior: Clip.none,
+            //   children: [
+            //     SvgPicture.asset(AppAssets.iconCart),
+            //     Positioned(
+            //       top: -5.h,
+            //       right: -5.w,
+            //       child: CircleAvatar(
+            //         backgroundColor: kYellow,
+            //         radius: 8.r,
+            //         child: Text(
+            //           '3',
+            //           style: TextStyle(
+            //             fontSize: 10.sp,
+            //             fontFamily: "Poppins",
+            //             color: kWhite,
+            //             fontWeight: FontWeight.w600,
+            //           ),
+            //         ),
+            //       ),
+            //     )
+            //   ],
+            // ),
+            // SizedBox(width: 5.w),
           ],
-        ),
-      ),
-      SizedBox(width: 12.w),
-      // Stack(
-      //   clipBehavior: Clip.none,
-      //   children: [
-      //     SvgPicture.asset(AppAssets.iconCart),
-      //     Positioned(
-      //       top: -5.h,
-      //       right: -5.w,
-      //       child: CircleAvatar(
-      //         backgroundColor: kYellow,
-      //         radius: 8.r,
-      //         child: Text(
-      //           '3',
-      //           style: TextStyle(
-      //             fontSize: 10.sp,
-      //             fontFamily: "Poppins",
-      //             color: kWhite,
-      //             fontWeight: FontWeight.w600,
-      //           ),
-      //         ),
-      //       ),
-      //     )
-      //   ],
-      // ),
-      // SizedBox(width: 5.w),
-    ],
-  );
+        );
+      });
 }
 
 /// Custom Cart Container
@@ -723,11 +735,11 @@ Widget checkupCartContainer({
   required String newPrice,
   required String report,
   required String type,
-  required int offerPercentage,
+  required String offerPercentage,
   required void Function() onTap,
 }) {
   return Container(
-    width: 384.w,
+    // width: 384.w,
     decoration: BoxDecoration(
       color: kWhite,
       borderRadius: BorderRadius.circular(12.r),
@@ -739,30 +751,33 @@ Widget checkupCartContainer({
       ],
     ),
     child: Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         ClipRRect(
           child: Stack(
             clipBehavior: Clip.none,
             children: [
               Container(
-                height: 100.h,
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                 decoration: BoxDecoration(
                   color: kLightGreen,
                   borderRadius: BorderRadius.only(topRight: Radius.circular(12.r), topLeft: Radius.circular(12.r)),
                 ),
                 child: Row(
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 10.w, right: 25.w),
-                      child: customText(textAlign: TextAlign.start, text: comprehensive, fontSize: 18.sp, fontWeight: FontWeight.w600),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 10.w, right: 25.w),
+                        child: customText(textAlign: TextAlign.start, text: comprehensive, fontSize: 18.sp, fontWeight: FontWeight.w600),
+                      ),
                     ),
-                    SizedBox(width: 45.w),
+                    // SizedBox(width: 45.w),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Container(
-                          height: 22.h,
-                          width: 87.w,
+                          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                           decoration: BoxDecoration(
                             color: kDarkWhite.withOpacity(0.6),
                             borderRadius: BorderRadius.vertical(bottom: Radius.circular(3.w)),
@@ -794,7 +809,8 @@ Widget checkupCartContainer({
                           ],
                         )
                       ],
-                    )
+                    ),
+                    SizedBox(width: 25.w),
                   ],
                 ),
               ),
@@ -804,13 +820,13 @@ Widget checkupCartContainer({
                 child: Transform.rotate(
                   angle: 0.7,
                   child: Container(
-                    height: 28.h,
-                    width: 140.w,
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
                     color: kRed,
                     child: Center(
                       child: customText(
                         textAlign: TextAlign.start,
-                        text: '$offerPercentage% OFF',
+                        // text: '$offerPercentage% OFF',
+                        text: '70% OFF',
                         fontSize: 13.sp,
                         color: kWhite,
                         fontWeight: FontWeight.w600,

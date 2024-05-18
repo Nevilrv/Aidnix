@@ -20,7 +20,6 @@ class AppUrls {
 
   static const home = "/home";
   static const categories = "/test-categories";
-  static const subCategories = "/lab-items";
 
   // Address
 
@@ -40,7 +39,8 @@ class AppUrls {
 
   // Lab
 
-  static const labDetails = "/labs";
+  static const labs = "/labs";
+  static const labItems = "/lab-items";
 
 // Cart
   static const cart = "/cart";

@@ -7,6 +7,7 @@ import 'package:aidnix/widgets/app_app_bar.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 
 class AddressListScreen extends StatefulWidget {
@@ -41,44 +42,64 @@ class _AddressListScreenState extends State<AddressListScreen> {
                     padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 15.h),
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      return Container(
-                        margin: EdgeInsets.only(bottom: 15.h),
-                        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                        decoration: BoxDecoration(
-                          color: kWhite,
-                          borderRadius: BorderRadius.circular(12.r),
-                          boxShadow: [
-                            BoxShadow(
-                              color: kGrey,
-                              blurRadius: 1.5.r,
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              height: 20.h,
-                              width: 20.w,
-                              decoration: BoxDecoration(
-                                color: kWhite,
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: kGreen,
-                                  width: 1.5.r,
+                      return GestureDetector(
+                        onTap: () async {
+                          controller.primaryAddress = controller.addressList[index];
+                          controller.homePageAddress = "${controller.addressList[index].city}";
+
+                          List<Location> locations = await locationFromAddress(
+                              "${controller.addressList[index].line1}, ${controller.addressList[index].line2}, ${controller.addressList[index].city}, ${controller.addressList[index].state} - ${controller.addressList[index].pincode}");
+
+                          controller.latitude = locations.first.latitude;
+                          controller.longitude = locations.first.longitude;
+
+                          controller.update();
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 15.h),
+                          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                          decoration: BoxDecoration(
+                            color: kWhite,
+                            borderRadius: BorderRadius.circular(12.r),
+                            boxShadow: [
+                              BoxShadow(
+                                color: kGrey.withOpacity(0.5),
+                                blurRadius: 1.r,
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: 20.h,
+                                width: 20.w,
+                                decoration: BoxDecoration(
+                                  color: kWhite,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: kGreen,
+                                    width: 1.5.r,
+                                  ),
+                                ),
+                                child: Icon(
+                                  Icons.circle,
+                                  color:
+                                      controller.primaryAddress?.referenceId == controller.addressList[index].referenceId ? kGreen : kWhite,
+                                  size: 12,
                                 ),
                               ),
-                            ),
-                            SizedBox(width: 10.w),
-                            Expanded(
-                              child: titleSmallText(
-                                // text: "${controller.addressList[index].line1},${controller.addressList[index].line2?.isNotEmpty ?? false ? "${controller.addressList[index].line2},${controller.addressList[index].city?.isNotEmpty ?? false ? "${controller.addressList[index].city}," : "${controller.addressList[index].state}"}" : "${controller.addressList[index].city?.isNotEmpty ?? false ? "${controller.addressList[index].city}," : "${controller.addressList[index].state}"}"} - ${controller.addressList[index].pincode}",
-                                text:
-                                    "${controller.addressList[index].line1}, ${controller.addressList[index].line2}, ${controller.addressList[index].city}, ${controller.addressList[index].state} - ${controller.addressList[index].pincode}",
-                                maxLines: 5,
+                              SizedBox(width: 10.w),
+                              Expanded(
+                                child: titleSmallText(
+                                  // text: "${controller.addressList[index].line1},${controller.addressList[index].line2?.isNotEmpty ?? false ? "${controller.addressList[index].line2},${controller.addressList[index].city?.isNotEmpty ?? false ? "${controller.addressList[index].city}," : "${controller.addressList[index].state}"}" : "${controller.addressList[index].city?.isNotEmpty ?? false ? "${controller.addressList[index].city}," : "${controller.addressList[index].state}"}"} - ${controller.addressList[index].pincode}",
+                                  text:
+                                      "${controller.addressList[index].line1}, ${controller.addressList[index].line2}, ${controller.addressList[index].city}, ${controller.addressList[index].state} - ${controller.addressList[index].pincode}",
+                                  maxLines: 5,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       );
                     },

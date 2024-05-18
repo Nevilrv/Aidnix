@@ -2,9 +2,8 @@ import 'dart:developer';
 import 'package:aidnix/models/res_home_api.dart';
 import 'package:aidnix/models/res_home_search_api.dart';
 import 'package:aidnix/repository/home_repository.dart';
-import 'package:aidnix/theme/app_layout.dart';
+import 'package:aidnix/view/address/address_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
@@ -21,32 +20,30 @@ class HomeController extends GetxController {
 
   HomeData? homeData;
   bool isSearchLoading = true;
-  List<SearchHomeData>? searchHomeData;
+  List<SearchHomeData> searchHomeData = [];
 
   homeAPI() async {
     try {
-      var locationPermission = await Geolocator.requestPermission();
+      isLoading = true;
+      update();
+      AddressController addressController = Get.put<AddressController>(AddressController());
 
-      if (locationPermission == LocationPermission.denied || locationPermission == LocationPermission.deniedForever) {
-        showErrorSnackBar("Please enable location permission");
-      } else {
-        isLoading = true;
-        update();
+      if (addressController.latitude == 0 || addressController.longitude == 0) {
+        await addressController.getCurrentLocation();
+      }
 
-        var position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
-        log('position===========>>>>${position}');
-        var response = await HomeRepository().homeAPI(latitude: position.latitude, longitude: position.longitude);
-        // var response = await HomeRepository().homeAPI(latitude: 26.8505899, longitude: 75.7909157);
-        update();
-        print('Response home API Data :::::::::::::::::: $response');
+      log('Home Page API ::::::::::::::: latitude: ${addressController.latitude} , longitude : ${addressController.longitude} ');
+      // var response = await HomeRepository().homeAPI(latitude: addressController.latitude, longitude: addressController.longitude);
+      var response = await HomeRepository().homeAPI(latitude: 26.8505899, longitude: 75.7909157);
+      update();
+      print('Response home API Data :::::::::::::::::: $response');
 
-        if (response != null) {
-          homeData = response.data;
-          update();
-        }
-        isLoading = false;
+      if (response != null) {
+        homeData = response.data;
         update();
       }
+      isLoading = false;
+      update();
     } catch (e) {
       log("EEEE$e");
     }
@@ -54,31 +51,38 @@ class HomeController extends GetxController {
 
   homeSearchAPI() async {
     try {
-      var locationPermission = await Geolocator.requestPermission();
+      isSearchLoading = true;
+      update();
+      AddressController addressController = Get.put<AddressController>(AddressController());
 
-      if (locationPermission == LocationPermission.denied || locationPermission == LocationPermission.deniedForever) {
-        showErrorSnackBar("Please enable location permission");
-      } else {
-        isSearchLoading = true;
-        update();
+      log('Home Search API ::::::::::::::: latitude: ${addressController.latitude} , longitude : ${addressController.longitude} ');
 
-        var position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
-        log('position=========Home_Search_API==>>>>${position}');
-        var response = await HomeRepository().homeSearchAPI(
-            search: search.text, latitude: position.latitude, longitude: position.longitude, radius: 2000, offset: 0, limit: 5);
-        // var response = await HomeRepository().homeSearchAPI(search: search.text, latitude: 26.9505899, longitude: 75.7909157, radius: 2000, offset: 0, limit: 5);
-        update();
-        print('Response home Search API Data :::::::::::::::::: $response');
+      if (addressController.latitude == 0 || addressController.longitude == 0) {
+        await addressController.getCurrentLocation();
+      }
 
-        if (response != null) {
-          searchHomeData = response.data;
+      var response = await HomeRepository().homeSearchAPI(
+        search: search.text.trim(),
+        latitude: addressController.latitude,
+        longitude: addressController.longitude,
+        radius: 2000,
+        offset: 0,
+        limit: 5,
+      );
+      // var response = await HomeRepository().homeSearchAPI(search: search.text, latitude: 26.9505899, longitude: 75.7909157, radius: 2000, offset: 0, limit: 5);
+      update();
+      print('Response home Search API Data :::::::::::::::::: $response');
+
+      if (response != null) {
+        if (response.data != null) {
+          searchHomeData = response.data ?? [];
           update();
         }
-        isSearchLoading = false;
-        update();
       }
+      isSearchLoading = false;
+      update();
     } catch (e) {
-      log("EEEE_home_Search__$e");
+      log("Error Home Page Search API ::::::::::::::: $e");
     }
   }
 }

@@ -56,7 +56,6 @@ class AuthRepository {
       print('Response VERIFY OTP API :::::::::::::::::: ${response.data}');
 
       if (response.data["status"] == true) {
-        await preferences.setBool(SharedPreference.isLogin, true);
         await preferences.setString(SharedPreference.externalId, response.data['data']['external_id']);
         await preferences.setString(SharedPreference.token, response.data['data']['session_token']);
 

@@ -7,7 +7,7 @@ String resSingleLabDetailsApiToJson(ResSingleLabDetailsApi data) => json.encode(
 class ResSingleLabDetailsApi {
   bool? status;
   int? code;
-  Data? data;
+  LabDetail? data;
   String? message;
   dynamic extra;
 
@@ -22,7 +22,7 @@ class ResSingleLabDetailsApi {
   factory ResSingleLabDetailsApi.fromJson(Map<String, dynamic> json) => ResSingleLabDetailsApi(
         status: json["status"],
         code: json["code"],
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+        data: json["data"] == null ? null : LabDetail.fromJson(json["data"]),
         message: json["message"],
         extra: json["extra"],
       );
@@ -36,7 +36,7 @@ class ResSingleLabDetailsApi {
       };
 }
 
-class Data {
+class LabDetail {
   String? referenceId;
   String? name;
   String? openTime;
@@ -49,7 +49,7 @@ class Data {
   String? reviews;
   String? totalTests;
 
-  Data({
+  LabDetail({
     this.referenceId,
     this.name,
     this.openTime,
@@ -63,7 +63,7 @@ class Data {
     this.totalTests,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory LabDetail.fromJson(Map<String, dynamic> json) => LabDetail(
         referenceId: json["reference_id"],
         name: json["name"],
         openTime: json["open_time"],

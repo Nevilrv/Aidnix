@@ -68,7 +68,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
   };
   @override
   void initState() {
-    addressController.getLocation();
+    addressController.getCurrentLocation();
     super.initState();
   }
 

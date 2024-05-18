@@ -32,19 +32,20 @@ class HomeRepository {
   }
 
   /// Home API  ***************************
-  Future<ResHomeSearchApi?> homeSearchAPI(
-      {required String search,
-      required double latitude,
-      required double longitude,
-      required int radius,
-      required int offset,
-      required int limit}) async {
+  Future<ResHomeSearchApi?> homeSearchAPI({
+    required String search,
+    required double latitude,
+    required double longitude,
+    required int radius,
+    required int offset,
+    required int limit,
+  }) async {
     print(
         'Request Home SEARCH API :::::::::::::::::: ,latitude = $latitude ,longitude = $longitude  ,radius = $radius ,offset = $offset ,limit = $limit');
     try {
       var response = await dio
           // .get("${AppUrls.subCategories}?query=blood&latitude=26.9505899&longitude=75.7909157&radius=2000&offset=0&limit=5");
-          .get("${AppUrls.subCategories}?query=$search&latitude=$latitude&longitude=$longitude&radius=$radius&offset=$offset&limit=$limit");
+          .get("${AppUrls.labItems}?query=$search&latitude=$latitude&longitude=$longitude&radius=$radius&offset=$offset&limit=$limit");
       // var response = await dio.get("${AppUrls.subCategories}?query=Rbc&latitude=$latitude&longitude=$longitude&radius=$radius&offset=$offset&limit=$limit");
       print('Response Home SEARCH API :::::::::::::::::: ${response.data}');
 

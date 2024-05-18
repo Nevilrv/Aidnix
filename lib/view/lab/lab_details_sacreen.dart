@@ -2,7 +2,7 @@ import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/utils/app_routes.dart';
-import 'package:aidnix/view/checkup/lab_details_controller.dart';
+import 'package:aidnix/view/lab/lab_controller.dart';
 import 'package:aidnix/widgets/app_app_bar.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
@@ -20,11 +20,19 @@ class LabDetailsScreen extends StatefulWidget {
 }
 
 class _LabDetailsScreenState extends State<LabDetailsScreen> {
-  LabDetailsController labDetailsController = Get.put(LabDetailsController());
+  LabController labController = Get.put(LabController());
 
   @override
   void initState() {
-    labDetailsController.labDetailsAPI();
+    labController.labId = Get.arguments != null ? Get.arguments["labId"] : "";
+
+    if (labController.labId.isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+        await labController.labDetailsAPI();
+        await labController.labItemsDetailsAPI();
+      });
+    }
+
     super.initState();
   }
 
@@ -32,8 +40,8 @@ class _LabDetailsScreenState extends State<LabDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppAppBar(titleText: AppString.labDetails),
-      body: GetBuilder<LabDetailsController>(
-        init: LabDetailsController(),
+      body: GetBuilder<LabController>(
+        init: LabController(),
         builder: (controller) {
           return controller.isLoading
               ? Center(
@@ -141,59 +149,8 @@ class _LabDetailsScreenState extends State<LabDetailsScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                // SizedBox(height: 15.h),
-                                // customLabDetailsCart(
-                                //   titleName: controller.labData?.name ?? '',
-                                //   rating: controller.labData?.reviews ?? '',
-                                //   noOfRating: controller.labData?.reviews ?? '',
-                                //   noOfTest: controller.labData?.totalTests ?? '',
-                                //   address:controller.labData?.address ?? '',
-                                //   distance: "${controller.labData?.distance?.value.toString() ?? ''} ${controller.labData?.distance?.unit ?? ''}",
-                                // ),
-                                // SizedBox(height: 15.h),
-                                // Container(
-                                //   padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
-                                //   width: double.infinity,
-                                //   decoration: BoxDecoration(
-                                //       color: kWhite,
-                                //       boxShadow: [BoxShadow(color: kGrey.withOpacity(0.2), blurRadius: 3)],
-                                //       borderRadius: BorderRadius.circular(20.r)),
-                                //   child: Padding(
-                                //     padding: EdgeInsets.symmetric(horizontal: 15.w).copyWith(top: 10.h),
-                                //     child: Column(
-                                //       crossAxisAlignment: CrossAxisAlignment.start,
-                                //       children: [
-                                //         customText(text: AppString.about, fontSize: 18.sp, fontWeight: FontWeight.w600),
-                                //         SizedBox(height: 5.h),
-                                //         ReadMoreText(
-                                //           // controller.labData?.description ?? ''  ,
-                                //           'Lorem ipsum dolor sit amet consectetur.Lorem ipsum dolor sit amet consectetur Quam ...',
-                                //           trimMode: TrimMode.Line,
-                                //           trimLines: 1,
-                                //           colorClickableText: Colors.pink,
-                                //           trimCollapsedText: 'Read more',
-                                //           style: TextStyle(
-                                //               fontSize: 16.sp, color: kDarkGrey1, fontWeight: FontWeight.w400, fontFamily: "Poppins"),
-                                //           moreStyle:
-                                //               TextStyle(fontSize: 16.sp, color: kBlack, fontWeight: FontWeight.w500, fontFamily: "Poppins"),
-                                //         ),
-                                //       ],
-                                //     ),
-                                //   ),
-                                // ),
-
-                                ///
-                                // SizedBox(height: 20.h),
-                                // customText(text: AppString.test, fontSize: 18.sp, fontWeight: FontWeight.w600),
-                                // Padding(
-                                //   padding: EdgeInsets.only(top: 19.h),
-                                //   child: customSearchBar(
-                                //     searchController: controller.searchController,
-                                //     searchHint: false,
-                                //   ),
-                                // ),
                                 ListView.builder(
-                                  itemCount: 3,
+                                  itemCount: controller.labItems.length,
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
                                   padding: EdgeInsets.zero,
@@ -201,11 +158,11 @@ class _LabDetailsScreenState extends State<LabDetailsScreen> {
                                     return Padding(
                                       padding: EdgeInsets.symmetric(vertical: 12.h),
                                       child: checkupCartContainer(
-                                          comprehensive: "Blood checkup\ncomprehensive",
-                                          offerPercentage: 70,
-                                          price: "₹3000",
-                                          newPrice: "₹2500",
-                                          report: "6 Hours",
+                                          comprehensive: controller.labItems[index].name ?? "Blood checkup\ncomprehensive",
+                                          offerPercentage: controller.labItems[index].discountTag ?? "70",
+                                          price: "₹${controller.labItems[index].amount ?? 0}",
+                                          newPrice: "₹${controller.labItems[index].totalPrice ?? 0}",
+                                          report: "${controller.labItems[index].reportTime ?? 0} Hours",
                                           type: "Pick Up, Lab Visit",
                                           onTap: () {
                                             Get.toNamed(Routes.testDetailsScreen);
@@ -222,7 +179,7 @@ class _LabDetailsScreenState extends State<LabDetailsScreen> {
                             Center(
                               child: CircularProgressIndicator(color: kGreen),
                             )
-                          else if (controller.searchData!.isNotEmpty) ...[
+                          else if (controller.searchData.isNotEmpty) ...[
                             SizedBox(height: 15.h),
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 22.w),
@@ -234,7 +191,7 @@ class _LabDetailsScreenState extends State<LabDetailsScreen> {
                             ),
                             SizedBox(height: 20.h),
                             ListView.builder(
-                              itemCount: controller.searchData?.length,
+                              itemCount: controller.searchData.length,
                               padding: EdgeInsets.symmetric(horizontal: 22.w),
                               shrinkWrap: true,
                               primary: false,
@@ -242,14 +199,14 @@ class _LabDetailsScreenState extends State<LabDetailsScreen> {
                                 return Padding(
                                   padding: EdgeInsets.only(bottom: 15.h),
                                   child: customCartContainer(
-                                    titleName: controller.searchData?[index].name ?? '',
-                                    rating: controller.searchData?[index].lab?.reviews ?? '',
-                                    noOfRating: controller.searchData?[index].lab?.reviews ?? '',
-                                    noOfTest: controller.searchData?[index].lab?.totalTests ?? '',
-                                    address: controller.searchData?[index].lab?.address ?? '',
-                                    offerPercentage: controller.searchData?[index].discountTag ?? '',
+                                    titleName: controller.searchData[index].name ?? '',
+                                    rating: controller.searchData[index].lab?.reviews ?? '',
+                                    noOfRating: controller.searchData[index].lab?.reviews ?? '',
+                                    noOfTest: controller.searchData[index].lab?.totalTests ?? '',
+                                    address: controller.searchData[index].lab?.address ?? '',
+                                    offerPercentage: controller.searchData[index].discountTag ?? '',
                                     distance:
-                                        "${controller.searchData?[index].lab?.distance?.value ?? ''}  ${controller.searchData?[index].lab?.distance?.unit ?? ''}",
+                                        "${controller.searchData[index].lab?.distance?.value ?? ''}  ${controller.searchData[index].lab?.distance?.unit ?? ''}",
                                     isAddToCart: true,
                                     isRecommended: true,
                                   ),
@@ -258,7 +215,7 @@ class _LabDetailsScreenState extends State<LabDetailsScreen> {
                             ),
                           ],
                           if (controller.isSearchLoading == false)
-                            if (controller.searchData!.isEmpty) ...[
+                            if (controller.searchData.isEmpty) ...[
                               SingleChildScrollView(
                                 child: Column(
                                   children: [
@@ -284,7 +241,7 @@ class _LabDetailsScreenState extends State<LabDetailsScreen> {
                                       children: [
                                         regularText(
                                           text: "Sorry no labs found, please modify\nyour search and try again",
-                                          color: Color(0xFF868796),
+                                          color: const Color(0xFF868796),
                                           maxLines: 3,
                                           textAlign: TextAlign.center,
                                         ),

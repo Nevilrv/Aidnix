@@ -21,10 +21,9 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   AuthController authController = Get.put(AuthController());
   _onInit() async {
-    await preferences.setString(SharedPreference.token, "3f6d0d12-9050-4e54-ba5f-64d6283b7509");
-    log('preferences.getBool(SharedPreference.isLogin)===========>>>>${preferences.getBool(SharedPreference.isLogin)}');
+    log('preferences Token ===========>>>>${preferences.getString(SharedPreference.token)}');
     Future.delayed(const Duration(seconds: 3), () {
-      if (preferences.getBool(SharedPreference.isLogin) == true) {
+      if (preferences.getString(SharedPreference.token) != null && preferences.getString(SharedPreference.token).toString() != "") {
         Get.offAllNamed(Routes.dashboardScreen);
       } else {
         Get.offAllNamed(Routes.onboardingScreen);

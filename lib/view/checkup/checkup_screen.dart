@@ -22,7 +22,6 @@ class CheckupScreen extends StatefulWidget {
 }
 
 class _CheckupScreenState extends State<CheckupScreen> {
-  TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CheckUpController>(
@@ -39,7 +38,7 @@ class _CheckupScreenState extends State<CheckupScreen> {
                 SizedBox(height: 25.h),
                 customSearchBar(
                   searchHint: false,
-                  searchController: searchController,
+                  searchController: controller.searchController,
                   onFilterTap: () {
                     customBottomSheet(
                       context: context,
@@ -68,32 +67,36 @@ class _CheckupScreenState extends State<CheckupScreen> {
                       child: Column(
                         children: [
                           SizedBox(height: 10.h),
-                          checkupAddCart(
-                            color: kWhite,
-                            title: Positioned(
-                              top: 30.h,
-                              left: 20.w,
-                              child: customText(
-                                  textAlign: TextAlign.center,
-                                  text: AppString.blood,
-                                  fontSize: 24.sp,
-                                  maxLines: 2,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            details: Positioned(
-                              top: 65.h,
-                              left: 20.w,
-                              child: customText(
-                                  textAlign: TextAlign.start,
-                                  text: AppString.bloodDetails,
-                                  fontSize: 12.sp,
-                                  maxLines: 2,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            image: Positioned(right: 12.w, child: Image.asset(AppAssets.dummy, height: 174.h, width: 169.w)),
-                            circleColor: kPrimary.withOpacity(0.1),
-                            child: const SizedBox(),
-                          ),
+                          // checkupAddCart(
+                          //   color: kWhite,
+                          //   title: Positioned(
+                          //     top: 30.h,
+                          //     left: 20.w,
+                          //     child: customText(
+                          //         textAlign: TextAlign.center,
+                          //         text: AppString.blood,
+                          //         fontSize: 24.sp,
+                          //         maxLines: 2,
+                          //         fontWeight: FontWeight.w600),
+                          //   ),
+                          //   details: Positioned(
+                          //     top: 65.h,
+                          //     left: 20.w,
+                          //     child: customText(
+                          //       textAlign: TextAlign.start,
+                          //       text: AppString.bloodDetails,
+                          //       fontSize: 12.sp,
+                          //       maxLines: 2,
+                          //       fontWeight: FontWeight.w400,
+                          //     ),
+                          //   ),
+                          //   image: Positioned(
+                          //     right: 12.w,
+                          //     child: Image.asset(AppAssets.dummy, height: 174.h, width: 169.w),
+                          //   ),
+                          //   circleColor: kPrimary.withOpacity(0.1),
+                          //   child: const SizedBox(),
+                          // ),
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: 12.h),
                             child: ListView.builder(
@@ -105,15 +108,16 @@ class _CheckupScreenState extends State<CheckupScreen> {
                                 return Padding(
                                   padding: EdgeInsets.symmetric(vertical: 12.h),
                                   child: checkupCartContainer(
-                                      comprehensive: "Blood checkup\ncomprehensive",
-                                      offerPercentage: 70,
-                                      price: "₹3000",
-                                      newPrice: "₹2500",
-                                      report: "6 Hours",
-                                      type: "Pick Up, Lab Visit",
-                                      onTap: () {
-                                        Get.toNamed(Routes.labDetailsScreen);
-                                      }),
+                                    comprehensive: "Blood checkup\ncomprehensive",
+                                    offerPercentage: "70",
+                                    price: "₹3000",
+                                    newPrice: "₹2500",
+                                    report: "6 Hours",
+                                    type: "Pick Up, Lab Visit",
+                                    onTap: () {
+                                      Get.toNamed(Routes.labDetailsScreen);
+                                    },
+                                  ),
                                 );
                               },
                             ),
@@ -178,7 +182,7 @@ class _CheckupScreenState extends State<CheckupScreen> {
                     Center(
                       child: CircularProgressIndicator(color: kGreen),
                     )
-                  else if (controller.searchData!.isNotEmpty) ...[
+                  else if (controller.searchData.isNotEmpty) ...[
                     SizedBox(height: 15.h),
                     regularText(
                       text: "Great! Please select the lab which suits you best",
@@ -188,7 +192,7 @@ class _CheckupScreenState extends State<CheckupScreen> {
                     SizedBox(height: 20.h),
                     Expanded(
                       child: ListView.builder(
-                        itemCount: controller.searchData?.length,
+                        itemCount: controller.searchData.length,
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
                         // physics: const NeverScrollableScrollPhysics(),
@@ -198,14 +202,14 @@ class _CheckupScreenState extends State<CheckupScreen> {
                           return Padding(
                             padding: EdgeInsets.only(bottom: 15.h),
                             child: customCartContainer(
-                              titleName: controller.searchData?[index].name ?? '',
-                              rating: controller.searchData?[index].lab?.reviews ?? '',
-                              noOfRating: controller.searchData?[index].lab?.reviews ?? '',
-                              noOfTest: controller.searchData?[index].lab?.totalTests ?? '',
-                              address: controller.searchData?[index].lab?.address ?? '',
-                              offerPercentage: controller.searchData?[index].discountTag ?? '',
+                              titleName: controller.searchData[index].name ?? '',
+                              rating: controller.searchData[index].lab?.reviews ?? '',
+                              noOfRating: controller.searchData[index].lab?.reviews ?? '',
+                              noOfTest: controller.searchData[index].lab?.totalTests ?? '',
+                              address: controller.searchData[index].lab?.address ?? '',
+                              offerPercentage: controller.searchData[index].discountTag ?? '',
                               distance:
-                                  "${controller.searchData?[index].lab?.distance?.value ?? ''}  ${controller.searchData?[index].lab?.distance?.unit ?? ''}",
+                                  "${controller.searchData[index].lab?.distance?.value ?? ''}  ${controller.searchData[index].lab?.distance?.unit ?? ''}",
                               isAddToCart: true,
                               isRecommended: true,
                             ),
@@ -215,7 +219,7 @@ class _CheckupScreenState extends State<CheckupScreen> {
                     ),
                   ],
                   if (controller.isSearchLoading == false)
-                    if (controller.searchData!.isEmpty) ...[
+                    if (controller.searchData.isEmpty) ...[
                       Expanded(
                         child: SingleChildScrollView(
                           child: Column(
@@ -242,7 +246,7 @@ class _CheckupScreenState extends State<CheckupScreen> {
                                 children: [
                                   regularText(
                                     text: "Sorry no labs found, please modify\nyour search and try again",
-                                    color: Color(0xFF868796),
+                                    color: const Color(0xFF868796),
                                     maxLines: 3,
                                     textAlign: TextAlign.center,
                                   ),

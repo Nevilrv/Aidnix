@@ -8,9 +8,9 @@ import 'package:aidnix/view/booking/booking_detail_screen.dart';
 import 'package:aidnix/view/booking/booking_screen.dart';
 import 'package:aidnix/view/checkup/booking_slot_screen.dart';
 import 'package:aidnix/view/checkup/checkout_details_lab_screen.dart';
+import 'package:aidnix/view/checkup/checkup_detail_screen.dart';
 import 'package:aidnix/view/checkup/lab_cart_page_screen.dart';
 import 'package:aidnix/view/checkup/lab_chackout_screen.dart';
-import 'package:aidnix/view/checkup/lab_details_sacreen.dart';
 import 'package:aidnix/view/checkup/lab_image_screen.dart';
 import 'package:aidnix/view/checkup/payment_page_screen.dart';
 import 'package:aidnix/view/checkup/test_details_screen.dart';
@@ -21,9 +21,10 @@ import 'package:aidnix/view/general_setting/general_setting_screen.dart';
 import 'package:aidnix/view/health_profile/health_profile_screen.dart';
 import 'package:aidnix/view/health_records/edit_health_records.dart';
 import 'package:aidnix/view/health_records/health_records_screen.dart';
-import 'package:aidnix/view/search/search_lab_listing_screen.dart';
 import 'package:aidnix/view/auth/login_screen.dart';
 import 'package:aidnix/view/auth/otp_screen.dart';
+import 'package:aidnix/view/lab/all_lab_screen.dart';
+import 'package:aidnix/view/lab/lab_details_sacreen.dart';
 import 'package:aidnix/view/notification/notification_screen.dart';
 import 'package:aidnix/view/terms_and_conditions/terms_and_conditions_screen.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
@@ -35,7 +36,7 @@ class Routes {
   static String loginScreen = "/login";
   static String otpScreen = "/otp";
   static String dashboardScreen = "/dashboard";
-  // static String searchListingScreen = "/searchListing";
+  static String allLabsScreen = "/allLabs";
   static String healthRecordsScreen = "/healthRecords";
   static String generalSettingScreen = "/generalSetting";
   static String healthProfileScreen = "/healthProfile";
@@ -58,6 +59,7 @@ class Routes {
   static String bookingSlotScreen = "/bookingSlot";
   static String checkOutDetailsLabScreen = "/checkOutDetailsLab";
   static String termsAndConditionsScreen = "/termsAndConditions";
+  static String checkUpDetailScreen = "/checkUpDetail";
 
   static List<GetPage> routes = [
     GetPage(
@@ -70,11 +72,11 @@ class Routes {
       page: () => const DashboardScreen(),
       transition: Transition.fadeIn,
     ),
-    // GetPage(
-    //   name: searchListingScreen,
-    //   page: () => const SearchLabListingScreen(),
-    //   transition: Transition.fadeIn,
-    // ),
+    GetPage(
+      name: allLabsScreen,
+      page: () => const AllLabsScreen(),
+      transition: Transition.fadeIn,
+    ),
     GetPage(
       name: healthRecordsScreen,
       page: () => const HealthRecordsScreen(),
@@ -195,10 +197,14 @@ class Routes {
       page: () => const CheckOutDetailsLabScreen(),
       transition: Transition.fadeIn,
     ),
-
     GetPage(
       name: termsAndConditionsScreen,
       page: () => const TermsAndConditionScreen(),
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: checkUpDetailScreen,
+      page: () => const CheckupDetailScreen(),
       transition: Transition.fadeIn,
     ),
   ];

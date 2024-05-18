@@ -5,6 +5,7 @@ import 'package:aidnix/repository/address_repository.dart';
 import 'package:aidnix/theme/app_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
@@ -21,21 +22,52 @@ class AddressController extends GetxController {
   TextEditingController stateController = TextEditingController();
   TextEditingController pinCodeController = TextEditingController();
 
-  Position? position;
+  String currentAddress = "";
+  String homePageAddress = "";
+  Address? primaryAddress;
 
-  void getLocation() async {
+  Position? position;
+  double latitude = 0;
+  double longitude = 0;
+
+  Future<Position?> getCurrentLocation() async {
     try {
-      var locationPermission = await Geolocator.requestPermission();
+      LocationPermission locationPermission = await Geolocator.requestPermission();
 
       if (locationPermission == LocationPermission.denied || locationPermission == LocationPermission.deniedForever) {
         showErrorSnackBar("Please enable location permission");
       } else {
         position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+        update();
+        print('Current Location Latitude :::::::::::::  ${position?.latitude}');
+        print('Current Location Longitude ::::::::::::  ${position?.longitude}');
+        latitude = position?.latitude ?? 0;
+        longitude = position?.longitude ?? 0;
+
+        update();
+
+        if (position != null) {
+          List<Placemark> address = await placemarkFromCoordinates(latitude, longitude);
+
+          log("Current Address ::::::::::::: ${address.first.toJson()}");
+          log("Current Address Name ::::::::::::: ${address.first.name}");
+          log("Current Address Country ::::::::::::: ${address.first.country}");
+          log("Current Address AdministrativeArea ::::::::::::: ${address.first.administrativeArea}");
+          log("Current Address Locality ::::::::::::: ${address.first.locality}");
+          log("Current Address Street  ::::::::::::: ${address.first.street}");
+          log("Current Address subAdministrativeArea ::::::::::::: ${address.first.subAdministrativeArea}");
+
+          currentAddress =
+              "${address.first.street}, ${address.first.thoroughfare}, ${address.first.subLocality}, ${address.first.locality}, ${address.first.administrativeArea}";
+          homePageAddress = "${address.first.subLocality}, ${address.first.locality}";
+        }
       }
-      print('position=======1====>>>> ${position?.latitude}');
-      print('position========2===>>>> ${position?.longitude}');
+
+      return position;
     } catch (e) {
-      print("EEEEEEEEE____________$e");
+      print("Error in Current Location :::::::::::::: $e");
+
+      return null;
     }
   }
 

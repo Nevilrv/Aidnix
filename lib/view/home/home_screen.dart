@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:aidnix/utils/app_routes.dart';
+import 'package:aidnix/view/address/address_controller.dart';
 import 'package:aidnix/view/home/home_controller.dart';
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/theme/app_theme.dart';
@@ -10,6 +10,7 @@ import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:aidnix/widgets/filter_bottom_sheet.dart';
 import 'package:aidnix/widgets/upload_prescription_dialog.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,6 +26,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   HomeController homeController = Get.put(HomeController());
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -90,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 );
                               },
                               onSuffixTap: () {
-                                if (controller.search.text.isNotEmpty) {
+                                if (controller.search.text.trim().isNotEmpty) {
                                   controller.homeSearchAPI();
                                 }
                               },
@@ -135,9 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             SizedBox(height: 20.h),
                                             CustomButton(
                                               buttonText: controller.homeData?.firstTimeOffer?.buttons?.first.title ?? "",
-                                              onTap: () {
-                                                Get.toNamed(Routes.bookingScreen);
-                                              },
+                                              onTap: () {},
                                             ),
                                           ],
                                         ),
@@ -316,7 +316,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             titleSemiBoldText(text: "Labs Near You"),
-                                            customText(text: "See All", fontSize: 12.sp),
+                                            GestureDetector(
+                                              onTap: () {
+                                                Get.toNamed(Routes.allLabsScreen);
+                                              },
+                                              child: customText(text: "See All", fontSize: 12.sp),
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -340,21 +345,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                           },
                                         ),
                                         items: List.generate(
-                                          controller.homeData!.nearbyLabs!.length,
+                                          controller.homeData?.nearbyLabs?.length ?? 0,
                                           (bannerIndex) {
                                             return Padding(
                                               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                                              child: customCartContainer(
-                                                titleName: controller.homeData?.nearbyLabs?[bannerIndex].name ?? "",
-                                                rating: controller.homeData?.nearbyLabs?[bannerIndex].reviews ?? "",
-                                                noOfRating: controller.homeData?.nearbyLabs?[bannerIndex].reviews ?? "",
-                                                noOfTest: controller.homeData?.nearbyLabs?[bannerIndex].totalTests ?? "",
-                                                address: controller.homeData?.nearbyLabs?[bannerIndex].address ?? "",
-                                                offerPercentage: '20',
-                                                distance:
-                                                    "${controller.homeData?.nearbyLabs?[bannerIndex].distance!.value.toString()} ${controller.homeData?.nearbyLabs![bannerIndex].distance?.unit ?? ""}",
-                                                isAddToCart: false,
-                                                isRecommended: controller.homeData?.nearbyLabs?[bannerIndex].recommended ?? false,
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  Get.toNamed(
+                                                    Routes.labDetailsScreen,
+                                                    arguments: {"labId": controller.homeData?.nearbyLabs?[bannerIndex].referenceId ?? ""},
+                                                  );
+                                                },
+                                                child: customCartContainer(
+                                                  titleName: controller.homeData?.nearbyLabs?[bannerIndex].name ?? "",
+                                                  rating: controller.homeData?.nearbyLabs?[bannerIndex].reviews ?? "",
+                                                  noOfRating: controller.homeData?.nearbyLabs?[bannerIndex].reviews ?? "",
+                                                  noOfTest: controller.homeData?.nearbyLabs?[bannerIndex].totalTests ?? "",
+                                                  address: controller.homeData?.nearbyLabs?[bannerIndex].address ?? "",
+                                                  offerPercentage: '20%',
+                                                  distance:
+                                                      "${controller.homeData?.nearbyLabs?[bannerIndex].distance!.value.toString()} ${controller.homeData?.nearbyLabs![bannerIndex].distance?.unit ?? ""}",
+                                                  isAddToCart: false,
+                                                  isRecommended: controller.homeData?.nearbyLabs?[bannerIndex].recommended ?? false,
+                                                ),
                                               ),
                                             );
                                           },
@@ -404,26 +417,37 @@ class _HomeScreenState extends State<HomeScreen> {
                                 itemBuilder: (context, index) {
                                   return Padding(
                                     padding: EdgeInsets.only(left: index == 0 ? 0 : 15.w),
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10.r),
-                                            gradient: const LinearGradient(
-                                              begin: Alignment.topCenter,
-                                              end: Alignment.bottomCenter,
-                                              colors: [
-                                                Color(0xFFFAFCFB),
-                                                Color(0xFFE0EDE8),
-                                              ],
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Get.toNamed(
+                                          Routes.checkUpDetailScreen,
+                                          arguments: {
+                                            "categoryId": controller.homeData?.testCategories?[index].referenceId ?? "",
+                                          },
+                                        );
+                                      },
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Container(
+                                            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(10.r),
+                                              gradient: const LinearGradient(
+                                                begin: Alignment.topCenter,
+                                                end: Alignment.bottomCenter,
+                                                colors: [
+                                                  Color(0xFFFAFCFB),
+                                                  Color(0xFFE0EDE8),
+                                                ],
+                                              ),
                                             ),
+                                            child: Image.asset(AppAssets.bloodTestIcon, height: 70.h),
                                           ),
-                                          child: Image.asset(AppAssets.bloodTestIcon, height: 70.h),
-                                        ),
-                                        SizedBox(height: 10.h),
-                                        customText(text: controller.homeData?.testCategories![index].name ?? ''),
-                                      ],
+                                          SizedBox(height: 10.h),
+                                          customText(text: controller.homeData?.testCategories![index].name ?? ''),
+                                        ],
+                                      ),
                                     ),
                                   );
                                 },
@@ -457,102 +481,110 @@ class _HomeScreenState extends State<HomeScreen> {
                                         items: List.generate(
                                           controller.homeData!.campaigns!.length,
                                           (bannerIndex) {
-                                            return Container(
-                                              margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 2.h),
-                                              padding: EdgeInsets.only(left: 15.w, top: 15.h, bottom: 15.h),
-                                              width: double.infinity,
-                                              decoration: BoxDecoration(
-                                                color: kGreen,
-                                                borderRadius: BorderRadius.circular(15.r),
-                                                image: const DecorationImage(
-                                                  image: AssetImage(AppAssets.homePathLabTwo),
-                                                  scale: 4,
-                                                  alignment: Alignment.bottomRight,
+                                            return GestureDetector(
+                                              onTap: () {
+                                                Get.toNamed(
+                                                  Routes.labDetailsScreen,
+                                                  arguments: {"labId": controller.homeData?.campaigns?[bannerIndex].lab?.referenceId ?? ""},
+                                                );
+                                              },
+                                              child: Container(
+                                                margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 2.h),
+                                                padding: EdgeInsets.only(left: 15.w, top: 15.h, bottom: 15.h),
+                                                width: double.infinity,
+                                                decoration: BoxDecoration(
+                                                  color: kGreen,
+                                                  borderRadius: BorderRadius.circular(15.r),
+                                                  image: const DecorationImage(
+                                                    image: AssetImage(AppAssets.homePathLabTwo),
+                                                    scale: 4,
+                                                    alignment: Alignment.bottomRight,
+                                                  ),
                                                 ),
-                                              ),
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: [
-                                                      CustomButton(
-                                                        buttonText: "LIMITED FOR 3 DAYS",
-                                                        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
-                                                        buttonColor: kBlack,
-                                                        textStyle: TextStyle(color: kGreen, fontSize: 9.sp, fontWeight: FontWeight.w600),
-                                                        onTap: () {},
-                                                      ),
-                                                      Container(
-                                                        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 3.h),
-                                                        decoration: BoxDecoration(
-                                                          color: kBlack,
-                                                          borderRadius: BorderRadius.only(
-                                                            topLeft: Radius.circular(20.r),
-                                                            bottomLeft: Radius.circular(20.r),
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        CustomButton(
+                                                          buttonText: "LIMITED FOR 3 DAYS",
+                                                          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
+                                                          buttonColor: kBlack,
+                                                          textStyle: TextStyle(color: kGreen, fontSize: 9.sp, fontWeight: FontWeight.w600),
+                                                          onTap: () {},
+                                                        ),
+                                                        Container(
+                                                          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 3.h),
+                                                          decoration: BoxDecoration(
+                                                            color: kBlack,
+                                                            borderRadius: BorderRadius.only(
+                                                              topLeft: Radius.circular(20.r),
+                                                              bottomLeft: Radius.circular(20.r),
+                                                            ),
+                                                          ),
+                                                          child: customText(
+                                                              text: "Ads", color: kGreen, fontSize: 10.sp, fontWeight: FontWeight.w400),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(height: 10.h),
+                                                    Row(
+                                                      children: [
+                                                        Image.asset(AppAssets.homePathLab, scale: 4),
+                                                        SizedBox(width: 10.w),
+                                                        SizedBox(
+                                                          width: 180.w,
+                                                          child: customText(
+                                                            text: controller.homeData?.campaigns?[bannerIndex].lab?.name ?? '',
+                                                            fontSize: 20.sp,
+                                                            fontWeight: FontWeight.w600,
                                                           ),
                                                         ),
-                                                        child: customText(
-                                                            text: "Ads", color: kGreen, fontSize: 10.sp, fontWeight: FontWeight.w400),
+                                                      ],
+                                                    ),
+                                                    SizedBox(height: 10.h),
+                                                    SizedBox(
+                                                      width: 200.w,
+                                                      child: regularText(
+                                                        text: controller.homeData?.campaigns?[bannerIndex].title ?? '',
+                                                        maxLines: 2,
                                                       ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(height: 10.h),
-                                                  Row(
-                                                    children: [
-                                                      Image.asset(AppAssets.homePathLab, scale: 4),
-                                                      SizedBox(width: 10.w),
-                                                      SizedBox(
-                                                        width: 180.w,
-                                                        child: customText(
-                                                          text: controller.homeData?.campaigns?[bannerIndex].lab?.name ?? '',
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        customText(
+                                                          text: "₹${controller.homeData?.campaigns?[bannerIndex].amount ?? ''}",
+                                                          decoration: TextDecoration.lineThrough,
+                                                          decorationColor: kBlack,
+                                                        ),
+                                                        SizedBox(width: 10.w),
+                                                        customText(
+                                                          text: "₹${controller.homeData?.campaigns?[bannerIndex].totalPrice ?? ''}",
                                                           fontSize: 20.sp,
                                                           fontWeight: FontWeight.w600,
                                                         ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(height: 10.h),
-                                                  SizedBox(
-                                                    width: 200.w,
-                                                    child: regularText(
-                                                      text: controller.homeData?.campaigns?[bannerIndex].title ?? '',
-                                                      maxLines: 2,
+                                                      ],
                                                     ),
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      customText(
-                                                        text: "₹${controller.homeData?.campaigns?[bannerIndex].amount ?? ''}",
-                                                        decoration: TextDecoration.lineThrough,
-                                                        decorationColor: kBlack,
-                                                      ),
-                                                      SizedBox(width: 10.w),
-                                                      customText(
-                                                        text: "₹${controller.homeData?.campaigns?[bannerIndex].totalPrice ?? ''}",
-                                                        fontSize: 20.sp,
-                                                        fontWeight: FontWeight.w600,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(height: 10.h),
-                                                  Row(
-                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                    children: [
-                                                      SvgPicture.asset(
-                                                        AppAssets.location2,
-                                                        color: kBlack,
-                                                      ),
-                                                      SizedBox(width: 8.w),
-                                                      Expanded(
-                                                        child: regularText(
-                                                            text:
-                                                                "${controller.homeData?.campaigns?[bannerIndex].lab?.distance?.value ?? ''} ${controller.homeData?.campaigns?[bannerIndex].lab?.distance?.unit ?? ''} from you"),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
+                                                    SizedBox(height: 10.h),
+                                                    Row(
+                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                      children: [
+                                                        SvgPicture.asset(
+                                                          AppAssets.location2,
+                                                          color: kBlack,
+                                                        ),
+                                                        SizedBox(width: 8.w),
+                                                        Expanded(
+                                                          child: regularText(
+                                                              text:
+                                                                  "${controller.homeData?.campaigns?[bannerIndex].lab?.distance?.value ?? ''} ${controller.homeData?.campaigns?[bannerIndex].lab?.distance?.unit ?? ''} from you"),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             );
                                           },
@@ -793,7 +825,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Center(
                                 child: CircularProgressIndicator(color: kGreen),
                               )
-                            else if (controller.searchHomeData!.isNotEmpty) ...[
+                            else if (controller.searchHomeData.isNotEmpty) ...[
                               SizedBox(height: 15.h),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 22.w),
@@ -805,7 +837,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               SizedBox(height: 20.h),
                               ListView.builder(
-                                itemCount: controller.searchHomeData?.length,
+                                itemCount: controller.searchHomeData.length,
                                 padding: EdgeInsets.symmetric(horizontal: 22.w),
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
@@ -815,14 +847,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                   return Padding(
                                     padding: EdgeInsets.only(bottom: 15.h),
                                     child: customCartContainer(
-                                      titleName: controller.searchHomeData?[index].name ?? '',
-                                      rating: controller.searchHomeData?[index].lab?.reviews ?? '',
-                                      noOfRating: controller.searchHomeData?[index].lab?.reviews ?? '',
-                                      noOfTest: controller.searchHomeData?[index].lab?.totalTests ?? '',
-                                      address: controller.searchHomeData?[index].lab?.address ?? '',
-                                      offerPercentage: controller.searchHomeData?[index].discountTag ?? '',
+                                      titleName: controller.searchHomeData[index].name ?? '',
+                                      rating: controller.searchHomeData[index].lab?.reviews ?? '',
+                                      noOfRating: controller.searchHomeData[index].lab?.reviews ?? '',
+                                      noOfTest: controller.searchHomeData[index].lab?.totalTests ?? '',
+                                      address: controller.searchHomeData[index].lab?.address ?? '',
+                                      offerPercentage: controller.searchHomeData[index].discountTag ?? '',
                                       distance:
-                                          "${controller.searchHomeData?[index].lab?.distance?.value ?? ''}  ${controller.searchHomeData?[index].lab?.distance?.unit ?? ''}",
+                                          "${controller.searchHomeData[index].lab?.distance?.value ?? ''}  ${controller.searchHomeData[index].lab?.distance?.unit ?? ''}",
                                       isAddToCart: true,
                                       isRecommended: true,
                                     ),
@@ -831,7 +863,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ],
                             if (controller.isSearchLoading == false)
-                              if (controller.searchHomeData!.isEmpty) ...[
+                              if (controller.searchHomeData.isEmpty) ...[
                                 SizedBox(height: 100.h),
                                 Center(
                                   child: Image.asset(AppAssets.noDataFoundImage, scale: 4),
