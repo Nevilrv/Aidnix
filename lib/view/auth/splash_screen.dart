@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
@@ -21,8 +19,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   AuthController authController = Get.put(AuthController());
   _onInit() async {
-    await preferences.setString(SharedPreference.token, "3f6d0d12-9050-4e54-ba5f-64d6283b7509");
-    log('preferences.getBool(SharedPreference.isLogin)===========>>>>${preferences.getBool(SharedPreference.isLogin)}');
     Future.delayed(const Duration(seconds: 3), () {
       if (preferences.getBool(SharedPreference.isLogin) == true) {
         Get.offAllNamed(Routes.dashboardScreen);
@@ -40,7 +36,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("MediaQuery.of(context).devicePixelRatio;___${MediaQuery.of(context).devicePixelRatio}");
     return Scaffold(
       body: Container(
         height: 932.h,

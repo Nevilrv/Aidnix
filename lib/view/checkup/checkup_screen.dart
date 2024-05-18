@@ -41,6 +41,12 @@ class _CheckupScreenState extends State<CheckupScreen> {
                   searchHint: false,
                   searchController: searchController,
                   onFilterTap: () {
+                    if (controller.filterData.isEmpty) {
+                      controller.getFilterApi().then((value) {
+                        controller.getList();
+                      });
+                    }
+
                     customBottomSheet(
                       context: context,
                       child: const FilterBottomSheet(),

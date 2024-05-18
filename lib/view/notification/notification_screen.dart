@@ -12,6 +12,7 @@ class NotificationScreen extends StatelessWidget {
     return Scaffold(
       appBar: const AppAppBar(titleText: "Notifications"),
       body: ListView.builder(
+        physics: const BouncingScrollPhysics(),
         itemCount: 3,
         padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 10.h),
         shrinkWrap: true,

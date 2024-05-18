@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:aidnix/utils/app_routes.dart';
+import 'package:aidnix/utils/call_chat_service.dart';
 import 'package:aidnix/view/home/home_controller.dart';
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/theme/app_theme.dart';
@@ -25,6 +26,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   HomeController homeController = Get.put(HomeController());
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -84,6 +86,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 controller.update();
                               },
                               onFilterTap: () {
+                                if (controller.filterData.isEmpty) {
+                                  controller.getHomeFilterApi().then((value) {
+                                    controller.getList();
+                                  });
+                                }
+
                                 customBottomSheet(
                                   context: context,
                                   child: const FilterBottomSheet(),
@@ -267,37 +275,45 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                     SizedBox(height: 20.h),
-                                    Row(
-                                      children: [
-                                        CustomButton(
-                                          buttonText: "",
-                                          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                                          child: Row(
-                                            children: [
-                                              Image.asset(AppAssets.callIcon, scale: 4),
-                                              SizedBox(width: 5.w),
-                                              customText(
-                                                  text: controller.homeData?.chatOrChatHelp?.buttons?[0].title ?? "", fontSize: 12.sp),
-                                            ],
-                                          ),
-                                          onTap: () {},
-                                        ),
-                                        SizedBox(width: 10.w),
-                                        CustomButton(
-                                          buttonText: "",
-                                          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                                          buttonColor: kWhite,
-                                          child: Row(
-                                            children: [
-                                              Image.asset(AppAssets.whatsAppLogo, scale: 4),
-                                              SizedBox(width: 5.w),
-                                              customText(
-                                                  text: controller.homeData?.chatOrChatHelp?.buttons?[1].title ?? "", fontSize: 12.sp),
-                                            ],
-                                          ),
-                                          onTap: () {},
-                                        ),
-                                      ],
+                                    SizedBox(
+                                      width: 250.w,
+                                      height: 40.h,
+                                      child: ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: controller.homeData?.chatOrChatHelp?.buttons?.length ?? 0,
+                                        scrollDirection: Axis.horizontal,
+                                        itemBuilder: (context, index) {
+                                          return Padding(
+                                            padding: EdgeInsets.only(right: 10.w),
+                                            child: CustomButton(
+                                              onTap: () async {
+                                                if (controller.homeData?.chatOrChatHelp?.buttons?[index].titleImage?.code == "CALL") {
+                                                  launchUrlDailMethod("1234567890");
+                                                } else {
+                                                  launchWhatsappMethod(context, "1234567890");
+                                                }
+                                              },
+                                              buttonText: "",
+                                              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                                              buttonColor: controller.homeData?.chatOrChatHelp?.buttons?[index].titleImage?.code == "CALL"
+                                                  ? kGreen
+                                                  : kWhite,
+                                              child: Row(
+                                                children: [
+                                                  controller.homeData?.chatOrChatHelp?.buttons?[index].titleImage?.code == "CALL"
+                                                      ? Image.asset(AppAssets.callIcon, scale: 4)
+                                                      : Image.asset(AppAssets.whatsAppLogo, scale: 4),
+                                                  SizedBox(width: 5.w),
+                                                  customText(
+                                                    text: controller.homeData?.chatOrChatHelp?.buttons?[index].title ?? "",
+                                                    fontSize: 12.sp,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
                                     ),
                                   ],
                                 ),
