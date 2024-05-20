@@ -1,28 +1,32 @@
-import 'package:aidnix/models/common_response.dart';
 import 'package:aidnix/models/res_add_cart_details_api.dart';
 import 'package:aidnix/models/res_delete_cart_data_api.dart';
+import 'package:aidnix/models/res_delete_cart_item_api.dart';
 import 'package:aidnix/models/res_get_cart_details_api.dart';
 import 'package:aidnix/models/res_get_cart_summary_api.dart';
 import 'package:aidnix/repository/cart_repository.dart';
+import 'package:aidnix/view/home/home_controller.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
+  HomeController homeController = Get.put(HomeController());
+
   /// Get Cart Data Api******************
   bool isLoading = false;
   CartData? cartData;
 
-  getCartData({required String cartId}) async {
+  getCartData() async {
     isLoading = true;
     update();
 
-    // var response = await CartRepository().getCartDetailsAPI(cartId: cartId);
-    var response = await CartRepository().getCartDetailsAPI(cartId: "1462854d-1e45-4384-9b08-1f83dad4ef80");
+    var response = await CartRepository().getCartDetailsAPI(cartId: homeController.homeData?.cartSummary?.referenceId ?? '');
     update();
     print('Response Get Cart Details API Data :::::::::::::::::: $response');
 
     if (response != null) {
-      cartData = response.data;
-      update();
+      if (response.data != null) {
+        cartData = response.data;
+        update();
+      }
     }
     isLoading = false;
     update();
@@ -32,7 +36,7 @@ class CartController extends GetxController {
   bool isAddCartLoading = false;
   AddCartData? addCartData;
 
-  addCartDataApi({required Map<String, dynamic> body}) async {
+  addCartDataApi() async {
     isAddCartLoading = true;
     update();
 
@@ -49,6 +53,11 @@ class CartController extends GetxController {
     if (response != null) {
       addCartData = response.data;
       update();
+      if (response.code == 200) {
+        await homeController.homeAPI();
+        await getCartData();
+        update();
+      }
     }
     isAddCartLoading = false;
     update();
@@ -77,22 +86,30 @@ class CartController extends GetxController {
 
   /// Delete Cart Items API *****************
   bool isDeleteCartItemLoading = false;
-  CommonResponse? deleteCartItemData;
+  DeleteCartItemData? deleteCartItemData;
 
-  deleteCartItemDataApi({required String cartId, required String labId}) async {
+  deleteCartItemDataApi() async {
     isDeleteCartItemLoading = true;
     update();
 
-    // var response = await CartRepository().deleteCartItemAPI(cartId: cartId, labId: labId);
-    var response = await CartRepository()
-        .deleteCartItemAPI(cartId: "93e71bbf-9316-4c04-9a43-a375fe9de766", labId: "22b2d325-f750-4248-84ca-594a3088ef1c");
+    var response = await CartRepository().deleteCartItemAPI(
+      cartId: cartData?.referenceId ?? '',
+      labId: cartData!.labItems?.first.referenceId ?? '',
+    );
+    // var response = await CartRepository().deleteCartItemAPI(
+    //   cartId: "93e71bbf-9316-4c04-9a43-a375fe9de766",
+    //   labId: "22b2d325-f750-4248-84ca-594a3088ef1c",
+    // );
 
     update();
     print('Response Delete Cart Items API Data :::::::::::::::::: $response');
 
     if (response != null) {
-      deleteCartItemData = response.data as CommonResponse?;
-      update();
+      if (response.data != null) {
+        deleteCartItemData = response.data;
+        update();
+        Get.back();
+      }
     }
     isDeleteCartItemLoading = false;
     update();
@@ -106,8 +123,8 @@ class CartController extends GetxController {
     isDeleteCartLoading = true;
     update();
 
-    // var response = await CartRepository().deleteCartAPI(cartId: cartId);
-    var response = await CartRepository().deleteCartAPI(cartId: "93e71bbf-9316-4c04-9a43-a375fe9de766");
+    var response = await CartRepository().deleteCartAPI(cartId: cartId);
+    // var response = await CartRepository().deleteCartAPI(cartId: "93e71bbf-9316-4c04-9a43-a375fe9de766");
 
     update();
     print('Response Delete Cart API Data :::::::::::::::::: $response');
@@ -115,6 +132,7 @@ class CartController extends GetxController {
     if (response != null) {
       deleteCartData = response.data;
       update();
+      Get.back();
     }
     isDeleteCartLoading = false;
     update();

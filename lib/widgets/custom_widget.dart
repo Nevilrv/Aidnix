@@ -736,10 +736,10 @@ Widget checkupCartContainer({
   required String report,
   required String type,
   required String offerPercentage,
-  required void Function() onTap,
+  required void Function() onViewDetailOnTap,
+  required void Function() addToCartOnTap,
 }) {
   return Container(
-    // width: 384.w,
     decoration: BoxDecoration(
       color: kWhite,
       borderRadius: BorderRadius.circular(12.r),
@@ -758,7 +758,7 @@ Widget checkupCartContainer({
             clipBehavior: Clip.none,
             children: [
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                 decoration: BoxDecoration(
                   color: kLightGreen,
                   borderRadius: BorderRadius.only(topRight: Radius.circular(12.r), topLeft: Radius.circular(12.r)),
@@ -766,51 +766,59 @@ Widget checkupCartContainer({
                 child: Row(
                   children: [
                     Expanded(
+                      flex: 3,
                       child: Padding(
                         padding: EdgeInsets.only(left: 10.w, right: 25.w),
-                        child: customText(textAlign: TextAlign.start, text: comprehensive, fontSize: 18.sp, fontWeight: FontWeight.w600),
+                        child: customText(
+                          textAlign: TextAlign.start,
+                          text: comprehensive,
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w600,
+                          maxLines: 2,
+                        ),
                       ),
                     ),
-                    // SizedBox(width: 45.w),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
-                          decoration: BoxDecoration(
-                            color: kDarkWhite.withOpacity(0.6),
-                            borderRadius: BorderRadius.vertical(bottom: Radius.circular(3.w)),
-                          ),
-                          child: Center(
+                    SizedBox(width: 5.w),
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                            decoration: BoxDecoration(
+                              color: kDarkWhite.withOpacity(0.6),
+                              borderRadius: BorderRadius.vertical(bottom: Radius.circular(3.w)),
+                            ),
                             child: customText(
                               text: AppString.checkUp,
                               fontWeight: FontWeight.w300,
                               fontSize: 12.sp,
                             ),
                           ),
-                        ),
-                        SizedBox(height: 17.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            customText(
+                          SizedBox(height: 10.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              customText(
                                 textAlign: TextAlign.start,
                                 text: price,
                                 decoration: TextDecoration.lineThrough,
                                 fontSize: 16.sp,
-                                fontWeight: FontWeight.w300),
-                            SizedBox(width: 9.w),
-                            customText(
-                              textAlign: TextAlign.start,
-                              text: newPrice,
-                              fontSize: 18.sp,
-                            ),
-                          ],
-                        )
-                      ],
+                                fontWeight: FontWeight.w300,
+                              ),
+                              SizedBox(width: 9.w),
+                              customText(
+                                textAlign: TextAlign.start,
+                                text: newPrice,
+                                fontSize: 18.sp,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                    SizedBox(width: 25.w),
                   ],
                 ),
               ),
@@ -820,14 +828,14 @@ Widget checkupCartContainer({
                 child: Transform.rotate(
                   angle: 0.7,
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 1.h),
                     color: kRed,
                     child: Center(
                       child: customText(
-                        textAlign: TextAlign.start,
+                        textAlign: TextAlign.center,
                         // text: '$offerPercentage% OFF',
                         text: '70% OFF',
-                        fontSize: 13.sp,
+                        fontSize: 11.sp,
                         color: kWhite,
                         fontWeight: FontWeight.w600,
                       ),
@@ -883,30 +891,30 @@ Widget checkupCartContainer({
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.w).copyWith(top: 20.h, bottom: 15.h),
+          padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 20.h, bottom: 15.h),
           child: Row(
             children: [
               Expanded(
                 flex: 1,
                 child: CustomButton(
-                  height: 47.h,
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
                   borderRadius: BorderRadius.circular(10.r),
                   buttonColor: kWhite,
                   border: Border.all(color: kLightGreen, width: 1),
                   buttonText: AppString.viewDetails,
                   textStyle: TextStyle(fontWeight: FontWeight.w500, color: kBlack26, fontSize: 14, fontFamily: "Poppins"),
-                  onTap: onTap,
+                  onTap: onViewDetailOnTap,
                 ),
               ),
               SizedBox(width: 40.w),
               Expanded(
                 flex: 1,
                 child: CustomButton(
-                  height: 47.h,
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
                   borderRadius: BorderRadius.circular(10.r),
                   buttonColor: kLightGreen,
                   buttonText: AppString.addToCart,
-                  onTap: () {},
+                  onTap: addToCartOnTap,
                 ),
               ),
             ],

@@ -7,8 +7,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class FilterBottomSheet extends StatelessWidget {
+class FilterBottomSheet extends StatefulWidget {
   const FilterBottomSheet({super.key});
+
+  @override
+  State<FilterBottomSheet> createState() => _FilterBottomSheetState();
+}
+
+class _FilterBottomSheetState extends State<FilterBottomSheet> {
+
+  HomeController homeController = Get.put(HomeController());
+
+  @override
+  void initState() {
+    if(homeController.filterData.isEmpty){
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        homeController.getHomeFilterApi().then((value) {
+          homeController.getList();
+        });
+      });
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:aidnix/utils/app_routes.dart';
-import 'package:aidnix/view/address/address_controller.dart';
 import 'package:aidnix/utils/call_chat_service.dart';
 import 'package:aidnix/view/home/home_controller.dart';
 import 'package:aidnix/constant/app_assets.dart';
@@ -11,7 +10,6 @@ import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:aidnix/widgets/filter_bottom_sheet.dart';
 import 'package:aidnix/widgets/upload_prescription_dialog.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,13 +26,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   HomeController homeController = Get.put(HomeController());
 
-  @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      homeController.homeAPI();
-    });
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+  //     homeController.homeAPI();
+  //   });
+  //   super.initState();
+  // }
 
   @override
   void dispose() {
@@ -88,12 +86,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 controller.update();
                               },
                               onFilterTap: () {
-                                if (controller.filterData.isEmpty) {
-                                  controller.getHomeFilterApi().then((value) {
-                                    controller.getList();
-                                  });
-                                }
-
                                 customBottomSheet(
                                   context: context,
                                   child: const FilterBottomSheet(),
@@ -144,8 +136,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                             SizedBox(height: 20.h),
                                             CustomButton(
-                                              buttonText: controller.homeData?.firstTimeOffer?.buttons?.first.title ?? "",
                                               onTap: () {},
+                                              buttonText: controller.homeData?.firstTimeOffer?.buttons?.first.title ?? "",
                                             ),
                                           ],
                                         ),

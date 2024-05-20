@@ -131,12 +131,6 @@ class _LabDetailsScreenState extends State<LabDetailsScreen> {
                               controller.update();
                             },
                             onFilterTap: () {
-                              if (controller.filterData.isEmpty) {
-                                controller.getFilterApi().then((value) {
-                                  controller.getList();
-                                });
-                              }
-
                               customBottomSheet(
                                 context: context,
                                 child: const FilterBottomSheet(),
@@ -164,15 +158,17 @@ class _LabDetailsScreenState extends State<LabDetailsScreen> {
                                     return Padding(
                                       padding: EdgeInsets.symmetric(vertical: 12.h),
                                       child: checkupCartContainer(
-                                          comprehensive: controller.labItems[index].name ?? "Blood checkup\ncomprehensive",
-                                          offerPercentage: controller.labItems[index].discountTag ?? "70",
-                                          price: "₹${controller.labItems[index].amount ?? 0}",
-                                          newPrice: "₹${controller.labItems[index].totalPrice ?? 0}",
-                                          report: "${controller.labItems[index].reportTime ?? 0} Hours",
-                                          type: "Pick Up, Lab Visit",
-                                          onTap: () {
-                                            Get.toNamed(Routes.testDetailsScreen);
-                                          }),
+                                        comprehensive: controller.labItems[index].name ?? "Blood checkup\ncomprehensive",
+                                        offerPercentage: controller.labItems[index].discountTag ?? "70",
+                                        price: "₹${controller.labItems[index].amount ?? 0}",
+                                        newPrice: "₹${controller.labItems[index].totalPrice ?? 0}",
+                                        report: "${controller.labItems[index].reportTime ?? 0} Hours",
+                                        type: "Pick Up, Lab Visit",
+                                        onViewDetailOnTap: () {
+                                          Get.toNamed(Routes.testDetailsScreen);
+                                        },
+                                        addToCartOnTap: () {},
+                                      ),
                                     );
                                   },
                                 ),

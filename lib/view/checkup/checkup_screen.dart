@@ -5,6 +5,7 @@ import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/utils/app_routes.dart';
+import 'package:aidnix/view/checkup/cart_controller.dart';
 import 'package:aidnix/view/checkup/checkup_controller.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
@@ -22,6 +23,8 @@ class CheckupScreen extends StatefulWidget {
 }
 
 class _CheckupScreenState extends State<CheckupScreen> {
+  CartController cartController = Get.put(CartController());
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CheckUpController>(
@@ -40,12 +43,6 @@ class _CheckupScreenState extends State<CheckupScreen> {
                   searchHint: false,
                   searchController: controller.searchController,
                   onFilterTap: () {
-                    if (controller.filterData.isEmpty) {
-                      controller.getFilterApi().then((value) {
-                        controller.getList();
-                      });
-                    }
-
                     customBottomSheet(
                       context: context,
                       child: const FilterBottomSheet(),
@@ -120,8 +117,11 @@ class _CheckupScreenState extends State<CheckupScreen> {
                                     newPrice: "₹2500",
                                     report: "6 Hours",
                                     type: "Pick Up, Lab Visit",
-                                    onTap: () {
+                                    onViewDetailOnTap: () {
                                       Get.toNamed(Routes.labDetailsScreen);
+                                    },
+                                    addToCartOnTap: () {
+                                      cartController.addCartDataApi();
                                     },
                                   ),
                                 );

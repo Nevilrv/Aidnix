@@ -72,4 +72,10 @@ class AppString {
 
   static const schedule = "Lab Visit Schedule";
   static const selectPatients = "Select Patients";
+
+
+  /// Add To Cart Popup
+  static const no = "No";
+  static const yes = "Yes";
+
 }
