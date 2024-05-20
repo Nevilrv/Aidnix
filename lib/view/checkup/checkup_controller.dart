@@ -9,7 +9,7 @@ import 'package:aidnix/view/address/address_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CheckUpController extends GetxController {
+class   CheckUpController extends GetxController {
   TextEditingController searchController = TextEditingController();
   bool isSearchLoading = false;
   bool isLoading = false;

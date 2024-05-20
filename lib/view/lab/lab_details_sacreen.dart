@@ -193,108 +193,10 @@ class _LabDetailsScreenState extends State<LabDetailsScreen> {
                                         );
                                       },
                                     ),
+                                    SizedBox(height: 30.h),
                                   ],
                                 ),
                               ),
-
-                              /// Old Screen
-
-                              // if (controller.isSearch) ...[
-                              //   if (controller.isSearchLoading)
-                              //     Center(
-                              //       child: CircularProgressIndicator(color: kGreen),
-                              //     )
-                              //   else if (controller.searchData.isNotEmpty) ...[
-                              //     SizedBox(height: 15.h),
-                              //     Padding(
-                              //       padding: EdgeInsets.symmetric(horizontal: 22.w),
-                              //       child: regularText(
-                              //         text: "Great! Please select the lab which suits you best",
-                              //         color: kDarkGrey,
-                              //         maxLines: 2,
-                              //       ),
-                              //     ),
-                              //     SizedBox(height: 20.h),
-                              //     ListView.builder(
-                              //       itemCount: controller.searchData.length,
-                              //       padding: EdgeInsets.symmetric(horizontal: 22.w),
-                              //       shrinkWrap: true,
-                              //       primary: false,
-                              //       itemBuilder: (context, index) {
-                              //         return Padding(
-                              //           padding: EdgeInsets.only(bottom: 15.h),
-                              //           child: customCartContainer(
-                              //             titleName: controller.searchData[index].name ?? '',
-                              //             rating: controller.searchData[index].lab?.reviews ?? '',
-                              //             noOfRating: controller.searchData[index].lab?.reviews ?? '',
-                              //             noOfTest: controller.searchData[index].lab?.totalTests ?? '',
-                              //             address: controller.searchData[index].lab?.address ?? '',
-                              //             offerPercentage: controller.searchData[index].discountTag ?? '',
-                              //             distance:
-                              //                 "${controller.searchData[index].lab?.distance?.value ?? ''}  ${controller.searchData[index].lab?.distance?.unit ?? ''}",
-                              //             isAddToCart: true,
-                              //             isRecommended: true,
-                              //           ),
-                              //         );
-                              //       },
-                              //     ),
-                              //   ] else ...[
-                              //     SingleChildScrollView(
-                              //       child: Column(
-                              //         children: [
-                              //           SizedBox(height: 100.h),
-                              //           Center(
-                              //             child: Image.asset(AppAssets.noDataFoundImage, scale: 4),
-                              //           ),
-                              //           SizedBox(height: 20.h),
-                              //           Row(
-                              //             mainAxisAlignment: MainAxisAlignment.center,
-                              //             children: [
-                              //               customText(
-                              //                 text: "Sorry No Labs Found",
-                              //                 fontSize: 20.sp,
-                              //                 fontWeight: FontWeight.w600,
-                              //                 textAlign: TextAlign.center,
-                              //               ),
-                              //             ],
-                              //           ),
-                              //           SizedBox(height: 10.h),
-                              //           Row(
-                              //             mainAxisAlignment: MainAxisAlignment.center,
-                              //             children: [
-                              //               regularText(
-                              //                 text: "Sorry no labs found, please modify\nyour search and try again",
-                              //                 color: const Color(0xFF868796),
-                              //                 maxLines: 3,
-                              //                 textAlign: TextAlign.center,
-                              //               ),
-                              //             ],
-                              //           ),
-                              //           SizedBox(height: 30.h),
-                              //           Row(
-                              //             mainAxisAlignment: MainAxisAlignment.center,
-                              //             children: [
-                              //               CustomButton(
-                              //                 buttonText: "",
-                              //                 child: Row(
-                              //                   children: [
-                              //                     regularSemiBoldText(
-                              //                       text: "Call us",
-                              //                     ),
-                              //                     SizedBox(width: 5.w),
-                              //                     Icon(Icons.arrow_forward, size: 25.w)
-                              //                   ],
-                              //                 ),
-                              //                 onTap: () {},
-                              //               ),
-                              //             ],
-                              //           ),
-                              //           SizedBox(height: 30.h),
-                              //         ],
-                              //       ),
-                              //     ),
-                              //   ],
-                              // ],
                             ],
                           ),
                         ),

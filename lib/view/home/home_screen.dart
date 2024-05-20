@@ -26,13 +26,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   HomeController homeController = Get.put(HomeController());
 
-  @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      homeController.homeAPI();
-    });
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+  //     homeController.homeAPI();
+  //   });
+  //   super.initState();
+  // }
 
   @override
   void dispose() {
@@ -86,12 +86,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 controller.update();
                               },
                               onFilterTap: () {
-                                if (controller.filterData.isEmpty) {
-                                  controller.getHomeFilterApi().then((value) {
-                                    controller.getList();
-                                  });
-                                }
-
                                 customBottomSheet(
                                   context: context,
                                   child: FilterBottomSheet(
@@ -144,8 +138,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                             SizedBox(height: 20.h),
                                             CustomButton(
-                                              buttonText: controller.homeData?.firstTimeOffer?.buttons?.first.title ?? "",
                                               onTap: () {},
+                                              buttonText: controller.homeData?.firstTimeOffer?.buttons?.first.title ?? "",
                                             ),
                                           ],
                                         ),

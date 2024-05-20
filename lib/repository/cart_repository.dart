@@ -4,6 +4,7 @@ import 'package:aidnix/api_service/api_service.dart';
 import 'package:aidnix/models/common_response.dart';
 import 'package:aidnix/models/res_add_cart_details_api.dart';
 import 'package:aidnix/models/res_delete_cart_data_api.dart';
+import 'package:aidnix/models/res_delete_cart_item_api.dart';
 import 'package:aidnix/models/res_get_cart_details_api.dart';
 import 'package:aidnix/models/res_get_cart_summary_api.dart';
 import 'package:dio/dio.dart';
@@ -77,14 +78,14 @@ class CartRepository {
   }
 
   /// Delete Cart Items API  ***************************
-  Future<CommonResponse?> deleteCartItemAPI({required String cartId, required String labId}) async {
+  Future<ResDeleteCartItemApi?> deleteCartItemAPI({required String cartId, required String labId}) async {
     print('Request Delete Cart Items API :::::::::::::::::: cartId = $cartId ');
     try {
       var response = await dio.delete("${AppUrls.cart}/$cartId/items/$labId");
       print('Response Delete Cart Items API :::::::::::::::::: ${response.data}');
 
       if (response.data["status"] == true) {
-        return CommonResponse.fromJson(response.data);
+        return ResDeleteCartItemApi.fromJson(response.data);
       } else {
         Fluttertoast.showToast(msg: response.data['message'], backgroundColor: kRed, textColor: kWhite);
         return null;

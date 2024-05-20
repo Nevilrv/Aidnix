@@ -35,6 +35,7 @@ Color kBlack45 = Colors.black45;
 Color kLightGreenIconColor =const Color(0xFFE2F5E4);
 Color kGreyBorderColor = const Color(0xFFCDCDCD);
 Color kBlueColor = const Color(0xFF31C4C4);
+Color kBottomColor = const  Color(0xFFD7F2C0);
 
 
 ThemeData kLightTheme = ThemeData(
