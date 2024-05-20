@@ -35,10 +35,10 @@ class CartRepository {
   }
 
   /// Add Cart Details API  ***************************
-  Future<ResCartDetailsAddApi?> addCartDetailsAPI({required Map<String, dynamic> body}) async {
-    print('Request Add Cart Details API :::::::::::::::::: body = $body ');
+  Future<ResCartDetailsAddApi?> addCartDetailsAPI({required Map<String, dynamic> reqBody}) async {
+    print('Request Add Cart Details API :::::::::::::::::: body = $reqBody ');
     try {
-      var response = await dio.post("${AppUrls.cart}", data: body);
+      var response = await dio.post(AppUrls.cart, data: reqBody);
       print('Response Add Cart Details API :::::::::::::::::: ${response.data}');
 
       if (response.data["status"] == true) {

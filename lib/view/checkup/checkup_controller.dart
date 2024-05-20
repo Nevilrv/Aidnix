@@ -17,23 +17,11 @@ class CheckUpController extends GetxController {
   String categoryId = "";
   List<CategoryDetail> categoryDetailList = [];
 
-  bool isFilterLoading = false;
-  List<HomeFilterData> filterData = [];
-  int filterCategoryIndex = 0;
-  List<int> filterInt = [];
-
-  getList() {
-    filterInt = [];
-    update();
-    filterData.forEach((element) {
-      filterInt.add(-1);
-      update();
-    });
-    log('filterInt.length===========>>>>${filterInt.length}');
-  }
+  bool isSearch = false;
 
   searchAPI() async {
     try {
+      isSearch = true;
       isSearchLoading = true;
       update();
 
@@ -62,24 +50,6 @@ class CheckUpController extends GetxController {
     } catch (e) {
       log("EEEE_home_Search__$e");
     }
-  }
-
-  ///   Filter API
-
-  getFilterApi() async {
-    isFilterLoading = true;
-    update();
-
-    var response = await HomeRepository().homeFilterAPI();
-    update();
-    print('Response  Filter Data :::::::::::::::::: $response');
-
-    if (response != null) {
-      filterData = response.data!;
-      update();
-    }
-    isFilterLoading = false;
-    update();
   }
 
   categoryDetailAPI() async {

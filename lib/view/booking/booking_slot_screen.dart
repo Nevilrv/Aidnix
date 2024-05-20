@@ -2,7 +2,7 @@ import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/utils/app_routes.dart';
-import 'package:aidnix/view/checkup/checkout_contrroler.dart';
+import 'package:aidnix/view/booking/booking_controller.dart';
 import 'package:aidnix/widgets/app_app_bar.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
@@ -19,8 +19,6 @@ class BookingSlotScreen extends StatefulWidget {
 }
 
 class _BookingSlotScreenState extends State<BookingSlotScreen> {
-  CheckupController checkupController = Get.put(CheckupController());
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +27,8 @@ class _BookingSlotScreenState extends State<BookingSlotScreen> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 22.w),
           child: SingleChildScrollView(
-            child: GetBuilder<CheckupController>(
+            child: GetBuilder<BookingController>(
+              init: BookingController(),
               builder: (controller) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,12 +50,23 @@ class _BookingSlotScreenState extends State<BookingSlotScreen> {
                             ],
                           ),
                           const Spacer(),
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 9.w, vertical: 4.h),
-                            decoration:
-                                BoxDecoration(border: Border.all(color: kGreyBorderColor), borderRadius: BorderRadius.circular(4.r)),
-                            child: Center(
-                              child: customText(text: AppString.change, fontSize: 12.sp, fontWeight: FontWeight.w400),
+                          GestureDetector(
+                            onTap: () {
+                              Get.toNamed(Routes.addressListScreen);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 9.w, vertical: 4.h),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: kGreyBorderColor),
+                                borderRadius: BorderRadius.circular(4.r),
+                              ),
+                              child: Center(
+                                child: customText(
+                                  text: AppString.change,
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
                             ),
                           )
                         ],
@@ -363,75 +373,7 @@ class _BookingSlotScreenState extends State<BookingSlotScreen> {
                 child: Center(
                   child: regularSemiBoldText(text: AppString.confirmSlot),
                 ),
-                onTap: () {
-                  customShowDialog(
-                    context: context,
-                    child: StatefulBuilder(
-                      builder: (context, setState12) {
-                        return Container(
-                          margin: EdgeInsets.symmetric(horizontal: 25.w, vertical: 10.h),
-                          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 25.h),
-                          decoration: BoxDecoration(
-                            color: kWhite,
-                            borderRadius: BorderRadius.circular(25.r),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              customText(text: "Reason for Cancellation", maxLines: 3, fontSize: 20.sp),
-                              Padding(
-                                padding: EdgeInsets.symmetric(vertical: 15.h),
-                                child: Column(
-                                  children: List.generate(
-                                    checkupController.confirmSlotList.length,
-                                    (index) => Padding(
-                                      padding: EdgeInsets.only(bottom: 21.h),
-                                      child: Row(
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.only(left: 5.w, right: 14.w),
-                                            child: SizedBox(
-                                              width: 25.w,
-                                              height: 30.h,
-                                              child: Radio(
-                                                  activeColor: kLightGreen,
-                                                  value: checkupController.confirmSlotList[index]['value'],
-                                                  groupValue: checkupController.selectReason,
-                                                  onChanged: (value) {
-                                                    checkupController.selectReason = value!;
-                                                    setState12(() {});
-                                                  }),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 280.w,
-                                            child: customText(
-                                                text: checkupController.confirmSlotList[index]['name'],
-                                                fontSize: 18.sp,
-                                                maxLines: 2,
-                                                fontWeight: FontWeight.w300),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              CustomButton(
-                                  height: 56.h,
-                                  buttonText: "",
-                                  child: Center(child: customText(text: AppString.processed, fontSize: 17.sp)),
-                                  onTap: () {
-                                    Get.toNamed(Routes.checkOutDetailsLabScreen);
-                                  }),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                },
+                onTap: () {},
               ),
             ],
           ),

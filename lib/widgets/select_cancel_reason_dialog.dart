@@ -1,8 +1,7 @@
 import 'package:aidnix/theme/app_theme.dart';
-import 'package:aidnix/view/health_profile/health_profile_controller.dart';
+import 'package:aidnix/view/booking/booking_controller.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -12,8 +11,8 @@ class SelectCancelReasonDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<HealthProfileController>(
-        init: HealthProfileController(),
+    return GetBuilder<BookingController>(
+        init: BookingController(),
         builder: (controller) {
           return Container(
             margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
@@ -37,27 +36,25 @@ class SelectCancelReasonDialog extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: EdgeInsets.only(bottom: 20.h),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.circle_outlined,
-                                  color: kGreen,
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.circle_outlined,
+                                color: kGreen,
+                              ),
+                              SizedBox(width: 20.w),
+                              Expanded(
+                                child: customText(
+                                  text: controller.cancelReasonList[index],
+                                  maxLines: 5,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w300,
                                 ),
-                                SizedBox(width: 20.w),
-                                Expanded(
-                                  child: customText(
-                                    text: controller.cancelReasonList[index],
-                                    maxLines: 5,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     },
@@ -70,7 +67,9 @@ class SelectCancelReasonDialog extends StatelessWidget {
                   child: Center(
                     child: headingSemiBoldText(text: "Processed"),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    controller.cancelBooking();
+                  },
                 ),
                 SizedBox(height: 15.h),
               ],

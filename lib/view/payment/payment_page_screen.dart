@@ -1,7 +1,8 @@
 import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/utils/app_routes.dart';
-import 'package:aidnix/view/checkup/checkout_contrroler.dart';
+import 'package:aidnix/view/checkout/checkout_contrroler.dart';
+import 'package:aidnix/view/payment/payment_controller.dart';
 import 'package:aidnix/widgets/app_app_bar.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
@@ -17,8 +18,6 @@ class PaymentPageScreen extends StatefulWidget {
 }
 
 class _PaymentPageScreenState extends State<PaymentPageScreen> {
-  CheckupController checkupController = Get.put(CheckupController());
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +25,8 @@ class _PaymentPageScreenState extends State<PaymentPageScreen> {
       body: SafeArea(
         child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 22.w),
-            child: GetBuilder<CheckupController>(
+            child: GetBuilder<PaymentController>(
+              init: PaymentController(),
               builder: (controller) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +56,9 @@ class _PaymentPageScreenState extends State<PaymentPageScreen> {
                                   value: 1,
                                   groupValue: controller.selectPayment,
                                   onChanged: (int? value) {
-                                    controller.paymentMethodValue(value);
+                                    if (value != null) {
+                                      controller.paymentMethodValue(value);
+                                    }
                                   }),
                             ),
                           ),
@@ -83,7 +85,9 @@ class _PaymentPageScreenState extends State<PaymentPageScreen> {
                                   value: 2,
                                   groupValue: controller.selectPayment,
                                   onChanged: (int? value) {
-                                    controller.paymentMethodValue(value);
+                                    if (value != null) {
+                                      controller.paymentMethodValue(value);
+                                    }
                                   }),
                             ),
                           ),

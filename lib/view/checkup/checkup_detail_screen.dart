@@ -2,6 +2,7 @@ import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/utils/app_routes.dart';
+import 'package:aidnix/utils/call_chat_service.dart';
 import 'package:aidnix/view/checkup/checkup_controller.dart';
 import 'package:aidnix/widgets/app_app_bar.dart';
 import 'package:aidnix/widgets/app_button.dart';
@@ -106,9 +107,10 @@ class _CheckupDetailScreenState extends State<CheckupDetailScreen> {
                                             newPrice: "₹${controller.categoryDetailList[index].totalPrice ?? 0}",
                                             report: "${controller.categoryDetailList[index].reportTime ?? 0} Hours",
                                             type: "Pick Up, Lab Visit",
-                                            onTap: () {
+                                            onViewDetailOnTap: () {
                                               Get.toNamed(Routes.testDetailsScreen);
                                             },
+                                            addToCartOnTap: () {},
                                           ),
                                         );
                                       },
@@ -146,7 +148,9 @@ class _CheckupDetailScreenState extends State<CheckupDetailScreen> {
                                         borderRadius: BorderRadius.circular(10.r),
                                         buttonColor: kWhite,
                                         buttonText: AppString.addToCart,
-                                        onTap: () {},
+                                        onTap: () {
+                                          launchWhatsappMethod(context, "1234567890");
+                                        },
                                         child: Row(
                                           children: [
                                             SvgPicture.asset(

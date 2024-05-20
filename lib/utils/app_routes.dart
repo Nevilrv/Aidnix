@@ -6,13 +6,13 @@ import 'package:aidnix/view/booking/bar_code.dart';
 import 'package:aidnix/view/booking/book_test_screen.dart';
 import 'package:aidnix/view/booking/booking_detail_screen.dart';
 import 'package:aidnix/view/booking/booking_screen.dart';
-import 'package:aidnix/view/checkup/booking_slot_screen.dart';
-import 'package:aidnix/view/checkup/checkout_details_lab_screen.dart';
+import 'package:aidnix/view/booking/booking_slot_screen.dart';
+import 'package:aidnix/view/checkout/checkout_details_lab_screen.dart';
 import 'package:aidnix/view/checkup/checkup_detail_screen.dart';
-import 'package:aidnix/view/checkup/lab_cart_page_screen.dart';
-import 'package:aidnix/view/checkup/lab_chackout_screen.dart';
+import 'package:aidnix/view/cart/lab_cart_page_screen.dart';
+import 'package:aidnix/view/checkout/checkout_screen.dart';
 import 'package:aidnix/view/checkup/lab_image_screen.dart';
-import 'package:aidnix/view/checkup/payment_page_screen.dart';
+import 'package:aidnix/view/payment/payment_page_screen.dart';
 import 'package:aidnix/view/checkup/test_details_screen.dart';
 import 'package:aidnix/view/dashboard/dashboard_screen.dart';
 import 'package:aidnix/view/family_member/add_family_member.dart';
@@ -53,7 +53,7 @@ class Routes {
   static String addFamilyMemberScreen = "/addFamilyMember";
   static String notificationScreen = "/notification";
   static String editHealthRecordsScreen = "/editHealthRecords";
-  static String labCartPageScreen = "/labCartPage";
+  static String cartScreen = "/cart";
   static String paymentPageScreen = "/paymentPage";
   static String labCheckoutScreen = "/labCheckout";
   static String bookingSlotScreen = "/bookingSlot";
@@ -173,8 +173,8 @@ class Routes {
       transition: Transition.fadeIn,
     ),
     GetPage(
-      name: labCartPageScreen,
-      page: () => const LabCartPageScreen(),
+      name: cartScreen,
+      page: () => const CartScreen(),
       transition: Transition.fadeIn,
     ),
     GetPage(

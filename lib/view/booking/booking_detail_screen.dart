@@ -1,12 +1,13 @@
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
+import 'package:aidnix/utils/app_routes.dart';
 import 'package:aidnix/view/booking/bar_code.dart';
 import 'package:aidnix/view/booking/booking_controller.dart';
 import 'package:aidnix/widgets/app_app_bar.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
-import 'package:aidnix/widgets/reschedule_booking_bottom_sheet.dart';
+import 'package:aidnix/widgets/select_cancel_reason_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -122,19 +123,22 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                           CustomButton(
                             buttonText: "",
                             onTap: () {
-                              // controller.rescheduleBooking();
+                              Get.toNamed(Routes.bookingSlotScreen);
 
-                              customBottomSheet(
-                                context: context,
-                                child: const RescheduleBookingBottomSheet(),
-                              );
+                              // customBottomSheet(
+                              //   context: context,
+                              //   child: const RescheduleBookingBottomSheet(),
+                              // );
                             },
                             child: headingSmallText(text: AppString.rescheduleText),
                           ),
                           CustomButton(
                             buttonText: "",
                             onTap: () {
-                              controller.cancelBooking();
+                              customShowDialog(
+                                context: context,
+                                child: SelectCancelReasonDialog(),
+                              );
                             },
                             border: Border.all(color: kGreen),
                             buttonColor: kWhite,

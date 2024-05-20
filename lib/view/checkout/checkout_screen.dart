@@ -1,10 +1,11 @@
 import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/utils/app_routes.dart';
-import 'package:aidnix/view/checkup/checkout_contrroler.dart';
+import 'package:aidnix/view/checkout/checkout_contrroler.dart';
 import 'package:aidnix/widgets/app_app_bar.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -17,7 +18,6 @@ class LabCheckoutScreen extends StatefulWidget {
 }
 
 class _LabCheckoutScreenState extends State<LabCheckoutScreen> {
-  CheckupController checkupController = Get.put(CheckupController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +25,8 @@ class _LabCheckoutScreenState extends State<LabCheckoutScreen> {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 21.w),
-          child: GetBuilder<CheckupController>(
+          child: GetBuilder<CheckoutController>(
+            init: CheckoutController(),
             builder: (controller) {
               return SingleChildScrollView(
                 child: Column(
@@ -44,24 +45,27 @@ class _LabCheckoutScreenState extends State<LabCheckoutScreen> {
                                 fontSize: 17.sp,
                               ),
                               SizedBox(height: 12.h),
-                              customText(
-                                  text: "Bungalow 33, 412 2nd floor, 80 fe...",
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400),
+                              customText(text: "Bungalow 33, 412 2nd floor, 80 fe...", fontSize: 14.sp, fontWeight: FontWeight.w400),
                             ],
                           ),
                           const Spacer(),
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 9.w, vertical: 4.h),
-                            decoration: BoxDecoration(
+                          GestureDetector(
+                            onTap: () {
+                              Get.toNamed(Routes.addressListScreen);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 9.w, vertical: 4.h),
+                              decoration: BoxDecoration(
                                 border: Border.all(color: kGreyBorderColor),
-                                borderRadius: BorderRadius.circular(4.r)),
-                            child: Center(
-                              child: customText(
+                                borderRadius: BorderRadius.circular(4.r),
+                              ),
+                              child: Center(
+                                child: customText(
                                   text: AppString.change,
                                   fontSize: 12.sp,
-                                  fontWeight: FontWeight.w400),
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
                             ),
                           )
                         ],
@@ -69,17 +73,14 @@ class _LabCheckoutScreenState extends State<LabCheckoutScreen> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 35.h, bottom: 20.h),
-                      child: customText(
-                          text: AppString.selectPatients, fontSize: 17.sp),
+                      child: customText(text: AppString.selectPatients, fontSize: 17.sp),
                     ),
                     Container(
                       height: 58.h,
                       decoration: BoxDecoration(
                         color: kWhite,
                         borderRadius: BorderRadius.circular(15.r),
-                        boxShadow: [
-                          BoxShadow(color: kLightGrey, blurRadius: 3)
-                        ],
+                        boxShadow: [BoxShadow(color: kLightGrey, blurRadius: 3)],
                       ),
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -108,17 +109,9 @@ class _LabCheckoutScreenState extends State<LabCheckoutScreen> {
                                 customText(text: "My self", fontSize: 17.sp),
                                 Row(
                                   children: [
-                                    customText(
-                                        text: "Age: 21",
-                                        fontSize: 12.sp,
-                                        color: kDarkGrey1,
-                                        fontWeight: FontWeight.w400),
+                                    customText(text: "Age: 21", fontSize: 12.sp, color: kDarkGrey1, fontWeight: FontWeight.w400),
                                     SizedBox(width: 12.w),
-                                    customText(
-                                        text: "Gender: Male",
-                                        fontSize: 12.sp,
-                                        color: kDarkGrey1,
-                                        fontWeight: FontWeight.w400),
+                                    customText(text: "Gender: Male", fontSize: 12.sp, color: kDarkGrey1, fontWeight: FontWeight.w400),
                                   ],
                                 ),
                               ],
@@ -128,17 +121,13 @@ class _LabCheckoutScreenState extends State<LabCheckoutScreen> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(
-                          top: 20.h, bottom: 25.h, left: 3, right: 3),
+                      padding: EdgeInsets.only(top: 20.h, bottom: 25.h, left: 3, right: 3),
                       child: Container(
-                        height:
-                            controller.selectOtherName == true ? 240.h : 60.h,
+                        height: controller.selectOtherName == true ? 240.h : 60.h,
                         decoration: BoxDecoration(
                           color: kWhite,
                           borderRadius: BorderRadius.circular(15.r),
-                          boxShadow: [
-                            BoxShadow(color: kLightGrey, blurRadius: 3)
-                          ],
+                          boxShadow: [BoxShadow(color: kLightGrey, blurRadius: 3)],
                         ),
                         child: Padding(
                           padding: EdgeInsets.only(left: 20.w, right: 5.w),
@@ -146,10 +135,7 @@ class _LabCheckoutScreenState extends State<LabCheckoutScreen> {
                             children: [
                               Row(
                                 children: [
-                                  customText(
-                                      text: AppString.other,
-                                      fontSize: 17.sp,
-                                      fontWeight: FontWeight.w500),
+                                  customText(text: AppString.other, fontSize: 17.sp, fontWeight: FontWeight.w500),
                                   const Spacer(),
                                   IconButton(
                                       splashRadius: 1,
@@ -172,34 +158,25 @@ class _LabCheckoutScreenState extends State<LabCheckoutScreen> {
                                       children: List.generate(
                                         4,
                                         (index) => Padding(
-                                          padding:
-                                              EdgeInsets.only(bottom: 13.h),
+                                          padding: EdgeInsets.only(bottom: 13.h),
                                           child: Row(
                                             children: [
                                               Padding(
-                                                padding: EdgeInsets.only(
-                                                    left: 5.w, right: 14.w),
+                                                padding: EdgeInsets.only(left: 5.w, right: 14.w),
                                                 child: SizedBox(
                                                   width: 25.w,
                                                   height: 30.h,
                                                   child: Radio(
                                                       activeColor: kLightGreen,
-                                                      value: controller
-                                                              .selectPatients[
-                                                          index]['value'],
-                                                      groupValue: controller
-                                                          .selectedOther,
+                                                      value: controller.selectPatients[index]['value'],
+                                                      groupValue: controller.selectedOther,
                                                       onChanged: (value) {
-                                                        controller
-                                                            .patientsNameValue(
-                                                                value);
+                                                        controller.patientsNameValue(value);
                                                       }),
                                                 ),
                                               ),
                                               customText(
-                                                  text: controller
-                                                          .selectPatients[index]
-                                                      ['name'],
+                                                  text: controller.selectPatients[index]['name'],
                                                   fontSize: 18.sp,
                                                   fontWeight: FontWeight.w300),
                                             ],
@@ -223,12 +200,8 @@ class _LabCheckoutScreenState extends State<LabCheckoutScreen> {
                           Get.toNamed(Routes.bookingSlotScreen);
                         }),
                     Padding(
-                      padding:
-                          EdgeInsets.only(top: 13.h, bottom: 5.h, left: 7.w),
-                      child: customText(
-                          text: "Book your slot:",
-                          fontSize: 14.sp,
-                          color: kBlack54),
+                      padding: EdgeInsets.only(top: 13.h, bottom: 5.h, left: 7.w),
+                      child: customText(text: "Book your slot:", fontSize: 14.sp, color: kBlack54),
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 7.w),
@@ -255,10 +228,7 @@ class _LabCheckoutScreenState extends State<LabCheckoutScreen> {
           height: 56.h,
           buttonText: "",
           child: Center(
-            child: customText(
-                text: AppString.purchase,
-                fontWeight: FontWeight.bold,
-                fontSize: 18.sp),
+            child: customText(text: AppString.purchase, fontWeight: FontWeight.bold, fontSize: 18.sp),
           ),
           onTap: () {},
         ),

@@ -78,6 +78,29 @@ class CheckUpRepository {
     }
   }
 
+  /// Search Lab Items Details API
+
+  Future<ResGetItemsDetails?> searchLabItemsDetailsAPI(
+      {required String labId, required String search, required double offset, required double limit}) async {
+    print('Request Search Lab Items Details API :::::::::::::::::: offset = $offset limit = $limit} ');
+    try {
+      var response = await dio.get("${AppUrls.labItems}?lab-id=$labId&query=$search&offset=$offset&limit=$limit");
+      print('Response Search Lab Items Details API :::::::::::::::::: ${response.data}');
+
+      if (response.data["status"] == true) {
+        return ResGetItemsDetails.fromJson(response.data);
+      } else {
+        Fluttertoast.showToast(msg: response.data['message'], backgroundColor: kRed, textColor: kWhite);
+        return null;
+      }
+    } on DioException catch (ex) {
+      Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
+      print('Error Search Lab Items Details API :::::::::::::::::: $ex');
+
+      return null;
+    }
+  }
+
   Future<ResGetCategoryDetails?> categoryDetailsAPI({
     required String categoryId,
     required double latitude,

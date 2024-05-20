@@ -2,7 +2,8 @@ import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/utils/app_routes.dart';
-import 'package:aidnix/view/checkup/checkout_contrroler.dart';
+import 'package:aidnix/view/cart/cart_controller.dart';
+import 'package:aidnix/view/checkout/checkout_contrroler.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:flutter/material.dart';
@@ -13,23 +14,23 @@ import 'package:get/get.dart';
 
 import '../../widgets/app_app_bar.dart';
 
-class LabCartPageScreen extends StatefulWidget {
-  const LabCartPageScreen({super.key});
+class CartScreen extends StatefulWidget {
+  const CartScreen({super.key});
 
   @override
-  State<LabCartPageScreen> createState() => _LabCartPageScreenState();
+  State<CartScreen> createState() => _CartScreenState();
 }
 
-class _LabCartPageScreenState extends State<LabCartPageScreen> {
-  CheckupController checkupController = Get.put(CheckupController());
+class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  const AppAppBar(titleText: AppString.cart),
+      appBar: const AppAppBar(titleText: AppString.cart),
       body: SafeArea(
         child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 22.w),
-            child: GetBuilder<CheckupController>(
+            child: GetBuilder<CartController>(
+              init: CartController(),
               builder: (controller) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

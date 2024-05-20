@@ -1,7 +1,7 @@
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
-import 'package:aidnix/view/checkup/checkout_contrroler.dart';
+import 'package:aidnix/view/checkout/checkout_contrroler.dart';
 import 'package:aidnix/widgets/app_app_bar.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
@@ -17,7 +17,6 @@ class CheckOutDetailsLabScreen extends StatefulWidget {
 }
 
 class _CheckOutDetailsLabScreenState extends State<CheckOutDetailsLabScreen> {
-  CheckupController checkupController = Get.put(CheckupController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +24,8 @@ class _CheckOutDetailsLabScreenState extends State<CheckOutDetailsLabScreen> {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 22.w),
-          child: GetBuilder<CheckupController>(
+          child: GetBuilder<CheckoutController>(
+            init: CheckoutController(),
             builder: (controller) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

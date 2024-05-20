@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:aidnix/models/res_home_api.dart';
-import 'package:aidnix/models/res_home_filter_api.dart';
 import 'package:aidnix/models/res_home_search_api.dart';
 import 'package:aidnix/models/res_items_details.dart';
 import 'package:aidnix/models/res_single_lab_details_api.dart';
@@ -14,17 +13,13 @@ class LabController extends GetxController {
   TextEditingController searchController = TextEditingController();
   bool isLoading = false;
   LabDetail? labData;
-  bool isSearchLoading = false;
-  List<SearchHomeData> searchData = [];
   List<NearbyLab> allLabsList = [];
   List<LabItems> labItems = [];
-
   String labId = "";
 
-  bool isFilterLoading = false;
-  List<HomeFilterData> filterData = [];
-  int filterCategoryIndex = 0;
-  List<int> filterInt = [];
+  // bool isSearchLoading = false;
+  // bool isSearch = false;
+  // List<SearchHomeData> searchData = [];
 
   /// All Labs
 
@@ -103,62 +98,64 @@ class LabController extends GetxController {
 
   /// Search Data
 
-  searchAPI() async {
+  searchLabItemsDetailsAPI() async {
     try {
-      isSearchLoading = true;
+      isLoading = true;
       update();
 
-      AddressController addressController = Get.put(AddressController());
-
-      var response = await HomeRepository().homeSearchAPI(
-        search: searchController.text,
-        latitude: addressController.latitude,
-        longitude: addressController.longitude,
-        radius: 2000,
-        offset: 0,
-        limit: 5,
-      );
-      // var response = await HomeRepository().homeSearchAPI(search: searchController.text, latitude: 26.9505899, longitude: 75.7909157, radius: 2000, offset: 0, limit: 5);
+      var response =
+          await CheckUpRepository().searchLabItemsDetailsAPI(labId: labId, search: searchController.text.trim(), offset: 0, limit: 4);
       update();
-      print('Response lab Details Search API Data :::::::::::::::::: $response');
+      print('Response Search Lab Items Details API Data :::::::::::::::::: $response');
 
       if (response != null) {
         if (response.data != null) {
-          searchData = response.data ?? [];
+          labItems = response.data ?? [];
           update();
         }
       }
-      isSearchLoading = false;
+      isLoading = false;
       update();
     } catch (e) {
-      log("EEEE_Search__$e");
+      isLoading = false;
+      update();
+      log("Error Search Lab Items Detail :::::::::::: $e");
     }
   }
 
-  getList() {
-    filterInt = [];
-    update();
-    filterData.forEach((element) {
-      filterInt.add(-1);
-      update();
-    });
-    log('filterInt.length===========>>>>${filterInt.length}');
-  }
+  /// Old  Search Data
 
-  ///   Filter API
-  getFilterApi() async {
-    isFilterLoading = true;
-    update();
-
-    var response = await HomeRepository().homeFilterAPI();
-    update();
-    print('Response  Filter Data :::::::::::::::::: $response');
-
-    if (response != null) {
-      filterData = response.data!;
-      update();
-    }
-    isFilterLoading = false;
-    update();
-  }
+  // searchAPI() async {
+  //   try {
+  //     isSearch = true;
+  //     isSearchLoading = true;
+  //     update();
+  //
+  //     AddressController addressController = Get.put(AddressController());
+  //
+  //     var response = await HomeRepository().homeSearchAPI(
+  //       search: searchController.text,
+  //       latitude: addressController.latitude,
+  //       longitude: addressController.longitude,
+  //       radius: 2000,
+  //       offset: 0,
+  //       limit: 5,
+  //     );
+  //     update();
+  //     log('Response lab Details Search API Data :::::::::::::::::: ${response?.toJson()}');
+  //
+  //     if (response != null) {
+  //       if (response.data != null) {
+  //         searchData = response.data ?? [];
+  //         update();
+  //       }
+  //     }
+  //     isSearchLoading = false;
+  //     update();
+  //   } catch (e) {
+  //     isSearchLoading = false;
+  //     update();
+  //     log("EEEE_Search__$e");
+  //   }
+  // }
 }

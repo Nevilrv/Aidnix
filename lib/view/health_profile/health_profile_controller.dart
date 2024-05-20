@@ -54,18 +54,6 @@ class HealthProfileController extends GetxController {
     'Thyroid',
   ];
 
-  List cancelReasonList = [
-    'Missed the fasting requirements',
-    'My preferred collection slot is not available',
-    'Need to change sample collation address',
-    'Order placed by mistake',
-    'Need to add/remove tests',
-    'Payment issue',
-    'Founder better price elsewhere',
-    'Need to apply coupon offer',
-    'Reason not listed here',
-  ];
-
   Future<void> getHealthProfile() async {
     isLoading = true;
     update();

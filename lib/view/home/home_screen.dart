@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:aidnix/utils/app_routes.dart';
-import 'package:aidnix/view/address/address_controller.dart';
 import 'package:aidnix/utils/call_chat_service.dart';
 import 'package:aidnix/view/home/home_controller.dart';
 import 'package:aidnix/constant/app_assets.dart';
@@ -11,7 +10,6 @@ import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:aidnix/widgets/filter_bottom_sheet.dart';
 import 'package:aidnix/widgets/upload_prescription_dialog.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -96,7 +94,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                 customBottomSheet(
                                   context: context,
-                                  child: const FilterBottomSheet(),
+                                  child: FilterBottomSheet(
+                                    onSearchFilterTap: () {},
+                                  ),
                                 );
                               },
                               onSuffixTap: () {

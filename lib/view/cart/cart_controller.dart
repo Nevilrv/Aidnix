@@ -7,6 +7,10 @@ import 'package:aidnix/repository/cart_repository.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
+  ///------------Lab Cart Page Screen---------------------
+
+  List checkupCardList = ["Blood Test", "Full body checkup", "Urine Test"];
+
   /// Get Cart Data Api******************
   bool isLoading = false;
   CartData? cartData;
@@ -32,23 +36,29 @@ class CartController extends GetxController {
   bool isAddCartLoading = false;
   AddCartData? addCartData;
 
-  addCartDataApi({required Map<String, dynamic> body}) async {
+  addToCartAPI({required String labId, required String labItemId}) async {
     isAddCartLoading = true;
     update();
 
-    // var response = await CartRepository().addCartDetailsAPI(body: body);
-    var response = await CartRepository().addCartDetailsAPI(
-      body: {
-        "lab_id": "33451d03-39bd-48fb-ba19-133ff062fc00",
-        "lab_item_id": "a6fd5a7c-d3e4-445c-8ce9-3ffe4cc4e176",
-      },
-    );
+    var body = {
+      "lab_id": labId,
+      "lab_item_id": labItemId,
+    };
+
+    // body: {
+    //   "lab_id": "33451d03-39bd-48fb-ba19-133ff062fc00",
+    //   "lab_item_id": "a6fd5a7c-d3e4-445c-8ce9-3ffe4cc4e176",
+    // },
+
+    var response = await CartRepository().addCartDetailsAPI(reqBody: body);
     update();
     print('Response Add Cart Details API Data :::::::::::::::::: $response');
 
     if (response != null) {
-      addCartData = response.data;
-      update();
+      if (response.data != null) {
+        addCartData = response.data;
+        update();
+      }
     }
     isAddCartLoading = false;
     update();
