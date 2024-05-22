@@ -1,9 +1,15 @@
 import 'dart:developer';
+import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/constant/app_assets.dart';
+import 'package:aidnix/models/res_create_booking.dart';
 import 'package:aidnix/models/res_get_booking_detail.dart';
 import 'package:aidnix/models/res_get_bookings.dart';
 import 'package:aidnix/repository/user_repository.dart';
+import 'package:aidnix/view/address/address_controller.dart';
+import 'package:aidnix/view/cart/cart_controller.dart';
+import 'package:aidnix/view/family_member/family_member_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 class BookingController extends GetxController {
@@ -11,6 +17,7 @@ class BookingController extends GetxController {
   TabController? tabController;
   int currentStep = 0;
   String refId = "";
+  String selectedPaymentMethod = "PASC";
 
   List<Map<String, dynamic>> bookedTest = [
     {
@@ -31,6 +38,7 @@ class BookingController extends GetxController {
     },
   ];
 
+  String selectCancelReason = "";
   List cancelReasonList = [
     'Missed the fasting requirements',
     'My preferred collection slot is not available',
@@ -55,61 +63,140 @@ class BookingController extends GetxController {
   List<Booking> bookingList = [];
 
   BookingData? bookingData;
+  CreateBookingData? createBookingData;
 
   TextEditingController rescheduleDateController = TextEditingController();
   TextEditingController rescheduleTimeController = TextEditingController();
 
   ///-------------- Booking Slot Screen------------------------
 
-  int? morningTime;
-  int? afternoonTime;
-  int? eveningTime;
-  int selectDey = 0;
-  int selectReason = 0;
-
-  void selectDeyValue(index) {
-    selectDey = index;
-    update();
-  }
-
-  void selectMorningValue(index) {
-    morningTime = index;
-    update();
-  }
-
-  void selectAfternoonValue(index) {
-    afternoonTime = index;
-    update();
-  }
-
-  void selectEveningValue(index) {
-    eveningTime = index;
-    update();
-  }
-
-  List<Map<String, dynamic>> timeShortData = [
-    {'date': '09', 'dey': "Today"},
-    {'date': '10', 'dey': "Tomorrow"},
-    {'date': '11', 'dey': "Sunday"},
-    {'date': '12', 'dey': "Monday"},
-  ];
-  List<Map<String, dynamic>> confirmSlotList = [
-    {"name": "Missed the fasting requirements", "value": 1},
-    {"name": "My preferred collection slot is not available ", "value": 2},
-    {"name": "Need to change sample collation address  ", "value": 3},
-    {"name": "Order placed by mistake", "value": 4},
-    {"name": "Need to add/remove tests", "value": 5},
-    {"name": "Payment issue", "value": 6},
-    {"name": "Founder better price elsewhere", "value": 7},
-    {"name": "Need to apply coupon offer", "value": 8},
-    {"name": "Reason not listed here", "value": 9},
-  ];
+  String selectedDate = "";
+  String selectedTime = "";
 
   List morningList = ["6:45 AM", "7:45 AM", "9:30 AM", "10:15 AM", "11:15 AM", "12:00 AM"];
 
-  List afternoonList = ["12:35 PM", "1:15 PM", "2:15 PM", "03:00 PM", "4:15 PM", "5:00 PM", "12:35 PM", "1:15 PM", "2:15 PM"];
+  List afternoonList = ["12:35 PM", "1:15 PM", "2:15 PM", "3:00 PM", "4:15 PM", "5:00 PM", "5:15 PM", "5:30 PM", "6:00 PM"];
 
-  List eveningList = ["12:35 PM", "1:15 PM", "2:15 PM", "03:00 PM"];
+  List eveningList = ["6:15 PM", "7:00 PM", "7:45 PM", "8:45 PM", "9:00 PM", "9:30 PM"];
+
+  /// Create Booking
+
+  Future<void> createBooking() async {
+    CartController cartController = Get.put<CartController>(CartController());
+    AddressController addressController = Get.put<AddressController>(AddressController());
+    FamilyMemberController familyMemberController = Get.put<FamilyMemberController>(FamilyMemberController());
+
+    if (cartController.cartId.isNotEmpty) {
+      if (addressController.primaryAddress != null) {
+        if (selectedDate.isNotEmpty) {
+          if (selectedTime.isNotEmpty) {
+            if (familyMemberController.isFamilyPatient == true) {
+              if (familyMemberController.selectedFamilyMember != null) {
+                isLoading = true;
+                update();
+
+                var reqCreateBooking = {
+                  "cart_id": cartController.cartId,
+                  "address_id": addressController.primaryAddress?.referenceId ?? "",
+                  "family_member_id": familyMemberController.selectedFamilyMember != null
+                      ? familyMemberController.selectedFamilyMember?.referenceId ?? ""
+                      : "",
+                  "scheduled_at": "$selectedDate $selectedTime",
+                };
+
+                // var body = {
+                //   "cart_id": "e1eafcbd-ca54-4cce-818b-0a3e808428f9",
+                //   "address_id": "2fddf29e-160c-4b93-ad98-f46b3a241562",
+                //   "family_member_id": "7d9237e3-fe94-4408-8aec-75432da54425",
+                //   "scheduled_at": "22-05-2024 03:04 PM"
+                // };
+
+                var response = await UserRepo().createBookingAPI(reqBody: reqCreateBooking);
+                update();
+                log('Response Create Booking :::::::::::::::::: ${response?.toJson()}');
+
+                if (response != null) {
+                  if (response.data != null) {
+                    createBookingData = response.data;
+                    update();
+
+                    isLoading = false;
+                    update();
+
+                    await paymentBookingAPI();
+                  }
+                }
+              } else {
+                Fluttertoast.showToast(msg: "Please select patient", backgroundColor: kRed, textColor: kWhite);
+              }
+            } else {
+              isLoading = true;
+              update();
+
+              var reqCreateBooking = {
+                "cart_id": cartController.cartId,
+                "address_id": addressController.primaryAddress?.referenceId ?? "",
+                "family_member_id": familyMemberController.selfData != null ? familyMemberController.selfData?.referenceId ?? "" : "",
+                "scheduled_at": "$selectedDate $selectedTime",
+              };
+
+              log("Request Create Booking Data :::::::::: $reqCreateBooking");
+
+              var response = await UserRepo().createBookingAPI(reqBody: reqCreateBooking);
+              update();
+              log('Response Create Booking :::::::::::::::::: ${response?.toJson()}');
+
+              if (response != null) {
+                if (response.data != null) {
+                  createBookingData = response.data;
+                  update();
+
+                  isLoading = false;
+                  update();
+
+                  await paymentBookingAPI();
+                }
+              }
+            }
+          } else {
+            Fluttertoast.showToast(msg: "Please select schedule time", backgroundColor: kRed, textColor: kWhite);
+          }
+        } else {
+          Fluttertoast.showToast(msg: "Please select schedule date", backgroundColor: kRed, textColor: kWhite);
+        }
+      } else {
+        Fluttertoast.showToast(msg: "Please select address", backgroundColor: kRed, textColor: kWhite);
+      }
+    } else {
+      Fluttertoast.showToast(msg: "Please select valid cart", backgroundColor: kRed, textColor: kWhite);
+    }
+  }
+
+  /// Payment Booking Detail
+
+  Future<void> paymentBookingAPI() async {
+    isLoading = true;
+    update();
+
+    var reqPayment = {
+      "payment_method": selectedPaymentMethod,
+      "payable_amount": createBookingData?.totalPrice ?? 0,
+    };
+
+    var response = await UserRepo().paymentBookingAPI(createBookingId: createBookingData?.referenceId ?? "", reqBody: reqPayment);
+    update();
+    log('Response Payment Booking :::::::::::::::::: ${response?.toJson()}');
+
+    if (response != null) {
+      if (response.data != null) {
+        log('Response Payment Booking Data :::::::::::::::::: ${response.data}');
+        update();
+      }
+    }
+
+    isLoading = false;
+    update();
+  }
 
   /// Get Booking Detail
 

@@ -55,7 +55,7 @@ class HomeController extends GetxController {
     );
     if (image != null) {
       pickedImage = image.files.single.path ?? "";
-      log('pickedImage.path===========>>>>${pickedImage}');
+      log('pickedImage.path===========>>>>$pickedImage');
 
       if (pickedImage != '') {
         await uploadPrescriptionDocumentApi();
@@ -70,7 +70,7 @@ class HomeController extends GetxController {
 
     if (pickedFile != null) {
       pickedImage = pickedFile.path;
-      log('pickedImage===========>>>>${pickedImage}');
+      log('pickedImage===========>>>>$pickedImage');
 
       if (pickedImage != '') {
         await uploadPrescriptionDocumentApi();
@@ -92,8 +92,8 @@ class HomeController extends GetxController {
       }
 
       log('Home Page API ::::::::::::::: latitude: ${addressController.latitude} , longitude : ${addressController.longitude} ');
-      // var response = await HomeRepository().homeAPI(latitude: addressController.latitude, longitude: addressController.longitude);
-      var response = await HomeRepository().homeAPI(latitude: 26.8505899, longitude: 75.7909157);
+      var response = await HomeRepository().homeAPI(latitude: addressController.latitude, longitude: addressController.longitude);
+      // var response = await HomeRepository().homeAPI(latitude: 26.8505899, longitude: 75.7909157);
       update();
       print('Response home API Data :::::::::::::::::: $response');
 
@@ -191,8 +191,10 @@ class HomeController extends GetxController {
     print('Response Home Filter Data :::::::::::::::::: $response');
 
     if (response != null) {
-      filterData = response.data!;
-      update();
+      if (response.data != null) {
+        filterData = response.data ?? [];
+        update();
+      }
     }
     isFilterLoading = false;
     update();

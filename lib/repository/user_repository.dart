@@ -1,4 +1,5 @@
 import 'package:aidnix/models/common_response.dart';
+import 'package:aidnix/models/res_create_booking.dart';
 import 'package:aidnix/models/res_edit_health_document.dart';
 import 'package:aidnix/models/res_get_booking_detail.dart';
 import 'package:aidnix/models/res_get_bookings.dart';
@@ -251,6 +252,52 @@ class UserRepo {
     } on DioException catch (ex) {
       Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
       print('Error Delete Health Docs API :::::::::::::::::: $ex');
+
+      return null;
+    }
+  }
+
+  /// Create Bookings Detail API ******************************
+
+  Future<ResCreateBooking?> createBookingAPI({required Map<String, dynamic> reqBody}) async {
+    print('Request Create Booking API :::::::::::::::::: $reqBody');
+
+    try {
+      var response = await dio.post(AppUrls.bookings, data: reqBody);
+      print('Response Create Booking API :::::::::::::::::: ${response.data}');
+
+      if (response.data["status"] == true) {
+        return ResCreateBooking.fromJson(response.data);
+      } else {
+        Fluttertoast.showToast(msg: response.data['message'], backgroundColor: kRed, textColor: kWhite);
+        return null;
+      }
+    } on DioException catch (ex) {
+      print('Error Create Bookings API :::::::::::::::::: $ex');
+      Fluttertoast.showToast(msg: "${ex ?? "Failed, Something Wrong!"}", backgroundColor: kRed, textColor: kWhite);
+
+      return null;
+    }
+  }
+
+  ///  Payment Bookings  API ******************************
+
+  Future<CommonResponse?> paymentBookingAPI({required String createBookingId, required Map<String, dynamic> reqBody}) async {
+    print('Request Payment Booking API :::::::::::::::::: $reqBody');
+
+    try {
+      var response = await dio.patch("${AppUrls.bookings}/$createBookingId", data: reqBody);
+      print('Response Payment Booking API :::::::::::::::::: ${response.data}');
+
+      if (response.data["status"] == true) {
+        return CommonResponse.fromJson(response.data);
+      } else {
+        Fluttertoast.showToast(msg: response.data['message'], backgroundColor: kRed, textColor: kWhite);
+        return null;
+      }
+    } on DioException catch (ex) {
+      print('Error Payment Bookings API :::::::::::::::::: $ex');
+      Fluttertoast.showToast(msg: "${ex ?? "Failed, Something Wrong!"}", backgroundColor: kRed, textColor: kWhite);
 
       return null;
     }

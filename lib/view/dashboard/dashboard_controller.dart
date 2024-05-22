@@ -28,9 +28,9 @@ class DashboardController extends GetxController {
   ];
 
   List<Widget> screenList = [
-    HomeScreen(),
+    const HomeScreen(),
     Container(),
-    CheckupScreen(),
-    ProfileScreen(),
+    const CheckupScreen(),
+    const ProfileScreen(),
   ];
 }

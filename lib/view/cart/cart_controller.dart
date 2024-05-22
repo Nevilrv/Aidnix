@@ -17,13 +17,13 @@ class CartController extends GetxController {
   /// Get Cart Data Api******************
   bool isLoading = false;
   CartData? cartData;
+  String cartId = "e1eafcbd-ca54-4cce-818b-0a3e808428f9";
 
-  getCartData({required String cartId}) async {
+  getCartData() async {
     isLoading = true;
     update();
 
-    // var response = await CartRepository().getCartDetailsAPI(cartId: cartId);
-    var response = await CartRepository().getCartDetailsAPI(cartId: "1462854d-1e45-4384-9b08-1f83dad4ef80");
+    var response = await CartRepository().getCartDetailsAPI(cartId: cartId);
     update();
     print('Response Get Cart Details API Data :::::::::::::::::: $response');
 
@@ -34,7 +34,6 @@ class CartController extends GetxController {
     isLoading = false;
     update();
   }
-
 
   /// Add Cart Data API *****************
   bool isAddCartLoading = false;
@@ -63,13 +62,16 @@ class CartController extends GetxController {
         addCartData = response.data;
         update();
 
-        await homeController.homeAPI();
-        await getCartData(cartId: "");
+        if (addCartData != null) {
+          cartId = addCartData?.id ?? "";
+          update();
+          await getCartData();
+        }
+
+        // await homeController.homeAPI();
+
         update();
       }
-
-
-
     }
     isAddCartLoading = false;
     update();
@@ -79,12 +81,11 @@ class CartController extends GetxController {
   bool isGetCartSummaryLoading = false;
   CartSummaryData? cartSummaryData;
 
-  getCartSummaryDataApi({required String cartId}) async {
+  getCartSummaryDataApi() async {
     isGetCartSummaryLoading = true;
     update();
 
-    // var response = await CartRepository().getCartSummaryDetailsAPI(cartId: cartId);
-    var response = await CartRepository().getCartSummaryDetailsAPI(cartId: "1462854d-1e45-4384-9b08-1f83dad4ef80");
+    var response = await CartRepository().getCartSummaryDetailsAPI(cartId: cartId);
     update();
     print('Response Get Cart Summary Details API Data :::::::::::::::::: $response');
 
@@ -100,13 +101,14 @@ class CartController extends GetxController {
   bool isDeleteCartItemLoading = false;
   DeleteCartItemData? deleteCartItemData;
 
-  deleteCartItemDataApi() async {
+  Future<void> deleteCartItemDataApi({required String labItemId}) async {
     isDeleteCartItemLoading = true;
     update();
 
     var response = await CartRepository().deleteCartItemAPI(
       cartId: cartData?.referenceId ?? '',
-      labId: cartData!.labItems?.first.referenceId ?? '',
+      labItemId: labItemId,
+      // labItemId: cartData?.labItems?.first.referenceId ?? '',
     );
     // var response = await CartRepository().deleteCartItemAPI(
     //   cartId: "93e71bbf-9316-4c04-9a43-a375fe9de766",
@@ -131,12 +133,11 @@ class CartController extends GetxController {
   bool isDeleteCartLoading = false;
   DeleteCartData? deleteCartData;
 
-  deleteCartDataApi({required String cartId}) async {
+  deleteCartDataApi() async {
     isDeleteCartLoading = true;
     update();
 
     var response = await CartRepository().deleteCartAPI(cartId: cartId);
-    // var response = await CartRepository().deleteCartAPI(cartId: "93e71bbf-9316-4c04-9a43-a375fe9de766");
 
     update();
     print('Response Delete Cart API Data :::::::::::::::::: $response');

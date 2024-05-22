@@ -1,13 +1,10 @@
 import 'dart:developer';
-
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/view/health_records/health_records_controller.dart';
 import 'package:aidnix/widgets/app_button.dart';
-import 'package:aidnix/widgets/app_textfield.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -88,17 +85,17 @@ class UploadHealthRecordsDialog extends StatelessWidget {
                         children: [
                           Expanded(
                             child: DropdownButton(
-                              underline: SizedBox(),
+                              underline: const SizedBox(),
                               autofocus: false,
                               isDense: true,
                               isExpanded: true,
                               padding: EdgeInsets.zero,
                               hint: customText(
                                 text: controller.mySelf.isNotEmpty ? controller.mySelf : "Select My Self",
-                                color: Color(0xFF2B2B2B),
+                                color: const Color(0xFF2B2B2B),
                               ),
                               borderRadius: BorderRadius.circular(12.r),
-                              icon: SizedBox(),
+                              icon: const SizedBox(),
                               menuMaxHeight: 250.h,
                               items: controller.userList.map((String items) {
                                 return DropdownMenuItem(
@@ -127,17 +124,17 @@ class UploadHealthRecordsDialog extends StatelessWidget {
                         children: [
                           Expanded(
                             child: DropdownButton(
-                              underline: SizedBox(),
+                              underline: const SizedBox(),
                               autofocus: false,
                               isDense: true,
                               isExpanded: true,
                               padding: EdgeInsets.zero,
                               hint: customText(
                                 text: controller.typeOfRecord.isNotEmpty ? controller.typeOfRecord : "Select Report",
-                                color: Color(0xFF2B2B2B),
+                                color: const Color(0xFF2B2B2B),
                               ),
                               borderRadius: BorderRadius.circular(12.r),
-                              icon: SizedBox(),
+                              icon: const SizedBox(),
                               menuMaxHeight: 250.h,
                               items: controller.typeOfRecordsList.map((String items) {
                                 return DropdownMenuItem(

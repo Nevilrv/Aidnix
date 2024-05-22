@@ -56,7 +56,7 @@ class RescheduleBookingBottomSheet extends StatelessWidget {
                     CustomTextField(
                       controller: controller.rescheduleDateController,
                       hintText: "DD/MM/YYYY",
-                      suffixIcon: Icon(Icons.calendar_month_outlined),
+                      suffixIcon: const Icon(Icons.calendar_month_outlined),
                       readOnly: true,
                       onTap: () async {
                         DateTime? picked = await showDatePicker(
@@ -78,7 +78,7 @@ class RescheduleBookingBottomSheet extends StatelessWidget {
                     CustomTextField(
                       controller: controller.rescheduleTimeController,
                       hintText: "Ex. 00:00 PM",
-                      suffixIcon: Icon(Icons.watch_later_outlined),
+                      suffixIcon: const Icon(Icons.watch_later_outlined),
                       readOnly: true,
                       onTap: () async {
                         TimeOfDay? picked = await showTimePicker(

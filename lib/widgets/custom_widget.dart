@@ -3,11 +3,10 @@ import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/utils/app_routes.dart';
 import 'package:aidnix/view/address/address_controller.dart';
+import 'package:aidnix/view/cart/cart_controller.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/app_textfield.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -598,9 +597,9 @@ Widget customCartContainer({
                       children: [
                         Icon(Icons.star_rounded, size: 33.w, color: kGreen1),
                         SizedBox(width: 8.w),
-                        regularText(text: "${rating}"),
+                        regularText(text: rating),
                         SizedBox(width: 8.w),
-                        customText(text: "(${noOfRating} Rating)", fontSize: 10.sp),
+                        customText(text: "($noOfRating Rating)", fontSize: 10.sp),
                       ],
                     ),
                     Row(
@@ -637,7 +636,7 @@ Widget customCartContainer({
                     const SizedBox(width: 8),
                     Expanded(
                       child: regularText(
-                        text: "${distance} from you",
+                        text: "$distance from you",
                         maxLines: 2,
                         color: kDarkGrey1,
                       ),
@@ -660,7 +659,14 @@ Widget customCartContainer({
                       const Spacer(),
                       CustomButton(
                         buttonText: "Add To Cart:₹1200",
-                        onTap: () {},
+                        onTap: () {
+                          CartController cartController = Get.put<CartController>(CartController());
+
+                          // cartController.addToCartAPI(
+                          //   labId: controller.categoryDetailList[index].lab?.referenceId ?? "",
+                          //   labItemId: controller.categoryDetailList[index].test?.referenceId ?? "",
+                          // );
+                        },
                       ),
                     ],
                   ),
@@ -679,7 +685,7 @@ Widget customCartContainer({
                 color: kRed,
                 child: Center(
                   child: Text(
-                    '${offerPercentage}',
+                    offerPercentage,
                     style: TextStyle(
                       fontSize: 13.sp,
                       fontFamily: "Poppins",
@@ -1001,7 +1007,11 @@ Widget customLabDetailsCart({
               children: [
                 Padding(
                   padding: EdgeInsets.only(top: 10.h, bottom: 25.h),
-                  child: customText(text: titleName, fontSize: 20),
+                  child: customText(
+                    text: titleName,
+                    fontSize: 20,
+                    maxLines: 2,
+                  ),
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -1010,13 +1020,13 @@ Widget customLabDetailsCart({
                     Icon(Icons.star_rounded, size: 33.w, color: kGreen1),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.w),
-                      child: regularText(text: "$rating"),
+                      child: regularText(text: rating),
                     ),
                     customText(text: "($noOfRating Rating)", fontSize: 10.sp),
                     const Spacer(),
                     SvgPicture.asset(AppAssets.microscopeIcon, color: kGreen1),
                     SizedBox(width: 8.w),
-                    SizedBox(width: 140.w, child: regularText(text: "$noOfTest")),
+                    SizedBox(width: 140.w, child: regularText(text: noOfTest)),
                   ],
                 ),
                 SizedBox(height: 15.h),
@@ -1040,7 +1050,7 @@ Widget customLabDetailsCart({
                     SizedBox(
                       width: 140.w,
                       child: regularText(
-                        text: "${distance} away from you",
+                        text: "$distance away from you",
                         maxLines: 2,
                         color: kDarkGrey1,
                       ),
@@ -1235,95 +1245,107 @@ customDropDown({
 
 ///-- Common Bottom Card Widget
 
-Widget commonBottomCard({
-  required String subtotal,
-  required String gst,
-  required String discount,
-  required String price,
-  required Widget button,
-  bool? height = false,
+Widget commonBottomCart({
+  required String buttonText,
+  required void Function() buttonOnTap,
 }) {
-  return Container(
-    decoration: BoxDecoration(
-      color: kWhite,
-      boxShadow: [BoxShadow(color: kLightGrey, blurRadius: 3)],
-      borderRadius: BorderRadius.only(
-        topRight: Radius.circular(30.r),
-        topLeft: Radius.circular(30.r),
-      ),
-    ),
-    child: Padding(
-      padding: EdgeInsets.symmetric(horizontal: 23.w),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 15.h, bottom: 15.h),
-                child: Row(
+  return GetBuilder<CartController>(
+    init: CartController(),
+    builder: (controller) {
+      return Container(
+        padding: EdgeInsets.symmetric(horizontal: 22.w),
+        decoration: BoxDecoration(
+          color: kWhite,
+          boxShadow: [BoxShadow(color: kLightGrey, blurRadius: 3)],
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(30.r),
+            topLeft: Radius.circular(30.r),
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 15.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     customText(
                       text: "Subtotal",
                       fontSize: 17.sp,
                     ),
-                    const Spacer(),
+                    SizedBox(width: 10.w),
                     customText(
-                      text: subtotal,
+                      text: "₹${controller.cartData?.amount ?? 0}",
                       fontSize: 19.sp,
                     ),
                   ],
                 ),
-              ),
-              Row(
-                children: [
-                  customText(
-                    text: "GST 20%",
-                    fontSize: 17.sp,
-                  ),
-                  const Spacer(),
-                  customText(
-                    text: gst,
-                    fontSize: 19.sp,
-                  ),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.h),
-                child: Row(
+                SizedBox(height: 15.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    customText(
+                      text: "GST 20%",
+                      fontSize: 17.sp,
+                    ),
+                    SizedBox(width: 10.w),
+                    customText(
+                      text: "₹0",
+                      fontSize: 19.sp,
+                    ),
+                  ],
+                ),
+                SizedBox(height: 15.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     customText(
                       text: "Discount applied",
                       fontSize: 17.sp,
                     ),
-                    const Spacer(),
+                    SizedBox(width: 10.w),
                     customText(
-                      text: discount,
+                      text: "₹${controller.cartData?.discount ?? 0}",
                       fontSize: 19.sp,
                     ),
                   ],
                 ),
+                SizedBox(height: 18.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    customText(
+                      text: "Total Price",
+                      fontSize: 21.sp,
+                    ),
+                    SizedBox(width: 10.w),
+                    customText(
+                      text: "₹${controller.cartData?.totalPrice ?? 0}",
+                      fontSize: 21.sp,
+                      color: kLightGreen,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(height: 15.h),
+            CustomButton(
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
+              buttonText: "",
+              onTap: buttonOnTap,
+              child: Center(
+                child: customText(text: buttonText, fontWeight: FontWeight.bold, fontSize: 18.sp),
               ),
-              height == true ? SizedBox(height: 18.h) : const SizedBox(),
-              Row(
-                children: [
-                  customText(
-                    text: "Total Price",
-                    fontSize: 21.sp,
-                  ),
-                  const Spacer(),
-                  customText(text: price, fontSize: 21.sp, color: kLightGreen, fontWeight: FontWeight.w600),
-                ],
-              ),
-            ],
-          ),
-          SizedBox(height: 15.h),
-          button,
-          SizedBox(height: 15.h)
-        ],
-      ),
-    ),
+            ),
+            SizedBox(height: 15.h)
+          ],
+        ),
+      );
+    },
   );
 }
 

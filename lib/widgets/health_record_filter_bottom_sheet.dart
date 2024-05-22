@@ -62,17 +62,17 @@ class HealthRecordFilterBottomSheet extends StatelessWidget {
                         children: [
                           Expanded(
                             child: DropdownButton(
-                              underline: SizedBox(),
+                              underline: const SizedBox(),
                               autofocus: false,
                               isDense: true,
                               isExpanded: true,
                               padding: EdgeInsets.zero,
                               hint: customText(
                                 text: controller.mySelf.isNotEmpty ? controller.mySelf : "Select My Self",
-                                color: Color(0xFF2B2B2B),
+                                color: const Color(0xFF2B2B2B),
                               ),
                               borderRadius: BorderRadius.circular(12.r),
-                              icon: SizedBox(),
+                              icon: const SizedBox(),
                               menuMaxHeight: 250.h,
                               items: controller.userList.map((String items) {
                                 return DropdownMenuItem(
@@ -96,7 +96,7 @@ class HealthRecordFilterBottomSheet extends StatelessWidget {
                     CustomTextField(
                       controller: controller.dateController,
                       hintText: "DD/MM/YYYY",
-                      suffixIcon: Icon(Icons.calendar_month_outlined),
+                      suffixIcon: const Icon(Icons.calendar_month_outlined),
                       readOnly: true,
                       onTap: () async {
                         DateTime? picked = await showDatePicker(

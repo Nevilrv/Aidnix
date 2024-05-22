@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/utils/app_routes.dart';
-import 'package:aidnix/view/checkup/cart_controller.dart';
+import 'package:aidnix/utils/call_chat_service.dart';
+import 'package:aidnix/view/cart/cart_controller.dart';
 import 'package:aidnix/view/checkup/checkup_controller.dart';
 import 'package:aidnix/view/home/home_controller.dart';
 import 'package:aidnix/widgets/app_button.dart';
@@ -24,8 +24,6 @@ class CheckupScreen extends StatefulWidget {
 }
 
 class _CheckupScreenState extends State<CheckupScreen> {
-  CartController cartController = Get.put(CartController());
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
@@ -136,7 +134,12 @@ class _CheckupScreenState extends State<CheckupScreen> {
                                             );
                                           },
                                           addToCartOnTap: () {
-                                            cartController.addCartDataApi();
+                                            CartController cartController = Get.put<CartController>(CartController());
+
+                                            cartController.addToCartAPI(
+                                              labId: controller.categoryDetailList[index].lab?.referenceId ?? "",
+                                              labItemId: controller.categoryDetailList[index].test?.referenceId ?? "",
+                                            );
                                           },
                                         ),
                                       );
@@ -174,8 +177,10 @@ class _CheckupScreenState extends State<CheckupScreen> {
                                       height: 47.h,
                                       borderRadius: BorderRadius.circular(10.r),
                                       buttonColor: kWhite,
-                                      buttonText: AppString.addToCart,
-                                      onTap: () {},
+                                      buttonText: "",
+                                      onTap: () {
+                                        launchWhatsappMethod(context, "1234567890");
+                                      },
                                       child: Row(
                                         children: [
                                           SvgPicture.asset(

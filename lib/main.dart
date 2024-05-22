@@ -14,11 +14,13 @@ import 'utils/app_routes.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-      options: const FirebaseOptions(
-          apiKey: "AIzaSyA36i6aChLtOHeaY3O78dBoFHupfVGzPuo",
-          appId: "1:927856155632:android:9c32401f22789bc9d99b35",
-          messagingSenderId: "927856155632",
-          projectId: "aidnix-491bf"));
+    options: const FirebaseOptions(
+      apiKey: "AIzaSyA36i6aChLtOHeaY3O78dBoFHupfVGzPuo",
+      appId: "1:927856155632:android:9c32401f22789bc9d99b35",
+      messagingSenderId: "927856155632",
+      projectId: "aidnix-491bf",
+    ),
+  );
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await preferences.init();
   AppNotificationHandler.getFcmToken();

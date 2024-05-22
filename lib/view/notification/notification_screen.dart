@@ -53,7 +53,7 @@ class NotificationScreen extends StatelessWidget {
                         color: kWhite,
                         borderRadius: BorderRadius.circular(12.r),
                         boxShadow: [
-                          BoxShadow(color: Color(0xFF31C48D).withOpacity(0.1), blurRadius: 30),
+                          BoxShadow(color: const Color(0xFF31C48D).withOpacity(0.1), blurRadius: 30),
                         ],
                       ),
                       child: Row(
@@ -84,7 +84,7 @@ class NotificationScreen extends StatelessWidget {
                                 SizedBox(height: 10.h),
                                 customText(
                                   text: "9:41 PM",
-                                  color: Color(0xFF9399A7),
+                                  color: const Color(0xFF9399A7),
                                   fontWeight: FontWeight.w400,
                                 ),
                               ],

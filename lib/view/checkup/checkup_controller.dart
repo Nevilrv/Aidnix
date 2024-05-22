@@ -1,6 +1,4 @@
 import 'dart:developer';
-
-import 'package:aidnix/models/res_home_filter_api.dart';
 import 'package:aidnix/models/res_get_category_details.dart';
 import 'package:aidnix/models/res_home_search_api.dart';
 import 'package:aidnix/repository/checkup_repository.dart';
@@ -9,7 +7,7 @@ import 'package:aidnix/view/address/address_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class   CheckUpController extends GetxController {
+class CheckUpController extends GetxController {
   TextEditingController searchController = TextEditingController();
   bool isSearchLoading = false;
   bool isLoading = false;

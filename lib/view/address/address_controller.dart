@@ -24,6 +24,7 @@ class AddressController extends GetxController {
 
   String currentAddress = "";
   String homePageAddress = "";
+  // String primaryAddress = "";
   Address? primaryAddress;
 
   Position? position;

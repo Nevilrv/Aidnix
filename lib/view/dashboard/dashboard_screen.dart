@@ -1,10 +1,9 @@
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
-import 'package:aidnix/view/checkup/cart_controller.dart';
-import 'package:aidnix/view/checkup/checkup_controller.dart';
+import 'package:aidnix/utils/app_routes.dart';
+import 'package:aidnix/view/cart/cart_controller.dart';
 import 'package:aidnix/view/dashboard/dashboard_controller.dart';
-import 'package:aidnix/view/home/home_controller.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:flutter/material.dart';
@@ -20,19 +19,8 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  HomeController homeController = Get.put(HomeController());
-  CartController cartController = Get.put(CartController());
-
-  // String cartId = "be641211-a8ba-4830-a905-f3597f2e8e9f";
-  // String labId = "1f24f386-5fcc-4b83-a19d-5b50d5582359";
-
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      await homeController.homeAPI().then((value) async {
-        await cartController.getCartData();
-      });
-    });
     super.initState();
   }
 
@@ -102,28 +90,36 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          customText(text: "1 test", fontSize: 12.sp, fontWeight: FontWeight.w300),
-                                          SizedBox(width: 3.w),
                                           customText(
-                                            text: "₹ ${cartController.cartData?.labItems?.first.amount ?? 0}",
+                                              text: "${cartController.cartData?.totalItems ?? 0} test",
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w300),
+                                          SizedBox(width: 5.w),
+                                          customText(
+                                            text: "₹${cartController.cartData?.totalPrice ?? 0}",
                                             fontSize: 16.sp,
                                           ),
                                         ],
                                       ),
                                     ),
-                                    Container(
-                                      padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h),
-                                      decoration: BoxDecoration(
-                                        color: kWhite.withOpacity(0.3),
-                                        borderRadius: BorderRadius.circular(15.r),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          customText(text: "View Test List", fontSize: 12.sp, color: kBlack, fontWeight: FontWeight.w300),
-                                          SizedBox(width: 3.w),
-                                          Icon(Icons.arrow_forward_ios, size: 13.sp)
-                                        ],
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.toNamed(Routes.cartScreen);
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h),
+                                        decoration: BoxDecoration(
+                                          color: kWhite.withOpacity(0.3),
+                                          borderRadius: BorderRadius.circular(15.r),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            customText(text: "View Test List", fontSize: 12.sp, color: kBlack, fontWeight: FontWeight.w300),
+                                            SizedBox(width: 3.w),
+                                            Icon(Icons.arrow_forward_ios, size: 13.sp)
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -138,7 +134,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       text: AppString.checkout,
                                     ),
                                   ),
-                                  onTap: () {},
+                                  onTap: () {
+                                    Get.toNamed(Routes.paymentScreen);
+                                  },
                                 ),
                                 SizedBox(width: 9.w),
                                 GestureDetector(
@@ -158,10 +156,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                             Padding(
                                               padding: EdgeInsets.only(top: 10.h, bottom: 28.h),
                                               child: customText(
-                                                  text: "Are you Sure you want\nto delete this Test? ",
-                                                  maxLines: 2,
-                                                  textAlign: TextAlign.center,
-                                                  fontSize: 24.sp),
+                                                text: "Are you Sure you want\nto delete this Test? ",
+                                                maxLines: 2,
+                                                textAlign: TextAlign.center,
+                                                fontSize: 24.sp,
+                                              ),
                                             ),
                                             Row(
                                               children: [
@@ -182,7 +181,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                     ),
                                                     onTap: () async {
                                                       /// Delete Cart Item API
-                                                      await cartController.deleteCartItemDataApi();
+                                                      cartController.deleteCartDataApi();
                                                     },
                                                   ),
                                                 ),
@@ -250,7 +249,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   SvgPicture.asset(
-                                    controller.bottomItems[index]['icon']!,
+                                    controller.bottomItems[index]['icon'] ?? "",
                                     height: 28,
                                     color: controller.selected == index ? kBlack : const Color(0xffA6A6A6),
                                   ),
@@ -258,7 +257,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                     height: 5,
                                   ),
                                   Text(
-                                    controller.bottomItems[index]['title']!,
+                                    controller.bottomItems[index]['title'] ?? "",
                                     style: TextStyle(
                                       fontSize: 10,
                                       fontFamily: "Poppins",

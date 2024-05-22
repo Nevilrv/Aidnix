@@ -66,7 +66,8 @@ class _FamilyMemberListScreenState extends State<FamilyMemberListScreen> {
                                 radius: 35.r,
                                 backgroundColor: kWhite,
                                 backgroundImage: const NetworkImage(
-                                    "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"),
+                                  "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg",
+                                ),
                               ),
                               SizedBox(width: 15.w),
                               Expanded(

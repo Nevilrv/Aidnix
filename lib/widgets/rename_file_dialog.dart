@@ -1,4 +1,3 @@
-import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/view/health_records/health_records_controller.dart';
 import 'package:aidnix/widgets/app_button.dart';

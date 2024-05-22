@@ -60,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Container(
                             height: 100.h,
                             width: 100.w,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                               image: DecorationImage(
                                 image: NetworkImage(
@@ -113,7 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       SizedBox(width: 10.w),
                       SizedBox(
                         height: 20.h,
-                        child: VerticalDivider(width: 0),
+                        child: const VerticalDivider(width: 0),
                       ),
                       SizedBox(width: 10.w),
                       Image.asset(
@@ -261,7 +261,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onTap: () {
                       customShowDialog(
                         context: context,
-                        child: LogoutDialog(),
+                        child: const LogoutDialog(),
                       );
                     },
                   ),

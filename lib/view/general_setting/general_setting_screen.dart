@@ -56,7 +56,7 @@ class _GeneralSettingScreenState extends State<GeneralSettingScreen> {
                                 ),
                                 fit: BoxFit.cover,
                               )
-                            : DecorationImage(
+                            : const DecorationImage(
                                 image: NetworkImage(
                                   // controller.profileData?.profilePic?.id ??
                                   "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg",
@@ -122,7 +122,7 @@ class _GeneralSettingScreenState extends State<GeneralSettingScreen> {
                       SizedBox(width: 10.w),
                       SizedBox(
                         height: 20.h,
-                        child: VerticalDivider(width: 0),
+                        child: const VerticalDivider(width: 0),
                       ),
                       SizedBox(width: 10.w),
                       Image.asset(
@@ -219,7 +219,7 @@ class _GeneralSettingScreenState extends State<GeneralSettingScreen> {
                   height: 0,
                   color: kGrey.withOpacity(0.3),
                 ),
-                Spacer(),
+                const Spacer(),
                 CustomButton(
                   buttonText: "",
                   margin: EdgeInsets.symmetric(horizontal: 40.w),

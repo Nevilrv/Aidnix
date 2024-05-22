@@ -29,7 +29,7 @@ class AuthController extends GetxController {
   int numberSelect = 0;
   SimInfo simInfo = SimInfo([]);
 
-  simDataInit() async {
+  Future<void> simDataInit() async {
     SimNumber.listenPhonePermission((isPermissionGranted) async {
       print("isPermissionGranted : $isPermissionGranted");
       if (isPermissionGranted) {
@@ -49,7 +49,7 @@ class AuthController extends GetxController {
       if (simInfo.cards.isNotEmpty) {
         if (simInfo.cards.length > 1) {
           Get.dialog(
-            Dialog(child: NumberSelectDialog()),
+            const Dialog(child: NumberSelectDialog()),
             useSafeArea: true,
             barrierColor: kBlack26.withOpacity(0.5),
           );
@@ -100,8 +100,8 @@ class AuthController extends GetxController {
 
   PrivacyData? privacyData;
 
-  checkValue(value) {
-    check = value!;
+  checkValue(bool value) {
+    check = value;
     update();
   }
 
@@ -128,14 +128,9 @@ class AuthController extends GetxController {
     update();
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
   /// Login
 
-  loginAPI({bool resendOtp = false}) async {
+  Future<void> loginAPI({bool resendOtp = false}) async {
     var devInfo = DeviceInfoPlugin();
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     AndroidDeviceInfo? androidDevData;
@@ -163,15 +158,15 @@ class AuthController extends GetxController {
       "X-OS-Version": androidDevData?.version.release,
     };
 
-    log("Request Login API Data ::::::::::: ${body}");
+    log("Request Login API Data ::::::::::: $body");
 
     var response = await AuthRepository().loginAPI(body: body);
-    log("Response Login API Data ::::::::::: ${response}");
+    log("Response Login API Data ::::::::::: $response");
   }
 
   /// OTP_VERIFY
 
-  otpVerify(String otp, String otpToken) async {
+  Future<void> otpVerify(String otp, String otpToken) async {
     var devInfo = DeviceInfoPlugin();
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     AndroidDeviceInfo? androidDevData;
@@ -215,8 +210,10 @@ class AuthController extends GetxController {
       }
     };
 
-    print("Request Login API Data ::::::::::: ${body}");
+    print("Request Verify OTP API Data ::::::::::: $body");
     var response = await AuthRepository().verifyOtpAPI(body: body);
+
+    log("response Verify OTP :::::::::::::::: ${response}");
   }
 
   /// Log Out

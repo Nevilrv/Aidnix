@@ -30,11 +30,16 @@ class FamilyMemberController extends GetxController {
     "OTHER",
   ];
 
+  bool isFamilyPatient = false;
+  FamilyData? selfData;
+  FamilyData? selectedFamilyMember;
+
   bool isLoading = false;
   bool isAddDataLoading = false;
   String pickedImage = "";
 
   List<FamilyData> familyData = [];
+  List<FamilyData> familyDropDownList = [];
   AddFamilyData? addFamilyData;
   ImageData? addFamilyDataImage;
 
@@ -49,6 +54,25 @@ class FamilyMemberController extends GetxController {
     if (response != null) {
       if (response.data != null) {
         familyData = response.data ?? [];
+
+        selfData = response.data?.where((element) => element.relation == "SELF").first;
+        familyDropDownList = response.data?.where((element) => element.relation != "SELF").toList() ?? [];
+
+        update();
+
+        familyDropDownList.add(
+          FamilyData(
+            name: "Add Family Member",
+            referenceId: "Empty",
+            phoneNumber: "",
+            age: 0,
+            gender: "",
+            profilePic: null,
+            relation: "",
+            note: "",
+          ),
+        );
+
         update();
       }
     }

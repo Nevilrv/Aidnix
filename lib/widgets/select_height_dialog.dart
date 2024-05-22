@@ -29,7 +29,7 @@ class SelectHeightDialog extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(),
+                    const SizedBox(),
                     headingText(text: "Select Height"),
                     GestureDetector(
                       onTap: () {
@@ -39,7 +39,7 @@ class SelectHeightDialog extends StatelessWidget {
                         controller.update();
                         Get.back();
                       },
-                      child: Icon(Icons.cancel_outlined),
+                      child: const Icon(Icons.cancel_outlined),
                     ),
                   ],
                 ),
@@ -84,7 +84,7 @@ class SelectHeightDialog extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: 20.w),
-                      VerticalDivider(width: 0),
+                      const VerticalDivider(width: 0),
                       SizedBox(width: 20.w),
                       Expanded(
                         child: Column(

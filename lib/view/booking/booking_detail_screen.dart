@@ -137,7 +137,7 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                             onTap: () {
                               customShowDialog(
                                 context: context,
-                                child: SelectCancelReasonDialog(),
+                                child: const SelectCancelReasonDialog(),
                               );
                             },
                             border: Border.all(color: kGreen),

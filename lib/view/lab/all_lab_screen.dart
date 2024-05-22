@@ -55,7 +55,7 @@ class _AllLabsScreenState extends State<AllLabsScreen> {
                             ///search bar
 
                             // SizedBox(height: 15.h),
-                            //
+
                             // customSearchBar(
                             //   searchController: controller.search,
                             //   onChanged: (value) {
@@ -155,9 +155,7 @@ class _AllLabsScreenState extends State<AllLabsScreen> {
                                     buttonText: "",
                                     child: Row(
                                       children: [
-                                        regularSemiBoldText(
-                                          text: "Call us",
-                                        ),
+                                        regularSemiBoldText(text: "Call us"),
                                         SizedBox(width: 5.w),
                                         Icon(Icons.arrow_forward, size: 25.w)
                                       ],

@@ -1,9 +1,7 @@
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/view/auth/auth_controller.dart';
 import 'package:aidnix/view/health_profile/health_profile_controller.dart';
-import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -47,7 +45,7 @@ class LogoutDialog extends StatelessWidget {
                         },
                         child: titleText(
                           text: "CANCEL",
-                          color: Color(0xFF595959),
+                          color: const Color(0xFF595959),
                         ),
                       ),
                     ),
@@ -70,7 +68,7 @@ class LogoutDialog extends StatelessWidget {
                         },
                         child: titleText(
                           text: "LOGOUT",
-                          color: Color(0xFFF14D4D),
+                          color: const Color(0xFFF14D4D),
                         ),
                       ),
                     ),

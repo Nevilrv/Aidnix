@@ -91,9 +91,9 @@ class _OtpScreenState extends State<OtpScreen> {
                   showCursor: true,
                   validator: (value) {
                     print('validating code: $value');
-                    if (value!.isEmpty) {
+                    if (value?.isEmpty ?? false) {
                       return AppString.pleaseEnterOtp;
-                    } else if (value.length < 4) {
+                    } else if ((value?.length ?? 0) < 4) {
                       return "Please Enter Valid OTP";
                     } else {
                       return null;
@@ -111,7 +111,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 child: regularSemiBoldText(text: AppString.verify),
               ),
               onTap: () async {
-                if (formKey.currentState!.validate()) {
+                if (formKey.currentState?.validate() ?? false) {
                   await controller.otpVerify(controller.otpController.text, controller.otpToken);
                   // Get.offAllNamed(Routes.dashboardScreen);
                 }

@@ -99,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: regularSemiBoldText(text: AppString.sendOtp),
                 ),
                 onTap: () async {
-                  if (formKey.currentState!.validate()) {
+                  if (formKey.currentState?.validate() ?? false) {
                     await controller.loginAPI();
                     // Get.toNamed(Routes.otpScreen);
                   }

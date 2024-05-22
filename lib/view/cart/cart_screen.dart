@@ -3,7 +3,7 @@ import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/utils/app_routes.dart';
 import 'package:aidnix/view/cart/cart_controller.dart';
-import 'package:aidnix/view/checkout/checkout_contrroler.dart';
+import 'package:aidnix/widgets/app_app_bar.dart';
 import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +11,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
-import '../../widgets/app_app_bar.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -22,17 +20,28 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  CartController cartController = Get.put<CartController>(CartController());
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      cartController.getCartData();
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const AppAppBar(titleText: AppString.cart),
-      body: SafeArea(
-        child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 22.w),
-            child: GetBuilder<CartController>(
-              init: CartController(),
-              builder: (controller) {
-                return Column(
+    return GetBuilder<CartController>(
+        init: CartController(),
+        builder: (controller) {
+          return Scaffold(
+            appBar: const AppAppBar(titleText: AppString.cart),
+            body: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 22.w),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
@@ -99,12 +108,12 @@ class _CartScreenState extends State<CartScreen> {
                         ],
                       ),
                     ),
-                    customText(text: "3 Tests added", fontSize: 17.sp, fontWeight: FontWeight.w400),
+                    customText(text: "${controller.cartData?.totalItems ?? 0} Tests added", fontSize: 17.sp, fontWeight: FontWeight.w400),
                     SizedBox(height: 16.h),
                     Expanded(
                       child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount: 3,
+                        itemCount: controller.cartData?.labItems?.length ?? 0,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: EdgeInsets.symmetric(vertical: 9.h),
@@ -112,7 +121,9 @@ class _CartScreenState extends State<CartScreen> {
                               decoration: BoxDecoration(
                                 color: kWhite,
                                 borderRadius: BorderRadius.circular(20.r),
-                                boxShadow: [BoxShadow(color: kLightGrey, blurRadius: 3)],
+                                boxShadow: [
+                                  BoxShadow(color: kLightGrey, blurRadius: 3),
+                                ],
                               ),
                               child: Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 17.h),
@@ -121,7 +132,11 @@ class _CartScreenState extends State<CartScreen> {
                                   children: [
                                     Row(
                                       children: [
-                                        customText(text: controller.checkupCardList[index], fontSize: 20.sp, fontWeight: FontWeight.w600),
+                                        customText(
+                                          text: controller.cartData?.labItems?[index].name ?? "",
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                         SizedBox(width: 10.w),
                                         Container(
                                           padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
@@ -131,7 +146,7 @@ class _CartScreenState extends State<CartScreen> {
                                           ),
                                           child: Center(
                                             child: customText(
-                                              text: "30%",
+                                              text: "${controller.cartData?.labItems?[index].discountTag ?? 0}",
                                               fontSize: 11.sp,
                                               color: kBlack,
                                             ),
@@ -149,8 +164,12 @@ class _CartScreenState extends State<CartScreen> {
                                               borderRadius: BorderRadius.circular(10.r),
                                             ),
                                             child: Center(
-                                              child:
-                                                  customText(text: "campaign", fontSize: 11.sp, color: kWhite, fontWeight: FontWeight.w600),
+                                              child: customText(
+                                                text: "campaign",
+                                                fontSize: 11.sp,
+                                                color: kWhite,
+                                                fontWeight: FontWeight.w600,
+                                              ),
                                             ),
                                           )
                                         : const SizedBox(),
@@ -158,25 +177,35 @@ class _CartScreenState extends State<CartScreen> {
                                     Row(
                                       children: [
                                         customText(
-                                            text: "₹4000",
+                                            text: "₹${controller.cartData?.labItems?[index].amount ?? 0}",
                                             fontSize: 15.sp,
                                             decoration: TextDecoration.lineThrough,
                                             color: kDarkGrey,
                                             fontWeight: FontWeight.w400),
                                         SizedBox(width: 8.w),
-                                        customText(text: "₹349", fontSize: 20.sp, color: kGreen1, fontWeight: FontWeight.w600),
+                                        customText(
+                                            text: "₹${controller.cartData?.labItems?[index].totalPrice ?? 0}",
+                                            fontSize: 20.sp,
+                                            color: kGreen1,
+                                            fontWeight: FontWeight.w600),
                                         const Spacer(),
-                                        Container(
-                                          width: 40.h,
-                                          height: 40.h,
-                                          decoration: BoxDecoration(
-                                            color: kRed.withOpacity(0.1),
-                                            borderRadius: BorderRadius.circular(10.r),
-                                          ),
-                                          child: Center(
-                                            child: SvgPicture.asset(
-                                              AppAssets.delete,
-                                              height: 22.h,
+                                        GestureDetector(
+                                          onTap: () {
+                                            controller.deleteCartItemDataApi(
+                                              labItemId: controller.cartData?.labItems?[index].referenceId ?? "",
+                                            );
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                                            decoration: BoxDecoration(
+                                              color: kRed.withOpacity(0.1),
+                                              borderRadius: BorderRadius.circular(10.r),
+                                            ),
+                                            child: Center(
+                                              child: SvgPicture.asset(
+                                                AppAssets.delete,
+                                                height: 22.h,
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -191,59 +220,52 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                     )
                   ],
-                );
-              },
-            )),
-      ),
-      bottomNavigationBar: commonBottomCard(
-        subtotal: '₹1496',
-        gst: '₹299',
-        discount: '₹299',
-        price: '₹1795',
-        button: CustomButton(
-          height: 56.h,
-          buttonText: "",
-          child: Center(child: customText(text: AppString.proceed, fontWeight: FontWeight.bold, fontSize: 18.sp)),
-          onTap: () {
-            customShowDialog(
-              context: context,
-              child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 25.w, vertical: 10.h),
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 25.h),
-                decoration: BoxDecoration(
-                  color: kWhite,
-                  borderRadius: BorderRadius.circular(25.r),
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SvgPicture.asset(
-                      AppAssets.wrongCart,
-                      height: 60.h,
-                      width: 60.h,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 18.h),
-                      child: customText(
-                          text: "You are selecting a test from differrent lab, it will replace your current selected tests",
-                          maxLines: 3,
-                          textAlign: TextAlign.center,
-                          fontSize: 18.sp),
-                    ),
-                    CustomButton(
-                        height: 56.h,
-                        buttonText: "",
-                        child: Center(child: customText(text: AppString.oK, fontWeight: FontWeight.bold, fontSize: 18.sp)),
-                        onTap: () {
-                          Get.toNamed(Routes.paymentPageScreen);
-                        }),
-                  ],
                 ),
               ),
-            );
-          },
-        ),
-      ),
-    );
+            ),
+            bottomNavigationBar: commonBottomCart(
+              buttonText: AppString.proceed,
+              buttonOnTap: () {
+                customShowDialog(
+                  context: context,
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 25.w, vertical: 10.h),
+                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 25.h),
+                    decoration: BoxDecoration(
+                      color: kWhite,
+                      borderRadius: BorderRadius.circular(25.r),
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SvgPicture.asset(
+                          AppAssets.wrongCart,
+                          height: 60.h,
+                          width: 60.h,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 18.h),
+                          child: customText(
+                              text: "You are selecting a test from different lab, it will replace your current selected tests",
+                              maxLines: 3,
+                              textAlign: TextAlign.center,
+                              fontSize: 18.sp),
+                        ),
+                        CustomButton(
+                          height: 56.h,
+                          buttonText: "",
+                          child: Center(child: customText(text: AppString.oK, fontWeight: FontWeight.bold, fontSize: 18.sp)),
+                          onTap: () {
+                            Get.toNamed(Routes.paymentScreen);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          );
+        });
   }
 }

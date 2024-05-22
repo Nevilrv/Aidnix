@@ -9,6 +9,7 @@ import 'package:aidnix/widgets/app_app_bar.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:aidnix/widgets/filter_bottom_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
@@ -99,18 +100,22 @@ class _LabDetailsScreenState extends State<LabDetailsScreen> {
                                             children: [
                                               customText(text: AppString.about, fontSize: 18.sp, fontWeight: FontWeight.w600),
                                               SizedBox(height: 5.h),
-                                              ReadMoreText(
-                                                // controller.labData?.description ?? ''  ,
-                                                'Lorem ipsum dolor sit amet consectetur.Lorem ipsum dolor sit amet consectetur Quam ...',
-                                                trimMode: TrimMode.Line,
-                                                trimLines: 1,
-                                                colorClickableText: Colors.pink,
-                                                trimCollapsedText: 'Read more',
-                                                style: TextStyle(
-                                                    fontSize: 16.sp, color: kDarkGrey1, fontWeight: FontWeight.w400, fontFamily: "Poppins"),
-                                                moreStyle: TextStyle(
-                                                    fontSize: 16.sp, color: kBlack, fontWeight: FontWeight.w500, fontFamily: "Poppins"),
-                                              ),
+                                              Html(data: controller.labData?.description ?? ''),
+
+                                              /// Old Widget
+
+                                              // ReadMoreText(
+                                              //   controller.labData?.description ?? '',
+                                              //   // 'Lorem ipsum dolor sit amet consectetur.Lorem ipsum dolor sit amet consectetur Quam ...',
+                                              //   trimMode: TrimMode.Line,
+                                              //   trimLines: 1,
+                                              //   colorClickableText: Colors.pink,
+                                              //   trimCollapsedText: 'Read more',
+                                              //   style: TextStyle(
+                                              //       fontSize: 16.sp, color: kDarkGrey1, fontWeight: FontWeight.w400, fontFamily: "Poppins"),
+                                              //   moreStyle: TextStyle(
+                                              //       fontSize: 16.sp, color: kBlack, fontWeight: FontWeight.w500, fontFamily: "Poppins"),
+                                              // ),
                                             ],
                                           ),
                                         ),

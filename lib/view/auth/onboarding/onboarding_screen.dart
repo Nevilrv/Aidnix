@@ -4,7 +4,6 @@ import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/view/auth/auth_controller.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
-import 'package:aidnix/widgets/number_select_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -111,11 +110,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             height: 28.h,
                             width: 28.w,
                             child: Checkbox(
-                                activeColor: controller.check ? kGreen : kRed,
-                                value: controller.check,
-                                onChanged: (value) {
+                              activeColor: controller.check ? kGreen : kRed,
+                              value: controller.check,
+                              onChanged: (value) {
+                                if (value != null) {
                                   controller.checkValue(value);
-                                }),
+                                }
+                              },
+                            ),
                           ),
                           SizedBox(
                             width: 8.w,

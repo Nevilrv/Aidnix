@@ -139,7 +139,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> with TickerPr
                                             children: [
                                               headingText(
                                                 text: "Manish_Blood_Test_20241",
-                                                color: Color(0xFF0B0B0B),
+                                                color: const Color(0xFF0B0B0B),
                                               ),
                                               SizedBox(height: 5.h),
                                               Row(
@@ -190,7 +190,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> with TickerPr
                             children: [
                               regularText(
                                 text: "Keep track all your prescriptions\nand reports one place.",
-                                color: Color(0xFF868796),
+                                color: const Color(0xFF868796),
                                 maxLines: 3,
                                 textAlign: TextAlign.center,
                               ),
@@ -205,7 +205,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> with TickerPr
                                 onTap: () {
                                   customShowDialog(
                                     context: context,
-                                    child: UploadPrescriptionDialog(),
+                                    child: const UploadPrescriptionDialog(),
                                   );
                                 },
                               ),
@@ -520,7 +520,7 @@ class _HealthRecordsScreenState extends State<HealthRecordsScreen> with TickerPr
         onPressed: () {
           customShowDialog(
             context: context,
-            child: UploadHealthRecordsDialog(),
+            child: const UploadHealthRecordsDialog(),
           );
         },
         child: Icon(

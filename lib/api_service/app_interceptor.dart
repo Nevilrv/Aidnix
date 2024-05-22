@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:aidnix/utils/app_routes.dart';
 import 'package:aidnix/utils/shared_prefs.dart';
-import 'package:aidnix/view/auth/auth_controller.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 

@@ -66,7 +66,7 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                                   log('pickedImage.path===========>>>>${controller.pickedImage}');
                                 }
                               } catch (e) {
-                                log("EEEEEE_________${e}");
+                                log("EEEEEE_________$e");
                               }
                             },
                             child: Container(
@@ -122,7 +122,7 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                       hintText: "Full Name",
                       hintStyle: TextStyle(fontSize: 16.sp, color: kBlack, fontWeight: FontWeight.w400, fontFamily: "Poppins"),
                       validator: (value) {
-                        if (value!.isEmpty) {
+                        if (value?.isEmpty ?? false) {
                           return "Please Enter Valid Name";
                         } else {
                           return null;
@@ -148,7 +148,7 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                       keyboardType: TextInputType.number,
                       hintStyle: TextStyle(fontSize: 16.sp, color: kBlack, fontWeight: FontWeight.w400, fontFamily: "Poppins"),
                       validator: (value) {
-                        if (value!.isEmpty) {
+                        if (value?.isEmpty ?? false) {
                           return "Please Enter Valid Age";
                         } else {
                           return null;
@@ -203,19 +203,20 @@ class _AddFamilyMemberScreenState extends State<AddFamilyMemberScreen> {
                       buttonText: "",
                       margin: EdgeInsets.symmetric(horizontal: 10.w),
                       onTap: () {
-                        Map<String, dynamic> body1 = {
-                          "name": controller.nameController.text,
-                          "age": int.parse(controller.ageController.text),
-                          "relation": controller.selectRelation,
-                          "gender": controller.selectGender,
-                          "phone_number": controller.phoneController.text.trim(),
-                          "note": controller.addNoteController.text,
-                        };
-
-                        if (formKey.currentState!.validate()) {
+                        if (formKey.currentState?.validate() ?? false) {
                           if (controller.selectGender.isNotEmpty) {
                             if (controller.selectRelation.isNotEmpty) {
                               /// Add Family Member Api
+
+                              Map<String, dynamic> body1 = {
+                                "name": controller.nameController.text,
+                                "age": int.parse(controller.ageController.text),
+                                "relation": controller.selectRelation,
+                                "gender": controller.selectGender,
+                                "phone_number": controller.phoneController.text.trim(),
+                                "note": controller.addNoteController.text,
+                              };
+
                               controller.addFamilyMemberApi(body: body1);
                             } else {
                               showErrorSnackBar("Please Select Relation");

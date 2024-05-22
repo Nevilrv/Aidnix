@@ -26,7 +26,7 @@ class AddressRepo {
         return null;
       }
     } on DioException catch (ex) {
-      Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
+      Fluttertoast.showToast(msg: "$ex", backgroundColor: kRed, textColor: kWhite);
       log('Error Get All Address API :::::::::::::::::: $ex');
 
       return null;
@@ -47,7 +47,7 @@ class AddressRepo {
         return null;
       }
     } on DioException catch (ex) {
-      Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
+      Fluttertoast.showToast(msg: "$ex", backgroundColor: kRed, textColor: kWhite);
       log('Error Get Address Detail API :::::::::::::::::: $ex');
 
       return null;
@@ -69,7 +69,7 @@ class AddressRepo {
         return null;
       }
     } on DioException catch (ex) {
-      Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
+      Fluttertoast.showToast(msg: "$ex", backgroundColor: kRed, textColor: kWhite);
       log('Error Add Address API :::::::::::::::::: $ex');
 
       return null;

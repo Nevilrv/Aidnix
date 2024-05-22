@@ -1,7 +1,6 @@
 import 'package:aidnix/Theme/app_theme.dart';
 import 'package:aidnix/api_service/api_constant.dart';
 import 'package:aidnix/api_service/api_service.dart';
-import 'package:aidnix/models/common_response.dart';
 import 'package:aidnix/models/res_add_cart_details_api.dart';
 import 'package:aidnix/models/res_delete_cart_data_api.dart';
 import 'package:aidnix/models/res_delete_cart_item_api.dart';
@@ -78,10 +77,10 @@ class CartRepository {
   }
 
   /// Delete Cart Items API  ***************************
-  Future<ResDeleteCartItemApi?> deleteCartItemAPI({required String cartId, required String labId}) async {
+  Future<ResDeleteCartItemApi?> deleteCartItemAPI({required String cartId, required String labItemId}) async {
     print('Request Delete Cart Items API :::::::::::::::::: cartId = $cartId ');
     try {
-      var response = await dio.delete("${AppUrls.cart}/$cartId/items/$labId");
+      var response = await dio.delete("${AppUrls.cart}/$cartId/items/$labItemId");
       print('Response Delete Cart Items API :::::::::::::::::: ${response.data}');
 
       if (response.data["status"] == true) {

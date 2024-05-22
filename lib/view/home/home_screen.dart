@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:aidnix/utils/app_routes.dart';
 import 'package:aidnix/utils/call_chat_service.dart';
+import 'package:aidnix/view/cart/cart_controller.dart';
 import 'package:aidnix/view/home/home_controller.dart';
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/theme/app_theme.dart';
@@ -25,14 +26,16 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   HomeController homeController = Get.put(HomeController());
+  CartController cartController = Get.put(CartController());
 
-  // @override
-  // void initState() {
-  //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-  //     homeController.homeAPI();
-  //   });
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      homeController.homeAPI();
+      cartController.getCartData();
+    });
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -315,7 +318,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
 
                             /// Labs Near You
-                            controller.homeData!.nearbyLabs!.length == 0
+                            controller.homeData?.nearbyLabs?.isEmpty ?? false
                                 ? const SizedBox()
                                 : Column(
                                     children: [
@@ -374,7 +377,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   address: controller.homeData?.nearbyLabs?[bannerIndex].address ?? "",
                                                   offerPercentage: '20%',
                                                   distance:
-                                                      "${controller.homeData?.nearbyLabs?[bannerIndex].distance!.value.toString()} ${controller.homeData?.nearbyLabs![bannerIndex].distance?.unit ?? ""}",
+                                                      "${controller.homeData?.nearbyLabs?[bannerIndex].distance?.value} ${controller.homeData?.nearbyLabs?[bannerIndex].distance?.unit ?? ""}",
                                                   isAddToCart: false,
                                                   isRecommended: controller.homeData?.nearbyLabs?[bannerIndex].recommended ?? false,
                                                 ),
@@ -387,7 +390,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: List.generate(
-                                          controller.homeData!.nearbyLabs!.length,
+                                          controller.homeData?.nearbyLabs?.length ?? 0,
                                           (index1) {
                                             return Padding(
                                               padding: EdgeInsets.only(right: 3.w),
@@ -455,7 +458,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             child: Image.asset(AppAssets.bloodTestIcon, height: 70.h),
                                           ),
                                           SizedBox(height: 10.h),
-                                          customText(text: controller.homeData?.testCategories![index].name ?? ''),
+                                          customText(text: controller.homeData?.testCategories?[index].name ?? ''),
                                         ],
                                       ),
                                     ),
@@ -465,7 +468,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
 
                             /// Path Labs
-                            controller.homeData!.campaigns!.length == 0
+                            controller.homeData?.campaigns?.isEmpty ?? false
                                 ? const SizedBox()
                                 : Column(
                                     children: [
@@ -489,7 +492,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           },
                                         ),
                                         items: List.generate(
-                                          controller.homeData!.campaigns!.length,
+                                          controller.homeData?.campaigns?.length ?? 0,
                                           (bannerIndex) {
                                             return GestureDetector(
                                               onTap: () {
@@ -565,13 +568,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     Row(
                                                       children: [
                                                         customText(
-                                                          text: "₹${controller.homeData?.campaigns?[bannerIndex].amount ?? ''}",
+                                                          text: "₹${controller.homeData?.campaigns?[bannerIndex].amount ?? 0}",
                                                           decoration: TextDecoration.lineThrough,
                                                           decorationColor: kBlack,
                                                         ),
                                                         SizedBox(width: 10.w),
                                                         customText(
-                                                          text: "₹${controller.homeData?.campaigns?[bannerIndex].totalPrice ?? ''}",
+                                                          text: "₹${controller.homeData?.campaigns?[bannerIndex].totalPrice ?? 0}",
                                                           fontSize: 20.sp,
                                                           fontWeight: FontWeight.w600,
                                                         ),
@@ -581,15 +584,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     Row(
                                                       crossAxisAlignment: CrossAxisAlignment.center,
                                                       children: [
-                                                        SvgPicture.asset(
-                                                          AppAssets.location2,
-                                                          color: kBlack,
-                                                        ),
+                                                        SvgPicture.asset(AppAssets.location2, color: kBlack),
                                                         SizedBox(width: 8.w),
                                                         Expanded(
                                                           child: regularText(
-                                                              text:
-                                                                  "${controller.homeData?.campaigns?[bannerIndex].lab?.distance?.value ?? ''} ${controller.homeData?.campaigns?[bannerIndex].lab?.distance?.unit ?? ''} from you"),
+                                                            text:
+                                                                "${controller.homeData?.campaigns?[bannerIndex].lab?.distance?.value ?? ''} ${controller.homeData?.campaigns?[bannerIndex].lab?.distance?.unit ?? ''} from you",
+                                                          ),
                                                         ),
                                                       ],
                                                     ),
@@ -604,7 +605,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: List.generate(
-                                          controller.homeData!.campaigns!.length,
+                                          controller.homeData?.campaigns?.length ?? 0,
                                           (index1) {
                                             return Padding(
                                               padding: EdgeInsets.only(right: 3.w),
@@ -725,7 +726,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                               ),
                               items: List.generate(
-                                controller.homeData!.reviews!.length,
+                                controller.homeData?.reviews?.length ?? 0,
                                 (bannerIndex) {
                                   return Container(
                                     margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
@@ -753,7 +754,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 borderRadius: BorderRadius.circular(15.r),
                                                 image: const DecorationImage(
                                                   image: NetworkImage(
-                                                      "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"),
+                                                    "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg",
+                                                  ),
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),
@@ -762,12 +764,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                headingText(text: controller.homeData!.reviews![bannerIndex].name ?? ''),
+                                                headingText(text: controller.homeData?.reviews?[bannerIndex].name ?? ''),
                                                 SizedBox(height: 5.h),
                                                 Row(
                                                   children: [
                                                     RatingBar.builder(
-                                                      initialRating: controller.homeData!.reviews![bannerIndex].rating!.toDouble(),
+                                                      initialRating: controller.homeData?.reviews?[bannerIndex].rating ?? 1,
                                                       minRating: 1,
                                                       direction: Axis.horizontal,
                                                       allowHalfRating: true,
@@ -785,7 +787,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     ),
                                                     SizedBox(width: 5.w),
                                                     titleText(
-                                                        text: controller.homeData!.reviews![bannerIndex].rating.toString(), color: kYellow),
+                                                        text: '${controller.homeData?.reviews?[bannerIndex].rating ?? 1}', color: kYellow),
                                                   ],
                                                 ),
                                               ],
@@ -794,7 +796,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                         SizedBox(height: 10.h),
                                         titleSmallText(
-                                          text: controller.homeData!.reviews![bannerIndex].review ?? '',
+                                          text: controller.homeData?.reviews?[bannerIndex].review ?? '',
                                           color: kDarkGrey1,
                                           maxLines: 4,
                                         ),
@@ -808,7 +810,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: List.generate(
-                                controller.homeData!.reviews!.length,
+                                controller.homeData?.reviews?.length ?? 0,
                                 (index1) {
                                   return Padding(
                                     padding: EdgeInsets.only(right: 3.w),
@@ -894,7 +896,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 children: [
                                   regularText(
                                     text: "Sorry no labs found, please modify\nyour search and try again",
-                                    color: Color(0xFF868796),
+                                    color: const Color(0xFF868796),
                                     maxLines: 3,
                                     textAlign: TextAlign.center,
                                   ),

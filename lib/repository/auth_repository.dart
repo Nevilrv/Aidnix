@@ -40,7 +40,7 @@ class AuthRepository {
         return null;
       }
     } on DioException catch (ex) {
-      Fluttertoast.showToast(msg: ex.toString() ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
+      Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
       print('Error LOGIN API :::::::::::::::::: $ex');
 
       return null;
@@ -66,7 +66,7 @@ class AuthRepository {
         return null;
       }
     } on DioException catch (ex) {
-      Fluttertoast.showToast(msg: ex.toString() ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
+      Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
       print('Error VERIFY OTP API :::::::::::::::::: $ex');
 
       return null;

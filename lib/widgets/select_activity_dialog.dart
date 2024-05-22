@@ -29,7 +29,7 @@ class SelectActivityDialog extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(),
+                    const SizedBox(),
                     headingText(text: "Select Activity"),
                     GestureDetector(
                       onTap: () {
@@ -37,7 +37,7 @@ class SelectActivityDialog extends StatelessWidget {
                         controller.update();
                         Get.back();
                       },
-                      child: Icon(Icons.cancel_outlined),
+                      child: const Icon(Icons.cancel_outlined),
                     ),
                   ],
                 ),

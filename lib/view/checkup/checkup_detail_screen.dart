@@ -3,6 +3,7 @@ import 'package:aidnix/constant/app_string.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/utils/app_routes.dart';
 import 'package:aidnix/utils/call_chat_service.dart';
+import 'package:aidnix/view/cart/cart_controller.dart';
 import 'package:aidnix/view/checkup/checkup_controller.dart';
 import 'package:aidnix/widgets/app_app_bar.dart';
 import 'package:aidnix/widgets/app_button.dart';
@@ -110,7 +111,14 @@ class _CheckupDetailScreenState extends State<CheckupDetailScreen> {
                                             onViewDetailOnTap: () {
                                               Get.toNamed(Routes.testDetailsScreen);
                                             },
-                                            addToCartOnTap: () {},
+                                            addToCartOnTap: () {
+                                              CartController cartController = Get.put<CartController>(CartController());
+
+                                              cartController.addToCartAPI(
+                                                labId: controller.categoryDetailList[index].lab?.referenceId ?? "",
+                                                labItemId: controller.categoryDetailList[index].test?.referenceId ?? "",
+                                              );
+                                            },
                                           ),
                                         );
                                       },
@@ -147,7 +155,7 @@ class _CheckupDetailScreenState extends State<CheckupDetailScreen> {
                                         height: 47.h,
                                         borderRadius: BorderRadius.circular(10.r),
                                         buttonColor: kWhite,
-                                        buttonText: AppString.addToCart,
+                                        buttonText: "",
                                         onTap: () {
                                           launchWhatsappMethod(context, "1234567890");
                                         },
@@ -160,10 +168,11 @@ class _CheckupDetailScreenState extends State<CheckupDetailScreen> {
                                             ),
                                             SizedBox(width: 5.w),
                                             customText(
-                                                text: AppString.chatWithUs,
-                                                color: kLightGreen,
-                                                fontSize: 12.sp,
-                                                fontWeight: FontWeight.w500),
+                                              text: AppString.chatWithUs,
+                                              color: kLightGreen,
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w500,
+                                            ),
                                           ],
                                         ),
                                       ),
