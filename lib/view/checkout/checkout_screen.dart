@@ -255,7 +255,10 @@ class _LabCheckoutScreenState extends State<LabCheckoutScreen> {
                                       onChanged: (FamilyData? familyData) {
                                         if (familyData != null) {
                                           if (familyData.referenceId == "Empty") {
-                                            Get.toNamed(Routes.addFamilyMemberScreen);
+                                            Get.toNamed(
+                                              Routes.addFamilyMemberScreen,
+                                              arguments: {"familyMemberId": ""},
+                                            );
                                           } else {
                                             familyCont.selectedFamilyMember = familyData;
                                             controller.update();

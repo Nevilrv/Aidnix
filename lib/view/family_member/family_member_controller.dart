@@ -1,11 +1,12 @@
 import 'dart:io';
-import 'package:aidnix/models/res_add_family_member.dart';
+
 import 'package:aidnix/models/res_add_document.dart';
+import 'package:aidnix/models/res_add_family_member.dart';
 import 'package:aidnix/models/res_get_family_member.dart';
 import 'package:aidnix/repository/user_repository.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:dio/dio.dart' as dio;
 
 class FamilyMemberController extends GetxController {
   TextEditingController nameController = TextEditingController();
@@ -33,6 +34,7 @@ class FamilyMemberController extends GetxController {
   bool isFamilyPatient = false;
   FamilyData? selfData;
   FamilyData? selectedFamilyMember;
+  FamilyData? singleFamilyMemberData;
 
   bool isLoading = false;
   bool isAddDataLoading = false;
@@ -42,6 +44,7 @@ class FamilyMemberController extends GetxController {
   List<FamilyData> familyDropDownList = [];
   AddFamilyData? addFamilyData;
   ImageData? addFamilyDataImage;
+  String familyMemberId = "";
 
   getFamilyMemberApi() async {
     isLoading = true;
@@ -72,6 +75,34 @@ class FamilyMemberController extends GetxController {
             note: "",
           ),
         );
+
+        update();
+      }
+    }
+    isLoading = false;
+    update();
+  }
+
+  getSingleFamilyMemberApi() async {
+    isLoading = true;
+    update();
+
+    var response = await UserRepo().getSingleFamilyMemberAPI(familyMemberId: familyMemberId);
+    update();
+    print('Response Single Family Member API Data :::::::::::::::::: $response');
+
+    if (response != null) {
+      if (response.data != null) {
+        singleFamilyMemberData = response.data;
+
+        update();
+
+        nameController.text = singleFamilyMemberData?.name ?? "";
+        phoneController.text = singleFamilyMemberData?.phoneNumber ?? "";
+        ageController.text = "${singleFamilyMemberData?.age ?? ""}";
+        selectGender = singleFamilyMemberData?.gender?.toUpperCase() ?? "";
+        selectRelation = singleFamilyMemberData?.relation?.toUpperCase() ?? "";
+        addNoteController.text = singleFamilyMemberData?.note ?? "";
 
         update();
       }

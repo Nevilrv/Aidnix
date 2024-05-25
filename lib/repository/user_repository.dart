@@ -5,6 +5,7 @@ import 'package:aidnix/models/res_get_booking_detail.dart';
 import 'package:aidnix/models/res_get_bookings.dart';
 import 'package:aidnix/models/res_get_general_setting.dart';
 import 'package:aidnix/models/res_get_health_profile.dart';
+import 'package:aidnix/models/res_get_single_family_member_api.dart';
 import 'package:aidnix/models/res_health_docs.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/api_service/api_constant.dart';
@@ -33,6 +34,26 @@ class UserRepo {
       }
     } on DioException catch (ex) {
       print('Error Get Family Member API :::::::::::::::::: $ex');
+      Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
+
+      return null;
+    }
+  }
+
+  /// Get Single Family Member API ******************************
+  Future<ResGetSingleFamilyMemberApi?> getSingleFamilyMemberAPI({required String familyMemberId}) async {
+    try {
+      var response = await dio.get("${AppUrls.familyMember}/$familyMemberId");
+      print('Response Get Single Family Member API :::::::::::::::::: ${response.data}');
+
+      if (response.data["status"] == true) {
+        return ResGetSingleFamilyMemberApi.fromJson(response.data);
+      } else {
+        Fluttertoast.showToast(msg: response.data['message'], backgroundColor: kRed, textColor: kWhite);
+        return null;
+      }
+    } on DioException catch (ex) {
+      print('Error Get Single Family Member API :::::::::::::::::: $ex');
       Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
 
       return null;

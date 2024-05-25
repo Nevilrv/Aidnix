@@ -2,6 +2,7 @@ import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/view/checkup/checkup_screen.dart';
 import 'package:aidnix/view/home/home_screen.dart';
 import 'package:aidnix/view/profile/profile_screen.dart';
+import 'package:aidnix/view/test/test_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -29,7 +30,7 @@ class DashboardController extends GetxController {
 
   List<Widget> screenList = [
     const HomeScreen(),
-    Container(),
+    const TestScreen(),
     const CheckupScreen(),
     const ProfileScreen(),
   ];

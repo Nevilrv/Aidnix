@@ -1,5 +1,6 @@
 import 'package:aidnix/constant/app_assets.dart';
 import 'package:aidnix/theme/app_theme.dart';
+import 'package:aidnix/utils/app_routes.dart';
 import 'package:aidnix/view/lab/lab_controller.dart';
 import 'package:aidnix/widgets/app_app_bar.dart';
 import 'package:aidnix/widgets/app_button.dart';
@@ -100,18 +101,26 @@ class _AllLabsScreenState extends State<AllLabsScreen> {
                                 itemBuilder: (context, index) {
                                   return Padding(
                                     padding: EdgeInsets.only(bottom: 15.h),
-                                    child: customCartContainer(
-                                      titleName: controller.allLabsList[index].name ?? '',
-                                      rating: controller.allLabsList[index].reviews ?? '',
-                                      noOfRating: controller.allLabsList[index].reviews ?? '',
-                                      noOfTest: controller.allLabsList[index].totalTests ?? '',
-                                      address: controller.allLabsList[index].address ?? '',
-                                      // offerPercentage: controller.allLabsList[index].discountTag ?? '',
-                                      offerPercentage: '20%',
-                                      distance:
-                                          "${controller.allLabsList[index].distance?.value ?? ''}  ${controller.allLabsList[index].distance?.unit ?? ''}",
-                                      isAddToCart: true,
-                                      isRecommended: true,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Get.toNamed(
+                                          Routes.labDetailsScreen,
+                                          arguments: {"labId": controller.allLabsList[index].referenceId ?? ""},
+                                        );
+                                      },
+                                      child: customCartContainer(
+                                        titleName: controller.allLabsList[index].name ?? '',
+                                        rating: controller.allLabsList[index].reviews ?? '',
+                                        noOfRating: controller.allLabsList[index].reviews ?? '',
+                                        noOfTest: controller.allLabsList[index].totalTests ?? '',
+                                        address: controller.allLabsList[index].address ?? '',
+                                        // offerPercentage: controller.allLabsList[index].discountTag ?? '',
+                                        offerPercentage: '20%',
+                                        distance:
+                                            "${controller.allLabsList[index].distance?.value ?? ''}  ${controller.allLabsList[index].distance?.unit ?? ''}",
+                                        isAddToCart: true,
+                                        isRecommended: true,
+                                      ),
                                     ),
                                   );
                                 },

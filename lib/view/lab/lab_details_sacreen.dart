@@ -6,6 +6,7 @@ import 'package:aidnix/view/cart/cart_controller.dart';
 import 'package:aidnix/view/home/home_controller.dart';
 import 'package:aidnix/view/lab/lab_controller.dart';
 import 'package:aidnix/widgets/app_app_bar.dart';
+import 'package:aidnix/widgets/app_button.dart';
 import 'package:aidnix/widgets/custom_widget.dart';
 import 'package:aidnix/widgets/filter_bottom_sheet.dart';
 import 'package:flutter/material.dart';
@@ -125,82 +126,137 @@ class _LabDetailsScreenState extends State<LabDetailsScreen> {
                                 )
                               ],
                               SizedBox(height: 20.h),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 22.w),
-                                child: customText(text: AppString.test, fontSize: 18.sp, fontWeight: FontWeight.w600),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(top: 19.h, left: 22.w, right: 22.w),
-                                child: customSearchBar(
-                                  searchController: controller.searchController,
-                                  searchHint: false,
-                                  onChanged: (value) {
-                                    controller.searchController.text = value;
+                              controller.labItems.isNotEmpty
+                                  ? Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 22.w),
+                                      child: customText(text: AppString.test, fontSize: 18.sp, fontWeight: FontWeight.w600),
+                                    )
+                                  : SizedBox(),
+                              controller.labItems.isNotEmpty
+                                  ? Padding(
+                                      padding: EdgeInsets.only(top: 19.h, left: 22.w, right: 22.w),
+                                      child: customSearchBar(
+                                        searchController: controller.searchController,
+                                        searchHint: false,
+                                        onChanged: (value) {
+                                          controller.searchController.text = value;
 
-                                    if (value.trim().isEmpty) {
-                                      controller.labItemsDetailsAPI();
-                                      controller.update();
-                                    }
-                                  },
-                                  onFilterTap: () {
-                                    if (homeCont.filterData.isEmpty) {
-                                      homeCont.getHomeFilterApi().then((value) {
-                                        homeCont.getList();
-                                      });
-                                    }
+                                          if (value.trim().isEmpty) {
+                                            controller.labItemsDetailsAPI();
+                                            controller.update();
+                                          }
+                                        },
+                                        onFilterTap: () {
+                                          if (homeCont.filterData.isEmpty) {
+                                            homeCont.getHomeFilterApi().then((value) {
+                                              homeCont.getList();
+                                            });
+                                          }
 
-                                    customBottomSheet(
-                                      context: context,
-                                      child: FilterBottomSheet(
-                                        onSearchFilterTap: () {},
+                                          customBottomSheet(
+                                            context: context,
+                                            child: FilterBottomSheet(
+                                              onSearchFilterTap: () {},
+                                            ),
+                                          );
+                                        },
+                                        onSuffixTap: () {
+                                          if (controller.searchController.text.trim().isNotEmpty) {
+                                            controller.searchLabItemsDetailsAPI();
+                                          }
+                                        },
                                       ),
-                                    );
-                                  },
-                                  onSuffixTap: () {
-                                    if (controller.searchController.text.trim().isNotEmpty) {
-                                      controller.searchLabItemsDetailsAPI();
-                                    }
-                                  },
-                                ),
-                              ),
+                                    )
+                                  : SizedBox(),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 22.w),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ListView.builder(
-                                      itemCount: controller.labItems.length,
-                                      shrinkWrap: true,
-                                      physics: const NeverScrollableScrollPhysics(),
-                                      padding: EdgeInsets.zero,
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: EdgeInsets.symmetric(vertical: 12.h),
-                                          child: checkupCartContainer(
-                                            comprehensive: controller.labItems[index].name ?? "Blood checkup\ncomprehensive",
-                                            offerPercentage: controller.labItems[index].discountTag ?? "70",
-                                            price: "₹${controller.labItems[index].amount ?? 0}",
-                                            newPrice: "₹${controller.labItems[index].totalPrice ?? 0}",
-                                            report: "${controller.labItems[index].reportTime ?? 0} Hours",
-                                            type: "Pick Up, Lab Visit",
-                                            onViewDetailOnTap: () {
-                                              Get.toNamed(Routes.testDetailsScreen);
-                                            },
-                                            addToCartOnTap: () {
-                                              CartController cartController = Get.put<CartController>(CartController());
+                                child: controller.labItems.isNotEmpty
+                                    ? Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          ListView.builder(
+                                            itemCount: controller.labItems.length,
+                                            shrinkWrap: true,
+                                            physics: const NeverScrollableScrollPhysics(),
+                                            padding: EdgeInsets.zero,
+                                            itemBuilder: (context, index) {
+                                              return Padding(
+                                                padding: EdgeInsets.symmetric(vertical: 12.h),
+                                                child: checkupCartContainer(
+                                                  comprehensive: controller.labItems[index].name ?? "Blood checkup\ncomprehensive",
+                                                  offerPercentage: controller.labItems[index].discountTag ?? "70",
+                                                  price: "₹${controller.labItems[index].amount ?? 0}",
+                                                  newPrice: "₹${controller.labItems[index].totalPrice ?? 0}",
+                                                  report: "${controller.labItems[index].reportTime ?? 0} Hours",
+                                                  type: "Pick Up, Lab Visit",
+                                                  onViewDetailOnTap: () {
+                                                    Get.toNamed(Routes.testDetailsScreen);
+                                                  },
+                                                  addToCartOnTap: () {
+                                                    CartController cartController = Get.put<CartController>(CartController());
 
-                                              cartController.addToCartAPI(
-                                                labId: controller.labItems[index].lab?.referenceId ?? "",
-                                                labItemId: controller.labItems[index].test?.referenceId ?? "",
+                                                    cartController.addToCartAPI(
+                                                      labId: controller.labItems[index].lab?.referenceId ?? "",
+                                                      labItemId: controller.labItems[index].test?.referenceId ?? "",
+                                                    );
+                                                  },
+                                                ),
                                               );
                                             },
                                           ),
-                                        );
-                                      },
-                                    ),
-                                    SizedBox(height: 30.h),
-                                  ],
-                                ),
+                                          SizedBox(height: 30.h),
+                                        ],
+                                      )
+                                    : Column(
+                                        children: [
+                                          SizedBox(height: 20.h),
+                                          Center(
+                                            child: Image.asset(AppAssets.noDataFoundImage, scale: 4),
+                                          ),
+                                          SizedBox(height: 20.h),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              customText(
+                                                text: "Sorry No Tests Found",
+                                                fontSize: 20.sp,
+                                                fontWeight: FontWeight.w600,
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 10.h),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              regularText(
+                                                text: "Sorry no Test found, please modify\nyour search and try again",
+                                                color: const Color(0xFF868796),
+                                                maxLines: 3,
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 30.h),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              CustomButton(
+                                                buttonText: "",
+                                                child: Row(
+                                                  children: [
+                                                    regularSemiBoldText(text: "Call us"),
+                                                    SizedBox(width: 5.w),
+                                                    Icon(Icons.arrow_forward, size: 25.w)
+                                                  ],
+                                                ),
+                                                onTap: () {},
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 30.h),
+                                        ],
+                                      ),
                               ),
                             ],
                           ),

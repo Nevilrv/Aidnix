@@ -13,6 +13,7 @@ class CustomTextField extends StatelessWidget {
   final TextStyle? labelStyle;
   final TextInputType? keyboardType;
   final void Function()? onTap;
+
   final void Function(String)? onChanged;
   final int? maxLength;
   final int? maxLines;

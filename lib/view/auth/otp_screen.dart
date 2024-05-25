@@ -22,7 +22,6 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     authScreenController.otpToken = Get.arguments['otp_token'] ?? "";
     super.initState();
   }
