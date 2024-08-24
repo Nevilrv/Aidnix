@@ -33,6 +33,10 @@ class _HomeScreenState extends State<HomeScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       homeController.homeAPI();
       cartController.getCartData();
+
+      if (homeController.filterData.isEmpty) {
+        homeController.getHomeFilterApi();
+      }
     });
     super.initState();
   }
@@ -787,7 +791,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     ),
                                                     SizedBox(width: 5.w),
                                                     titleText(
-                                                        text: '${controller.homeData?.reviews?[bannerIndex].rating ?? 1}', color: kYellow),
+                                                      text: '${controller.homeData?.reviews?[bannerIndex].rating ?? 1}',
+                                                      color: kYellow,
+                                                    ),
                                                   ],
                                                 ),
                                               ],

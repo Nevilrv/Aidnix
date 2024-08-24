@@ -26,7 +26,7 @@ class AuthRepository {
 
       if (response.data["status"] == true) {
         var result = ResLoginApi.fromJson(response.data);
-        log('response.data==========11111=>>>>${response.data["data"]["otp_token"]}');
+        log('response data 11111 :::::::::::: ${response.data["data"]["otp_token"]}');
 
         Get.toNamed(
           Routes.otpScreen,

@@ -85,6 +85,27 @@ class UserRepo {
     }
   }
 
+  /// Delete Family Member API ******************************
+
+  Future<CommonResponse?> deleteFamilyMemberAPI({required String familyMemberId}) async {
+    try {
+      var response = await dio.delete("${AppUrls.familyMember}/$familyMemberId");
+      print('Response Delete Family Member API :::::::::::::::::: ${response.data}');
+
+      if (response.data["status"] == true) {
+        return CommonResponse.fromJson(response.data);
+      } else {
+        Fluttertoast.showToast(msg: response.data['message'], backgroundColor: kRed, textColor: kWhite);
+        return null;
+      }
+    } on DioException catch (ex) {
+      print('Error Delete Family Member API :::::::::::::::::: $ex');
+      Fluttertoast.showToast(msg: "$ex" ?? "Failed, Something Wrong!", backgroundColor: kRed, textColor: kWhite);
+
+      return null;
+    }
+  }
+
   /// Add Document API ******************************
   Future<ResAddDocument?> addDocumentAPI({required Map<String, dynamic> body}) async {
     try {

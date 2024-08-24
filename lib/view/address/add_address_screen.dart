@@ -112,6 +112,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                     controller.update();
                   },
                   mapType: MapType.normal,
+
                   initialCameraPosition: initialCameraPosition,
                   padding: EdgeInsets.zero,
                   // markers: Set<Marker>.of(markersList),

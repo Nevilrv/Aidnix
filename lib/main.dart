@@ -2,6 +2,7 @@ import 'package:aidnix/services/notification_service.dart';
 import 'package:aidnix/theme/app_theme.dart';
 import 'package:aidnix/utils/screen_size.dart';
 import 'package:aidnix/utils/shared_prefs.dart';
+import 'package:aidnix/view/demo_google_map/demo_goole_map.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
               titleSmall: TextStyle(color: kBlack, fontSize: 18.sp),
             ),
           ),
+
           debugShowCheckedModeBanner: false,
           darkTheme: ThemeData(
             useMaterial3: false,
@@ -60,7 +62,8 @@ class MyApp extends StatelessWidget {
               titleSmall: TextStyle(color: kWhite, fontSize: 18.sp),
             ),
           ),
-          initialRoute: Routes.splashScreen,
+          home: DemoGoogleMap(),
+          // initialRoute: Routes.splashScreen,
           getPages: Routes.routes,
         );
       },
